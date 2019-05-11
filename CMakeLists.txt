@@ -17,9 +17,6 @@ add_executable(${PROJECT_NAME}
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
-#find_library(SDL2_LIB NAMES libSDL2.a)
-#find_library(SNDIO_LIB NAMES libsndio.so)
-  
 target_link_libraries(${PROJECT_NAME} 
    #"${SDL2_LIB}" # full path to libSDL2.a force to staticaly link with it
    #/usr/local/lib/libSDL2.a
