@@ -6,6 +6,10 @@ project(winmo_states)
 add_executable(${PROJECT_NAME}
         src/engine/engine.hxx
         src/engine/engine.cxx
+        src/engine/color.hxx
+        src/engine/color.cxx
+        src/engine/sound_buffer.hxx
+        src/engine/sound_buffer.cxx
         src/game/main.cxx
         src/game/block.hxx
         src/game/block.cxx

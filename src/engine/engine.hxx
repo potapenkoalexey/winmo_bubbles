@@ -8,11 +8,12 @@
 #include <variant>
 #include <vector>
 
+#include "./color.hxx"
+#include "./sound_buffer.hxx"
+
 extern size_t WIDTH;
 extern size_t HEIGHT;
 extern size_t BLOCK;
-
-//class game_state;
 
 namespace grottans {
 
@@ -108,26 +109,6 @@ enum class palette {
     non
 };
 
-class color {
-public:
-    color() = default;
-    explicit color(std::uint32_t rgba_);
-    color(float r, float g, float b, float a);
-
-    float get_r() const;
-    float get_g() const;
-    float get_b() const;
-    float get_a() const;
-
-    void set_r(const float r);
-    void set_g(const float g);
-    void set_b(const float b);
-    void set_a(const float a);
-
-private:
-    std::uint32_t rgba = 0;
-};
-
 /// position in 2d space
 struct pos {
     float x = 0.f;
@@ -205,9 +186,7 @@ struct triangle {
 std::ostream& operator<<(std::ostream& stream, const event e);
 std::istream& operator>>(std::istream& is, vertex&);
 std::istream& operator>>(std::istream& is, triangle&);
-
 std::istream& operator>>(std::istream& is, uv_pos&);
-std::istream& operator>>(std::istream& is, color&);
 std::istream& operator>>(std::istream& is, v0&);
 std::istream& operator>>(std::istream& is, v1&);
 std::istream& operator>>(std::istream& is, v2&);
@@ -227,17 +206,6 @@ public:
     virtual const v2* data() const = 0;
     virtual size_t size() const = 0;
     virtual ~vertex_buffer();
-};
-
-class sound_buffer {
-public:
-    enum class properties {
-        once,
-        looped
-    };
-
-    virtual ~sound_buffer();
-    virtual void play(const properties) = 0;
 };
 
 struct membuf : public std::streambuf {

@@ -1,6 +1,3 @@
-//todo
-//in update() function push the delta_time!!!
-
 #include <thread>
 
 #include "../../src/engine/engine.hxx"
