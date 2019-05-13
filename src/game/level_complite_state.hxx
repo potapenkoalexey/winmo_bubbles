@@ -6,7 +6,7 @@
 #include "./block.hxx"
 #include "./settings.hxx"
 
-class game_over_state : public grottans::game_state {
+class level_complete_state : public grottans::game_state {
 public:
     bool init(grottans::engine*);
     void cleanup(grottans::engine*);
@@ -20,20 +20,29 @@ public:
 
     static game_state* instance()
     {
-        return &m_game_over_state;
+        return &m_level_complete_state;
     }
 
 protected:
-    game_over_state()
+    level_complete_state()
     {
         block_back = nullptr;
-        sound_game_over = nullptr;
+        tex_even = nullptr;
+        tex_uneven = nullptr;
+        sound_even = nullptr;
+        sound_uneven = nullptr;
     }
 
 private:
-    static game_over_state m_game_over_state;
+    static level_complete_state m_level_complete_state;
 
     std::unique_ptr<block> block_back;
+
+    grottans::texture* tex_even;
+    grottans::texture* tex_uneven;
+
+    grottans::sound_buffer* sound_even;
+    grottans::sound_buffer* sound_uneven;
+
     std::array<grottans::tri2, 2> tr; // v_buf triangles
-    grottans::sound_buffer* sound_game_over;
 };
