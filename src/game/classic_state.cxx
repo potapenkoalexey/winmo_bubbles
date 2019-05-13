@@ -16,6 +16,8 @@ bool classic_state::init(grottans::engine* engine)
     ///progress desk
     progress = std::unique_ptr<progress_desk>(new progress_desk);
     progress->init(engine);
+    progress->set_line_in_null();
+    //progress->set_line_in_full();
 
     return EXIT_SUCCESS;
 }

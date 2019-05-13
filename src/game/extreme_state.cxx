@@ -16,6 +16,7 @@ bool extreme_state::init(grottans::engine* engine)
     ///progress desk
     progress = std::unique_ptr<progress_desk>(new progress_desk);
     progress->init(engine);
+    progress->set_line_in_null();
 
     return EXIT_SUCCESS;
 }

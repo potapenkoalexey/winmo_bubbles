@@ -11,6 +11,11 @@ public:
     bool init(grottans::engine* engine);
     void draw(grottans::engine* engine);
 
+    void set_line_in_null();
+    void set_line_in_full();
+
+    void increase_progress(double);
+
 private:
     std::unique_ptr<block> block_desk;
     std::unique_ptr<block> block_line;
@@ -19,5 +24,6 @@ private:
     grottans::texture* tex_desk;
     grottans::texture* tex_line;
 
-    std::array<grottans::tri2, 4> tr; // v_buf triangles
+    /// v_buf triangles, 5-6'th for backup
+    std::array<grottans::tri2, 6> tr;
 };
