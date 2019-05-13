@@ -66,7 +66,10 @@ void game_over_state::handle_events(grottans::engine* engine)
         break;
     }
     case grottans::event::start_released: {
-        engine->change_state(select_mode_state::instance());
+        while (engine->states.size()) {
+            engine->pop_state();
+        }
+        engine->push_state(select_mode_state::instance());
         break;
     }
     }

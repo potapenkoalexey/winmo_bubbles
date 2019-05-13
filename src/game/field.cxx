@@ -175,6 +175,7 @@ void field::render(grottans::engine* engine)
             v_buf_tmp[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + v_buf_fall[31];
             gems[i][j]->v_buf = engine->create_vertex_buffer(&v_buf_tmp[0], 2);
             engine->render(*gems[i][j]->v_buf, gems[i][j]->texture, gems[i][j]->aspect * engine->scale);
+            engine->destroy_vertex_buffer(gems[i][j]->v_buf);
         }
     }
 }

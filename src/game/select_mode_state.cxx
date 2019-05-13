@@ -94,10 +94,10 @@ void select_mode_state::handle_events(grottans::engine* engine)
     }
     case grottans::event::start_released: {
         if (block_select->v_buf == v_buf_classic) {
-            engine->change_state(classic_state::instance());
+            engine->push_state(classic_state::instance());
         }
         if (block_select->v_buf == v_buf_extreme) {
-            engine->change_state(extreme_state::instance());
+            engine->push_state(extreme_state::instance());
         }
 
         break;

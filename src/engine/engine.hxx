@@ -255,6 +255,8 @@ public:
         engine->change_state(state);
     }
 
+    virtual ~game_state();
+
 protected:
     game_state() {}
 };

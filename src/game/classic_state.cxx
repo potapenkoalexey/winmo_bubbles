@@ -68,11 +68,11 @@ void classic_state::handle_events(grottans::engine* engine)
         break;
     }
     case grottans::event::escape_released: {
-        engine->change_state(select_mode_state::instance());
+        engine->pop_state();
         break;
     }
     case grottans::event::start_released: {
-        engine->change_state(game_over_state::instance());
+        engine->push_state(game_over_state::instance());
         break;
     }
     }
