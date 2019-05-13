@@ -17,6 +17,10 @@ add_executable(${PROJECT_NAME}
         src/game/block.cxx
         src/game/field.hxx
         src/game/field.cxx
+        src/game/counter.hxx
+        src/game/counter.cxx
+        src/game/progress_desk.hxx
+        src/game/progress_desk.cxx
         src/game/select_mode_state.hxx
         src/game/select_mode_state.cxx
         src/game/classic_state.hxx
