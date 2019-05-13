@@ -14,7 +14,7 @@ public:
     void set_line_in_null();
     void set_line_in_full();
 
-    void increase_progress(double);
+    void increase_progress(size_t points, size_t points_to_level_);
 
 private:
     std::unique_ptr<block> block_desk;

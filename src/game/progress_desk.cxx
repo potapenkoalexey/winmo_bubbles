@@ -28,12 +28,13 @@ bool progress_desk::init(grottans::engine* engine)
     }
     file.close();
 
+    ///creating vertex buffers
+    block_desk->v_buf = engine->create_vertex_buffer(&tr[0], 2);
+    block_line->v_buf = engine->create_vertex_buffer(&tr[2], 2);
+
     ///backuping line coordinates
     tr[4] = tr[2];
     tr[5] = tr[3];
-
-    block_desk->v_buf = engine->create_vertex_buffer(&tr[0], 2);
-    block_line->v_buf = engine->create_vertex_buffer(&tr[2], 2);
 
     return EXIT_SUCCESS;
 }
@@ -41,6 +42,8 @@ bool progress_desk::init(grottans::engine* engine)
 void progress_desk::draw(grottans::engine* engine)
 {
     engine->render(*block_desk->v_buf, block_desk->texture, block_desk->aspect * engine->scale);
+
+    ///updating line vertex buffer and drawing
     block_line->v_buf = engine->create_vertex_buffer(&tr[2], 2);
     engine->render(*block_line->v_buf, block_line->texture, block_line->aspect * engine->scale);
 }
@@ -48,7 +51,7 @@ void progress_desk::draw(grottans::engine* engine)
 void progress_desk::set_line_in_null()
 {
     tr[2].v[1].pos.x = tr[2].v[0].pos.x;
-    tr[2].v[2].pos.x = tr[2].v[2].pos.x;
+    tr[2].v[2].pos.x = tr[3].v[2].pos.x;
     tr[3].v[1].pos.x = tr[3].v[2].pos.x;
 }
 
@@ -59,10 +62,17 @@ void progress_desk::set_line_in_full()
     tr[3].v[1].pos.x = tr[5].v[1].pos.x;
 }
 
-void progress_desk::increase_progress(double points)
+void progress_desk::increase_progress(size_t points, size_t points_to_level_)
 {
-    // moving counter line on % step 0,0143
-    //tr[2].v[1].pos.x += (0.0143f * points * 100 / (levels[level_number]));
-    //tr[2].v[2].pos.x += (0.0143f * points * 100 / (levels[level_number]));
-    //tr[3].v[1].pos.x += (0.0143f * points * 100 / (levels[level_number]));
+    float points_to_level = static_cast<float>(points_to_level_);
+
+    /// moving counter line on % step 0,0143
+    tr[2].v[1].pos.x += (0.01f * points * 100 / points_to_level); //(levels[level_number]));
+    tr[2].v[2].pos.x += (0.01f * points * 100 / points_to_level);
+    tr[3].v[1].pos.x += (0.01f * points * 100 / points_to_level);
+
+    /// if overflow - set maximum
+    if (tr[3].v[1].pos.x >= tr[5].v[1].pos.x) {
+        set_line_in_full();
+    }
 }

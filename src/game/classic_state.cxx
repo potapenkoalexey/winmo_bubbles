@@ -54,7 +54,8 @@ void classic_state::handle_events(grottans::engine* engine)
         break;
     }
     case grottans::event::start_released: {
-        engine->push_state(game_over_state::instance());
+        progress->increase_progress(6, 20);
+        //engine->push_state(game_over_state::instance());
         break;
     }
     case grottans::event::left_released: {
