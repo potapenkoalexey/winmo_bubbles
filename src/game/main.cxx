@@ -1,10 +1,8 @@
-//todo
-//in update() function push the delta_time!!!
-
 #include <thread>
 
 #include "../../src/engine/engine.hxx"
 #include "./select_mode_state.hxx"
+#include "./settings.hxx"
 
 using clock_timer = std::chrono::high_resolution_clock;
 using nano_sec = std::chrono::nanoseconds;

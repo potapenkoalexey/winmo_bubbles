@@ -1,6 +1,6 @@
 #include "./engine.hxx"
-
 #include "../../src/picopng/picopng.hxx"
+#include "./sound_buffer.hxx"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -371,191 +371,6 @@ mouse_pos::mouse_pos(int x_, int y_)
 {
 }
 
-vec2::vec2()
-    : x(0.f)
-    , y(1.f)
-{
-}
-
-vec2::vec2(float x_, float y_)
-    : x(x_)
-    , y(y_)
-{
-}
-
-vec2 operator+(const vec2& l, const vec2& r)
-{
-    vec2 result;
-    result.x = l.x + r.x;
-    result.y = l.y + r.y;
-    return result;
-}
-
-mat2::mat2()
-    : col0(1.0f, 0.f)
-    , col1(0.f, 1.f)
-{
-}
-
-mat2x3::mat2x3()
-    : col0(1.0f, 0.f)
-    , col1(0.f, 1.f)
-    , delta(0.f, 0.f)
-{
-}
-
-mat2 mat2::identiry()
-{
-    return mat2::scale(1.f);
-}
-
-mat2x3 mat2x3::identiry()
-{
-    return mat2x3::scale(1.f);
-}
-
-mat2 mat2::scale(float scale)
-{
-    mat2 result;
-    result.col0.x = scale;
-    result.col1.y = scale;
-    return result;
-}
-
-mat2x3 mat2x3::scale(float scale)
-{
-    mat2x3 result;
-    result.col0.x = scale;
-    result.col1.y = scale;
-    return result;
-}
-
-mat2x3 mat2x3::scale(float sx, float sy)
-{
-    mat2x3 r;
-    r.col0.x = sx;
-    r.col1.y = sy;
-    return r;
-}
-
-mat2 mat2::rotation(float thetha)
-{
-    mat2 result;
-
-    result.col0.x = std::cos(thetha);
-    result.col0.y = std::sin(thetha);
-
-    result.col1.x = -std::sin(thetha);
-    result.col1.y = std::cos(thetha);
-
-    return result;
-}
-
-mat2x3 mat2x3::rotation(float thetha)
-{
-    mat2x3 result;
-
-    result.col0.x = std::cos(thetha);
-    result.col0.y = std::sin(thetha);
-
-    result.col1.x = -std::sin(thetha);
-    result.col1.y = std::cos(thetha);
-
-    return result;
-}
-
-mat2x3 mat2x3::move(const vec2& delta)
-{
-    mat2x3 r = mat2x3::identiry();
-    r.delta = delta;
-    return r;
-}
-
-vec2 operator*(const vec2& v, const mat2& m)
-{
-    vec2 result;
-    result.x = v.x * m.col0.x + v.y * m.col0.y;
-    result.y = v.x * m.col1.x + v.y * m.col1.y;
-    return result;
-}
-
-vec2 operator*(const vec2& v, const mat2x3& m)
-{
-    vec2 result;
-    result.x = v.x * m.col0.x + v.y * m.col0.y + m.delta.x;
-    result.y = v.x * m.col1.x + v.y * m.col1.y + m.delta.y;
-    return result;
-}
-
-mat2x3 operator*(const mat2x3& m1, const mat2x3& m2)
-{
-    mat2x3 r;
-
-    r.col0.x = m1.col0.x * m2.col0.x + m1.col1.x * m2.col0.y;
-    r.col1.x = m1.col0.x * m2.col1.x + m1.col1.x * m2.col1.y;
-    r.col0.y = m1.col0.y * m2.col0.x + m1.col1.y * m2.col0.y;
-    r.col1.y = m1.col0.y * m2.col1.x + m1.col1.y * m2.col1.y;
-
-    r.delta.x = m1.delta.x * m2.col0.x + m1.delta.y * m2.col0.y + m2.delta.x;
-    r.delta.y = m1.delta.x * m2.col1.x + m1.delta.y * m2.col1.y + m2.delta.y;
-
-    return r;
-}
-
-mat2 operator*(const mat2& m1, const mat2& m2)
-{
-    mat2 r;
-
-    r.col0.x = m1.col0.x * m2.col0.x + m1.col1.x * m2.col0.y;
-    r.col1.x = m1.col0.x * m2.col1.x + m1.col1.x * m2.col1.y;
-    r.col0.y = m1.col0.y * m2.col0.x + m1.col1.y * m2.col0.y;
-    r.col1.y = m1.col0.y * m2.col1.x + m1.col1.y * m2.col1.y;
-
-    return r;
-}
-
-tri0::tri0()
-    : v{ v0(), v0(), v0() }
-{
-}
-
-tri1::tri1()
-    : v{ v1(), v1(), v1() }
-{
-}
-
-tri2::tri2()
-    : v{ v2(), v2(), v2() }
-{
-}
-
-v2 operator+(const v2& l, const v2& r)
-{
-    v2 res;
-    res.pos.x = l.pos.x + r.pos.x;
-    res.pos.y = l.pos.y + r.pos.y;
-    res.uv.x = l.uv.x + r.uv.x;
-    res.uv.y = l.uv.y + r.uv.y;
-    res.c.set_a(l.c.get_a() + r.c.get_a());
-    res.c.set_r(l.c.get_r() + r.c.get_r());
-    res.c.set_b(l.c.get_b() + r.c.get_b());
-    res.c.set_g(l.c.get_g() + r.c.get_g());
-    return res;
-}
-
-tri2 operator+(const tri2& l, const tri2& r)
-{
-    tri2 res;
-    res.v[0] = l.v[0] + r.v[0];
-    res.v[0] = l.v[0] + r.v[0];
-    res.v[1] = l.v[1] + r.v[1];
-    res.v[1] = l.v[1] + r.v[1];
-    res.v[2] = l.v[2] + r.v[2];
-    res.v[2] = l.v[2] + r.v[2];
-
-    return res;
-}
-
 std::ostream& operator<<(std::ostream& stream, const event e)
 {
     std::uint32_t value = static_cast<std::uint32_t>(e);
@@ -595,72 +410,7 @@ std::istream& operator>>(std::istream& is, uv_pos& uv)
     return is;
 }
 
-std::istream& operator>>(std::istream& is, color& c)
-{
-    float r = 0.f;
-    float g = 0.f;
-    float b = 0.f;
-    float a = 0.f;
-    is >> r;
-    is >> g;
-    is >> b;
-    is >> a;
-    c = color(r, g, b, a);
-    return is;
-}
-
-std::istream& operator>>(std::istream& is, v0& v)
-{
-    is >> v.pos.x;
-    is >> v.pos.y;
-
-    return is;
-}
-
-std::istream& operator>>(std::istream& is, v1& v)
-{
-    is >> v.pos.x;
-    is >> v.pos.y;
-    is >> v.c;
-    return is;
-}
-
-std::istream& operator>>(std::istream& is, v2& v)
-{
-    is >> v.pos.x;
-    is >> v.pos.y;
-    is >> v.uv.x;
-    is >> v.uv.y;
-    is >> v.c;
-    return is;
-}
-
-std::istream& operator>>(std::istream& is, tri0& t)
-{
-    is >> t.v[0];
-    is >> t.v[1];
-    is >> t.v[2];
-    return is;
-}
-
-std::istream& operator>>(std::istream& is, tri1& t)
-{
-    is >> t.v[0];
-    is >> t.v[1];
-    is >> t.v[2];
-    return is;
-}
-
-std::istream& operator>>(std::istream& is, tri2& t)
-{
-    is >> t.v[0];
-    is >> t.v[1];
-    is >> t.v[2];
-    return is;
-}
-
 vertex_buffer::~vertex_buffer() {}
-
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief The VertexBufferImpl class
 ///
@@ -820,8 +570,6 @@ sound_buffer_impl::sound_buffer_impl(std::string_view path,
     }
 }
 
-sound_buffer::~sound_buffer() {}
-
 sound_buffer_impl::~sound_buffer_impl()
 {
     if (!tmp_buf) {
@@ -897,11 +645,11 @@ private:
 
 void engine_impl::disable_event(event& e)
 {
-    SDL_EventState(SDL_SCANCODE_RETURN, SDL_IGNORE);
+    //SDL_EventState(SDL_SCANCODE_RETURN, SDL_IGNORE);
 }
 void engine_impl::enable_event(event& e)
 {
-    SDL_EventState(SDL_SCANCODE_RETURN, SDL_ENABLE);
+    //SDL_EventState(SDL_SCANCODE_RETURN, SDL_ENABLE);
 }
 
 sound_buffer* engine_impl::create_sound_buffer(std::string_view path)
@@ -958,10 +706,13 @@ bool engine_impl::input(event& e)
             //mouse
             if (sdl_event.type == SDL_MOUSEBUTTONDOWN) {
                 e = grottans::event::mouse_pressed;
+
                 this->mouse_coord.x = sdl_event.button.x;
                 this->mouse_coord.y = sdl_event.button.y;
+
                 return true;
             }
+
             if (sdl_event.type == SDL_MOUSEBUTTONUP) {
                 e = grottans::event::mouse_released;
                 this->mouse_coord.x = sdl_event.button.x;
@@ -1242,75 +993,6 @@ void engine_impl::render(const vertex_buffer& buff, texture* tex, const mat2x3& 
 void engine_impl::set_window_title(const char* name)
 {
     SDL_SetWindowTitle(window, name);
-}
-
-///////////////////////////////////////////////////////////////////////////////
-/// \brief color::color
-///
-color::color(std::uint32_t rgba_)
-    : rgba(rgba_)
-{
-}
-
-color::color(float r, float g, float b, float a)
-{
-    assert(r <= 1 && r >= 0);
-    assert(g <= 1 && g >= 0);
-    assert(b <= 1 && b >= 0);
-    assert(a <= 1 && a >= 0);
-
-    std::uint32_t r_ = static_cast<std::uint32_t>(r * 255);
-    std::uint32_t g_ = static_cast<std::uint32_t>(g * 255);
-    std::uint32_t b_ = static_cast<std::uint32_t>(b * 255);
-    std::uint32_t a_ = static_cast<std::uint32_t>(a * 255);
-
-    rgba = a_ << 24 | b_ << 16 | g_ << 8 | r_;
-}
-
-float color::get_r() const
-{
-    std::uint32_t r_ = (rgba & 0x000000FF) >> 0;
-    return r_ / 255.f;
-}
-float color::get_g() const
-{
-    std::uint32_t g_ = (rgba & 0x0000FF00) >> 8;
-    return g_ / 255.f;
-}
-float color::get_b() const
-{
-    std::uint32_t b_ = (rgba & 0x00FF0000) >> 16;
-    return b_ / 255.f;
-}
-float color::get_a() const
-{
-    std::uint32_t a_ = (rgba & 0xFF000000) >> 24;
-    return a_ / 255.f;
-}
-
-void color::set_r(const float r)
-{
-    std::uint32_t r_ = static_cast<std::uint32_t>(r * 255);
-    rgba &= 0xFFFFFF00;
-    rgba |= (r_ << 0);
-}
-void color::set_g(const float g)
-{
-    std::uint32_t g_ = static_cast<std::uint32_t>(g * 255);
-    rgba &= 0xFFFF00FF;
-    rgba |= (g_ << 8);
-}
-void color::set_b(const float b)
-{
-    std::uint32_t b_ = static_cast<std::uint32_t>(b * 255);
-    rgba &= 0xFF00FFFF;
-    rgba |= (b_ << 16);
-}
-void color::set_a(const float a)
-{
-    std::uint32_t a_ = static_cast<std::uint32_t>(a * 255);
-    rgba &= 0x00FFFFFF;
-    rgba |= a_ << 24;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

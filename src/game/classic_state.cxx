@@ -47,8 +47,11 @@ void classic_state::resume(grottans::engine*)
 void classic_state::handle_events(grottans::engine* engine)
 {
     grottans::event e;
-    engine->input(e);
-    switch (e) {
+
+    engine->input(/*out*/ e);
+
+    switch (e)
+    {
     case grottans::event::turn_off: {
         engine->loop = false;
         break;

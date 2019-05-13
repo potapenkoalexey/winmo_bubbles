@@ -4,6 +4,7 @@
 
 #include "../../src/engine/engine.hxx"
 #include "./block.hxx"
+#include "./settings.hxx"
 
 class classic_state : public grottans::game_state {
 public:
