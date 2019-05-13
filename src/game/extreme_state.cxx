@@ -75,6 +75,38 @@ void extreme_state::handle_events(grottans::engine* engine)
         engine->push_state(game_over_state::instance());
         break;
     }
+    case grottans::event::left_released: {
+        if (game_field->selector->position.x > 0) {
+            game_field->selector->position.x -= 1.f;
+        } else {
+            game_field->selector->position.x = 9.f;
+        }
+        break;
+    }
+    case grottans::event::right_released: {
+        if (game_field->selector->position.x < 9) {
+            game_field->selector->position.x += 1.f;
+        } else {
+            game_field->selector->position.x = 0.f;
+        }
+        break;
+    }
+    case grottans::event::up_released: {
+        if (game_field->selector->position.y > 0) {
+            game_field->selector->position.y -= 1.f;
+        } else {
+            game_field->selector->position.y = 9.f;
+        }
+        break;
+    }
+    case grottans::event::down_released: {
+        if (game_field->selector->position.y < 9) {
+            game_field->selector->position.y += 1.f;
+        } else {
+            game_field->selector->position.y = 0.f;
+        }
+        break;
+    }
     }
 }
 

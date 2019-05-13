@@ -28,6 +28,8 @@ public:
     size_t height = 0;
     float scale = 0;
 
+    grottans::texture* tex_selector_clutch = nullptr;
+    grottans::texture* tex_selector = nullptr;
     grottans::texture* tex_yellow = nullptr;
     grottans::texture* tex_purple = nullptr;
     grottans::texture* tex_green = nullptr;
@@ -46,4 +48,5 @@ public:
 
     //std::map<position, std::unique_ptr<block> > gems;
     std::unique_ptr<block> gems[10][10];
+    std::unique_ptr<block> selector;
 };

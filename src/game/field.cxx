@@ -10,14 +10,8 @@ field::field()
 
 bool field::initialization(grottans::engine* engine)
 {
-    width = 10;
-    height = 10;
-    for (size_t i = 0; i < width; i++) {
-        for (size_t j = 0; j < height; j++) {
-            gems[i][j] = std::unique_ptr<block>(new block);
-        }
-    }
-
+    tex_selector_clutch = engine->create_texture("./data/images/my/selector_clutch.png");
+    tex_selector = engine->create_texture("./data/images/my/selector.png");
     tex_yellow = engine->create_texture("./data/images/yellow.png");
     tex_purple = engine->create_texture("./data/images/purple.png");
     tex_green = engine->create_texture("./data/images/green.png");
@@ -28,12 +22,12 @@ bool field::initialization(grottans::engine* engine)
 
     std::ifstream file_falling("./data/vertex_buffers/vert_buffers_for_gems.txt");
     if (!file_falling) {
-        std::cerr << "can't load vert_buffers.txt\n";
+        std::cerr << "can't load vert_buffers_for_gems.txt\n";
         return EXIT_FAILURE;
     } else {
         file_falling >> tr[0] >> tr[1] >> tr[2] >> tr[3];
         if (!sizeof(tr[1])) {
-            std::cerr << "can't create vertex buffers\n";
+            std::cerr << "can't create vertex triangles for gems\n";
             return EXIT_FAILURE;
         }
     }
@@ -83,6 +77,19 @@ bool field::initialization(grottans::engine* engine)
             }
         }
     }
+
+    width = 10;
+    height = 10;
+    for (size_t i = 0; i < width; i++) {
+        for (size_t j = 0; j < height; j++) {
+            gems[i][j] = std::unique_ptr<block>(new block);
+        }
+    }
+
+    selector = std::unique_ptr<block>(new block);
+
+    selector->texture = tex_selector;
+    selector->position = { 5.f, 5.f };
 
     return EXIT_SUCCESS;
 }
@@ -169,13 +176,24 @@ void field::remove_selected()
 
 void field::render(grottans::engine* engine)
 {
+    grottans::mat2x3 scale = engine->scale;
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
             v_buf_tmp[0] = v_buf_grid[(i * 10 + j) * 2] + v_buf_fall[30];
             v_buf_tmp[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + v_buf_fall[31];
             gems[i][j]->v_buf = engine->create_vertex_buffer(&v_buf_tmp[0], 2);
-            engine->render(*gems[i][j]->v_buf, gems[i][j]->texture, gems[i][j]->aspect * engine->scale);
+            engine->render(*gems[i][j]->v_buf, gems[i][j]->texture, gems[i][j]->aspect * scale);
             engine->destroy_vertex_buffer(gems[i][j]->v_buf);
         }
+    }
+    {
+        ///drawing selector
+        size_t j = selector->position.x;
+        size_t i = selector->position.y;
+        v_buf_tmp[0] = v_buf_grid[(i * 10 + j) * 2] + v_buf_fall[30];
+        v_buf_tmp[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + v_buf_fall[31];
+        selector->v_buf = engine->create_vertex_buffer(&v_buf_tmp[0], 2);
+        engine->render(*selector->v_buf, selector->texture, selector->aspect * scale);
+        engine->destroy_vertex_buffer(selector->v_buf);
     }
 }
