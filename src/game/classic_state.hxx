@@ -5,6 +5,7 @@
 #include "../../src/engine/engine.hxx"
 #include "./block.hxx"
 #include "./field.hxx"
+#include "./progress_desk.hxx"
 #include "./settings.hxx"
 
 class classic_state : public grottans::game_state {
@@ -25,19 +26,12 @@ public:
     }
 
 protected:
-    classic_state()
-    {
-        block_classic = nullptr;
-        width = 0;
-        height = 0;
-    }
+    classic_state() {}
 
 private:
     static classic_state m_classic_state;
 
-    std::unique_ptr<block> block_classic;
-    std::array<grottans::tri2, 2> tr; // v_buf triangles
-    size_t width, height;
+    std::unique_ptr<progress_desk> progress;
 
     std::unique_ptr<field> game_field;
 };

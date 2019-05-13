@@ -111,11 +111,7 @@ void select_mode_state::update(grottans::engine*)
 
 void select_mode_state::draw(grottans::engine* engine)
 {
-    if (engine->mouse_moution == false) {
-        engine->render(*block_back->v_buf, block_back->texture, block_back->move * engine->scale);
-        engine->render(*block_select->v_buf, block_select->texture, block_select->move * engine->scale);
-        engine->swap_buffers();
-        return;
-    } else
-        engine->mouse_moution = false;
+    engine->render(*block_back->v_buf, block_back->texture, block_back->move * engine->scale);
+    engine->render(*block_select->v_buf, block_select->texture, block_select->move * engine->scale);
+    engine->swap_buffers();
 }

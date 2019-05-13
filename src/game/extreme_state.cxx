@@ -8,34 +8,14 @@ extreme_state extreme_state::m_extreme_state;
 
 bool extreme_state::init(grottans::engine* engine)
 {
-    //block_classic = new block;
-    block_back = std::unique_ptr<block>(new block);
-
-    block_back->texture = engine->create_texture("./data/images/my/level_red.png");
-
-    // loading vertex_buffers from files
-    std::ifstream file("./data/vertex_buffers/vert_tex_color.txt");
-    if (!file) {
-        std::cerr << "can't load vert_tex_color.txt\n";
-        return EXIT_FAILURE;
-    } else {
-        file >> tr[0] >> tr[1];
-        if (!sizeof(tr[1])) {
-            std::cerr << "can't create vertex buffer\n";
-            return EXIT_FAILURE;
-        }
-    }
-    file.close();
-
-    block_back->v_buf = engine->create_vertex_buffer(&tr[0], 2);
-
-    width = engine->get_window_width();
-    height = engine->get_window_height();
-
     ///field
     game_field = std::unique_ptr<field>(new field);
     game_field->initialization(engine);
     game_field->fill_extreme();
+
+    ///progress desk
+    progress = std::unique_ptr<progress_desk>(new progress_desk);
+    progress->init(engine);
 
     return EXIT_SUCCESS;
 }
@@ -116,7 +96,9 @@ void extreme_state::update(grottans::engine*)
 
 void extreme_state::draw(grottans::engine* engine)
 {
-    //engine->render(*block_classic->v_buf, block_classic->texture, block_classic->move * engine->scale);
     game_field->render(engine);
+
+    progress->draw(engine);
+
     engine->swap_buffers();
 }
