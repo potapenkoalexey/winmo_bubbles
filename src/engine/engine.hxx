@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "./color.hxx"
+#include "./math_structures.hxx"
 #include "./sound_buffer.hxx"
 
 extern size_t WIDTH;
@@ -18,48 +19,6 @@ extern size_t BLOCK;
 namespace grottans {
 
 class game_state;
-
-struct mouse_pos {
-    mouse_pos();
-    mouse_pos(int x, int y);
-    int x = 0;
-    int y = 0;
-};
-
-struct vec2 {
-    vec2();
-    vec2(float x, float y);
-    float x = 0;
-    float y = 0;
-};
-
-vec2 operator+(const vec2& l, const vec2& r);
-
-struct mat2 {
-    mat2();
-    static mat2 identiry();
-    static mat2 scale(float scale);
-    static mat2 rotation(float thetha);
-    vec2 col0;
-    vec2 col1;
-};
-
-struct mat2x3 {
-    mat2x3();
-    static mat2x3 identiry();
-    static mat2x3 scale(float scale);
-    static mat2x3 scale(float sx, float sy);
-    static mat2x3 rotation(float thetha);
-    static mat2x3 move(const vec2& delta);
-    vec2 col0;
-    vec2 col1;
-    vec2 delta;
-};
-
-vec2 operator*(const vec2& v, const mat2& m);
-mat2 operator*(const mat2& m1, const mat2& m2);
-vec2 operator*(const vec2& v, const mat2x3& m);
-mat2x3 operator*(const mat2x3& m1, const mat2x3& m2);
 
 enum class event {
     // input events
@@ -109,6 +68,13 @@ enum class palette {
     non
 };
 
+struct mouse_pos {
+    mouse_pos();
+    mouse_pos(int x, int y);
+    int x = 0;
+    int y = 0;
+};
+
 /// position in 2d space
 struct pos {
     float x = 0.f;
@@ -120,44 +86,6 @@ struct uv_pos {
     float u = 0.f;
     float v = 0.f;
 };
-
-/// vertex with position only
-struct v0 {
-    vec2 pos;
-};
-
-/// vertex with position and texture coordinate
-struct v1 {
-    vec2 pos;
-    color c;
-};
-/// vertex position + color + texture coordinate
-struct v2 {
-    vec2 pos;
-    vec2 uv;
-    color c;
-};
-
-/// triangle with positions only
-struct tri0 {
-    tri0();
-    v0 v[3];
-};
-
-/// triangle with positions and color
-struct tri1 {
-    tri1();
-    v1 v[3];
-};
-
-/// triangle with positions color and texture coordinate
-struct tri2 {
-    tri2();
-    v2 v[3];
-};
-
-v2 operator+(const v2& l, const v2& r);
-tri2 operator+(const tri2& l, const tri2& r);
 
 struct vertex {
     vertex()
@@ -173,6 +101,10 @@ struct vertex {
     float ty;
 };
 
+std::ostream& operator<<(std::ostream& stream, const event e);
+std::istream& operator>>(std::istream& is, vertex&);
+std::istream& operator>>(std::istream& is, uv_pos&);
+
 struct triangle {
     triangle()
     {
@@ -183,16 +115,7 @@ struct triangle {
     vertex v[3];
 };
 
-std::ostream& operator<<(std::ostream& stream, const event e);
-std::istream& operator>>(std::istream& is, vertex&);
 std::istream& operator>>(std::istream& is, triangle&);
-std::istream& operator>>(std::istream& is, uv_pos&);
-std::istream& operator>>(std::istream& is, v0&);
-std::istream& operator>>(std::istream& is, v1&);
-std::istream& operator>>(std::istream& is, v2&);
-std::istream& operator>>(std::istream& is, tri0&);
-std::istream& operator>>(std::istream& is, tri1&);
-std::istream& operator>>(std::istream& is, tri2&);
 
 class texture {
 public:
@@ -259,6 +182,8 @@ private:
     size_t buf_size;
 };
 
+membuf load_file(std::string_view path);
+
 class engine {
 public:
     // Engine() {}
@@ -310,6 +235,9 @@ public:
     bool loop;
 };
 
+engine* create_engine();
+void destroy_engine(engine* e);
+
 class game_state {
 public:
     virtual void init(grottans::engine*) = 0;
@@ -330,12 +258,5 @@ public:
 protected:
     game_state() {}
 };
-
-engine* create_engine();
-void destroy_engine(engine* e);
-
-membuf load_file(std::string_view path);
-
-//tri0 blend(const tri0& tl, const tri0& tr, const float a);
 
 } // end of namespace grottans

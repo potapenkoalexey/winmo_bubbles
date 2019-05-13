@@ -6,6 +6,8 @@ project(winmo_states)
 add_executable(${PROJECT_NAME}
         src/engine/engine.hxx
         src/engine/engine.cxx
+        src/engine/math_structures.hxx
+        src/engine/math_structures.cxx
         src/engine/color.hxx
         src/engine/color.cxx
         src/engine/sound_buffer.hxx
@@ -17,6 +19,7 @@ add_executable(${PROJECT_NAME}
         src/game/select_mode_state.cxx
         src/game/classic_state.cxx
         src/game/classic_state.hxx
+        src/game/settings.hxx
 )
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
