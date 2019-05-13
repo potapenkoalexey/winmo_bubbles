@@ -1,17 +1,17 @@
 #include <fstream>
 
-#include "./classic_state.hxx"
+#include "./extreme_state.hxx"
 #include "./game_over_state.hxx"
 #include "./select_mode_state.hxx"
 
-classic_state classic_state::m_classic_state;
+extreme_state extreme_state::m_extreme_state;
 
-bool classic_state::init(grottans::engine* engine)
+bool extreme_state::init(grottans::engine* engine)
 {
     //block_classic = new block;
-    block_classic = std::unique_ptr<block>(new block);
+    block_back = std::unique_ptr<block>(new block);
 
-    block_classic->texture = engine->create_texture("./data/images/my/level_red.png");
+    block_back->texture = engine->create_texture("./data/images/my/level_red.png");
 
     // loading vertex_buffers from files
     std::ifstream file("./data/vertex_buffers/vert_tex_color.txt");
@@ -27,7 +27,7 @@ bool classic_state::init(grottans::engine* engine)
     }
     file.close();
 
-    block_classic->v_buf = engine->create_vertex_buffer(&tr[0], 2);
+    block_back->v_buf = engine->create_vertex_buffer(&tr[0], 2);
 
     width = engine->get_window_width();
     height = engine->get_window_height();
@@ -35,24 +35,24 @@ bool classic_state::init(grottans::engine* engine)
     ///field
     game_field = std::unique_ptr<field>(new field);
     game_field->initialization(engine);
-    game_field->fill_clasic();
+    game_field->fill_extreme();
 
     return EXIT_SUCCESS;
 }
 
-void classic_state::cleanup(grottans::engine*)
+void extreme_state::cleanup(grottans::engine*)
 {
 }
 
-void classic_state::pause(grottans::engine*)
+void extreme_state::pause(grottans::engine*)
 {
 }
 
-void classic_state::resume(grottans::engine*)
+void extreme_state::resume(grottans::engine*)
 {
 }
 
-void classic_state::handle_events(grottans::engine* engine)
+void extreme_state::handle_events(grottans::engine* engine)
 {
     grottans::event e;
 
@@ -78,11 +78,11 @@ void classic_state::handle_events(grottans::engine* engine)
     }
 }
 
-void classic_state::update(grottans::engine*)
+void extreme_state::update(grottans::engine*)
 {
 }
 
-void classic_state::draw(grottans::engine* engine)
+void extreme_state::draw(grottans::engine* engine)
 {
     //engine->render(*block_classic->v_buf, block_classic->texture, block_classic->move * engine->scale);
     game_field->render(engine);

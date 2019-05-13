@@ -240,7 +240,7 @@ void destroy_engine(engine* e);
 
 class game_state {
 public:
-    virtual void init(grottans::engine*) = 0;
+    virtual bool init(grottans::engine*) = 0;
     virtual void cleanup(grottans::engine*) = 0;
 
     virtual void pause(grottans::engine*) = 0;

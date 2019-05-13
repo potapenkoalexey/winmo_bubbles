@@ -15,10 +15,16 @@ add_executable(${PROJECT_NAME}
         src/game/main.cxx
         src/game/block.hxx
         src/game/block.cxx
+        src/game/field.hxx
+        src/game/field.cxx
         src/game/select_mode_state.hxx
         src/game/select_mode_state.cxx
-        src/game/classic_state.cxx
         src/game/classic_state.hxx
+        src/game/classic_state.cxx
+        src/game/extreme_state.hxx
+        src/game/extreme_state.cxx
+        src/game/game_over_state.hxx
+        src/game/game_over_state.cxx
         src/game/settings.hxx
 )
 

@@ -4,10 +4,9 @@
 
 #include "../../src/engine/engine.hxx"
 #include "./block.hxx"
-#include "./field.hxx"
 #include "./settings.hxx"
 
-class classic_state : public grottans::game_state {
+class game_over_state : public grottans::game_state {
 public:
     bool init(grottans::engine*);
     void cleanup(grottans::engine*);
@@ -21,23 +20,23 @@ public:
 
     static game_state* instance()
     {
-        return &m_classic_state;
+        return &m_game_over_state;
     }
 
 protected:
-    classic_state()
+    game_over_state()
     {
-        block_classic = nullptr;
+        block_back = nullptr;
+        sound_game_over = nullptr;
         width = 0;
         height = 0;
     }
 
 private:
-    static classic_state m_classic_state;
+    static game_over_state m_game_over_state;
 
-    std::unique_ptr<block> block_classic;
+    std::unique_ptr<block> block_back;
     std::array<grottans::tri2, 2> tr; // v_buf triangles
+    grottans::sound_buffer* sound_game_over;
     size_t width, height;
-
-    std::unique_ptr<field> game_field;
 };
