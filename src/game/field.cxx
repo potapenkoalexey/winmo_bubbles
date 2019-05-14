@@ -191,6 +191,13 @@ void field::render(grottans::engine* engine)
     }
 }
 
+grottans::mouse_pos field::get_mouse_ij(grottans::engine* engine)
+{
+    grottans::mouse_pos result;
+
+    return result;
+}
+
 void field::remove_selected()
 {
     //    for (size_t i = 0; i < width; i++) {

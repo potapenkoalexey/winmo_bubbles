@@ -32,9 +32,9 @@
 #include <tuple>
 #include <vector>
 
-extern size_t WIDTH;
-extern size_t HEIGHT;
-extern size_t BLOCK;
+//extern size_t WIDTH;
+//extern size_t HEIGHT;
+//extern size_t BLOCK;
 
 static PFNGLCREATESHADERPROC glCreateShader = nullptr;
 static PFNGLSHADERSOURCEPROC glShaderSource = nullptr;
@@ -365,7 +365,7 @@ mouse_pos::mouse_pos()
 {
 }
 
-mouse_pos::mouse_pos(int x_, int y_)
+mouse_pos::mouse_pos(size_t x_, size_t y_)
     : x(x_)
     , y(y_)
 {
@@ -706,10 +706,8 @@ bool engine_impl::input(event& e)
             //mouse
             if (sdl_event.type == SDL_MOUSEBUTTONDOWN) {
                 e = grottans::event::mouse_pressed;
-
                 this->mouse_coord.x = sdl_event.button.x;
                 this->mouse_coord.y = sdl_event.button.y;
-
                 return true;
             }
 
@@ -720,12 +718,13 @@ bool engine_impl::input(event& e)
                 return true;
             }
 
-            //            if (sdl_event.type == SDL_MOUSEMOTION) {
-            //                e = grottans::event::mouse_motion;
-            //                this->mouse_coord.x = sdl_event.motion.x;
-            //                this->mouse_coord.y = sdl_event.motion.y;
-            //                return true;
-            //            }
+            ///can be commented
+            if (sdl_event.type == SDL_MOUSEMOTION) {
+                e = grottans::event::mouse_motion;
+                this->mouse_coord.x = sdl_event.motion.x;
+                this->mouse_coord.y = sdl_event.motion.y;
+                return true;
+            }
 
             //buttons
             if (sdl_event.type == SDL_QUIT) {

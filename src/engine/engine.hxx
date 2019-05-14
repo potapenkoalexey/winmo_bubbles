@@ -12,9 +12,9 @@
 #include "./math_structures.hxx"
 #include "./sound_buffer.hxx"
 
-extern size_t WIDTH;
-extern size_t HEIGHT;
-extern size_t BLOCK;
+//extern size_t WIDTH;
+//extern size_t HEIGHT;
+//extern size_t BLOCK;
 
 namespace grottans {
 
@@ -70,9 +70,9 @@ enum class palette {
 
 struct mouse_pos {
     mouse_pos();
-    mouse_pos(int x, int y);
-    int x = 0;
-    int y = 0;
+    mouse_pos(size_t x, size_t y);
+    size_t x = 0;
+    size_t y = 0;
 };
 
 /// position in 2d space

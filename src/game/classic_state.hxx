@@ -20,6 +20,8 @@ public:
     void update(grottans::engine*);
     void draw(grottans::engine*);
 
+    void update_selector_ij(grottans::engine* engine);
+
     static game_state* instance()
     {
         return &m_classic_state;

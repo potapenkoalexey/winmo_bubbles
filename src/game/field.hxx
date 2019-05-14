@@ -13,13 +13,15 @@ class field {
 public:
     field();
     field(size_t width, size_t height);
+
     bool initialization(grottans::engine* engine);
     void fill_clasic();
     void fill_extreme();
-    void remove_selected();
     void render(grottans::engine* engine);
+    grottans::mouse_pos get_mouse_ij(grottans::engine* engine);
 
     void select();
+    void remove_selected();
     void move_falling();
     void shift_in_left();
     void generate_on_top();
@@ -30,6 +32,9 @@ public:
     size_t height = 0;
     float scale = 0;
 
+    std::unique_ptr<block> selector;
+
+private:
     grottans::texture* tex_selector_clutch = nullptr;
     grottans::texture* tex_selector = nullptr;
     grottans::texture* tex_yellow = nullptr;
@@ -53,5 +58,4 @@ public:
     //std::unique_ptr<block> gems = std::unique_ptr<block>(new block[width * height]);
     //std::unique_ptr<block>** gems;  [10][10];
     std::unique_ptr<block> gems[10][10];
-    std::unique_ptr<block> selector;
 };
