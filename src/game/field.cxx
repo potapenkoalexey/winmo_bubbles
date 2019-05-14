@@ -10,6 +10,9 @@ field::field()
 
 bool field::initialization(grottans::engine* engine)
 {
+    width = settings::FIELD_WIDTH;
+    height = settings::FIELD_HEIGHT;
+
     tex_selector_clutch = engine->create_texture("./data/images/my/selector_clutch.png");
     tex_selector = engine->create_texture("./data/images/my/selector.png");
     tex_yellow = engine->create_texture("./data/images/yellow.png");
@@ -164,16 +167,6 @@ void field::fill_extreme()
     }
 }
 
-void field::remove_selected()
-{
-    for (size_t i = 0; i < width; i++) {
-        for (size_t j = 0; j < height; j++) {
-            if (gems[i][j]->state == block::state::disappearing) {
-            }
-        }
-    }
-}
-
 void field::render(grottans::engine* engine)
 {
     grottans::mat2x3 scale = engine->scale;
@@ -196,4 +189,14 @@ void field::render(grottans::engine* engine)
         engine->render(*selector->v_buf, selector->texture, selector->aspect * scale);
         engine->destroy_vertex_buffer(selector->v_buf);
     }
+}
+
+void field::remove_selected()
+{
+    //    for (size_t i = 0; i < width; i++) {
+    //        for (size_t j = 0; j < height; j++) {
+    //            if (gems[i][j]->state == block::state::disappearing) {
+    //            }
+    //        }
+    //    }
 }

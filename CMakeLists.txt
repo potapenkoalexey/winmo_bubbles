@@ -27,8 +27,8 @@ add_executable(${PROJECT_NAME}
         src/game/classic_state.cxx
         src/game/extreme_state.hxx
         src/game/extreme_state.cxx
-        src/game/level_complite_state.hxx
-        src/game/level_complite_state.cxx
+        src/game/level_complete_state.hxx
+        src/game/level_complete_state.cxx
         src/game/game_over_state.hxx
         src/game/game_over_state.cxx
         src/game/settings.hxx

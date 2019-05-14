@@ -41,9 +41,6 @@ bool select_mode_state::init(grottans::engine* engine)
 
     sound_on = engine->create_sound_buffer("./data/sounds/10_sound_on.wav");
 
-    width = engine->get_window_width();
-    height = engine->get_window_height();
-
     return EXIT_SUCCESS;
 }
 

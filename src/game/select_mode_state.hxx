@@ -33,8 +33,6 @@ protected:
         v_buf_classic = nullptr;
         v_buf_extreme = nullptr;
         sound_on = nullptr;
-        width = 0;
-        height = 0;
     }
 
 private:
@@ -49,5 +47,4 @@ private:
     grottans::vertex_buffer* v_buf_classic;
     grottans::vertex_buffer* v_buf_extreme;
     grottans::sound_buffer* sound_on;
-    size_t width, height;
 };

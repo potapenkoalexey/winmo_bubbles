@@ -194,8 +194,8 @@ public:
     virtual bool input(event& e) = 0;
     virtual bool is_key_down(const keys) = 0;
 
-    virtual void disable_event(event& e) = 0;
-    virtual void enable_event(event& e) = 0;
+    virtual void disable_mouse_moution_event() = 0;
+    virtual void enable_mouse_moution_event() = 0;
 
     virtual void change_state(game_state* state) = 0;
     virtual void push_state(game_state* state) = 0;

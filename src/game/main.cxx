@@ -19,6 +19,8 @@ int main(int /*argc*/, char** /*argv*/)
     // initialize the engine
     engine->initialize();
 
+    engine->disable_mouse_moution_event();
+
     // load the intro
     engine->change_state(select_mode_state::instance());
 
@@ -27,6 +29,13 @@ int main(int /*argc*/, char** /*argv*/)
         time_point end_last_frame = timer.now();
 
         engine->states.back()->handle_events(engine);
+
+        ///missing mouse moution event
+        //        grottans::event e;
+        //        engine->input(e);
+        //        if (e == grottans::event::mouse_motion)
+        //            continue;
+
         engine->states.back()->update(engine);
         engine->states.back()->draw(engine);
 

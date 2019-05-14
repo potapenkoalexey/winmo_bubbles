@@ -1,7 +1,9 @@
 #pragma once
 
+//#include <array>
 #include <iostream>
 #include <memory>
+//#include <vector>
 
 #include "../../src/engine/engine.hxx"
 #include "./block.hxx"
@@ -47,6 +49,9 @@ public:
     std::array<grottans::tri2, 2> v_buf_tmp;
 
     //std::map<position, std::unique_ptr<block> > gems;
+    //std::vector<std::vector<std::unique_ptr<block> > > gems;
+    //std::unique_ptr<block> gems = std::unique_ptr<block>(new block[width * height]);
+    //std::unique_ptr<block>** gems;  [10][10];
     std::unique_ptr<block> gems[10][10];
     std::unique_ptr<block> selector;
 };

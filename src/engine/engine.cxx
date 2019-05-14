@@ -590,8 +590,8 @@ public:
     bool input(event& e);
     //mouse_pos mouse();
 
-    void disable_event(event& e);
-    void enable_event(event& e);
+    void disable_mouse_moution_event();
+    void enable_mouse_moution_event();
 
     bool is_key_down(const enum keys key);
     void render_triangle(const triangle&);
@@ -643,11 +643,11 @@ private:
     std::vector<sound_buffer_impl*> sounds;
 };
 
-void engine_impl::disable_event(event& e)
+void engine_impl::disable_mouse_moution_event()
 {
-    //SDL_EventState(SDL_SCANCODE_RETURN, SDL_IGNORE);
+    SDL_EventState(SDL_MOUSEMOTION, SDL_IGNORE);
 }
-void engine_impl::enable_event(event& e)
+void engine_impl::enable_mouse_moution_event()
 {
     //SDL_EventState(SDL_SCANCODE_RETURN, SDL_ENABLE);
 }
@@ -719,12 +719,13 @@ bool engine_impl::input(event& e)
                 this->mouse_coord.y = sdl_event.button.y;
                 return true;
             }
-            if (sdl_event.type == SDL_MOUSEMOTION) {
-                e = grottans::event::mouse_motion;
-                this->mouse_coord.x = sdl_event.motion.x;
-                this->mouse_coord.y = sdl_event.motion.y;
-                return true;
-            }
+
+            //            if (sdl_event.type == SDL_MOUSEMOTION) {
+            //                e = grottans::event::mouse_motion;
+            //                this->mouse_coord.x = sdl_event.motion.x;
+            //                this->mouse_coord.y = sdl_event.motion.y;
+            //                return true;
+            //            }
 
             //buttons
             if (sdl_event.type == SDL_QUIT) {
