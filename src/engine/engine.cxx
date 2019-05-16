@@ -652,7 +652,7 @@ void engine_impl::enable_mouse_moution_event()
     //SDL_EventState(SDL_SCANCODE_RETURN, SDL_ENABLE);
 }
 
-sound_buffer* engine_impl::create_sound_buffer(std::string_view path)
+sound_buffer* engine_impl::create_sound_buffer(const std::string_view path)
 {
     SDL_LockAudioDevice(audio_device); // TODO fix lock only push_back
     sound_buffer_impl* s = new sound_buffer_impl(path, audio_device, audio_device_spec);
@@ -755,7 +755,7 @@ bool engine_impl::input(event& e)
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief EngineReal::loadTexture
 ///
-bool engine_impl::load_texture(std::string_view path)
+bool engine_impl::load_texture(const std::string_view path)
 {
     std::vector<unsigned char> png_file_in_memory;
     std::ifstream ifs(path.data(), std::ios_base::binary);
@@ -1056,7 +1056,7 @@ float engine_impl::get_time_from_init()
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief EngineReal::createTexture
 ///
-texture* engine_impl::create_texture(std::string path)
+texture* engine_impl::create_texture(const std::string path)
 {
     return new texture_gl_es20(path);
 }
@@ -1124,7 +1124,6 @@ std::string engine_impl::initialize()
     using namespace std;
 
     loop = true;
-    mouse_moution = false;
 
     stringstream serr;
 

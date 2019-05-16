@@ -38,4 +38,11 @@ struct block {
     void get_random_color_from_5();
     void get_random_color_from_6();
     void get_random_color_from_7();
+
+    size_t x0; // botton bound (include)
+    size_t x1; // upper bound
+    size_t y0; // left bound (include)
+    size_t y1; // right bound
+    void set_mouse_rectangle(size_t x0_, size_t x1_, size_t y0_, size_t y1_);
+    bool is_mouse_pressed(size_t x, size_t y);
 };

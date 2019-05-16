@@ -41,6 +41,7 @@ private:
     //write all elements of the screen here
     std::unique_ptr<block> block_back;
     std::unique_ptr<block> block_select;
+
     std::array<grottans::tri2, 6> tr; // v_buf triangles
     grottans::texture* tex_back_sound_on;
     grottans::texture* tex_back_sound_off;

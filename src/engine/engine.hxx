@@ -18,8 +18,6 @@
 
 namespace grottans {
 
-class game_state;
-
 enum class event {
     // input events
     left_pressed,
@@ -43,6 +41,8 @@ enum class event {
     mouse_released,
     turn_off
 };
+
+std::ostream& operator<<(std::ostream& stream, const event e);
 
 enum class keys {
     left,
@@ -87,6 +87,8 @@ struct uv_pos {
     float v = 0.f;
 };
 
+std::istream& operator>>(std::istream& is, uv_pos&);
+
 struct vertex {
     vertex()
         : x(0.f)
@@ -101,9 +103,7 @@ struct vertex {
     float ty;
 };
 
-std::ostream& operator<<(std::ostream& stream, const event e);
 std::istream& operator>>(std::istream& is, vertex&);
-std::istream& operator>>(std::istream& is, uv_pos&);
 
 struct triangle {
     triangle()
@@ -184,36 +184,39 @@ private:
 
 membuf load_file(std::string_view path);
 
+class game_state;
+
+///////////////////////////////////////////////////////////////////////////////
 class engine {
 public:
     // Engine() {}
 
     virtual std::string initialize() = 0;
     virtual float get_time_from_init() = 0;
-    virtual bool load_texture(std::string_view) = 0;
+    virtual bool load_texture(const std::string_view) = 0;
     virtual bool input(event& e) = 0;
     virtual bool is_key_down(const keys) = 0;
 
     virtual void disable_mouse_moution_event() = 0;
     virtual void enable_mouse_moution_event() = 0;
 
-    virtual void change_state(game_state* state) = 0;
-    virtual void push_state(game_state* state) = 0;
+    virtual void change_state(game_state*) = 0;
+    virtual void push_state(game_state*) = 0;
     virtual void pop_state() = 0;
 
-    virtual texture* create_texture(std::string path) = 0;
-    virtual void destroy_texture(texture* t) = 0;
-    virtual vertex_buffer* create_vertex_buffer(const tri2*, std::size_t) = 0;
+    virtual texture* create_texture(const std::string) = 0;
+    virtual void destroy_texture(texture*) = 0;
+    virtual vertex_buffer* create_vertex_buffer(const tri2*, const std::size_t) = 0;
     virtual void destroy_vertex_buffer(vertex_buffer*) = 0;
 
-    virtual sound_buffer* create_sound_buffer(std::string_view path) = 0;
+    virtual sound_buffer* create_sound_buffer(const std::string_view) = 0;
     virtual void destroy_sound_buffer(sound_buffer*) = 0;
 
     virtual void render_triangle(const triangle&) = 0;
     virtual void render(const tri0&, const color&) = 0;
     virtual void render(const tri1&) = 0;
     virtual void render(const tri2&, texture*) = 0;
-    virtual void render(const tri2&, texture*, const mat2x3& m) = 0;
+    virtual void render(const tri2&, texture*, const mat2x3&) = 0;
     virtual void render(const vertex_buffer&, texture*, const mat2x3&) = 0;
 
     virtual void set_window_title(const char*) = 0;
@@ -231,13 +234,13 @@ public:
 
     std::vector<game_state*> states;
 
-    bool mouse_moution;
     bool loop;
 };
 
 engine* create_engine();
 void destroy_engine(engine* e);
 
+///////////////////////////////////////////////////////////////////////////////
 class game_state {
 public:
     virtual bool init(grottans::engine*) = 0;
@@ -259,6 +262,18 @@ public:
 
 protected:
     game_state() {}
+};
+
+///////////////////////////////////////////////////////////////////////////////
+struct mouse_click_rectangle {
+public:
+    mouse_click_rectangle();
+    mouse_click_rectangle(size_t x0_, size_t x1_, size_t y0_, size_t y1_);
+    bool is_mouse_pressed(size_t x, size_t y);
+    size_t x0; // botton bound (include)
+    size_t x1; // upper bound
+    size_t y0; // left bound (include)
+    size_t y1; // right bound
 };
 
 } // end of namespace grottans
