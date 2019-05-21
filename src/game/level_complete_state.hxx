@@ -23,20 +23,6 @@ public:
         return &m_level_complete_state;
     }
 
-protected:
-    level_complete_state()
-    {
-        //        level_number = settings::LEVEL;
-        //        block_back = nullptr;
-        //        tex_even = nullptr;
-        //        tex_uneven = nullptr;
-        //        sound_even = nullptr;
-        //        sound_uneven = nullptr;
-    }
-
-private:
-    static level_complete_state m_level_complete_state;
-
     size_t level_number;
 
     std::unique_ptr<block> block_back;
@@ -48,4 +34,16 @@ private:
     grottans::sound_buffer* sound_uneven;
 
     std::array<grottans::tri2, 2> tr; // v_buf triangles
+
+protected:
+    level_complete_state() {}
+    /*   level_number = settings::LEVEL;
+    //    block_back = nullptr;
+    //    tex_even = nullptr;
+    //    tex_uneven = nullptr;
+    //    sound_even = nullptr;
+    //    sound_uneven = nullptr; */
+
+private:
+    static level_complete_state m_level_complete_state;
 };

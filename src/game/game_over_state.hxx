@@ -35,5 +35,5 @@ private:
 
     std::unique_ptr<block> block_back;
     std::array<grottans::tri2, 2> tr; // v_buf triangles
-    grottans::sound_buffer* sound_game_over;
+    std::unique_ptr<grottans::sound_buffer> sound_game_over;
 };

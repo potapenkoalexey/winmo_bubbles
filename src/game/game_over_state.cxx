@@ -3,6 +3,8 @@
 #include "./select_mode_state.hxx"
 #include "game_over_state.hxx"
 
+#define uni_ptr_sound std::unique_ptr<grottans::sound_buffer>
+
 game_over_state game_over_state::m_game_over_state;
 
 bool game_over_state::init(grottans::engine* engine)
@@ -29,7 +31,7 @@ bool game_over_state::init(grottans::engine* engine)
     block_back->v_buf = engine->create_vertex_buffer(&tr[0], 2);
 
     ///playing sound
-    sound_game_over = engine->create_sound_buffer("./data/sounds/03_game_over");
+    sound_game_over = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/03_game_over"));
     sound_game_over->play(grottans::sound_buffer::properties::once);
 
     return EXIT_SUCCESS;

@@ -1509,6 +1509,10 @@ size_t engine_impl::get_window_height()
 ///std::vector<game_state*> states;
 void engine_impl::swap_last_two_states()
 {
+    if (std::size(states) < 2) {
+        std::cerr << "states size < 2. could not swap";
+    }
+
     // cleanup the current state
     if (!states.empty()) {
         states.back()->cleanup(this);

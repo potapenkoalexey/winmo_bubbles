@@ -2,12 +2,15 @@
 
 #include "./level_complete_state.hxx"
 
+#define uni_ptr_sound std::unique_ptr<grottans::sound_buffer>
+
 level_complete_state level_complete_state::m_level_complete_state;
 
 bool level_complete_state::init(grottans::engine* engine)
 {
     block_back = std::unique_ptr<block>(new block);
 
+    settings::LEVEL++;
     level_number = settings::LEVEL;
 
     tex_even = engine->create_texture("./data/images/my/level_even.png");
@@ -47,10 +50,10 @@ void level_complete_state::cleanup(grottans::engine*) {}
 
 void level_complete_state::pause(grottans::engine*) {}
 
-void level_complete_state::resume(grottans::engine*)
+void level_complete_state::resume(grottans::engine* engine)
 {
     level_number = settings::LEVEL;
-    if (level_number % 2) {
+    if (settings::LEVEL % 2) {
         block_back->texture = tex_even;
         sound_even->play(grottans::sound_buffer::properties::once);
     } else {
@@ -70,7 +73,6 @@ void level_complete_state::handle_events(grottans::engine* engine)
         engine->loop = false;
         break;
     }
-
     case grottans::event::start_released: {
         engine->swap_last_two_states();
         break;

@@ -96,10 +96,13 @@ void classic_state::handle_events(grottans::engine* engine)
             progress->increase_progress(delta_score, 20);
 
             if (progress->level_comlete_flag) {
-                //settings::LEVEL += 1;
-                engine->push_state(level_complete_state::instance());
+                if (settings::LEVEL > 1) {
+                    engine->swap_last_two_states();
+                } else {
+                    engine->push_state(level_complete_state::instance());
+                }
             }
-
+            std::cout << "level " << settings::LEVEL << std::endl;
             game_field->unselect_all();
         }
         break;
