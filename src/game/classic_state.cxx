@@ -3,7 +3,10 @@
 
 #include "./classic_state.hxx"
 #include "./game_over_state.hxx"
+#include "./level_complete_state.hxx"
 #include "./select_mode_state.hxx"
+
+#define uni_ptr_sound std::unique_ptr<grottans::sound_buffer>
 
 classic_state classic_state::m_classic_state;
 
@@ -21,19 +24,25 @@ bool classic_state::init(grottans::engine* engine)
     ///debagging
     ///progress->set_line_in_full();
 
+    sound_fall = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/00_falling"));
+    sound_destroy_big_form = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/02_destroy_big_form"));
+
     return EXIT_SUCCESS;
 }
 
-void classic_state::cleanup(grottans::engine*)
-{
-}
+void classic_state::cleanup(grottans::engine*) {}
 
-void classic_state::pause(grottans::engine*)
-{
-}
+void classic_state::pause(grottans::engine*) {}
 
+///////////////////////////////////////////////////////////////////////////////
+/// \brief used for new level configuration after level_comlete_state
 void classic_state::resume(grottans::engine*)
 {
+    game_field->fill_clasic();
+    game_field->selector->position.x = 5;
+    game_field->selector->position.y = 5;
+    progress->set_line_in_null();
+    progress->level_comlete_flag = false;
 }
 
 void classic_state::handle_events(grottans::engine* engine)
@@ -67,14 +76,29 @@ void classic_state::handle_events(grottans::engine* engine)
         // if block can be selected - marking them
         if (search && game_field->gems[i][j]->visible == true && game_field->gems[i][j]->color != block::palette::non) {
             game_field->gems[i][j]->selected = true;
-            std::cout << i << ' ' << j << '\n'
-                      << std::endl;
 
             game_field->select_around(i, j);
             size_t delta_score = game_field->selecting();
 
+            // sound
+            if (delta_score > 0) {
+                if (settings::SOUND) {
+                    sound_fall->play(grottans::sound_buffer::properties::once);
+                }
+            }
+            // sound destroy_big_form
+            if (delta_score > 9) {
+                if (settings::SOUND) {
+                    sound_destroy_big_form->play(grottans::sound_buffer::properties::once);
+                }
+            }
+
             progress->increase_progress(delta_score, 20);
-            //engine->push_state(game_over_state::instance());
+
+            if (progress->level_comlete_flag) {
+                //settings::LEVEL += 1;
+                engine->push_state(level_complete_state::instance());
+            }
 
             game_field->unselect_all();
         }

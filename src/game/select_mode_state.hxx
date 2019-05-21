@@ -52,5 +52,5 @@ private:
     grottans::texture* tex_back_sound_off;
     grottans::vertex_buffer* v_buf_classic;
     grottans::vertex_buffer* v_buf_extreme;
-    grottans::sound_buffer* sound_on;
+    std::unique_ptr<grottans::sound_buffer> sound_on;
 };

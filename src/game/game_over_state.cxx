@@ -13,9 +13,9 @@ bool game_over_state::init(grottans::engine* engine)
     block_back->texture = engine->create_texture("./data/images/my/game_over.png");
 
     // loading vertex_buffers from files
-    std::ifstream file("./data/vertex_buffers/vert_bufers_for_full_monitor.txt");
+    std::ifstream file("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
     if (!file) {
-        std::cerr << "can't load vert_bufers_for_full_monitor.txt\n";
+        std::cerr << "can't load vert_buffers_for_full_monitor.txt\n";
         return EXIT_FAILURE;
     } else {
         file >> tr[0] >> tr[1];

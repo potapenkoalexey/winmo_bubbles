@@ -4,6 +4,8 @@
 #include "./extreme_state.hxx"
 #include "./select_mode_state.hxx"
 
+#define uni_ptr_sound std::unique_ptr<grottans::sound_buffer>
+
 select_mode_state select_mode_state::m_select_mode_state;
 
 bool select_mode_state::init(grottans::engine* engine)
@@ -21,9 +23,9 @@ bool select_mode_state::init(grottans::engine* engine)
     /// tr0-1 - for back
     /// tr2-3 - for classic mode selecter
     /// tr4-5 - for extreme mode selecter
-    std::ifstream file("./data/vertex_buffers/vert_bufers_for_full_monitor.txt");
+    std::ifstream file("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
     if (!file) {
-        std::cerr << "can't load vert_bufers_for_full_monitor.txt\n";
+        std::cerr << "can't load vert_buffers_for_full_monitor.txt\n";
         return EXIT_FAILURE;
     } else {
         file >> tr[0] >> tr[1] >> tr[2] >> tr[3] >> tr[4] >> tr[5];
@@ -39,7 +41,8 @@ bool select_mode_state::init(grottans::engine* engine)
     v_buf_extreme = engine->create_vertex_buffer(&tr[4], 2);
     block_select->v_buf = v_buf_classic;
 
-    sound_on = engine->create_sound_buffer("./data/sounds/10_sound_on.wav");
+    sound_on = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/10_sound_on.wav"));
+    //sound_on = engine->create_sound_buffer("./data/sounds/10_sound_on.wav"); //without uni_ptr
 
     return EXIT_SUCCESS;
 }
@@ -78,10 +81,10 @@ void select_mode_state::handle_events(grottans::engine* engine)
         break;
     }
     case grottans::event::up_released: {
-        if (settings::SOUND < 0) {
-            sound_turn_on();
-        } else {
+        if (settings::SOUND) {
             sound_turn_off();
+        } else {
+            sound_turn_on();
         }
         break;
     }
@@ -121,10 +124,10 @@ void select_mode_state::handle_mouse_event(grottans::engine* engine,
 
     ///handling sound button
     if (m_y < 0.65f * h && m_y > 0.5f * h && m_x > 0.45f * w && m_x < 0.55f * w) {
-        if (settings::SOUND < 0) {
-            sound_turn_on();
-        } else {
+        if (settings::SOUND) {
             sound_turn_off();
+        } else {
+            sound_turn_on();
         }
     }
 
@@ -137,11 +140,11 @@ void select_mode_state::sound_turn_on()
 {
     sound_on->play(grottans::sound_buffer::properties::once);
     block_back->texture = tex_back_sound_on;
-    settings::SOUND = 1;
+    settings::SOUND = true;
 }
 
 void select_mode_state::sound_turn_off()
 {
     block_back->texture = tex_back_sound_off;
-    settings::SOUND = -1;
+    settings::SOUND = false;
 }

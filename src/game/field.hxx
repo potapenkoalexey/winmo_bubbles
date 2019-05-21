@@ -11,6 +11,13 @@
 
 class field {
 public:
+    enum class state {
+        fixed,
+        swaping,
+        falling,
+        shifting
+    };
+
     field();
     field(size_t width, size_t height);
 
@@ -36,6 +43,8 @@ public:
     size_t width = 0;
     size_t height = 0;
     float scale = 0;
+
+    state m_state = state::fixed;
 
     //block selector in centr of the field
     std::unique_ptr<block> selector;

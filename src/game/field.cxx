@@ -6,6 +6,7 @@ field::field()
 {
     width = settings::FIELD_WIDTH;
     height = settings::FIELD_HEIGHT;
+    m_state = state::fixed;
 }
 
 bool field::initialization(grottans::engine* engine)
