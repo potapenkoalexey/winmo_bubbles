@@ -235,6 +235,103 @@ bool field::can_select(const size_t& i, const size_t& j)
     return result; // if block can be select
 }
 
+bool field::select_around(const size_t& i, const size_t& j)
+{
+    // i - line, j - row
+    bool result = false; /// if block can be select
+
+    if (gems[i][j]->color == block::palette::black) {
+        gems[i][j]->selected = false;
+        return result;
+    }
+
+    if (gems[i][j]->color == block::palette::bomb) {
+        gems[i][j]->selected = true;
+        if (j > 0)
+            gems[i][j - 1]->selected = true;
+        if (j < 9)
+            gems[i][j + 1]->selected = true;
+        if (i > 0) {
+            gems[i - 1][j]->selected = true;
+            if (j < 9)
+                gems[i - 1][j + 1]->selected = true;
+            if (j > 0)
+                gems[i - 1][j - 1]->selected = true;
+        }
+
+        if (i < 9) {
+            gems[i + 1][j]->selected = true;
+            if (j > 0)
+                gems[i + 1][j - 1]->selected = true;
+            if (j < 9)
+                gems[i + 1][j + 1]->selected = true;
+        }
+        return true;
+    }
+
+    // gorizontal search
+    if (j < 9) { // search right
+        if (gems[i][j + 1]->color == gems[i][j]->color && gems[i][j + 1]->visible == true) {
+            result = true;
+            gems[i][j + 1]->selected = true;
+        }
+    }
+
+    if (j > 0) { // search left
+        if (gems[i][j - 1]->color == gems[i][j]->color && gems[i][j - 1]->visible == true) {
+            result = true;
+            gems[i][j - 1]->selected = true;
+        }
+    }
+    // vertical search
+    if (i < 9) { // search down
+        if (gems[i + 1][j]->color == gems[i][j]->color && gems[i + 1][j]->visible == true) {
+            result = true;
+            gems[i + 1][j]->selected = true;
+        }
+    }
+    if (i > 0) { // search up
+        if (gems[i - 1][j]->color == gems[i][j]->color && gems[i - 1][j]->visible == true) {
+            result = true;
+            gems[i - 1][j]->selected = true;
+        }
+    }
+
+    return result;
+}
+
+size_t field::selecting()
+{
+    size_t number_of_selected_blocks = 0;
+
+    for (size_t j = 0; j < 10; j++) {
+        for (size_t i = 0; i < 10; i++) {
+            if (gems[i][j]->selected) {
+                select_around(i, j);
+            }
+        }
+    }
+    // counting numberOfSelectedBlocks
+    for (size_t i = 0; i < 10; i++) {
+        for (size_t j = 0; j < 10; j++) {
+            if (gems[i][j]->selected) {
+                number_of_selected_blocks++;
+            }
+        }
+    }
+
+    return number_of_selected_blocks;
+}
+
+void field::unselect_all()
+{
+    for (size_t i = 0; i < 10; i++) {
+        for (size_t j = 0; j < 10; j++) {
+            gems[i][j]->selected = false;
+        }
+    }
+}
+
 void field::remove_selected()
 {
     //    for (size_t i = 0; i < width; i++) {

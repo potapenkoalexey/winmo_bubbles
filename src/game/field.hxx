@@ -21,6 +21,9 @@ public:
     grottans::mouse_pos get_mouse_ij(grottans::engine* engine);
 
     bool can_select(const size_t&, const size_t&);
+    bool select_around(const size_t&, const size_t&);
+    size_t selecting();
+    void unselect_all();
 
     void select();
     void remove_selected();
@@ -34,9 +37,9 @@ public:
     size_t height = 0;
     float scale = 0;
 
+    //block selector in centr of the field
     std::unique_ptr<block> selector;
 
-private:
     grottans::texture* tex_selector_clutch = nullptr;
     grottans::texture* tex_selector = nullptr;
     grottans::texture* tex_yellow = nullptr;

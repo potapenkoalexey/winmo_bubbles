@@ -46,7 +46,7 @@ void classic_state::handle_events(grottans::engine* engine)
 
         handle_mouse_event(engine);
         /// replacing event to start_pressed
-        e = grottans::event::start_pressed;
+        e = grottans::event::start_released;
     }
 
     switch (e) {
@@ -59,8 +59,25 @@ void classic_state::handle_events(grottans::engine* engine)
         break;
     }
     case grottans::event::start_released: {
-        progress->increase_progress(6, 20);
-        //engine->push_state(game_over_state::instance());
+
+        size_t i = static_cast<size_t>(game_field->selector->position.y);
+        size_t j = static_cast<size_t>(game_field->selector->position.x);
+        bool search = game_field->can_select(i, j);
+
+        // if block can be selected - marking them
+        if (search && game_field->gems[i][j]->visible == true && game_field->gems[i][j]->color != block::palette::non) {
+            game_field->gems[i][j]->selected = true;
+            std::cout << i << ' ' << j << '\n'
+                      << std::endl;
+
+            game_field->select_around(i, j);
+            size_t delta_score = game_field->selecting();
+
+            progress->increase_progress(delta_score, 20);
+            //engine->push_state(game_over_state::instance());
+
+            game_field->unselect_all();
+        }
         break;
     }
     case grottans::event::left_released: {
@@ -147,6 +164,6 @@ void classic_state::handle_mouse_event(grottans::engine* engine)
             return;
     }
 
-    game_field->selector->position.x = j;
-    game_field->selector->position.y = i;
+    game_field->selector->position.x = static_cast<float>(j);
+    game_field->selector->position.y = static_cast<float>(i);
 }
