@@ -18,6 +18,11 @@ public:
     void update(grottans::engine*);
     void draw(grottans::engine*);
 
+    void handle_mouse_event(grottans::engine* engine, grottans::event e);
+
+    void sound_turn_on();
+    void sound_turn_off();
+
     static game_state* instance()
     {
         return &m_select_mode_state;

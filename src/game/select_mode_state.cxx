@@ -65,9 +65,8 @@ void select_mode_state::handle_events(grottans::engine* engine)
         engine->loop = false;
         break;
     }
-    case grottans::event::mouse_motion: {
-        //how to skip iteration of main loop?
-        //engine->mouse_moution = true;
+    case grottans::event::mouse_released: {
+        handle_mouse_event(engine, e);
         break;
     }
     case grottans::event::left_released: {
@@ -80,12 +79,9 @@ void select_mode_state::handle_events(grottans::engine* engine)
     }
     case grottans::event::up_released: {
         if (settings::SOUND < 0) {
-            sound_on->play(grottans::sound_buffer::properties::once);
-            block_back->texture = tex_back_sound_on;
-            settings::SOUND *= -1;
+            sound_turn_on();
         } else {
-            block_back->texture = tex_back_sound_off;
-            settings::SOUND *= -1;
+            sound_turn_off();
         }
         break;
     }
@@ -111,4 +107,41 @@ void select_mode_state::draw(grottans::engine* engine)
     engine->render(*block_back->v_buf, block_back->texture, block_back->move * engine->scale);
     engine->render(*block_select->v_buf, block_select->texture, block_select->move * engine->scale);
     engine->swap_buffers();
+}
+
+void select_mode_state::handle_mouse_event(grottans::engine* engine,
+    grottans::event e)
+{
+    float w = engine->get_window_width();
+    float h = engine->get_window_height();
+    size_t m_x = engine->mouse_coord.x;
+    size_t m_y = engine->mouse_coord.y;
+    float scale_x = engine->scale.col0.x; //0.625
+    float scale_y = engine->scale.col1.y; //1
+
+    ///handling sound button
+    if (m_y < 0.65f * h && m_y > 0.5f * h && m_x > 0.45f * w && m_x < 0.55f * w) {
+        if (settings::SOUND < 0) {
+            sound_turn_on();
+        } else {
+            sound_turn_off();
+        }
+    }
+
+    ///handling classic button
+    //if (m_y < 0.9 * h && m_y > 0.67 * h && m_x > 0.45 * w && m_x < 0.55 * w) {
+    //}
+}
+
+void select_mode_state::sound_turn_on()
+{
+    sound_on->play(grottans::sound_buffer::properties::once);
+    block_back->texture = tex_back_sound_on;
+    settings::SOUND = 1;
+}
+
+void select_mode_state::sound_turn_off()
+{
+    block_back->texture = tex_back_sound_off;
+    settings::SOUND = -1;
 }

@@ -44,7 +44,7 @@ void classic_state::handle_events(grottans::engine* engine)
 
     if (e == grottans::event::mouse_released) {
 
-        update_selector_ij(engine);
+        handle_mouse_event(engine);
         /// replacing event to start_pressed
         e = grottans::event::start_pressed;
     }
@@ -109,7 +109,7 @@ void classic_state::draw(grottans::engine* engine)
     engine->swap_buffers();
 }
 
-void classic_state::update_selector_ij(grottans::engine* engine)
+void classic_state::handle_mouse_event(grottans::engine* engine)
 {
     size_t w = engine->get_window_width();
     size_t h = engine->get_window_height();
