@@ -112,27 +112,39 @@ void extreme_state::update_selector_ij(grottans::engine* engine)
 {
     size_t w = engine->get_window_width();
     size_t h = engine->get_window_height();
+    double i = 0;
+    double j = 0;
 
-    int block = h / 11;
-    //find centr of the screen
-    int centr_x = w / 2;
-    //take mouse cursor coordintes in engine
-    size_t m_x = engine->mouse_coord.x;
-    size_t m_y = engine->mouse_coord.y;
-    //find delta
-    double delta_x = m_x - static_cast<double>(centr_x);
-    //find delta in size block size
-    delta_x = delta_x / static_cast<double>(block);
+    if (w > h) {
+        int block = h / 11;
+        //find centr of the screen
+        int centr_x = w / 2;
+        //take mouse cursor coordintes in engine
+        size_t m_x = engine->mouse_coord.x;
+        size_t m_y = engine->mouse_coord.y;
+        //find delta
+        double delta_x = m_x - static_cast<double>(centr_x);
+        //find delta in size block size
+        delta_x = delta_x / static_cast<double>(block);
 
-    int j = 5 + delta_x;
+        j = 5 + delta_x;
 
-    int i = floor(m_y / static_cast<double>(h) * 11); // work !!!!!!!!!!!
-    ///blocking missclicks on progress_desk
+        i = floor(m_y / static_cast<double>(h) * 11); // work !!!!!!!!!!!
+        ///blocking missclicks on progress_desk
 
-    if (j < 0 || j > 9)
-        return;
-    if (i > 9)
-        return;
+        if (j < 0 || j > 10 || i < 0 || i > 9)
+            return;
+    } else {
+        int block = w / 11;
+        int centr_y = h / 2 - block / 2;
+        size_t m_x = engine->mouse_coord.x;
+        size_t m_y = engine->mouse_coord.y;
+        double delta_y = (m_y - static_cast<double>(centr_y)) / static_cast<double>(block);
+        j = floor(m_x / static_cast<double>(w) * 11 - 0.5);
+        i = 5 + delta_y;
+        if (j < 0 || j > 9 || i > 10 || i < 0)
+            return;
+    }
 
     game_field->selector->position.x = j;
     game_field->selector->position.y = i;
