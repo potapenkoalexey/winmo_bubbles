@@ -20,6 +20,8 @@ public:
     void render(grottans::engine* engine);
     grottans::mouse_pos get_mouse_ij(grottans::engine* engine);
 
+    bool can_select(const size_t&, const size_t&);
+
     void select();
     void remove_selected();
     void move_falling();

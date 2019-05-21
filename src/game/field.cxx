@@ -191,6 +191,50 @@ void field::render(grottans::engine* engine)
     }
 }
 
+bool field::can_select(const size_t& i, const size_t& j)
+{
+    // i - line, j - row
+    bool result = false; // if search find nothing
+
+    // if block is black of unvisible - return false
+    if (gems[i][j]->color == block::palette::black && gems[i][j]->color == block::palette::non)
+        return result;
+    if (gems[i][j]->visible == false)
+        return result;
+
+    // gorizontal search
+    if (j < 9) { // search right
+        if (gems[i][j + 1]->color != block::palette::black || gems[i][j + 1]->color != block::palette::bomb) {
+            if (gems[i][j + 1]->color == gems[i][j]->color && gems[i][j + 1]->visible == true) {
+                result = true;
+            }
+        }
+    }
+    if (j > 0) { // search left
+        if (gems[i][j - 1]->color != block::palette::black || gems[i][j - 1]->color != block::palette::bomb) {
+            if (gems[i][j - 1]->color == gems[i][j]->color && gems[i][j - 1]->visible == true) {
+                result = true;
+            }
+        }
+    }
+    // vertical search
+    if (i < 9) { // search down
+        if (gems[i + 1][j]->color != block::palette::black || gems[i + 1][j]->color != block::palette::bomb) {
+            if (gems[i + 1][j]->color == gems[i][j]->color && gems[i + 1][j]->visible == true) {
+                result = true;
+            }
+        }
+    }
+    if (i > 0) { // search up
+        if (gems[i - 1][j]->color != block::palette::black || gems[i - 1][j]->color != block::palette::bomb) {
+            if (gems[i - 1][j]->color == gems[i][j]->color && gems[i - 1][j]->visible == true) {
+                result = true;
+            }
+        }
+    }
+    return result; // if block can be select
+}
+
 void field::remove_selected()
 {
     //    for (size_t i = 0; i < width; i++) {

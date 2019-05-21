@@ -5,6 +5,7 @@
 struct block {
 
     enum class palette {
+        non,
         red,
         blue,
         bomb,
