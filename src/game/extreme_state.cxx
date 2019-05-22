@@ -28,6 +28,7 @@ void extreme_state::pause(grottans::engine*) {}
 
 void extreme_state::resume(grottans::engine*)
 {
+    game_field->undisappearing_all();
     game_field->fill_extreme();
 
     game_field->selector->position.x = 5;
@@ -35,6 +36,9 @@ void extreme_state::resume(grottans::engine*)
 
     progress->set_line_in_null();
     progress->level_complete_flag = false;
+
+    g_LEVEL = 1;
+    g_SCORE = 0;
 }
 
 void extreme_state::handle_events(grottans::engine* engine)

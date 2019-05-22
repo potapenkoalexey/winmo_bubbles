@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../../src/engine/engine.hxx"
+#include "./global_variables.hxx"
 
 struct block {
 
@@ -38,14 +39,14 @@ struct block {
     ///for animation
     float fps = 60.f;
     float current_time = 0.f;
+    std::array<grottans::tri2, 2> tr_disappear;
 
     float get_fps() const { return fps; }
     void set_fps(float fps_value) { fps = fps_value; }
     void restart() { current_time = 0.f; }
-    void set_uv_coord(
-        grottans::engine& e,
+    void update_uv_coord(
         const std::array<grottans::tri2, 32>& arr_v_buf, //field::v_buf_disappear
-        const float& delta_time);
+        const milli_sec& delta_time);
 
     void get_random_color_from_5();
     void get_random_color_from_6();

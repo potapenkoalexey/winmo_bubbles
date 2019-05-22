@@ -39,11 +39,14 @@ void classic_state::pause(grottans::engine*) {}
 /// \brief used for new level configuration after level_comlete_state
 void classic_state::resume(grottans::engine*)
 {
+    game_field->undisappearing_all();
     game_field->fill_clasic();
     game_field->selector->position.x = 5;
     game_field->selector->position.y = 5;
     progress->set_line_in_null();
     progress->level_complete_flag = false;
+    g_LEVEL = 1;
+    g_SCORE = 0;
 }
 
 void classic_state::handle_events(grottans::engine* engine)

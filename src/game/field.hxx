@@ -1,12 +1,11 @@
 #pragma once
 
-//#include <array>
 #include <iostream>
 #include <memory>
-//#include <vector>
 
 #include "../../src/engine/engine.hxx"
 #include "./block.hxx"
+#include "./global_variables.hxx"
 
 class field {
 public:
@@ -30,8 +29,8 @@ public:
     bool select_around(const size_t&, const size_t&);
     size_t selecting();
     void unselect_all();
+    void undisappearing_all();
 
-    void select();
     void remove_selected();
     void move_falling();
     void shift_in_left();
@@ -66,9 +65,9 @@ public:
     //render tmp
     std::array<grottans::tri2, 2> v_buf_tmp;
 
-    //std::map<position, std::unique_ptr<block> > gems;
+    /*std::map<position, std::unique_ptr<block> > gems;
     //std::vector<std::vector<std::unique_ptr<block> > > gems;
     //std::unique_ptr<block> gems = std::unique_ptr<block>(new block[width * height]);
-    //std::unique_ptr<block>** gems;  [10][10];
+    //std::unique_ptr<block>** gems;  [10][10];  */
     std::unique_ptr<block> gems[10][10];
 };

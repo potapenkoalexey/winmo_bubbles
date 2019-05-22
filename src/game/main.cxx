@@ -40,7 +40,7 @@ int main(int /*argc*/, char** /*argv*/)
         engine->current_state->update(engine);
         engine->current_state->draw(engine);
 
-        milli_sec frame_delta = std::chrono::duration_cast<milli_sec>(end_last_frame - start);
+        frame_delta = std::chrono::duration_cast<milli_sec>(end_last_frame - start);
         if (frame_delta.count() < 15) {
             std::this_thread::yield();
         }

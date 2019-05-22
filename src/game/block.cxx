@@ -1,7 +1,6 @@
 #include <random>
 
 #include "./block.hxx"
-#include "./global_variables.hxx"
 
 void block::get_random_color_from_5()
 {
@@ -59,17 +58,15 @@ void block::get_random_color_from_7()
     color = colors[index];
 }
 
-void block::set_uv_coord(
-    grottans::engine& e,
+void block::update_uv_coord(
     const std::array<grottans::tri2, 32>& arr_v_buf,
-    const float& delta_time)
+    const milli_sec& delta_time)
 {
     if (state != state::disappearing) {
-        std::cerr << "try to disappearing fixed block";
         return;
     }
 
-    current_time += delta_time;
+    current_time += delta_time.count() / 1000.f;
 
     float one_frame_delta = 1.f / fps;
 
@@ -77,12 +74,13 @@ void block::set_uv_coord(
 
     size_t current_frame_index = how_may_frames_from_start % FRAME_OF_DISAPPEARING;
 
-    // ПРИСВОИТЬ НУЖНЫЕ ТРЕУГОЛЬНИКИ ДЛЯ ИСЧЕЗАНИЯ ИЗ МАССИВА 32 треуголов (есть в филде)
+    ///assign UV-triangles of disappearing texture
+    tr_disappear[0] = arr_v_buf[current_frame_index * 2];
+    tr_disappear[1] = arr_v_buf[current_frame_index * 2 + 1];
 
-    //так поле рисует треугольники
-    //    v_buf_tmp[0] = v_buf_grid[(i * 10 + j) * 2] + v_buf_disappear[30];
-    //    v_buf_tmp[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + v_buf_disappear[31];
-    //    gems[i][j]->v_buf = engine->create_vertex_buffer(&v_buf_tmp[0], 2);
-    //    engine->render(*gems[i][j]->v_buf, gems[i][j]->texture, gems[i][j]->aspect * scale);
-    //    engine->destroy_vertex_buffer(gems[i][j]->v_buf);
+    if (current_frame_index == 15) {
+        tr_disappear[0] = arr_v_buf[2];
+        tr_disappear[1] = arr_v_buf[3];
+        state = state::fixed;
+    }
 }

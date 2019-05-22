@@ -1,6 +1,9 @@
 #pragma once
 
+#include <chrono>
 #include <cstddef>
+
+using milli_sec = std::chrono::milliseconds;
 
 enum class MODE {
     non,
@@ -21,3 +24,6 @@ extern size_t g_FIELD_WIDTH;
 extern size_t g_FIELD_HEIGHT;
 
 extern size_t FRAME_OF_DISAPPEARING;
+
+extern milli_sec frame_delta;
+extern std::chrono::duration<float> frame;
