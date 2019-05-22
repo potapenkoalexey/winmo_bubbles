@@ -6,7 +6,6 @@
 #include "./global_variables.hxx"
 #include "./level_complete_state.hxx"
 #include "./select_mode_state.hxx"
-#include "./settings.hxx"
 
 #define uni_ptr_sound std::unique_ptr<grottans::sound_buffer>
 
@@ -83,11 +82,11 @@ void classic_state::handle_events(grottans::engine* engine)
             size_t delta_score = game_field->selecting();
 
             // sound
-            if (delta_score > 0 && settings::SOUND) {
+            if (delta_score > 0 && g_SOUND) {
                 sound_fall->play(grottans::sound_buffer::properties::once);
             }
             // sound destroy_big_form
-            if (delta_score > 9 && settings::SOUND) {
+            if (delta_score > 9 && g_SOUND) {
                 sound_destroy_big_form->play(grottans::sound_buffer::properties::once);
             }
 
@@ -96,12 +95,12 @@ void classic_state::handle_events(grottans::engine* engine)
             game_field->unselect_all();
 
             if (progress->level_complete_flag) {
-                if (LEVEL == 1) {
+                if (g_LEVEL == 1) {
                     engine->push_state(level_complete_state::instance());
                 } else {
                     engine->swap_last_two_states();
                 }
-                LEVEL++;
+                g_LEVEL++;
             }
         }
         break;

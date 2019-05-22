@@ -2,7 +2,6 @@
 
 #include "./global_variables.hxx"
 #include "./progress_desk.hxx"
-#include "./settings.hxx"
 
 bool progress_desk::init(grottans::engine* engine)
 {

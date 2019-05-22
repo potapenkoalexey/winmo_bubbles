@@ -2,6 +2,7 @@
 
 #include "./classic_state.hxx"
 #include "./extreme_state.hxx"
+#include "./global_variables.hxx"
 #include "./select_mode_state.hxx"
 
 #define uni_ptr_sound std::unique_ptr<grottans::sound_buffer>
@@ -81,7 +82,7 @@ void select_mode_state::handle_events(grottans::engine* engine)
         break;
     }
     case grottans::event::up_released: {
-        if (settings::SOUND) {
+        if (g_SOUND) {
             sound_turn_off();
         } else {
             sound_turn_on();
@@ -125,7 +126,7 @@ void select_mode_state::handle_mouse_event(
 
     ///handling sound button
     if (m_y < 0.65f * h && m_y > 0.5f * h && m_x > 0.45f * w && m_x < 0.55f * w) {
-        if (settings::SOUND) {
+        if (g_SOUND) {
             sound_turn_off();
         } else {
             sound_turn_on();
@@ -141,11 +142,11 @@ void select_mode_state::sound_turn_on()
 {
     sound_on->play(grottans::sound_buffer::properties::once);
     block_back->texture = tex_back_sound_on;
-    settings::SOUND = true;
+    g_SOUND = true;
 }
 
 void select_mode_state::sound_turn_off()
 {
     block_back->texture = tex_back_sound_off;
-    settings::SOUND = false;
+    g_SOUND = false;
 }

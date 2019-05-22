@@ -31,7 +31,6 @@ add_executable(${PROJECT_NAME}
         src/game/level_complete_state.cxx
         src/game/game_over_state.hxx
         src/game/game_over_state.cxx
-        src/game/settings.hxx
         src/game/global_variables.hxx
         src/game/global_variables.cxx
 )

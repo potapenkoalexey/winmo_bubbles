@@ -6,7 +6,6 @@
 #include "./block.hxx"
 #include "./field.hxx"
 #include "./progress_desk.hxx"
-#include "./settings.hxx"
 
 class extreme_state : public grottans::game_state {
 public:

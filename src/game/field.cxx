@@ -1,18 +1,19 @@
 #include <fstream>
 
 #include "./field.hxx"
+#include "./global_variables.hxx"
 
 field::field()
 {
-    width = settings::FIELD_WIDTH;
-    height = settings::FIELD_HEIGHT;
+    width = g_FIELD_WIDTH;
+    height = g_FIELD_HEIGHT;
     m_state = state::fixed;
 }
 
 bool field::initialization(grottans::engine* engine)
 {
-    width = settings::FIELD_WIDTH;
-    height = settings::FIELD_HEIGHT;
+    width = g_FIELD_WIDTH;
+    height = g_FIELD_HEIGHT;
 
     tex_selector_clutch = engine->create_texture("./data/images/my/selector_clutch.png");
     tex_selector = engine->create_texture("./data/images/my/selector.png");

@@ -4,7 +4,6 @@
 
 #include "../../src/engine/engine.hxx"
 #include "./block.hxx"
-#include "./settings.hxx"
 
 class select_mode_state : public grottans::game_state {
 public:
