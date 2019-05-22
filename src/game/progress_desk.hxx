@@ -8,7 +8,7 @@
 
 class progress_desk {
 public:
-    bool level_comlete_flag = false;
+    bool level_complete_flag = false;
 
     bool init(grottans::engine* engine);
     void draw(grottans::engine* engine);

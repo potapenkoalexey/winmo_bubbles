@@ -3,8 +3,10 @@
 
 #include "./classic_state.hxx"
 #include "./game_over_state.hxx"
+#include "./global_variables.hxx"
 #include "./level_complete_state.hxx"
 #include "./select_mode_state.hxx"
+#include "./settings.hxx"
 
 #define uni_ptr_sound std::unique_ptr<grottans::sound_buffer>
 
@@ -42,7 +44,7 @@ void classic_state::resume(grottans::engine*)
     game_field->selector->position.x = 5;
     game_field->selector->position.y = 5;
     progress->set_line_in_null();
-    progress->level_comlete_flag = false;
+    progress->level_complete_flag = false;
 }
 
 void classic_state::handle_events(grottans::engine* engine)
@@ -81,29 +83,26 @@ void classic_state::handle_events(grottans::engine* engine)
             size_t delta_score = game_field->selecting();
 
             // sound
-            if (delta_score > 0) {
-                if (settings::SOUND) {
-                    sound_fall->play(grottans::sound_buffer::properties::once);
-                }
+            if (delta_score > 0 && settings::SOUND) {
+                sound_fall->play(grottans::sound_buffer::properties::once);
             }
             // sound destroy_big_form
-            if (delta_score > 9) {
-                if (settings::SOUND) {
-                    sound_destroy_big_form->play(grottans::sound_buffer::properties::once);
-                }
+            if (delta_score > 9 && settings::SOUND) {
+                sound_destroy_big_form->play(grottans::sound_buffer::properties::once);
             }
 
             progress->increase_progress(delta_score, 20);
 
-            if (progress->level_comlete_flag) {
-                if (settings::LEVEL > 1) {
-                    engine->swap_last_two_states();
-                } else {
-                    engine->push_state(level_complete_state::instance());
-                }
-            }
-            std::cout << "level " << settings::LEVEL << std::endl;
             game_field->unselect_all();
+
+            if (progress->level_complete_flag) {
+                if (LEVEL == 1) {
+                    engine->push_state(level_complete_state::instance());
+                } else {
+                    engine->swap_last_two_states();
+                }
+                LEVEL++;
+            }
         }
         break;
     }

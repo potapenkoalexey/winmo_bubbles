@@ -114,7 +114,7 @@ void select_mode_state::draw(grottans::engine* engine)
 
 void select_mode_state::handle_mouse_event(
     grottans::engine* engine,
-    grottans::event e)
+    grottans::event& e)
 {
     float w = engine->get_window_width();
     float h = engine->get_window_height();

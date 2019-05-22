@@ -1,21 +1,3 @@
-#include "./engine.hxx"
-#include "../../src/picopng/picopng.hxx"
-#include "./sound_buffer.hxx"
-
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_opengl.h>
-#include <SDL2/SDL_opengl_glext.h>
-#include <SDL2/SDL_ttf.h>
-
-#define STB_IMAGE_IMPLEMENTATION
-#pragma GCC diagnostic push
-
-// turn off the specific warning. Can also use "-Wall"
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-#include "../../src/stbimage/stb_image.h"
-#pragma GCC diagnostic pop
-
 #include <algorithm>
 #include <array>
 #include <cassert>
@@ -32,9 +14,25 @@
 #include <tuple>
 #include <vector>
 
-//extern size_t WIDTH;
-//extern size_t HEIGHT;
-//extern size_t BLOCK;
+#include "../../src/picopng/picopng.hxx"
+#include "./engine.hxx"
+#include "./sound_buffer.hxx"
+
+#include "../../src/game/settings.hxx"
+
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_opengl.h>
+#include <SDL2/SDL_opengl_glext.h>
+#include <SDL2/SDL_ttf.h>
+
+#define STB_IMAGE_IMPLEMENTATION
+#pragma GCC diagnostic push
+
+// turn off the specific warning. Can also use "-Wall"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#include "../../src/stbimage/stb_image.h"
+#pragma GCC diagnostic pop
 
 static PFNGLCREATESHADERPROC glCreateShader = nullptr;
 static PFNGLSHADERSOURCEPROC glShaderSource = nullptr;

@@ -22,7 +22,7 @@ int main(int /*argc*/, char** /*argv*/)
     engine->disable_mouse_moution_event();
 
     ///loading intro state
-    engine->change_state(select_mode_state::instance());
+    engine->push_state(select_mode_state::instance());
 
     ///main loop
     while (engine->loop) {

@@ -1,6 +1,8 @@
 #include <fstream>
 
+#include "./global_variables.hxx"
 #include "./level_complete_state.hxx"
+#include "./settings.hxx"
 
 #define uni_ptr_sound std::unique_ptr<grottans::sound_buffer>
 
@@ -10,8 +12,7 @@ bool level_complete_state::init(grottans::engine* engine)
 {
     block_back = std::unique_ptr<block>(new block);
 
-    settings::LEVEL++;
-    level_number = settings::LEVEL;
+    level_number = LEVEL;
 
     tex_even = engine->create_texture("./data/images/my/level_even.png");
     tex_uneven = engine->create_texture("./data/images/my/level_uneven.png");
@@ -36,7 +37,7 @@ bool level_complete_state::init(grottans::engine* engine)
     sound_even = engine->create_sound_buffer("./data/sounds/07_level_even");
     sound_uneven = engine->create_sound_buffer("./data/sounds/04_level_uneven");
 
-    if (settings::LEVEL % 2) {
+    if (LEVEL % 2) {
         block_back->texture = tex_even;
         sound_even->play(grottans::sound_buffer::properties::once);
     } else {
@@ -52,8 +53,11 @@ void level_complete_state::pause(grottans::engine*) {}
 
 void level_complete_state::resume(grottans::engine* engine)
 {
-    level_number = settings::LEVEL;
-    if (settings::LEVEL % 2) {
+    //settings::LEVEL++;
+    level_number = LEVEL;
+    std::cout << "level " << LEVEL << std::endl;
+
+    if (LEVEL % 2) {
         block_back->texture = tex_even;
         sound_even->play(grottans::sound_buffer::properties::once);
     } else {

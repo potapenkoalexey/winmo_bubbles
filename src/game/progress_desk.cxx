@@ -1,5 +1,6 @@
 #include <fstream>
 
+#include "./global_variables.hxx"
 #include "./progress_desk.hxx"
 #include "./settings.hxx"
 
@@ -75,7 +76,7 @@ void progress_desk::increase_progress(size_t points, size_t points_to_level_)
     /// if overflow - set maximum
     if (tr[3].v[1].pos.x >= tr[5].v[1].pos.x) {
         set_line_in_full();
-        level_comlete_flag = true;
-        //settings::LEVEL++; //work without this (why?????)
+        level_complete_flag = true;
+        //LEVEL++; //work without this (why?????)
     }
 }
