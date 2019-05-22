@@ -11,3 +11,5 @@ size_t g_SCORE = 0;
 size_t g_FIELD_WIDTH = 10;
 
 size_t g_FIELD_HEIGHT = 10;
+
+size_t FRAME_OF_DISAPPEARING = 16;

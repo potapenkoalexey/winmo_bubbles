@@ -40,8 +40,8 @@ bool field::initialization(grottans::engine* engine)
 
     //creating 16 pairs uv-triangles
     for (size_t i = 0; i < 32; i += 2) {
-        v_buf_fall[i] = tr[0];
-        v_buf_fall[i + 1] = tr[1];
+        v_buf_disappear[i] = tr[0];
+        v_buf_disappear[i + 1] = tr[1];
 
         tr[0].v[0].uv.y -= 0.0625f;
         tr[0].v[1].uv.y -= 0.0625f;
@@ -171,22 +171,23 @@ void field::fill_extreme()
 
 void field::render(grottans::engine* engine)
 {
+    ///drawing blocks
     grottans::mat2x3 scale = engine->scale;
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            v_buf_tmp[0] = v_buf_grid[(i * 10 + j) * 2] + v_buf_fall[30];
-            v_buf_tmp[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + v_buf_fall[31];
+            v_buf_tmp[0] = v_buf_grid[(i * 10 + j) * 2] + v_buf_disappear[30];
+            v_buf_tmp[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + v_buf_disappear[31];
             gems[i][j]->v_buf = engine->create_vertex_buffer(&v_buf_tmp[0], 2);
             engine->render(*gems[i][j]->v_buf, gems[i][j]->texture, gems[i][j]->aspect * scale);
             engine->destroy_vertex_buffer(gems[i][j]->v_buf);
         }
     }
-    {
-        ///drawing selector
+
+    { ///drawing selector
         size_t j = selector->position.x;
         size_t i = selector->position.y;
-        v_buf_tmp[0] = v_buf_grid[(i * 10 + j) * 2] + v_buf_fall[30];
-        v_buf_tmp[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + v_buf_fall[31];
+        v_buf_tmp[0] = v_buf_grid[(i * 10 + j) * 2] + v_buf_disappear[30];
+        v_buf_tmp[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + v_buf_disappear[31];
         selector->v_buf = engine->create_vertex_buffer(&v_buf_tmp[0], 2);
         engine->render(*selector->v_buf, selector->texture, selector->aspect * scale);
         engine->destroy_vertex_buffer(selector->v_buf);

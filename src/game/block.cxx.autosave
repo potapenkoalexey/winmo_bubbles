@@ -78,7 +78,9 @@ void block::set_uv_coord(
     size_t current_frame_index = how_may_frames_from_start % FRAME_OF_DISAPPEARING;
 
     // ПРИСВОИТЬ НУЖНЫЕ ТРЕУГОЛЬНИКИ ДЛЯ ИСЧЕЗАНИЯ ИЗ МАССИВА 32 треуголов (есть в филде)
-
+    
+    
+    
     //так поле рисует треугольники
     //    v_buf_tmp[0] = v_buf_grid[(i * 10 + j) * 2] + v_buf_disappear[30];
     //    v_buf_tmp[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + v_buf_disappear[31];

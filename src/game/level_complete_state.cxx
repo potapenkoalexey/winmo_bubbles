@@ -49,10 +49,14 @@ void level_complete_state::resume(grottans::engine* engine)
 
     if (level_number % 2) {
         block_back->texture = tex_even;
-        sound_even->play(grottans::sound_buffer::properties::once);
+        if (g_SOUND) {
+            sound_even->play(grottans::sound_buffer::properties::once);
+        }
     } else {
         block_back->texture = tex_uneven;
-        sound_uneven->play(grottans::sound_buffer::properties::once);
+        if (g_SOUND) {
+            sound_uneven->play(grottans::sound_buffer::properties::once);
+        }
     }
 }
 

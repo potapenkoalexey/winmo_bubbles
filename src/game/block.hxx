@@ -26,24 +26,28 @@ struct block {
     palette color = palette::black;
     state state = state::fixed;
 
-    grottans::vec2 position{};
-    //grottans::palette color = grottans::palette::non;
     bool selected = false;
     bool visible = true;
     bool motion = false;
+    grottans::vec2 position{ 0, 0 };
     grottans::mat2x3 move{};
     grottans::mat2x3 aspect = grottans::mat2x3::scale(1.f, 1.f);
     grottans::texture* texture = nullptr;
     grottans::vertex_buffer* v_buf = nullptr;
 
+    ///for animation
+    float fps = 60.f;
+    float current_time = 0.f;
+
+    float get_fps() const { return fps; }
+    void set_fps(float fps_value) { fps = fps_value; }
+    void restart() { current_time = 0.f; }
+    void set_uv_coord(
+        grottans::engine& e,
+        const std::array<grottans::tri2, 32>& arr_v_buf, //field::v_buf_disappear
+        const float& delta_time);
+
     void get_random_color_from_5();
     void get_random_color_from_6();
     void get_random_color_from_7();
-
-    size_t x0; // botton bound (include)
-    size_t x1; // upper bound
-    size_t y0; // left bound (include)
-    size_t y1; // right bound
-    void set_mouse_rectangle(size_t x0_, size_t x1_, size_t y0_, size_t y1_);
-    bool is_mouse_pressed(size_t x, size_t y);
 };

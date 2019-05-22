@@ -19,3 +19,5 @@ extern size_t g_SCORE;
 extern size_t g_FIELD_WIDTH;
 
 extern size_t g_FIELD_HEIGHT;
+
+extern size_t FRAME_OF_DISAPPEARING;

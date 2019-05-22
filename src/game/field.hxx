@@ -62,7 +62,7 @@ public:
     //xy-triangles for all field positions
     std::array<grottans::tri2, 200> v_buf_grid;
     //uv-triangles for disapearring animation
-    std::array<grottans::tri2, 32> v_buf_fall;
+    std::array<grottans::tri2, 32> v_buf_disappear;
     //render tmp
     std::array<grottans::tri2, 2> v_buf_tmp;
 

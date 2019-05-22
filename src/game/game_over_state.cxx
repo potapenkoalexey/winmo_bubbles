@@ -1,7 +1,8 @@
 #include <fstream>
 
+#include "./game_over_state.hxx"
+#include "./global_variables.hxx"
 #include "./select_mode_state.hxx"
-#include "game_over_state.hxx"
 
 #define uni_ptr_sound std::unique_ptr<grottans::sound_buffer>
 
@@ -46,7 +47,9 @@ void game_over_state::pause(grottans::engine*)
 
 void game_over_state::resume(grottans::engine*)
 {
-    sound_game_over->play(grottans::sound_buffer::properties::once);
+    if (g_SOUND) {
+        sound_game_over->play(grottans::sound_buffer::properties::once);
+    }
 }
 
 void game_over_state::handle_events(grottans::engine* engine)
