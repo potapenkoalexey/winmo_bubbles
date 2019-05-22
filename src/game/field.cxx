@@ -39,7 +39,7 @@ bool field::initialization(grottans::engine* engine)
     file_falling.close();
 
     //creating 16 pairs uv-triangles
-    for (size_t i = 31; i > 1; i -= 2) {
+    for (int i = 31; i >= 1; i -= 2) {
         v_buf_disappear[i] = tr[1];
         v_buf_disappear[i - 1] = tr[0];
 
@@ -87,16 +87,16 @@ bool field::initialization(grottans::engine* engine)
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
             gems[i][j] = std::unique_ptr<block>(new block);
-            gems[i][j]->tr_disappear[0] = v_buf_disappear[2];
-            gems[i][j]->tr_disappear[1] = v_buf_disappear[3];
+            gems[i][j]->tr_disappear[0] = v_buf_disappear[0];
+            gems[i][j]->tr_disappear[1] = v_buf_disappear[1];
         }
     }
 
     selector = std::unique_ptr<block>(new block);
     selector->texture = tex_selector;
     selector->position = { 5.f, 5.f };
-    selector->tr_disappear[0] = v_buf_disappear[2];
-    selector->tr_disappear[1] = v_buf_disappear[3];
+    selector->tr_disappear[0] = v_buf_disappear[0];
+    selector->tr_disappear[1] = v_buf_disappear[1];
 
     return EXIT_SUCCESS;
 }
@@ -171,8 +171,8 @@ void field::fill_extreme()
 
 void field::render(grottans::engine* engine)
 {
-    ///drawing blocks
     grottans::mat2x3 scale = engine->scale;
+    ///drawing blocks
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
             //update uv-triangles for disappeating blocks
@@ -191,12 +191,11 @@ void field::render(grottans::engine* engine)
             engine->destroy_vertex_buffer(gems[i][j]->v_buf);
         }
     }
-
     ///drawing selector
-    size_t j = selector->position.x;
-    size_t i = selector->position.y;
-    v_buf_tmp[0] = v_buf_grid[(i * 10 + j) * 2] + v_buf_disappear[0];
-    v_buf_tmp[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + v_buf_disappear[1];
+    size_t j = static_cast<size_t>(selector->position.x);
+    size_t i = static_cast<size_t>(selector->position.y);
+    v_buf_tmp[0] = v_buf_grid[(i * 10 + j) * 2] + selector->tr_disappear[0]; //v_buf_disappear[0];
+    v_buf_tmp[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + selector->tr_disappear[1]; //v_buf_disappear[1];
     selector->v_buf = engine->create_vertex_buffer(&v_buf_tmp[0], 2);
     engine->render(*selector->v_buf, selector->texture, selector->aspect * scale);
     engine->destroy_vertex_buffer(selector->v_buf);

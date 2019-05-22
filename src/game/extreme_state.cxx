@@ -36,9 +36,6 @@ void extreme_state::resume(grottans::engine*)
 
     progress->set_line_in_null();
     progress->level_complete_flag = false;
-
-    g_LEVEL = 1;
-    g_SCORE = 0;
 }
 
 void extreme_state::handle_events(grottans::engine* engine)
@@ -62,6 +59,8 @@ void extreme_state::handle_events(grottans::engine* engine)
     case grottans::event::escape_released: {
         ///go to select_mode_state
         engine->switch_to_state(engine->states[0]);
+        g_LEVEL = 1;
+        g_SCORE = 0;
         break;
     }
     case grottans::event::start_released: {
