@@ -32,7 +32,6 @@ bool game_over_state::init(grottans::engine* engine)
 
     ///playing sound
     sound_game_over = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/03_game_over"));
-    sound_game_over->play(grottans::sound_buffer::properties::once);
 
     return EXIT_SUCCESS;
 }
@@ -47,6 +46,7 @@ void game_over_state::pause(grottans::engine*)
 
 void game_over_state::resume(grottans::engine*)
 {
+    sound_game_over->play(grottans::sound_buffer::properties::once);
 }
 
 void game_over_state::handle_events(grottans::engine* engine)
@@ -60,15 +60,14 @@ void game_over_state::handle_events(grottans::engine* engine)
         engine->loop = false;
         break;
     }
-    case grottans::event::mouse_motion: {
-        //how to skip this iteration (render) of main loop?
+    case grottans::event::mouse_released: {
+        ///go to select_mode_state
+        engine->switch_to_state(engine->states[0]);
         break;
     }
     case grottans::event::start_released: {
-        while (engine->states.size()) {
-            engine->pop_state();
-        }
-        engine->push_state(select_mode_state::instance());
+        ///go to select_mode_state
+        engine->switch_to_state(engine->states[0]);
         break;
     }
     }

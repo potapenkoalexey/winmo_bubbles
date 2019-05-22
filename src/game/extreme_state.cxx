@@ -56,12 +56,13 @@ void extreme_state::handle_events(grottans::engine* engine)
         break;
     }
     case grottans::event::escape_released: {
-        engine->clear_states();
-        engine->push_state(select_mode_state::instance());
+        ///go to select_mode_state
+        engine->switch_to_state(engine->states[0]);
         break;
     }
     case grottans::event::start_released: {
-        //engine->push_state(game_over_state::instance());
+        ///go to game_over_mode DEBUG
+        engine->switch_to_state(engine->states[4]);
         break;
     }
     case grottans::event::left_released: {

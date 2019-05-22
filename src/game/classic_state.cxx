@@ -65,8 +65,8 @@ void classic_state::handle_events(grottans::engine* engine)
         break;
     }
     case grottans::event::escape_released: {
-        //engine->clear_states();
-        engine->push_state(engine->states[0]);
+        ///go to select_mode_state
+        engine->switch_to_state(engine->states[0]);
         break;
     }
     case grottans::event::start_released: {
@@ -75,7 +75,7 @@ void classic_state::handle_events(grottans::engine* engine)
         size_t j = static_cast<size_t>(game_field->selector->position.x);
         bool search = game_field->can_select(i, j);
 
-        // if block can be selected - marking them
+        /// if block can be selected - marking them
         if (search && game_field->gems[i][j]->visible == true && game_field->gems[i][j]->color != block::palette::non) {
             game_field->gems[i][j]->selected = true;
 
@@ -96,11 +96,8 @@ void classic_state::handle_events(grottans::engine* engine)
             game_field->unselect_all();
 
             if (progress->level_complete_flag) {
-                if (g_LEVEL == 1) {
-                    engine->push_state(level_complete_state::instance());
-                } else {
-                    engine->swap_last_two_states();
-                }
+                ///go to level_complete_mode
+                engine->switch_to_state(engine->states[3]);
                 g_LEVEL++;
             }
         }

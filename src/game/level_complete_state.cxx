@@ -36,13 +36,6 @@ bool level_complete_state::init(grottans::engine* engine)
     sound_even = engine->create_sound_buffer("./data/sounds/07_level_even");
     sound_uneven = engine->create_sound_buffer("./data/sounds/04_level_uneven");
 
-    if (g_LEVEL % 2) {
-        block_back->texture = tex_even;
-        sound_even->play(grottans::sound_buffer::properties::once);
-    } else {
-        block_back->texture = tex_uneven;
-        sound_uneven->play(grottans::sound_buffer::properties::once);
-    }
     return EXIT_SUCCESS;
 }
 
@@ -75,8 +68,14 @@ void level_complete_state::handle_events(grottans::engine* engine)
         break;
     }
     case grottans::event::start_released: {
-        engine->swap_last_two_states();
-        break;
+        if (g_MODE == MODE::classic) {
+            ///go to classic_mode new level
+            engine->switch_to_state(engine->states[1]);
+        } else {
+            ///go to extreme_mode new level
+            engine->switch_to_state(engine->states[2]);
+            break;
+        }
     }
     }
 }

@@ -48,17 +48,11 @@ bool select_mode_state::init(grottans::engine* engine)
     return EXIT_SUCCESS;
 }
 
-void select_mode_state::cleanup(grottans::engine*)
-{
-}
+void select_mode_state::cleanup(grottans::engine*) {}
 
-void select_mode_state::pause(grottans::engine*)
-{
-}
+void select_mode_state::pause(grottans::engine*) {}
 
-void select_mode_state::resume(grottans::engine*)
-{
-}
+void select_mode_state::resume(grottans::engine*) {}
 
 void select_mode_state::handle_events(grottans::engine* engine)
 {
@@ -75,10 +69,12 @@ void select_mode_state::handle_events(grottans::engine* engine)
     }
     case grottans::event::left_released: {
         block_select->v_buf = v_buf_classic;
+        g_MODE = MODE::classic;
         break;
     }
     case grottans::event::right_released: {
         block_select->v_buf = v_buf_extreme;
+        g_MODE = MODE::extreme;
         break;
     }
     case grottans::event::up_released: {
@@ -91,10 +87,10 @@ void select_mode_state::handle_events(grottans::engine* engine)
     }
     case grottans::event::start_released: {
         if (block_select->v_buf == v_buf_classic) {
-            engine->push_state(classic_state::instance());
+            engine->switch_to_state(engine->states[1]);
         }
         if (block_select->v_buf == v_buf_extreme) {
-            engine->push_state(extreme_state::instance());
+            engine->switch_to_state(engine->states[2]);
         }
 
         break;

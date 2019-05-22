@@ -200,6 +200,7 @@ public:
     virtual void disable_mouse_moution_event() = 0;
     virtual void enable_mouse_moution_event() = 0;
 
+    virtual void switch_to_state(game_state*) = 0;
     virtual void clear_states() = 0;
     virtual void swap_last_two_states() = 0;
     virtual void change_state(game_state*) = 0;
@@ -235,6 +236,7 @@ public:
     mouse_pos mouse_coord;
 
     std::vector<game_state*> states;
+    game_state* current_state;
 
     bool loop;
 };
