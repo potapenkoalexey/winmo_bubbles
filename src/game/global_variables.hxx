@@ -2,6 +2,14 @@
 
 #include <cstddef>
 
+enum class MODE {
+    non,
+    extreme,
+    classic
+};
+
+extern MODE g_MODE;
+
 extern size_t g_LEVEL;
 
 extern bool g_SOUND;

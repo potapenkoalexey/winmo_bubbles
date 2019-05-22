@@ -1,5 +1,7 @@
 #include "global_variables.hxx"
 
+MODE g_MODE = MODE::classic;
+
 size_t g_LEVEL = 1;
 
 bool g_SOUND = true;

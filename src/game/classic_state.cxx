@@ -65,7 +65,8 @@ void classic_state::handle_events(grottans::engine* engine)
         break;
     }
     case grottans::event::escape_released: {
-        engine->pop_state();
+        //engine->clear_states();
+        engine->push_state(engine->states[0]);
         break;
     }
     case grottans::event::start_released: {

@@ -22,16 +22,19 @@ bool extreme_state::init(grottans::engine* engine)
     return EXIT_SUCCESS;
 }
 
-void extreme_state::cleanup(grottans::engine*)
-{
-}
+void extreme_state::cleanup(grottans::engine*) {}
 
-void extreme_state::pause(grottans::engine*)
-{
-}
+void extreme_state::pause(grottans::engine*) {}
 
 void extreme_state::resume(grottans::engine*)
 {
+    game_field->fill_extreme();
+
+    game_field->selector->position.x = 5;
+    game_field->selector->position.y = 5;
+
+    progress->set_line_in_null();
+    progress->level_complete_flag = false;
 }
 
 void extreme_state::handle_events(grottans::engine* engine)
@@ -53,11 +56,12 @@ void extreme_state::handle_events(grottans::engine* engine)
         break;
     }
     case grottans::event::escape_released: {
-        engine->pop_state();
+        engine->clear_states();
+        engine->push_state(select_mode_state::instance());
         break;
     }
     case grottans::event::start_released: {
-        engine->push_state(game_over_state::instance());
+        //engine->push_state(game_over_state::instance());
         break;
     }
     case grottans::event::left_released: {
@@ -95,9 +99,7 @@ void extreme_state::handle_events(grottans::engine* engine)
     }
 }
 
-void extreme_state::update(grottans::engine*)
-{
-}
+void extreme_state::update(grottans::engine*) {}
 
 void extreme_state::draw(grottans::engine* engine)
 {

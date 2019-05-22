@@ -613,6 +613,7 @@ public:
     void swap_buffers();
     void uninitialize();
 
+    void clear_states();
     void swap_last_two_states();
     void change_state(game_state* state);
     void push_state(game_state* state);
@@ -1502,6 +1503,13 @@ size_t engine_impl::get_window_height()
     return screen_height;
 }
 
+void engine_impl::clear_states()
+{
+    if (std::size(states)) {
+        states.clear();
+    }
+}
+
 ///std::vector<game_state*> states;
 void engine_impl::swap_last_two_states()
 {
@@ -1549,8 +1557,6 @@ void engine_impl::pop_state()
 {
     // cleanup the current state
     if (!states.empty()) {
-
-        //delete states.back();
 
         states.back()->cleanup(this);
         states.pop_back();
