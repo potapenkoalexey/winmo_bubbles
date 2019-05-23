@@ -49,6 +49,9 @@ void classic_state::resume(grottans::engine*)
 
 void classic_state::handle_events(grottans::engine* engine)
 {
+    if (game_field->m_state != field::field_state::fixed)
+        return;
+
     grottans::event e;
 
     engine->input(/*out*/ e);
@@ -83,14 +86,18 @@ void classic_state::handle_events(grottans::engine* engine)
         if (search && game_field->gems[i][j]->visible == true && game_field->gems[i][j]->color != block::palette::non) {
             game_field->gems[i][j]->selected = true;
 
-            game_field->select_around(i, j);
             size_t delta_score = game_field->selecting();
 
-            // sound
+            ///blocking handling_event
+            if (delta_score) {
+                game_field->m_state = field::field_state::disappearing;
+            }
+
+            /// sound
             if (delta_score > 0 && g_SOUND) {
                 sound_fall->play(grottans::sound_buffer::properties::once);
             }
-            // sound destroy_big_form
+            /// sound destroy_big_form
             if (delta_score > 9 && g_SOUND) {
                 sound_destroy_big_form->play(grottans::sound_buffer::properties::once);
             }
@@ -144,11 +151,15 @@ void classic_state::handle_events(grottans::engine* engine)
 
 void classic_state::update(grottans::engine*)
 {
+    game_field->update();
+
+    if (game_field->is_all_fixed())
+        game_field->m_state = field::field_state::fixed;
 }
 
 void classic_state::draw(grottans::engine* engine)
 {
-    game_field->render(engine);
+    game_field->draw(engine);
     progress->draw(engine);
     engine->swap_buffers();
 }

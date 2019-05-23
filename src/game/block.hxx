@@ -16,7 +16,7 @@ struct block {
         yellow
     };
 
-    enum class state {
+    enum class block_state {
         fixed,
         swaping,
         falling,
@@ -25,7 +25,7 @@ struct block {
     };
 
     palette color = palette::black;
-    state state = state::fixed;
+    block_state state = block_state::fixed;
 
     bool selected = false;
     bool visible = true;
@@ -47,6 +47,7 @@ struct block {
     void update_uv_coord(
         const std::array<grottans::tri2, 32>& arr_uv_buf,
         const milli_sec& delta_time);
+    void update_ij_coord();
 
     void get_random_color_from_5();
     void get_random_color_from_6();

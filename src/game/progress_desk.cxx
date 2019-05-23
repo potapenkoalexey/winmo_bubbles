@@ -79,3 +79,7 @@ void progress_desk::increase_progress(size_t points, size_t points_to_level_)
         //LEVEL++; //work without this (why?????)
     }
 }
+
+void progress_desk::update()
+{
+}

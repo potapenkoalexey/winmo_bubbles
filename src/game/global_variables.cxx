@@ -2,9 +2,11 @@
 
 MODE g_MODE = MODE::classic;
 
+bool g_SOUND = true;
+
 size_t g_LEVEL = 1;
 
-bool g_SOUND = true;
+size_t g_POINTS = 0;
 
 size_t g_SCORE = 0;
 

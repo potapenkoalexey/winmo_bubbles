@@ -9,11 +9,12 @@
 
 class field {
 public:
-    enum class state {
+    enum class field_state {
         fixed,
         swaping,
         falling,
-        shifting
+        shifting,
+        disappearing //maybe unused because includes in falling
     };
 
     field();
@@ -22,7 +23,7 @@ public:
     bool initialization(grottans::engine* engine);
     void fill_clasic();
     void fill_extreme();
-    void render(grottans::engine* engine);
+    void draw(grottans::engine* engine);
     grottans::mouse_pos get_mouse_ij(grottans::engine* engine);
 
     bool can_select(const size_t&, const size_t&);
@@ -30,6 +31,10 @@ public:
     size_t selecting();
     void unselect_all();
     void undisappearing_all();
+
+    bool is_all_fixed();
+
+    void update();
 
     void move_falling();
     void shift_in_left();
@@ -41,7 +46,7 @@ public:
     size_t height = 0;
     float scale = 0;
 
-    state m_state = state::fixed;
+    field_state m_state = field_state::fixed;
 
     //block selector in centr of the field
     std::unique_ptr<block> selector;
@@ -63,6 +68,8 @@ public:
     std::array<grottans::tri2, 32> v_buf_disappear;
     //render tmp
     std::array<grottans::tri2, 2> v_buf_tmp;
+    //render tmp for selector
+    std::array<grottans::tri2, 2> v_buf_tmp_selector;
 
     /*std::map<position, std::unique_ptr<block> > gems;
     //std::vector<std::vector<std::unique_ptr<block> > > gems;

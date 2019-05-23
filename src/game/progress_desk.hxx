@@ -18,6 +18,8 @@ public:
 
     void increase_progress(size_t points, size_t points_to_level_);
 
+    void update();
+
 private:
     std::unique_ptr<block> block_desk;
     std::unique_ptr<block> block_line;

@@ -59,11 +59,11 @@ void block::get_random_color_from_7()
     color = colors[index];
 }
 
-void block::update_uv_coord(
+void block::update_uv_coord( ///animation of disappearing
     const std::array<grottans::tri2, 32>& arr_uv_buf,
     const milli_sec& delta_time)
 {
-    if (state != state::disappearing) {
+    if (state != block_state::disappearing) {
         return;
     }
 
@@ -83,6 +83,6 @@ void block::update_uv_coord(
         tr_disappear[0] = arr_uv_buf[2];
         tr_disappear[1] = arr_uv_buf[3];
         current_time = 0.f;
-        state = state::fixed;
+        state = block_state::fixed;
     }
 }

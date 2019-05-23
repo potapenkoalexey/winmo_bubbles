@@ -107,7 +107,7 @@ void extreme_state::update(grottans::engine*) {}
 
 void extreme_state::draw(grottans::engine* engine)
 {
-    game_field->render(engine);
+    game_field->draw(engine);
 
     progress->draw(engine);
 

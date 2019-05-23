@@ -30,6 +30,7 @@ int main(int /*argc*/, char** /*argv*/)
     engine->push_state(extreme_state::instance()); //2
     engine->push_state(level_complete_state::instance()); //3
     engine->push_state(game_over_state::instance()); //4
+    ///set a first state
     engine->current_state = engine->states[0];
 
     ///main loop
