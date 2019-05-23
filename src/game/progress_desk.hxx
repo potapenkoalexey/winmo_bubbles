@@ -5,6 +5,7 @@
 #include "../../src/engine/engine.hxx"
 #include "./block.hxx"
 #include "./counter.hxx"
+#include "./global_variables.hxx"
 
 class progress_desk {
 public:
@@ -16,11 +17,21 @@ public:
     void set_line_in_null();
     void set_line_in_full();
 
+    size_t delta_to_points(size_t delta);
+
     void increase_progress(size_t points, size_t points_to_level_);
 
     void update();
 
 private:
+    std::array<size_t, 25> points_classic;
+
+    std::array<size_t, 30> points_extreme;
+
+    std::array<size_t, 26> levels_classic;
+
+    std::array<size_t, 26> levels_extreme;
+
     std::unique_ptr<block> block_desk;
     std::unique_ptr<block> block_line;
     std::unique_ptr<counter> emb_counter;

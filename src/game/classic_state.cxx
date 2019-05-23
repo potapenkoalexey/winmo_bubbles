@@ -102,7 +102,8 @@ void classic_state::handle_events(grottans::engine* engine)
                 sound_destroy_big_form->play(grottans::sound_buffer::properties::once);
             }
 
-            progress->increase_progress(delta_score, 20);
+            size_t points = progress->delta_to_points(delta_score);
+            progress->increase_progress(points, g_LEVEL);
 
             game_field->unselect_all();
 
