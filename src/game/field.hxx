@@ -31,7 +31,6 @@ public:
     void unselect_all();
     void undisappearing_all();
 
-    void remove_selected();
     void move_falling();
     void shift_in_left();
     void generate_on_top();

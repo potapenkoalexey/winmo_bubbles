@@ -68,9 +68,9 @@ void progress_desk::increase_progress(size_t points, size_t points_to_level_)
     float points_to_level = static_cast<float>(points_to_level_);
 
     /// moving counter line on % step 0,0143
-    tr[2].v[1].pos.x += (0.01f * points * 100 / points_to_level); //(levels[level_number]));
-    tr[2].v[2].pos.x += (0.01f * points * 100 / points_to_level);
-    tr[3].v[1].pos.x += (0.01f * points * 100 / points_to_level);
+    tr[2].v[1].pos.x += (0.0143f * points * 100 / points_to_level); //(levels[level_number]));
+    tr[2].v[2].pos.x += (0.0143f * points * 100 / points_to_level);
+    tr[3].v[1].pos.x += (0.0143f * points * 100 / points_to_level);
 
     /// if overflow - set maximum
     if (tr[3].v[1].pos.x >= tr[5].v[1].pos.x) {

@@ -23,7 +23,7 @@ extern size_t g_FIELD_WIDTH;
 
 extern size_t g_FIELD_HEIGHT;
 
+//depends on numbers of sprites in textures of the blocks
 extern size_t FRAME_OF_DISAPPEARING;
 
 extern milli_sec frame_delta;
-extern std::chrono::duration<float> frame;

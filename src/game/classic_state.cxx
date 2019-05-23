@@ -76,6 +76,7 @@ void classic_state::handle_events(grottans::engine* engine)
 
         size_t i = static_cast<size_t>(game_field->selector->position.y);
         size_t j = static_cast<size_t>(game_field->selector->position.x);
+
         bool search = game_field->can_select(i, j);
 
         /// if block can be selected - marking them

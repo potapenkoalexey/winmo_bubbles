@@ -24,10 +24,10 @@ void block::get_random_color_from_6()
     static std::vector<palette> colors = {
         palette::red,
         palette::blue,
-        palette::black,
         palette::green,
         palette::purple,
-        palette::yellow
+        palette::yellow,
+        palette::black
     };
 
     static std::random_device randomDevice;
@@ -43,11 +43,12 @@ void block::get_random_color_from_7()
     static std::vector<palette> colors = {
         palette::red,
         palette::blue,
-        palette::bomb,
-        palette::black,
         palette::green,
         palette::purple,
-        palette::yellow
+        palette::yellow,
+        palette::black,
+        palette::bomb
+
     };
 
     static std::random_device randomDevice;
@@ -59,7 +60,7 @@ void block::get_random_color_from_7()
 }
 
 void block::update_uv_coord(
-    const std::array<grottans::tri2, 32>& arr_v_buf,
+    const std::array<grottans::tri2, 32>& arr_uv_buf,
     const milli_sec& delta_time)
 {
     if (state != state::disappearing) {
@@ -75,12 +76,13 @@ void block::update_uv_coord(
     size_t current_frame_index = how_may_frames_from_start % FRAME_OF_DISAPPEARING;
 
     ///assign UV-triangles of disappearing texture
-    tr_disappear[0] = arr_v_buf[current_frame_index * 2];
-    tr_disappear[1] = arr_v_buf[current_frame_index * 2 + 1];
+    tr_disappear[0] = arr_uv_buf.at(current_frame_index * 2);
+    tr_disappear[1] = arr_uv_buf.at(current_frame_index * 2 + 1);
 
     if (current_frame_index == 15) {
-        tr_disappear[0] = arr_v_buf[2];
-        tr_disappear[1] = arr_v_buf[3];
+        tr_disappear[0] = arr_uv_buf[2];
+        tr_disappear[1] = arr_uv_buf[3];
+        current_time = 0.f;
         state = state::fixed;
     }
 }

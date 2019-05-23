@@ -45,7 +45,7 @@ struct block {
     void set_fps(float fps_value) { fps = fps_value; }
     void restart() { current_time = 0.f; }
     void update_uv_coord(
-        const std::array<grottans::tri2, 32>& arr_v_buf, //field::v_buf_disappear
+        const std::array<grottans::tri2, 32>& arr_uv_buf,
         const milli_sec& delta_time);
 
     void get_random_color_from_5();
