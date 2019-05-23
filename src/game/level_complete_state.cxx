@@ -71,6 +71,16 @@ void level_complete_state::handle_events(grottans::engine* engine)
         engine->loop = false;
         break;
     }
+    case grottans::event::mouse_released: {
+        if (g_MODE == MODE::classic) {
+            ///go to classic_mode new level
+            engine->switch_to_state(engine->states[1]);
+        } else {
+            ///go to extreme_mode new level
+            engine->switch_to_state(engine->states[2]);
+            break;
+        }
+    }
     case grottans::event::start_released: {
         if (g_MODE == MODE::classic) {
             ///go to classic_mode new level
