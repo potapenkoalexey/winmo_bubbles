@@ -36,11 +36,11 @@ public:
 
     void update();
 
-    void move_falling();
-    void shift_in_left();
-    void generate_on_top();
-    void generate_right_column();
-    void swap();
+    //    void move_falling();
+    //    void shift_in_left();
+    //    void generate_on_top();
+    //    void generate_right_column();
+    //    void swap();
 
     size_t width = 0;
     size_t height = 0;
@@ -71,9 +71,5 @@ public:
     //render tmp for selector
     std::array<grottans::tri2, 2> v_buf_tmp_selector;
 
-    /*std::map<position, std::unique_ptr<block> > gems;
-    //std::vector<std::vector<std::unique_ptr<block> > > gems;
-    //std::unique_ptr<block> gems = std::unique_ptr<block>(new block[width * height]);
-    //std::unique_ptr<block>** gems;  [10][10];  */
     std::unique_ptr<block> gems[10][10];
 };

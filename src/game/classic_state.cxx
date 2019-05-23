@@ -49,12 +49,13 @@ void classic_state::resume(grottans::engine*)
 
 void classic_state::handle_events(grottans::engine* engine)
 {
-    if (game_field->m_state != field::field_state::fixed)
-        return;
-
     grottans::event e;
 
     engine->input(/*out*/ e);
+
+    ///blocking handling in non-fixed states of the field
+    if (game_field->m_state != field::field_state::fixed)
+        return;
 
     if (e == grottans::event::mouse_released) {
 

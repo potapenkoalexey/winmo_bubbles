@@ -101,8 +101,6 @@ bool field::initialization(grottans::engine* engine)
     return EXIT_SUCCESS;
 }
 
-void field::generate_on_top() {}
-
 void field::fill_clasic()
 {
     for (size_t i = 0; i < width; i++) {
