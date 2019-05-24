@@ -35,7 +35,7 @@ void extreme_state::resume(grottans::engine*)
     game_field->selector->position.y = 5;
 
     progress->set_line_in_null();
-    progress->level_complete_flag = false;
+    progress->set_level_complete_flag(false);
 }
 
 void extreme_state::handle_events(grottans::engine* engine)

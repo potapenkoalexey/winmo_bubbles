@@ -79,6 +79,16 @@ void progress_desk::set_line_in_full()
     tr[3].v[1].pos.x = tr[5].v[1].pos.x;
 }
 
+bool progress_desk::get_level_complete_flag()
+{
+    return level_complete_flag;
+}
+
+void progress_desk::set_level_complete_flag(bool var)
+{
+    level_complete_flag = var;
+}
+
 size_t progress_desk::delta_to_points(size_t delta)
 {
     if (g_MODE == MODE::classic) {

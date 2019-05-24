@@ -9,13 +9,14 @@
 
 class progress_desk {
 public:
-    bool level_complete_flag = false;
-
     bool init(grottans::engine* engine);
     void draw(grottans::engine* engine);
 
     void set_line_in_null();
     void set_line_in_full();
+
+    bool get_level_complete_flag();
+    void set_level_complete_flag(bool);
 
     size_t delta_to_points(size_t delta);
 
@@ -24,6 +25,8 @@ public:
     void update();
 
 private:
+    bool level_complete_flag = false;
+
     std::array<size_t, 25> points_classic;
 
     std::array<size_t, 30> points_extreme;

@@ -29,3 +29,6 @@ extern size_t g_FIELD_HEIGHT;
 extern size_t FRAME_OF_DISAPPEARING;
 
 extern milli_sec frame_delta;
+
+//offset selector movement
+extern float OFFSET;

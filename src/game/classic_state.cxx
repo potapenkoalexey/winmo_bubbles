@@ -44,7 +44,7 @@ void classic_state::resume(grottans::engine*)
     game_field->selector->position.x = 5;
     game_field->selector->position.y = 5;
     progress->set_line_in_null();
-    progress->level_complete_flag = false;
+    progress->set_level_complete_flag(false);
 }
 
 void classic_state::handle_events(grottans::engine* engine)
@@ -108,7 +108,7 @@ void classic_state::handle_events(grottans::engine* engine)
 
             game_field->unselect_all();
 
-            if (progress->level_complete_flag) {
+            if (progress->get_level_complete_flag()) {
                 ///go to level_complete_mode
                 engine->switch_to_state(engine->states[3]);
                 g_LEVEL++;
@@ -118,7 +118,7 @@ void classic_state::handle_events(grottans::engine* engine)
     }
     case grottans::event::left_released: {
         if (game_field->selector->position.x > 0) {
-            game_field->selector->position.x -= 1.f;
+            game_field->selector->position.x -= OFFSET;
         } else {
             game_field->selector->position.x = 9.f;
         }
@@ -126,7 +126,7 @@ void classic_state::handle_events(grottans::engine* engine)
     }
     case grottans::event::right_released: {
         if (game_field->selector->position.x < 9) {
-            game_field->selector->position.x += 1.f;
+            game_field->selector->position.x += OFFSET;
         } else {
             game_field->selector->position.x = 0.f;
         }
@@ -134,7 +134,7 @@ void classic_state::handle_events(grottans::engine* engine)
     }
     case grottans::event::up_released: {
         if (game_field->selector->position.y > 0) {
-            game_field->selector->position.y -= 1.f;
+            game_field->selector->position.y -= OFFSET;
         } else {
             game_field->selector->position.y = 9.f;
         }
@@ -142,7 +142,7 @@ void classic_state::handle_events(grottans::engine* engine)
     }
     case grottans::event::down_released: {
         if (game_field->selector->position.y < 9) {
-            game_field->selector->position.y += 1.f;
+            game_field->selector->position.y += OFFSET;
         } else {
             game_field->selector->position.y = 0.f;
         }

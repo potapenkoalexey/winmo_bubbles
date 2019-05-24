@@ -17,3 +17,5 @@ size_t g_FIELD_HEIGHT = 10;
 size_t FRAME_OF_DISAPPEARING = 16;
 
 milli_sec frame_delta;
+
+float OFFSET = 1.f;

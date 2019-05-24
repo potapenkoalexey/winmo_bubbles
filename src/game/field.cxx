@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <fstream>
 
 #include "./field.hxx"
@@ -5,9 +6,9 @@
 
 field::field()
 {
-    width = g_FIELD_WIDTH;
-    height = g_FIELD_HEIGHT;
-    m_state = field_state::fixed;
+    //    width = g_FIELD_WIDTH;
+    //    height = g_FIELD_HEIGHT;
+    //    m_state = field_state::fixed;
 }
 
 bool field::initialization(grottans::engine* engine)
@@ -287,7 +288,7 @@ size_t field::selecting()
 {
     size_t number_of_selected_blocks = 0;
 
-    for (size_t k = 0; k < 10; k++) {
+    for (size_t k = 0; k < 9; k++) {
         for (size_t i = 0; i < width; i++) {
             for (size_t j = 0; j < height; j++) {
                 if (gems[i][j]->selected) {
@@ -348,7 +349,7 @@ void field::update()
             //update uv-triangles for disappeating blocks
             gems[i][j]->update_uv_coord(v_buf_disappear, frame_delta);
             //update vertical position for falling blocks
-            ///
+            /// todo
         }
     }
 

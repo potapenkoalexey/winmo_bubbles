@@ -80,8 +80,8 @@ void block::update_uv_coord( ///animation of disappearing
     tr_disappear[1] = arr_uv_buf.at(current_frame_index * 2 + 1);
 
     if (current_frame_index == 15) {
-        tr_disappear[0] = arr_uv_buf[2];
-        tr_disappear[1] = arr_uv_buf[3];
+        tr_disappear[0] = arr_uv_buf[0];
+        tr_disappear[1] = arr_uv_buf[1];
         current_time = 0.f;
         state = block_state::fixed;
     }
