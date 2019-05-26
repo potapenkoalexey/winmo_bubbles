@@ -24,7 +24,7 @@ int main(int /*argc*/, char** /*argv*/)
 
     engine->disable_mouse_moution_event();
 
-    ///loading states in vector
+    ///loading states in vector (simple state machine)
     engine->push_state(select_mode_state::instance()); //0
     engine->push_state(classic_state::instance()); //1
     engine->push_state(extreme_state::instance()); //2
@@ -42,7 +42,7 @@ int main(int /*argc*/, char** /*argv*/)
         engine->current_state->draw(engine);
 
         frame_delta = std::chrono::duration_cast<milli_sec>(end_last_frame - start);
-        if (frame_delta.count() < 15) {
+        if (frame_delta.count() < 15) { ///~60fps
             std::this_thread::yield();
         }
         start = end_last_frame;

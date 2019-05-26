@@ -37,7 +37,7 @@ struct block {
     grottans::vertex_buffer* v_buf = nullptr;
 
     ///for animation
-    float fps = 30.f;
+    float fps = FPS;
     float current_time = 0.f;
     std::array<grottans::tri2, 2> tr_disappear;
 
@@ -48,6 +48,9 @@ struct block {
         const std::array<grottans::tri2, 32>& arr_uv_buf,
         const milli_sec& delta_time);
     void update_ij_coord();
+
+    void do_i_need_to_fall();
+    void do_i_need_to_shift_left();
 
     void get_random_color_from_5();
     void get_random_color_from_6();

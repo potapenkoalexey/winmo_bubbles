@@ -40,6 +40,7 @@ void classic_state::pause(grottans::engine*) {}
 void classic_state::resume(grottans::engine*)
 {
     game_field->undisappearing_all();
+    game_field->visible_all();
     game_field->fill_clasic();
     game_field->selector->position.x = 5;
     game_field->selector->position.y = 5;

@@ -32,3 +32,5 @@ extern milli_sec frame_delta;
 
 //offset selector movement
 extern float OFFSET;
+
+extern float FPS;

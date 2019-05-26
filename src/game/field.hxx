@@ -29,8 +29,10 @@ public:
     bool can_select(const size_t&, const size_t&);
     bool select_around(const size_t&, const size_t&);
     size_t selecting();
+
     void unselect_all();
     void undisappearing_all();
+    void visible_all();
 
     bool is_all_fixed();
 

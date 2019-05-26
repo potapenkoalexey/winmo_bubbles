@@ -75,6 +75,10 @@ void block::update_uv_coord( ///animation of disappearing
 
     size_t current_frame_index = how_may_frames_from_start % FRAME_OF_DISAPPEARING;
 
+    if (current_frame_index > 15) {
+        std::cerr << "incorrect frame index!" << std::endl;
+    }
+
     ///assign UV-triangles of disappearing texture
     tr_disappear[0] = arr_uv_buf.at(current_frame_index * 2);
     tr_disappear[1] = arr_uv_buf.at(current_frame_index * 2 + 1);
@@ -84,5 +88,6 @@ void block::update_uv_coord( ///animation of disappearing
         tr_disappear[1] = arr_uv_buf[1];
         current_time = 0.f;
         state = block_state::fixed;
+        visible = false;
     }
 }

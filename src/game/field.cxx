@@ -330,6 +330,15 @@ void field::undisappearing_all()
     }
 }
 
+void field::visible_all()
+{
+    for (size_t i = 0; i < width; i++) {
+        for (size_t j = 0; j < height; j++) {
+            gems[i][j]->visible = true;
+        }
+    }
+}
+
 bool field::is_all_fixed()
 {
     bool result = true;
@@ -366,23 +375,27 @@ void field::draw(grottans::engine* engine)
     //drawing blocks
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            //drawing blocks
-            //calculate new ver_buff_triangles
-            v_buf_tmp[0] = v_buf_grid[(i * 10 + j) * 2] + gems[i][j]->tr_disappear[0];
-            v_buf_tmp[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + gems[i][j]->tr_disappear[1];
+            if (gems[i][j]->visible) {
+                //drawing blocks
+                //calculate new ver_buff_triangles
+                v_buf_tmp[0] = v_buf_grid[(i * 10 + j) * 2] + gems[i][j]->tr_disappear[0];
+                v_buf_tmp[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + gems[i][j]->tr_disappear[1];
 
-            //creating new vertex buffer
-            gems[i][j]->v_buf = engine->create_vertex_buffer(&v_buf_tmp[0], 2);
+                //creating new vertex buffer
+                gems[i][j]->v_buf = engine->create_vertex_buffer(&v_buf_tmp[0], 2);
 
-            engine->render(*gems[i][j]->v_buf, gems[i][j]->texture,
-                gems[i][j]->aspect * scale);
+                engine->render(*gems[i][j]->v_buf, gems[i][j]->texture,
+                    gems[i][j]->aspect * scale);
 
-            engine->destroy_vertex_buffer(gems[i][j]->v_buf);
+                engine->destroy_vertex_buffer(gems[i][j]->v_buf);
+            }
         }
     }
 
-    //drawing selector
-    selector->v_buf = engine->create_vertex_buffer(&v_buf_tmp_selector[0], 2);
-    engine->render(*selector->v_buf, selector->texture, selector->aspect * scale);
-    engine->destroy_vertex_buffer(selector->v_buf);
+    //drawing selector only in field::fixed mode
+    if (m_state == field_state::fixed) {
+        selector->v_buf = engine->create_vertex_buffer(&v_buf_tmp_selector[0], 2);
+        engine->render(*selector->v_buf, selector->texture, selector->aspect * scale);
+        engine->destroy_vertex_buffer(selector->v_buf);
+    }
 }
