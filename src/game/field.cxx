@@ -53,10 +53,10 @@ bool field::initialization(grottans::engine* engine)
     }
 
     //creating 100 pairs xy-triangles
-    for (size_t i = 0; i < 10; i++) {
-        for (size_t j = 0; j < 10; j++) {
-            v_buf_grid[(i * 10 + j) * 2] = tr[2];
-            v_buf_grid[(i * 10 + j) * 2 + 1] = tr[3];
+    for (size_t i = 0; i < width; i++) {
+        for (size_t j = 0; j < height; j++) {
+            v_buf_grid[(i * width + j) * 2] = tr[2];
+            v_buf_grid[(i * width + j) * 2 + 1] = tr[3];
 
             tr[2].v[0].pos.x += 0.18f;
             tr[2].v[1].pos.x += 0.18f;
@@ -88,6 +88,8 @@ bool field::initialization(grottans::engine* engine)
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
             gems[i][j] = std::unique_ptr<block>(new block);
+            //gems[i][j]->position.x = j;
+            //gems[i][j]->position.y = i; ///maybe unused
             gems[i][j]->tr_disappear[0] = v_buf_disappear[0];
             gems[i][j]->tr_disappear[1] = v_buf_disappear[1];
         }
@@ -351,14 +353,85 @@ bool field::is_all_fixed()
     return result;
 }
 
-void field::update()
+void field::mark_falling_blocks()
 {
+    for (size_t i = width - 1; i >= 1; i--) {
+        for (size_t j = 0; j < height; j++) {
+            if (gems[i][j]->visible == false || gems[i][j]->state == block::block_state::falling) {
+                gems[i - 1][j]->state = block::block_state::falling;
+            }
+        }
+    }
+    g_DISAPPEARING_END = false;
+}
+
+void field::replace_gems(const size_t& i, const size_t& j, const size_t& m, const size_t& n)
+{
+    if (i < 1)
+        return;
+    std::unique_ptr<block> copy = std::unique_ptr<block>(new block);
+
+    copy->color = gems[i][j]->color;
+    copy->texture = gems[i][j]->texture;
+    copy->selected = gems[i][j]->selected;
+    copy->visible = gems[i][j]->visible;
+
+    gems[i][j]->color = gems[m][n]->color;
+    gems[i][j]->texture = gems[m][n]->texture;
+    gems[i][j]->selected = gems[m][n]->selected;
+    gems[i][j]->visible = gems[m][n]->visible;
+
+    gems[m][n]->color = copy->color;
+    gems[m][n]->texture = copy->texture;
+    gems[m][n]->selected = copy->selected;
+    gems[m][n]->visible = copy->visible;
+}
+
+void field::update_ij_coord(const size_t& i, const size_t& j, const milli_sec& delta_time)
+{
+    if (gems[i][j]->state != block::block_state::falling) {
+        return;
+    }
+
+    gems[i][j]->current_time += delta_time.count() / 1000.f;
+
+    float one_frame_delta = 1.f / 60;
+
+    size_t how_may_frames_from_start = static_cast<size_t>(gems[i][j]->current_time / one_frame_delta);
+
+    //size_t current_frame_index = how_may_frames_from_start % FRAME_OF_DISAPPEARING;
+
+    ///assign new xy-position
+    if (how_may_frames_from_start > gems[i][j]->falling_frame_index) {
+        //0.18f - offset without rows in screen coord -1;1
+        gems[i][j]->move.delta.y -= (0.18f / static_cast<float>(FRAME_OF_DISAPPEARING - 1.f));
+        gems[i][j]->falling_frame_index++;
+    }
+
+    if (how_may_frames_from_start == 15) {
+        //need to swap with final block place
+        gems[i][j]->current_time = 0.f;
+        gems[i][j]->falling_frame_index = 0;
+        //move.delta.y = 0.f;  //replace with under block
+        gems[i][j]->state = block::block_state::fixed;
+        replace_gems(i, j, i - 1, j);
+    }
+}
+
+void field::update_blocks_coord()
+{
+    if (g_DISAPPEARING_END) {
+        mark_falling_blocks();
+    }
+
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
             //update uv-triangles for disappeating blocks
             gems[i][j]->update_uv_coord(v_buf_disappear, frame_delta);
             //update vertical position for falling blocks
-            /// todo
+            //and gorizontal position for shifting blocks
+            //gems[i][j]->update_ij_coord(frame_delta);
+            update_ij_coord(i, j, frame_delta);
         }
     }
 
@@ -385,7 +458,7 @@ void field::draw(grottans::engine* engine)
                 gems[i][j]->v_buf = engine->create_vertex_buffer(&v_buf_tmp[0], 2);
 
                 engine->render(*gems[i][j]->v_buf, gems[i][j]->texture,
-                    gems[i][j]->aspect * scale);
+                    gems[i][j]->move * gems[i][j]->aspect * scale);
 
                 engine->destroy_vertex_buffer(gems[i][j]->v_buf);
             }

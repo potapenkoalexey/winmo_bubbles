@@ -26,6 +26,8 @@ public:
         return &m_classic_state;
     }
 
+    friend struct block;
+
 protected:
     classic_state() {}
 

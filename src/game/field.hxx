@@ -7,8 +7,8 @@
 #include "./block.hxx"
 #include "./global_variables.hxx"
 
-class field {
-public:
+struct field {
+
     enum class field_state {
         fixed,
         swaping,
@@ -36,7 +36,11 @@ public:
 
     bool is_all_fixed();
 
-    void update();
+    void mark_falling_blocks();
+
+    void replace_gems(const size_t& i, const size_t& j, const size_t& m, const size_t& n);
+    void update_ij_coord(const size_t& i, const size_t& j, const milli_sec& delta_time);
+    void update_blocks_coord();
 
     //    void move_falling();
     //    void shift_in_left();

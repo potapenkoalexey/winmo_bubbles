@@ -30,9 +30,9 @@ struct block {
     bool selected = false;
     bool visible = true;
     bool motion = false;
-    grottans::vec2 position{ 0, 0 };
-    grottans::mat2x3 move{};
-    grottans::mat2x3 aspect = grottans::mat2x3::scale(1.f, 1.f);
+    grottans::vec2 position{ 0.f, 0.f };
+    grottans::mat2x3 move{}; // = grottans::mat2x3::scale(1.f, 1.f);
+    grottans::mat2x3 aspect{}; // = grottans::mat2x3::scale(1.f, 1.f);
     grottans::texture* texture = nullptr;
     grottans::vertex_buffer* v_buf = nullptr;
 
@@ -40,17 +40,17 @@ struct block {
     float fps = FPS;
     float current_time = 0.f;
     std::array<grottans::tri2, 2> tr_disappear;
+    size_t falling_frame_index = 0;
 
     float get_fps() const { return fps; }
     void set_fps(float fps_value) { fps = fps_value; }
     void restart() { current_time = 0.f; }
+
     void update_uv_coord(
         const std::array<grottans::tri2, 32>& arr_uv_buf,
         const milli_sec& delta_time);
-    void update_ij_coord();
 
-    void do_i_need_to_fall();
-    void do_i_need_to_shift_left();
+    void update_ij_coord(const milli_sec& delta_time); //maybe unused
 
     void get_random_color_from_5();
     void get_random_color_from_6();

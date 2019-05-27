@@ -152,9 +152,9 @@ void classic_state::handle_events(grottans::engine* engine)
     }
 }
 
-void classic_state::update(grottans::engine*)
+void classic_state::update(grottans::engine* engine)
 {
-    game_field->update();
+    game_field->update_blocks_coord();
 
     if (game_field->is_all_fixed())
         game_field->m_state = field::field_state::fixed;

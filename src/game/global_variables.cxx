@@ -4,6 +4,8 @@ MODE g_MODE = MODE::classic;
 
 bool g_SOUND = true;
 
+bool g_DISAPPEARING_END = false;
+
 size_t g_LEVEL = 1;
 
 size_t g_POINTS = 0;
