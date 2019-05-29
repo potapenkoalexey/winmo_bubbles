@@ -40,6 +40,8 @@ struct field {
     void mark_falling_blocks();
     void update_coord_falling_blocks(const size_t& i, const size_t& j, const milli_sec& delta_time);
     bool are_there_falling_blocks();
+    bool is_right_row_free();
+    void add_right_row();
     void mark_shifting_blocks();
     void update_coord_shifting_blocks(const size_t& i, const size_t& j, const milli_sec& delta_time);
 

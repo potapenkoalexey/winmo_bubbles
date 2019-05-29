@@ -379,6 +379,47 @@ bool field::are_there_falling_blocks()
     return result;
 }
 
+bool field::is_right_row_free()
+{
+    bool result = false;
+    if (gems[9][9]->visible == false) {
+        add_right_row();
+        result = true;
+    }
+    return result;
+}
+
+void field::add_right_row()
+{
+    size_t j = width - 1;
+    for (size_t i = 0; i < height; i++) {
+        gems[i][j]->visible = true;
+        gems[i][j]->get_random_color_from_5();
+        switch (gems[i][j]->color) {
+        case block::palette::red: {
+            gems[i][j]->texture = tex_red;
+            break;
+        }
+        case block::palette::green: {
+            gems[i][j]->texture = tex_green;
+            break;
+        }
+        case block::palette::yellow: {
+            gems[i][j]->texture = tex_yellow;
+            break;
+        }
+        case block::palette::blue: {
+            gems[i][j]->texture = tex_blue;
+            break;
+        }
+        case block::palette::purple: {
+            gems[i][j]->texture = tex_purple;
+            break;
+        }
+        }
+    }
+}
+
 void field::replace_gems(const size_t& i, const size_t& j, const size_t& m, const size_t& n)
 {
     //if (i < 1)
