@@ -15,7 +15,7 @@ extern MODE g_MODE;
 
 extern bool g_SOUND;
 
-extern bool g_DISAPPEARING_END;
+//extern bool g_DISAPPEARING_END;
 
 extern size_t g_LEVEL;
 

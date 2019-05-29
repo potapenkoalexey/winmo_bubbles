@@ -50,7 +50,7 @@ struct block {
         const std::array<grottans::tri2, 32>& arr_uv_buf,
         const milli_sec& delta_time);
 
-    void update_ij_coord(const milli_sec& delta_time); //maybe unused
+    //void update_i_coord(const milli_sec& delta_time); //maybe unused
 
     void get_random_color_from_5();
     void get_random_color_from_6();

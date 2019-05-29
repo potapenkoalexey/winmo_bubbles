@@ -45,7 +45,7 @@ void extreme_state::handle_events(grottans::engine* engine)
     engine->input(/*out*/ e);
 
     ///blocking handling in non-fixed states of the field
-    if (game_field->m_state != field::field_state::fixed)
+    if (game_field->f_state != field::field_state::fixed)
         return;
 
     if (e == grottans::event::mouse_released) {

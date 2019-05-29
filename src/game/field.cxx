@@ -346,8 +346,10 @@ bool field::is_all_fixed()
     bool result = true;
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            if (gems[i][j]->state != block::block_state::fixed)
+            if (gems[i][j]->state != block::block_state::fixed) {
                 result = false;
+                return result;
+            }
         }
     }
     return result;
@@ -355,20 +357,19 @@ bool field::is_all_fixed()
 
 void field::mark_falling_blocks()
 {
-    for (size_t i = width - 1; i >= 1; i--) {
+    for (size_t i = 0; i < width - 1; i++) {
         for (size_t j = 0; j < height; j++) {
-            if (gems[i][j]->visible == false || gems[i][j]->state == block::block_state::falling) {
-                gems[i - 1][j]->state = block::block_state::falling;
+            if (gems[i + 1][j]->visible == false || gems[i + 1][j]->state == block::block_state::falling) {
+                gems[i][j]->state = block::block_state::falling;
             }
         }
     }
-    g_DISAPPEARING_END = false;
 }
 
 void field::replace_gems(const size_t& i, const size_t& j, const size_t& m, const size_t& n)
 {
-    if (i < 1)
-        return;
+    //if (i < 1)
+    //    return;
     std::unique_ptr<block> copy = std::unique_ptr<block>(new block);
 
     copy->color = gems[i][j]->color;
@@ -387,7 +388,7 @@ void field::replace_gems(const size_t& i, const size_t& j, const size_t& m, cons
     gems[m][n]->visible = copy->visible;
 }
 
-void field::update_ij_coord(const size_t& i, const size_t& j, const milli_sec& delta_time)
+void field::update_i_coord(const size_t& i, const size_t& j, const milli_sec& delta_time)
 {
     if (gems[i][j]->state != block::block_state::falling) {
         return;
@@ -403,26 +404,27 @@ void field::update_ij_coord(const size_t& i, const size_t& j, const milli_sec& d
 
     ///assign new xy-position
     if (how_may_frames_from_start > gems[i][j]->falling_frame_index) {
-        //0.18f - offset without rows in screen coord -1;1
-        gems[i][j]->move.delta.y -= (0.18f / static_cast<float>(FRAME_OF_DISAPPEARING - 1.f));
+        ///0.18f - offset without rows in screen coord -1;1
+        gems[i][j]->move.delta.y -= (0.18f / static_cast<float>(FRAME_OF_DISAPPEARING - 1));
         gems[i][j]->falling_frame_index++;
     }
 
     if (how_may_frames_from_start == 15) {
-        //need to swap with final block place
+        //restore original state
         gems[i][j]->current_time = 0.f;
         gems[i][j]->falling_frame_index = 0;
-        //move.delta.y = 0.f;  //replace with under block
+        gems[i][j]->move.delta.y = 0.f;
         gems[i][j]->state = block::block_state::fixed;
-        replace_gems(i, j, i - 1, j);
+        //swap with bottom block
+        replace_gems(i, j, i + 1, j);
     }
 }
 
 void field::update_blocks_coord()
 {
-    if (g_DISAPPEARING_END) {
-        mark_falling_blocks();
-    }
+    //if (g_DISAPPEARING_END) {
+    //    mark_falling_blocks();
+    //}
 
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
@@ -430,8 +432,7 @@ void field::update_blocks_coord()
             gems[i][j]->update_uv_coord(v_buf_disappear, frame_delta);
             //update vertical position for falling blocks
             //and gorizontal position for shifting blocks
-            //gems[i][j]->update_ij_coord(frame_delta);
-            update_ij_coord(i, j, frame_delta);
+            update_i_coord(i, j, frame_delta);
         }
     }
 
@@ -466,7 +467,7 @@ void field::draw(grottans::engine* engine)
     }
 
     //drawing selector only in field::fixed mode
-    if (m_state == field_state::fixed) {
+    if (f_state == field_state::fixed) {
         selector->v_buf = engine->create_vertex_buffer(&v_buf_tmp_selector[0], 2);
         engine->render(*selector->v_buf, selector->texture, selector->aspect * scale);
         engine->destroy_vertex_buffer(selector->v_buf);

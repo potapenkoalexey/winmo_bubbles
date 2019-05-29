@@ -39,7 +39,7 @@ struct field {
     void mark_falling_blocks();
 
     void replace_gems(const size_t& i, const size_t& j, const size_t& m, const size_t& n);
-    void update_ij_coord(const size_t& i, const size_t& j, const milli_sec& delta_time);
+    void update_i_coord(const size_t& i, const size_t& j, const milli_sec& delta_time);
     void update_blocks_coord();
 
     //    void move_falling();
@@ -52,7 +52,7 @@ struct field {
     size_t height = 0;
     float scale = 0;
 
-    field_state m_state = field_state::fixed;
+    field_state f_state = field_state::fixed;
 
     //block selector in centr of the field
     std::unique_ptr<block> selector;

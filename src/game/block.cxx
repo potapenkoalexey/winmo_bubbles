@@ -92,11 +92,11 @@ void block::update_uv_coord( ///animation of disappearing
         ///set to unvisible for drawing
         visible = false;
 
-        g_DISAPPEARING_END = true;
+        //g_DISAPPEARING_END = true;
     }
 }
 
-void block::update_ij_coord(const milli_sec& delta_time)
+/* void block::update_i_coord(const milli_sec& delta_time)
 {
     if (state != block_state::falling) {
         return;
@@ -124,4 +124,4 @@ void block::update_ij_coord(const milli_sec& delta_time)
         //move.delta.y = 0.f;  //replace with under block
         state = block_state::fixed;
     }
-}
+}  */

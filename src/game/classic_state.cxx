@@ -55,7 +55,7 @@ void classic_state::handle_events(grottans::engine* engine)
     engine->input(/*out*/ e);
 
     ///blocking handling in non-fixed states of the field
-    if (game_field->m_state != field::field_state::fixed)
+    if (game_field->f_state != field::field_state::fixed)
         return;
 
     if (e == grottans::event::mouse_released) {
@@ -92,7 +92,8 @@ void classic_state::handle_events(grottans::engine* engine)
 
             ///blocking handling_event
             if (delta_score) {
-                game_field->m_state = field::field_state::disappearing;
+                game_field->f_state = field::field_state::disappearing;
+                //game_field->mark_falling_blocks();
             }
 
             /// sound
@@ -156,8 +157,10 @@ void classic_state::update(grottans::engine* engine)
 {
     game_field->update_blocks_coord();
 
-    if (game_field->is_all_fixed())
-        game_field->m_state = field::field_state::fixed;
+    if (game_field->is_all_fixed()) {
+        game_field->f_state = field::field_state::fixed;
+        game_field->mark_falling_blocks();
+    }
 }
 
 void classic_state::draw(grottans::engine* engine)
