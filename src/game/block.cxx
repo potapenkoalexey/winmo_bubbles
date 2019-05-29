@@ -72,7 +72,7 @@ void block::update_uv_coord( ///animation of disappearing
 
     size_t how_may_frames_from_start = static_cast<size_t>(current_time / one_frame_delta);
 
-    size_t current_frame_index = how_may_frames_from_start % FRAME_OF_DISAPPEARING;
+    size_t current_frame_index = how_may_frames_from_start % g_FRAME_OF_DISAPPEARING;
 
     if (current_frame_index > 15) {
         std::cerr << "incorrect frame index!" << std::endl;

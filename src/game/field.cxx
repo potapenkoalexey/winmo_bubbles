@@ -365,18 +365,18 @@ bool field::is_all_fixed()
     return result;
 }
 
-void field::mark_falling_blocks()
+bool field::are_there_falling_blocks()
 {
-    for (int i = width - 2; i >= 0; i--) { // меняют цвет два верхних камня
+    bool result = false;
+    for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            if (gems[i][j]->visible == true) {
-                if (gems[i + 1][j]->state == block::block_state::falling || gems[i + 1][j]->visible == false) {
-                    gems[i][j]->state = block::block_state::falling;
-                    //f_state = field_state::falling;
-                }
+            if (gems[i][j]->state == block::block_state::falling) {
+                result = true;
+                return result;
             }
         }
     }
+    return result;
 }
 
 void field::replace_gems(const size_t& i, const size_t& j, const size_t& m, const size_t& n)
@@ -404,15 +404,30 @@ void field::replace_gems(const size_t& i, const size_t& j, const size_t& m, cons
     //gems[m][n]->state = copy->state;
 }
 
+void field::mark_falling_blocks()
+{
+    for (int i = width - 2; i >= 0; i--) {
+        for (size_t j = 0; j < height; j++) {
+            if (gems[i][j]->visible == true) {
+                if (gems[i + 1][j]->state == block::block_state::falling || gems[i + 1][j]->visible == false) {
+                    gems[i][j]->state = block::block_state::falling;
+                }
+            }
+        }
+    }
+}
+
 void field::update_coord_falling_blocks(const size_t& i, const size_t& j, const milli_sec& delta_time)
 {
+    if (i == 9)
+        return;
     if (gems[i][j]->state != block::block_state::falling) {
         return;
     }
 
     gems[i][j]->current_time += delta_time.count() / 1000.f;
 
-    float one_frame_delta = 1.f / FPS / FPS_falling_factor;
+    float one_frame_delta = 1.f / g_FPS / g_FPS_falling_factor;
 
     size_t how_may_frames_from_start = static_cast<size_t>(gems[i][j]->current_time / one_frame_delta);
 
@@ -421,7 +436,7 @@ void field::update_coord_falling_blocks(const size_t& i, const size_t& j, const 
     ///assign new xy-position
     if (how_may_frames_from_start > gems[i][j]->falling_frame_index) {
         ///0.18f - offset without rows in screen coord -1;1
-        gems[i][j]->move.delta.y -= (0.18f / static_cast<float>(FRAME_OF_DISAPPEARING - 1) * FPS_falling_factor);
+        gems[i][j]->move.delta.y -= (0.18f / static_cast<float>(g_FRAME_OF_DISAPPEARING - 1) * g_FPS_falling_factor);
         gems[i][j]->falling_frame_index++;
     }
 
@@ -436,15 +451,61 @@ void field::update_coord_falling_blocks(const size_t& i, const size_t& j, const 
     }
 }
 
+void field::mark_shifting_blocks()
+{
+    for (size_t i = 0; i < width; i++) {
+        for (size_t j = 1; j < height; j++) {
+            if (gems[i][j]->visible == true) {
+                if (gems[i][j - 1]->state == block::block_state::shifting || gems[i][j - 1]->visible == false) {
+                    gems[i][j]->state = block::block_state::shifting;
+                }
+            }
+        }
+    }
+}
+
+void field::update_coord_shifting_blocks(const size_t& i, const size_t& j, const milli_sec& delta_time)
+{
+    if (j == 0)
+        return;
+    if (gems[i][j]->state != block::block_state::shifting) {
+        return;
+    }
+
+    gems[i][j]->current_time += delta_time.count() / 1000.f;
+
+    float one_frame_delta = 1.f / g_FPS / g_FPS_shifting_factor;
+
+    size_t how_may_frames_from_start = static_cast<size_t>(gems[i][j]->current_time / one_frame_delta);
+
+    ///assign new xy-position
+    if (how_may_frames_from_start > gems[i][j]->shifting_frame_index) {
+        ///0.18f - offset without columns in screen coord -1;1
+        gems[i][j]->move.delta.x -= (0.18f / static_cast<float>(g_FRAME_OF_DISAPPEARING - 1) * g_FPS_shifting_factor);
+        gems[i][j]->shifting_frame_index++;
+    }
+
+    if (how_may_frames_from_start > 14) {
+        //restore original state
+        gems[i][j]->current_time = 0.f;
+        gems[i][j]->shifting_frame_index = 0;
+        gems[i][j]->move.delta.x = 0.f;
+        gems[i][j]->state = block::block_state::fixed;
+        //swap with left block
+        replace_gems(i, j, i, j - 1);
+    }
+}
+
 void field::update_blocks_coord()
 {
     for (int i = width - 1; i >= 0; i--) {
-        for (size_t j = 0; j < height; j++) {
+        for (int j = 0; j < height; j++) {
             //update uv-triangles for disappeating blocks
-            gems[i][j]->update_uv_coord(v_buf_disappear, frame_delta);
+            gems[i][j]->update_uv_coord(v_buf_disappear, g_frame_delta);
             //update vertical position for falling blocks
             //and gorizontal position for shifting blocks
-            update_coord_falling_blocks(i, j, frame_delta);
+            update_coord_falling_blocks(i, j, g_frame_delta);
+            update_coord_shifting_blocks(i, j, g_frame_delta);
         }
     }
 

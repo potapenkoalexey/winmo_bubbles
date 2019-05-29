@@ -4,6 +4,7 @@
 #include "./classic_state.hxx"
 #include "./extreme_state.hxx"
 #include "./game_over_state.hxx"
+#include "./global_variables.hxx"
 #include "./level_complete_state.hxx"
 #include "./select_mode_state.hxx"
 
@@ -41,8 +42,8 @@ int main(int /*argc*/, char** /*argv*/)
         engine->current_state->update(engine);
         engine->current_state->draw(engine);
 
-        frame_delta = std::chrono::duration_cast<milli_sec>(end_last_frame - start);
-        if (frame_delta.count() < 15) { ///~60fps
+        g_frame_delta = std::chrono::duration_cast<milli_sec>(end_last_frame - start);
+        if (g_frame_delta.count() < 15) { ///~60fps
             std::this_thread::yield();
         }
         start = end_last_frame;

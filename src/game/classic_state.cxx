@@ -121,7 +121,7 @@ void classic_state::handle_events(grottans::engine* engine)
     }
     case grottans::event::left_released: {
         if (game_field->selector->position.x > 0) {
-            game_field->selector->position.x -= OFFSET;
+            game_field->selector->position.x -= g_OFFSET;
         } else {
             game_field->selector->position.x = 9.f;
         }
@@ -129,7 +129,7 @@ void classic_state::handle_events(grottans::engine* engine)
     }
     case grottans::event::right_released: {
         if (game_field->selector->position.x < 9) {
-            game_field->selector->position.x += OFFSET;
+            game_field->selector->position.x += g_OFFSET;
         } else {
             game_field->selector->position.x = 0.f;
         }
@@ -137,7 +137,7 @@ void classic_state::handle_events(grottans::engine* engine)
     }
     case grottans::event::up_released: {
         if (game_field->selector->position.y > 0) {
-            game_field->selector->position.y -= OFFSET;
+            game_field->selector->position.y -= g_OFFSET;
         } else {
             game_field->selector->position.y = 9.f;
         }
@@ -145,7 +145,7 @@ void classic_state::handle_events(grottans::engine* engine)
     }
     case grottans::event::down_released: {
         if (game_field->selector->position.y < 9) {
-            game_field->selector->position.y += OFFSET;
+            game_field->selector->position.y += g_OFFSET;
         } else {
             game_field->selector->position.y = 0.f;
         }
@@ -161,6 +161,9 @@ void classic_state::update(grottans::engine* engine)
     if (game_field->is_all_fixed()) {
         game_field->f_state = field::field_state::fixed;
         game_field->mark_falling_blocks();
+        if (!game_field->are_there_falling_blocks()) { ///if the field static
+            game_field->mark_shifting_blocks();
+        }
     }
 }
 

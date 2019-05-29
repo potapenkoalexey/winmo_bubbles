@@ -37,10 +37,12 @@ struct block {
     grottans::vertex_buffer* v_buf = nullptr;
 
     ///for animation
-    float fps = FPS;
+    float fps = g_FPS;
     float current_time = 0.f;
     std::array<grottans::tri2, 2> tr_disappear;
+
     size_t falling_frame_index = 0;
+    size_t shifting_frame_index = 0;
 
     float get_fps() const { return fps; }
     void set_fps(float fps_value) { fps = fps_value; }

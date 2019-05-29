@@ -14,12 +14,14 @@ size_t g_FIELD_WIDTH = 10;
 
 size_t g_FIELD_HEIGHT = 10;
 
-size_t FRAME_OF_DISAPPEARING = 16;
+size_t g_FRAME_OF_DISAPPEARING = 16;
 
-milli_sec frame_delta;
+milli_sec g_frame_delta;
 
-float OFFSET = 1.f;
+float g_OFFSET = 1.f;
 
-float FPS = 60.f;
+float g_FPS = 60.f;
 
-float FPS_falling_factor = 4.f;
+float g_FPS_falling_factor = 3.f;
+
+float g_FPS_shifting_factor = 3.f;
