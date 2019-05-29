@@ -32,7 +32,7 @@ struct field {
 
     void unselect_all();
     void undisappearing_all();
-    void unfalling_all();
+    void unfalling_unshifting_all();
     void visible_all();
 
     bool is_all_fixed();

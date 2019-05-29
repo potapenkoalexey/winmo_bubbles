@@ -332,12 +332,14 @@ void field::undisappearing_all()
     }
 }
 
-void field::unfalling_all()
+void field::unfalling_unshifting_all()
 {
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
             gems[i][j]->move.delta.y = 0.f;
             gems[i][j]->falling_frame_index = 0;
+            gems[i][j]->move.delta.x = 0.f;
+            gems[i][j]->shifting_frame_index = 0;
         }
     }
 }

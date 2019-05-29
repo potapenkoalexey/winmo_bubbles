@@ -40,7 +40,7 @@ void classic_state::pause(grottans::engine*) {}
 void classic_state::resume(grottans::engine*)
 {
     game_field->undisappearing_all();
-    game_field->unfalling_all();
+    game_field->unfalling_unshifting_all();
     game_field->visible_all();
     game_field->fill_clasic();
     game_field->selector->position.x = 5;
@@ -161,8 +161,8 @@ void classic_state::update(grottans::engine* engine)
     if (game_field->is_all_fixed()) {
         game_field->f_state = field::field_state::fixed;
         game_field->mark_falling_blocks();
-        game_field->is_right_row_free();
         if (!game_field->are_there_falling_blocks()) { ///if the field static
+            game_field->is_right_row_free();
             game_field->mark_shifting_blocks();
         }
     }

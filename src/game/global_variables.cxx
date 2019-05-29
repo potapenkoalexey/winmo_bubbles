@@ -22,6 +22,6 @@ float g_OFFSET = 1.f;
 
 float g_FPS = 60.f;
 
-float g_FPS_falling_factor = 3.f;
+float g_FPS_falling_factor = 4.f;
 
-float g_FPS_shifting_factor = 3.f;
+float g_FPS_shifting_factor = 4.f;
