@@ -15,8 +15,6 @@ extern MODE g_MODE;
 
 extern bool g_SOUND;
 
-//extern bool g_DISAPPEARING_END;
-
 extern size_t g_LEVEL;
 
 extern size_t g_POINTS;
@@ -36,3 +34,5 @@ extern milli_sec frame_delta;
 extern float OFFSET;
 
 extern float FPS;
+
+extern float FPS_falling_factor;

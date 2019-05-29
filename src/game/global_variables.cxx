@@ -4,8 +4,6 @@ MODE g_MODE = MODE::classic;
 
 bool g_SOUND = true;
 
-//bool g_DISAPPEARING_END = false;
-
 size_t g_LEVEL = 1;
 
 size_t g_POINTS = 0;
@@ -23,3 +21,5 @@ milli_sec frame_delta;
 float OFFSET = 1.f;
 
 float FPS = 60.f;
+
+float FPS_falling_factor = 4.f;

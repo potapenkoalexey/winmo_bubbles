@@ -32,6 +32,7 @@ struct field {
 
     void unselect_all();
     void undisappearing_all();
+    void unfalling_all();
     void visible_all();
 
     bool is_all_fixed();
@@ -39,7 +40,7 @@ struct field {
     void mark_falling_blocks();
 
     void replace_gems(const size_t& i, const size_t& j, const size_t& m, const size_t& n);
-    void update_i_coord(const size_t& i, const size_t& j, const milli_sec& delta_time);
+    void update_coord_falling_blocks(const size_t& i, const size_t& j, const milli_sec& delta_time);
     void update_blocks_coord();
 
     //    void move_falling();
