@@ -198,7 +198,6 @@ void classic_state::handle_mouse_event(grottans::engine* engine)
 
         i = floor(m_y / static_cast<double>(h) * 11); // work !!!!!!!!!!!
         ///blocking missclicks on progress_desk
-
         if (j < 0 || j > 10 || i < 0 || i > 9)
             return;
     } else {

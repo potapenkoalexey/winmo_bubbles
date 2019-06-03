@@ -606,6 +606,9 @@ public:
     void render(const tri2& t, texture*, const mat2x3&);
     void render(const vertex_buffer&, texture*, const mat2x3&);
 
+    //SDL_Texture* render_text(const std::string& message, const std::string& fontFile, SDL_Color color,
+    //                         int fontSize, SDL_Renderer* renderer);
+
     void set_window_title(const char* name);
     size_t get_window_width();
     size_t get_window_height();
@@ -1151,12 +1154,13 @@ std::string engine_impl::initialize()
 //    }
 
 #ifdef __unix
-    screen_height = h; //static_cast<size_t>(h / 3.);
-    screen_width = w; //static_cast<size_t>(screen_height / 1.f); //1.116);
+    screen_height = h;
+    screen_width = w; //1.116
     if (w > h) {
         scale = grottans::mat2x3::scale(h / (double)w, 1.f);
     } else {
         scale = grottans::mat2x3::scale(1.f, w / (double)h);
+        //scale = grottans::mat2x3::scale(1.f, 1.f);
     }
 
 #endif

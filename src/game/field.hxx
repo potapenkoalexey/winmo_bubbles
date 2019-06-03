@@ -45,15 +45,9 @@ struct field {
     void mark_shifting_blocks();
     void update_coord_shifting_blocks(const size_t& i, const size_t& j, const milli_sec& delta_time);
 
-    void replace_gems(const size_t& i, const size_t& j, const size_t& m, const size_t& n);
+    void swap_gems(const size_t& i, const size_t& j, const size_t& m, const size_t& n);
 
     void update_blocks_coord();
-
-    //    void move_falling();
-    //    void shift_in_left();
-    //    void generate_on_top();
-    //    void generate_right_column();
-    //    void swap();
 
     size_t width = 0;
     size_t height = 0;

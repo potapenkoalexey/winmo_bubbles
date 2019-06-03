@@ -422,7 +422,7 @@ void field::add_right_row()
     }
 }
 
-void field::replace_gems(const size_t& i, const size_t& j, const size_t& m, const size_t& n)
+void field::swap_gems(const size_t& i, const size_t& j, const size_t& m, const size_t& n)
 {
     //if (i < 1)
     //    return;
@@ -490,7 +490,7 @@ void field::update_coord_falling_blocks(const size_t& i, const size_t& j, const 
         gems[i][j]->move.delta.y = 0.f;
         gems[i][j]->state = block::block_state::fixed;
         //swap with bottom block
-        replace_gems(i, j, i + 1, j);
+        swap_gems(i, j, i + 1, j);
     }
 }
 
@@ -535,7 +535,7 @@ void field::update_coord_shifting_blocks(const size_t& i, const size_t& j, const
         gems[i][j]->move.delta.x = 0.f;
         gems[i][j]->state = block::block_state::fixed;
         //swap with left block
-        replace_gems(i, j, i, j - 1);
+        swap_gems(i, j, i, j - 1);
     }
 }
 
