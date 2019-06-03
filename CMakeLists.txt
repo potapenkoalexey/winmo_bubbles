@@ -12,6 +12,10 @@ add_executable(${PROJECT_NAME}
         src/engine/color.cxx
         src/engine/sound_buffer.hxx
         src/engine/sound_buffer.cxx
+        src/engine/font.hxx
+        src/engine/font.cxx
+        src/engine/text_item.hxx
+        src/engine/text_item.cxx
         src/game/main.cxx
         src/game/block.hxx
         src/game/block.cxx
@@ -44,4 +48,5 @@ target_link_libraries(${PROJECT_NAME}
    -lpthread
    -lrt
    -lGL
+   -lSDL2_ttf
    )
