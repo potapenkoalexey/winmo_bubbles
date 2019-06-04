@@ -1,6 +1,7 @@
 #include <assert.h>
 
 #include "color.hxx"
+namespace grottans {
 
 color::color(std::uint32_t rgba_)
     : rgba(rgba_)
@@ -81,3 +82,5 @@ std::istream& operator>>(std::istream& is, color& c)
     c = color(r, g, b, a);
     return is;
 }
+
+} // end of namespace

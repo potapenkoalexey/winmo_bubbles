@@ -1,13 +1,13 @@
 #include "./counter.hxx"
 
-void counter::set_number_of_digit(size_t num)
+void counter::set_number_of_digit(const size_t& num)
 {
     if (num > 6) {
     }
     number_of_digit = num;
 }
 
-void counter::set_displayed_number(size_t number)
+void counter::set_displayed_number(const size_t& number)
 {
     if (number > 6) {
         std::cerr << "error: too much number of the digits" << std::endl;

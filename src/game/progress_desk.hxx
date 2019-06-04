@@ -10,6 +10,7 @@
 class progress_desk {
 public:
     bool init(grottans::engine* engine);
+    void update();
     void draw(grottans::engine* engine);
 
     void set_line_in_null();
@@ -21,8 +22,6 @@ public:
     size_t delta_to_points(size_t delta);
 
     void increase_progress(size_t points, size_t points_to_level_);
-
-    void update();
 
 private:
     bool level_complete_flag = false;

@@ -11,4 +11,4 @@ public:
     virtual ~sound_buffer();
     virtual void play(const properties) = 0;
 };
-}
+} //end of namespace

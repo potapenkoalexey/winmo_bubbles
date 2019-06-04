@@ -3,6 +3,8 @@
 #include <cstdint>
 #include <istream>
 
+namespace grottans {
+
 class color {
 public:
     color() = default;
@@ -24,3 +26,5 @@ private:
 };
 
 std::istream& operator>>(std::istream& is, color&);
+
+} //end of namespace

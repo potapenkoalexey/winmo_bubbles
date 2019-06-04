@@ -33,6 +33,8 @@ add_executable(${PROJECT_NAME}
         src/game/game_over_state.cxx
         src/game/global_variables.hxx
         src/game/global_variables.cxx
+        src/game/number.hxx
+        src/game/number.cxx
 )
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)

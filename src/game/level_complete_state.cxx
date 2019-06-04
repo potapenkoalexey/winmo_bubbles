@@ -78,8 +78,9 @@ void level_complete_state::handle_events(grottans::engine* engine)
         } else {
             ///go to extreme_mode new level
             engine->switch_to_state(engine->states[2]);
-            break;
+            //break;
         }
+        break;
     }
     case grottans::event::start_released: {
         if (g_MODE == MODE::classic) {
@@ -88,8 +89,9 @@ void level_complete_state::handle_events(grottans::engine* engine)
         } else {
             ///go to extreme_mode new level
             engine->switch_to_state(engine->states[2]);
-            break;
+            //break;
         }
+        break;
     }
     }
 }
