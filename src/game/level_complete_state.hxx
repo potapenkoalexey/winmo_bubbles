@@ -4,6 +4,7 @@
 
 #include "../../src/engine/engine.hxx"
 #include "./block.hxx"
+#include "./counter.hxx"
 #include "./number.hxx"
 
 class level_complete_state : public grottans::game_state {
@@ -35,8 +36,7 @@ public:
 
     std::array<grottans::tri2, 2> tr; // v_buf triangles
 
-    std::unique_ptr<number> left_number_level;
-    std::unique_ptr<number> right_number_level;
+    std::unique_ptr<counter> m_counter;
 
 protected:
     level_complete_state() {}

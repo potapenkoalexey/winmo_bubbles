@@ -118,12 +118,11 @@ void progress_desk::increase_progress(size_t points, size_t level_number)
     }
 
     /// moving counter line on % step 0,0143
-    tr[2].v[1].pos.x += (0.0143f * points * 100 / points_to_level); //(levels[level_number]));
+    tr[2].v[1].pos.x += (0.0143f * points * 100 / points_to_level);
     tr[2].v[2].pos.x += (0.0143f * points * 100 / points_to_level);
     tr[3].v[1].pos.x += (0.0143f * points * 100 / points_to_level);
 
     /// if overflow - set maximum
-    //if (tr[3].v[1].pos.x >= tr[5].v[1].pos.x) {
     if (g_SCORE - g_score_in_the_end_of_level >= points_to_level) {
         ///saving score
         g_score_in_the_end_of_level = g_SCORE;

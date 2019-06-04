@@ -11,18 +11,14 @@ bool level_complete_state::init(grottans::engine* engine)
 {
     block_back = std::unique_ptr<block>(new block);
 
-    left_number_level = std::unique_ptr<number>(new number);
-    left_number_level->init(engine);
-    left_number_level->set_vertexes(0.13f, -0.385f, 0.19f, 0.19f);
-    left_number_level->set_color({ 1.0, 1.0, 1.0, 1.0 });
-    left_number_level->set_vertex_buffer(engine);
-
-    right_number_level = std::unique_ptr<number>(new number);
-    right_number_level->init(engine);
-    right_number_level->set_vertexes(0.33f, -0.385f, 0.19f, 0.19f);
-    right_number_level->set_color({ 1.0, 1.0, 1.0, 1.0 });
-    right_number_level->set_vertex_buffer(engine);
-
+    ///counter
+    m_counter = std::unique_ptr<counter>(new counter);
+    m_counter->set_quantity_of_digits(2, counter::sign::unsign);
+    m_counter->init(engine);
+    m_counter->set_vertexes(0.13f, -0.385f, 0.19f, 0.19f);
+    m_counter->set_color({ 1.0f, 1.0f, 1.0f, 1.0f });
+    m_counter->set_vertex_buffer(engine);
+    m_counter->set_displayed_number(0);
     level_number = g_LEVEL;
 
     tex_even = engine->create_texture("./data/images/my/level_even.png");
@@ -59,13 +55,7 @@ void level_complete_state::resume(grottans::engine* engine)
 {
     level_number = g_LEVEL;
 
-    ///update left/right numbers of level_number
-    if (level_number < 10) {
-        left_number_level->set_number_and_texture(level_number);
-    } else {
-        left_number_level->set_number_and_texture(level_number / 10);
-        right_number_level->set_number_and_texture(level_number % 10);
-    }
+    m_counter->set_displayed_number(level_number);
 
     ///select sound even/uneven
     if (level_number % 2) {
@@ -124,10 +114,7 @@ void level_complete_state::update(grottans::engine*)
 void level_complete_state::draw(grottans::engine* engine)
 {
     engine->render(*block_back->v_buf, block_back->texture, block_back->move * engine->scale);
-    ///render left/right numbers of level_number
-    left_number_level->draw(engine);
-    if (level_number > 9) {
-        right_number_level->draw(engine);
-    }
+    m_counter->draw(engine);
+
     engine->swap_buffers();
 }

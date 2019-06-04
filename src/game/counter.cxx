@@ -61,10 +61,10 @@ void counter::set_displayed_number(const size_t& t)
         for (size_t i = 0; i < quantity_of_digits; i++) {
             digits[i]->set_number_and_texture(0);
         }
+        return;
     }
 
     size_t tmp = t;
-
     for (int i = quantity_of_digits - 1; i >= 0; i--) {
         score_numbers[i] = tmp % 10;
 
