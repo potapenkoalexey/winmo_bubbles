@@ -1,19 +1,19 @@
 #pragma once
 
+#include <memory>
 #include <vector>
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_opengl.h>
-#include <SDL2/SDL_opengl_glext.h>
-#include <SDL2/SDL_ttf.h>
-
 #include "../../src/engine/engine.hxx"
-#include "./block.hxx"
+#include "./number.hxx"
 
 class counter {
 public:
+    bool init(grottans::engine*);
+    void update(size_t);
+    void draw(grottans::engine*);
+
     void set_displayed_number(const size_t& number);
+    bool is_overflow(const size_t& number);
     void set_position_and_size(float x, float y, float dx, float dy);
     void set_number_of_digit(const size_t& number);
 
@@ -22,27 +22,10 @@ public:
     void set_number(size_t);
     size_t get_number();
 
-    bool init(grottans::engine*);
-    void update(size_t);
-    void draw(grottans::engine*);
-
 private:
-    size_t number_of_digit;
-    size_t number;
-    std::vector<grottans::texture*> font;
-    std::vector<block> digits;
+    size_t quantity_of_digits;
+    size_t number_on_screen;
 
-    TTF_Font* ttf_font;
-};
-
-class digit {
-public:
-    void set_number(size_t);
-    size_t get_number();
-
-    bool init();
-    void draw(grottans::engine*);
-
-private:
-    size_t number = 0;
+    std::vector<grottans::vertex_buffer*> vertex_buffers;
+    std::vector<std::unique_ptr<number> > digits;
 };

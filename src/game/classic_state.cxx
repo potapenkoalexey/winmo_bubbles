@@ -60,7 +60,6 @@ void classic_state::handle_events(grottans::engine* engine)
         return;
 
     if (e == grottans::event::mouse_released) {
-
         handle_mouse_event(engine);
         /// replacing event to start_pressed
         e = grottans::event::start_released;
@@ -164,6 +163,11 @@ void classic_state::update(grottans::engine* engine)
         if (!game_field->are_there_falling_blocks()) { ///if the field static
             game_field->is_right_row_free();
             game_field->mark_shifting_blocks();
+
+            ///check game_over
+            if (game_field->is_game_over_classic()) {
+                engine->switch_to_state(engine->states[4]);
+            }
         }
     }
 }

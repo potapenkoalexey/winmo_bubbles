@@ -474,8 +474,6 @@ void field::update_coord_falling_blocks(const size_t& i, const size_t& j, const 
 
     size_t how_may_frames_from_start = static_cast<size_t>(gems[i][j]->current_time / one_frame_delta);
 
-    //size_t current_frame_index = how_may_frames_from_start % FRAME_OF_DISAPPEARING;
-
     ///assign new xy-position
     if (how_may_frames_from_start > gems[i][j]->falling_frame_index) {
         ///0.18f - offset without rows in screen coord -1;1
@@ -557,6 +555,17 @@ void field::update_blocks_coord()
     size_t i = static_cast<size_t>(selector->position.y);
     v_buf_tmp_selector[0] = v_buf_grid[(i * 10 + j) * 2] + selector->tr_disappear[0];
     v_buf_tmp_selector[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + selector->tr_disappear[1];
+}
+
+bool field::is_game_over_classic()
+{
+    for (size_t i = 0; i < width; i++) {
+        for (size_t j = 0; j < height; j++) {
+            if (can_select(i, j))
+                return false;
+        }
+    }
+    return true;
 }
 
 void field::draw(grottans::engine* engine)

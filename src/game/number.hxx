@@ -2,7 +2,6 @@
 
 #include "../../src/engine/color.hxx"
 #include "../../src/engine/engine.hxx"
-#include "./block.hxx"
 
 class number {
 public:
@@ -15,9 +14,8 @@ public:
     void set_vertexes(float x, float y, float w, float h);
     void set_vertex_buffer(grottans::engine* engine);
 
-    grottans::vec2 position{ 0.f, 0.f };
     grottans::mat2x3 move{}; // = grottans::mat2x3::scale(1.f, 1.f);
-    grottans::mat2x3 aspect{}; // = grottans::mat2x3::scale(1.f, 1.f);
+
     std::array<grottans::texture*, 11> numbers_textures;
     std::array<grottans::tri2, 2> vertex_triangles;
 

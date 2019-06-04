@@ -3,27 +3,31 @@
 void counter::set_number_of_digit(const size_t& num)
 {
     if (num > 6) {
-        number_of_digit = 0;
+        quantity_of_digits = 0;
+        std::cerr << "error: too much number of the digits" << std::endl;
+        throw std::runtime_error("can't start counter");
     }
-    number_of_digit = num;
+    quantity_of_digits = num;
 }
 
 void counter::set_displayed_number(const size_t& number)
 {
-    if (number > 6) {
-        std::cerr << "error: too much number of the digits" << std::endl;
-        throw std::runtime_error("can't start counter");
+    //is_overflow(number);
+}
+
+bool counter::is_overflow(const size_t& number)
+{
+    if (number > (quantity_of_digits /*?????????????*/)) {
+        std::cerr << "error: counter overflow" << std::endl;
+        throw std::runtime_error("counter overflow");
+        return EXIT_SUCCESS;
     }
+    return EXIT_FAILURE;
 }
 
 void counter::draw(grottans::engine*)
 {
-    if (number_of_digit == 0) {
+    if (quantity_of_digits == 0) {
         return;
     }
-}
-
-///////////////////////////////////////////////////////////////////////////////
-void digit::draw(grottans::engine* e)
-{
 }

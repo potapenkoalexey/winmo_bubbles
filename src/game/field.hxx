@@ -49,6 +49,8 @@ struct field {
 
     void update_blocks_coord();
 
+    bool is_game_over_classic();
+
     size_t width = 0;
     size_t height = 0;
     float scale = 0;
