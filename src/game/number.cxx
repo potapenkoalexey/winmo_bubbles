@@ -18,6 +18,9 @@ bool number::init(grottans::engine* engine)
         throw std::runtime_error("can't init numbers");
     }
 
+    //set_vertexes(0.33f, -0.385f, 0.19f, 0.19f); //left number of the level_number
+    //set_color({ 1.0, 1.0, 1.0, 1.0 });
+
     return EXIT_SUCCESS;
 }
 
@@ -26,7 +29,7 @@ void number::draw(grottans::engine* engine)
     engine->render(*vertex_buffer, texture, move * engine->scale);
 }
 
-void number::set_number(const int& t)
+void number::set_number_and_texture(const int& t)
 {
     if (t >= 0 && t < 11) {
         for (size_t i = 0; i < 11; i++) {
@@ -45,20 +48,34 @@ void number::set_in_null()
     texture = numbers_textures[0];
 }
 
+void number::set_color(grottans::color col)
+{
+    vertex_triangles[0].v[0].c = col;
+    vertex_triangles[0].v[1].c = col;
+    vertex_triangles[0].v[2].c = col;
+
+    vertex_triangles[1].v[0].c = col;
+    vertex_triangles[1].v[1].c = col;
+    vertex_triangles[1].v[2].c = col;
+}
+
 void number::set_vertexes(float x, float y, float w, float h)
 {
-    vertex_triangles[0].v[0].pos.x = -1.f;
-    vertex_triangles[0].v[0].pos.y = 1.f;
-    vertex_triangles[0].v[1].pos.x = 1.f;
-    vertex_triangles[0].v[1].pos.y = 1.f;
-    vertex_triangles[0].v[2].pos.x = 1.f;
-    vertex_triangles[0].v[2].pos.y = -1.f;
-    vertex_triangles[1].v[0].pos.x = -1.f;
-    vertex_triangles[1].v[0].pos.y = 1.f;
-    vertex_triangles[1].v[1].pos.x = 1.f;
-    vertex_triangles[1].v[1].pos.y = -1.f;
-    vertex_triangles[1].v[2].pos.x = -1.f;
-    vertex_triangles[1].v[2].pos.y = -1.f;
+    //w=h=0.08f in previous version of the game
+
+    vertex_triangles[0].v[0].pos.x = x;
+    vertex_triangles[0].v[0].pos.y = y;
+    vertex_triangles[0].v[1].pos.x = x + w;
+    vertex_triangles[0].v[1].pos.y = y;
+    vertex_triangles[0].v[2].pos.x = x + w;
+    vertex_triangles[0].v[2].pos.y = y - h;
+
+    vertex_triangles[1].v[0].pos.x = x;
+    vertex_triangles[1].v[0].pos.y = y;
+    vertex_triangles[1].v[1].pos.x = x + w;
+    vertex_triangles[1].v[1].pos.y = y - h;
+    vertex_triangles[1].v[2].pos.x = x;
+    vertex_triangles[1].v[2].pos.y = y - w;
 
     vertex_triangles[0].v[0].uv.x = 0.f;
     vertex_triangles[0].v[0].uv.y = 0.f;
@@ -66,10 +83,16 @@ void number::set_vertexes(float x, float y, float w, float h)
     vertex_triangles[0].v[1].uv.y = 0.f;
     vertex_triangles[0].v[2].uv.x = 1.f;
     vertex_triangles[0].v[2].uv.y = 1.f;
+
     vertex_triangles[1].v[0].uv.x = 0.f;
     vertex_triangles[1].v[0].uv.y = 0.f;
     vertex_triangles[1].v[1].uv.x = 1.f;
     vertex_triangles[1].v[1].uv.y = 1.f;
     vertex_triangles[1].v[2].uv.x = 0.f;
     vertex_triangles[1].v[2].uv.y = 1.f;
+}
+
+void number::set_vertex_buffer(grottans::engine* engine)
+{
+    vertex_buffer = engine->create_vertex_buffer(&vertex_triangles[0], 2);
 }

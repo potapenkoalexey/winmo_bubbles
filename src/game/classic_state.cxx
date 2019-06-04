@@ -113,8 +113,8 @@ void classic_state::handle_events(grottans::engine* engine)
 
             if (progress->get_level_complete_flag()) {
                 ///go to level_complete_mode
-                engine->switch_to_state(engine->states[3]);
                 g_LEVEL++;
+                engine->switch_to_state(engine->states[3]);
             }
         }
         break;

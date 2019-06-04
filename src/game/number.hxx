@@ -9,10 +9,11 @@ public:
     bool init(grottans::engine* engine);
     void draw(grottans::engine* engine);
 
-    void set_number(const int&);
+    void set_number_and_texture(const int&);
     void set_in_null();
     void set_color(grottans::color);
     void set_vertexes(float x, float y, float w, float h);
+    void set_vertex_buffer(grottans::engine* engine);
 
     grottans::vec2 position{ 0.f, 0.f };
     grottans::mat2x3 move{}; // = grottans::mat2x3::scale(1.f, 1.f);

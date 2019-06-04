@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.9.0, 2019-06-04T13:51:24. -->
+<!-- Written by QtCreator 4.9.0, 2019-06-04T14:58:06. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -190,7 +190,7 @@
     <value type="bool" key="RunConfiguration.UseMultiProcess">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory">/home/huskerdu/Dropbox/CPP_itacademy/Projects/winmo_states</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/huskerdu/Dropbox/CPP_itacademy/Projects/build-winmo_states-Desktop-Debug</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
