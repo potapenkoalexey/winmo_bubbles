@@ -123,10 +123,14 @@ void progress_desk::increase_progress(size_t points, size_t level_number)
     tr[3].v[1].pos.x += (0.0143f * points * 100 / points_to_level);
 
     /// if overflow - set maximum
-    if (tr[3].v[1].pos.x >= tr[5].v[1].pos.x) {
+    //if (tr[3].v[1].pos.x >= tr[5].v[1].pos.x) {
+    if (g_SCORE - g_score_in_the_end_of_level >= points_to_level) {
+        ///saving score
+        g_score_in_the_end_of_level = g_SCORE;
+
         set_line_in_full();
+        ///set the level complite flag
         level_complete_flag = true;
-        //LEVEL++; //work without this (why?????)
     }
 }
 

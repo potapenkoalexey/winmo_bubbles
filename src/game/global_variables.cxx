@@ -10,6 +10,8 @@ size_t g_POINTS = 0;
 
 size_t g_SCORE = 0;
 
+size_t g_score_in_the_end_of_level = 0;
+
 size_t g_FIELD_WIDTH = 10;
 
 size_t g_FIELD_HEIGHT = 10;

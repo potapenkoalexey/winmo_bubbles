@@ -16,10 +16,8 @@ bool number::init(grottans::engine* engine)
     if (numbers_textures[10] == nullptr) {
         std::cerr << "error: can't load numbers images" << std::endl;
         throw std::runtime_error("can't init numbers");
+        return EXIT_FAILURE;
     }
-
-    //set_vertexes(0.33f, -0.385f, 0.19f, 0.19f); //left number of the level_number
-    //set_color({ 1.0, 1.0, 1.0, 1.0 });
 
     return EXIT_SUCCESS;
 }

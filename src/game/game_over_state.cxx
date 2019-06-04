@@ -47,6 +47,8 @@ void game_over_state::pause(grottans::engine*)
 
 void game_over_state::resume(grottans::engine*)
 {
+    g_score_in_the_end_of_level = 0;
+
     if (g_SOUND) {
         sound_game_over->play(grottans::sound_buffer::properties::once);
     }

@@ -52,7 +52,12 @@ void select_mode_state::cleanup(grottans::engine*) {}
 
 void select_mode_state::pause(grottans::engine*) {}
 
-void select_mode_state::resume(grottans::engine*) {}
+void select_mode_state::resume(grottans::engine*)
+{
+    g_score_in_the_end_of_level = 0;
+    g_LEVEL = 1;
+    g_SCORE = 0;
+}
 
 void select_mode_state::handle_events(grottans::engine* engine)
 {

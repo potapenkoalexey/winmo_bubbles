@@ -21,6 +21,8 @@ extern size_t g_POINTS;
 
 extern size_t g_SCORE;
 
+extern size_t g_score_in_the_end_of_level;
+
 extern size_t g_FIELD_WIDTH;
 
 extern size_t g_FIELD_HEIGHT;

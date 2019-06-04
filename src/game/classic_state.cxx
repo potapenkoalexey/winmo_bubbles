@@ -22,9 +22,17 @@ bool classic_state::init(grottans::engine* engine)
     progress = std::unique_ptr<progress_desk>(new progress_desk);
     progress->init(engine);
     progress->set_line_in_null();
-    ///debagging
-    ///progress->set_line_in_full();
 
+    ///counter
+    m_counter = std::unique_ptr<counter>(new counter);
+    m_counter->set_quantity_of_digits(5, counter::sign::unsign);
+    m_counter->init(engine);
+    m_counter->set_vertexes(0.55f, -0.87f, 0.08f, 0.08f);
+    m_counter->set_color({ 1.0f, 1.0f, 1.0f, 1.0f });
+    m_counter->set_vertex_buffer(engine);
+    m_counter->set_displayed_number(0);
+
+    ///sounds
     sound_fall = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/00_falling"));
     sound_destroy_big_form = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/02_destroy_big_form"));
 
@@ -47,6 +55,7 @@ void classic_state::resume(grottans::engine*)
     game_field->selector->position.y = 5;
     progress->set_line_in_null();
     progress->set_level_complete_flag(false);
+    m_counter->set_displayed_number(g_SCORE);
 }
 
 void classic_state::handle_events(grottans::engine* engine)
@@ -106,6 +115,7 @@ void classic_state::handle_events(grottans::engine* engine)
             }
 
             size_t points = progress->delta_to_points(delta_score);
+            g_SCORE += points;
             progress->increase_progress(points, g_LEVEL);
 
             game_field->unselect_all();
@@ -155,6 +165,8 @@ void classic_state::handle_events(grottans::engine* engine)
 
 void classic_state::update(grottans::engine* engine)
 {
+    m_counter->set_displayed_number(g_SCORE);
+
     game_field->update_blocks_coord();
 
     if (game_field->is_all_fixed()) {
@@ -176,6 +188,8 @@ void classic_state::draw(grottans::engine* engine)
 {
     game_field->draw(engine);
     progress->draw(engine);
+    m_counter->draw(engine);
+
     engine->swap_buffers();
 }
 
