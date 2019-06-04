@@ -84,6 +84,7 @@ void game_over_state::update(grottans::engine*)
 
 void game_over_state::draw(grottans::engine* engine)
 {
-    engine->render(*block_back->v_buf, block_back->texture, block_back->move * engine->scale);
+    block_back->draw(engine);
+
     engine->swap_buffers();
 }

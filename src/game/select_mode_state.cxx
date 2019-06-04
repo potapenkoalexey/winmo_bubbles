@@ -109,8 +109,9 @@ void select_mode_state::update(grottans::engine*)
 
 void select_mode_state::draw(grottans::engine* engine)
 {
-    engine->render(*block_back->v_buf, block_back->texture, block_back->move * engine->scale);
-    engine->render(*block_select->v_buf, block_select->texture, block_select->move * engine->scale);
+    block_back->draw(engine);
+    block_select->draw(engine);
+
     engine->swap_buffers();
 }
 

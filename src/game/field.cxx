@@ -582,10 +582,7 @@ void field::draw(grottans::engine* engine)
 
                 //creating new vertex buffer
                 gems[i][j]->v_buf = engine->create_vertex_buffer(&v_buf_tmp[0], 2);
-
-                engine->render(*gems[i][j]->v_buf, gems[i][j]->texture,
-                    gems[i][j]->move * gems[i][j]->aspect * scale);
-
+                gems[i][j]->draw(engine);
                 engine->destroy_vertex_buffer(gems[i][j]->v_buf);
             }
         }
@@ -594,7 +591,7 @@ void field::draw(grottans::engine* engine)
     //drawing selector only in field::fixed mode
     if (f_state == field_state::fixed) {
         selector->v_buf = engine->create_vertex_buffer(&v_buf_tmp_selector[0], 2);
-        engine->render(*selector->v_buf, selector->texture, selector->aspect * scale);
+        selector->draw(engine);
         engine->destroy_vertex_buffer(selector->v_buf);
     }
 }

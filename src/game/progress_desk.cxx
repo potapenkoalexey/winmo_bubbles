@@ -5,7 +5,7 @@
 
 bool progress_desk::init(grottans::engine* engine)
 {
-    points_classic = { 2, 6, 12, 20, 30, 42, 56, 72, 90,
+    points_classic = { 20, 6, 12, 20, 30, 42, 56, 72, 90,
         110, 132, 156, 182, 210, 240, 272, 306, 342,
         382, 424, 468, 514, 562, 750, 999 };
 
@@ -56,27 +56,33 @@ bool progress_desk::init(grottans::engine* engine)
     return EXIT_SUCCESS;
 }
 
-void progress_desk::draw(grottans::engine* engine)
+void progress_desk::update(grottans::engine* engine)
 {
-    engine->render(*block_desk->v_buf, block_desk->texture, block_desk->aspect * engine->scale);
-
-    ///updating line vertex buffer and drawing
+    ///update vertex_buffer
+    engine->destroy_vertex_buffer(block_line->v_buf);
     block_line->v_buf = engine->create_vertex_buffer(&tr[2], 2);
-    engine->render(*block_line->v_buf, block_line->texture, block_line->aspect * engine->scale);
 }
 
-void progress_desk::set_line_in_null()
+void progress_desk::draw(grottans::engine* engine)
+{
+    block_desk->draw(engine);
+    block_line->draw(engine);
+}
+
+void progress_desk::set_line_in_null(grottans::engine* engine)
 {
     tr[2].v[1].pos.x = tr[2].v[0].pos.x;
     tr[2].v[2].pos.x = tr[3].v[2].pos.x;
     tr[3].v[1].pos.x = tr[3].v[2].pos.x;
+    update(engine);
 }
 
-void progress_desk::set_line_in_full()
+void progress_desk::set_line_in_full(grottans::engine* engine)
 {
     tr[2].v[1].pos.x = tr[4].v[1].pos.x;
     tr[2].v[2].pos.x = tr[4].v[2].pos.x;
     tr[3].v[1].pos.x = tr[5].v[1].pos.x;
+    update(engine);
 }
 
 bool progress_desk::get_level_complete_flag()
@@ -107,7 +113,7 @@ size_t progress_desk::delta_to_points(size_t delta)
     return 0;
 }
 
-void progress_desk::increase_progress(size_t points, size_t level_number)
+void progress_desk::increase_progress(grottans::engine* engine, size_t points, size_t level_number)
 {
     size_t points_to_level = 0;
 
@@ -121,18 +127,16 @@ void progress_desk::increase_progress(size_t points, size_t level_number)
     tr[2].v[1].pos.x += (0.0143f * points * 100 / points_to_level);
     tr[2].v[2].pos.x += (0.0143f * points * 100 / points_to_level);
     tr[3].v[1].pos.x += (0.0143f * points * 100 / points_to_level);
+    ///updating vertex_buffer
+    update(engine);
 
     /// if overflow - set maximum
     if (g_SCORE - g_score_in_the_end_of_level >= points_to_level) {
         ///saving score
         g_score_in_the_end_of_level = g_SCORE;
 
-        set_line_in_full();
+        set_line_in_full(engine);
         ///set the level complite flag
         level_complete_flag = true;
     }
-}
-
-void progress_desk::update()
-{
 }

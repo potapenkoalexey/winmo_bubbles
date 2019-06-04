@@ -57,4 +57,6 @@ struct block {
     void get_random_color_from_5();
     void get_random_color_from_6();
     void get_random_color_from_7();
+
+    void draw(grottans::engine*);
 };

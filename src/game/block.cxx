@@ -96,32 +96,7 @@ void block::update_uv_coord( ///animation of disappearing
     }
 }
 
-/* void block::update_i_coord(const milli_sec& delta_time)
+void block::draw(grottans::engine* engine)
 {
-    if (state != block_state::falling) {
-        return;
-    }
-
-    current_time += delta_time.count() / 1000.f;
-
-    float one_frame_delta = 1.f / 60;
-
-    size_t how_may_frames_from_start = static_cast<size_t>(current_time / one_frame_delta);
-
-    //size_t current_frame_index = how_may_frames_from_start % FRAME_OF_DISAPPEARING;
-
-    ///assign new xy-position
-    if (how_may_frames_from_start > falling_frame_index) {
-        //0.18f - offset without rows in screen coord -1;1
-        move.delta.y -= (0.18f / static_cast<float>(FRAME_OF_DISAPPEARING - 1.f));
-        falling_frame_index++;
-    }
-
-    if (how_may_frames_from_start == 15) {
-        //need to swap with final block place
-        current_time = 0.f;
-        falling_frame_index = 0;
-        //move.delta.y = 0.f;  //replace with under block
-        state = block_state::fixed;
-    }
-}  */
+    engine->render(*v_buf, texture, move * aspect * engine->scale);
+}

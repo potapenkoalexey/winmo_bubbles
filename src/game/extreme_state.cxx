@@ -17,7 +17,7 @@ bool extreme_state::init(grottans::engine* engine)
     ///progress desk
     progress = std::unique_ptr<progress_desk>(new progress_desk);
     progress->init(engine);
-    progress->set_line_in_null();
+    progress->set_line_in_null(engine);
 
     return EXIT_SUCCESS;
 }
@@ -26,7 +26,7 @@ void extreme_state::cleanup(grottans::engine*) {}
 
 void extreme_state::pause(grottans::engine*) {}
 
-void extreme_state::resume(grottans::engine*)
+void extreme_state::resume(grottans::engine* engine)
 {
     game_field->undisappearing_all();
     game_field->fill_extreme();
@@ -34,7 +34,7 @@ void extreme_state::resume(grottans::engine*)
     game_field->selector->position.x = 5;
     game_field->selector->position.y = 5;
 
-    progress->set_line_in_null();
+    progress->set_line_in_null(engine);
     progress->set_level_complete_flag(false);
 }
 
