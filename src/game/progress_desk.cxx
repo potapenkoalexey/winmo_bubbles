@@ -5,7 +5,7 @@
 
 bool progress_desk::init(grottans::engine* engine)
 {
-    points_classic = { 20, 6, 12, 20, 30, 42, 56, 72, 90,
+    points_classic = { 2, 6, 12, 20, 30, 42, 56, 72, 90,
         110, 132, 156, 182, 210, 240, 272, 306, 342,
         382, 424, 468, 514, 562, 750, 999 };
 
@@ -124,9 +124,15 @@ void progress_desk::increase_progress(grottans::engine* engine, size_t points, s
     }
 
     /// moving counter line on % step 0,0143
-    tr[2].v[1].pos.x += (0.0143f * points * 100 / points_to_level);
-    tr[2].v[2].pos.x += (0.0143f * points * 100 / points_to_level);
-    tr[3].v[1].pos.x += (0.0143f * points * 100 / points_to_level);
+    tr[2].v[1].pos.x += (0.0142f * points * 100 / points_to_level);
+    tr[2].v[2].pos.x += (0.0142f * points * 100 / points_to_level);
+    tr[3].v[1].pos.x += (0.0142f * points * 100 / points_to_level);
+
+    ///if line oveflow
+    if (tr[3].v[1].pos.x >= tr[5].v[1].pos.x) {
+        set_line_in_full(engine);
+    }
+
     ///updating vertex_buffer
     update(engine);
 

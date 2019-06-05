@@ -59,62 +59,6 @@ void select_mode_state::resume(grottans::engine*)
     g_SCORE = 0;
 }
 
-void select_mode_state::handle_events(grottans::engine* engine)
-{
-    grottans::event e;
-    engine->input(e);
-    switch (e) {
-    case grottans::event::turn_off: {
-        engine->loop = false;
-        break;
-    }
-    case grottans::event::mouse_released: {
-        handle_mouse_event(engine, e);
-        break;
-    }
-    case grottans::event::left_released: {
-        block_select->v_buf = v_buf_classic;
-        g_MODE = MODE::classic;
-        break;
-    }
-    case grottans::event::right_released: {
-        block_select->v_buf = v_buf_extreme;
-        g_MODE = MODE::extreme;
-        break;
-    }
-    case grottans::event::up_released: {
-        if (g_SOUND) {
-            sound_turn_off();
-        } else {
-            sound_turn_on();
-        }
-        break;
-    }
-    case grottans::event::start_released: {
-        if (block_select->v_buf == v_buf_classic) {
-            engine->switch_to_state(engine->states[1]);
-        }
-        if (block_select->v_buf == v_buf_extreme) {
-            engine->switch_to_state(engine->states[2]);
-        }
-
-        break;
-    }
-    }
-}
-
-void select_mode_state::update(grottans::engine*)
-{
-}
-
-void select_mode_state::draw(grottans::engine* engine)
-{
-    block_back->draw(engine);
-    block_select->draw(engine);
-
-    engine->swap_buffers();
-}
-
 void select_mode_state::handle_mouse_event(
     grottans::engine* engine,
     grottans::event& e)
@@ -151,4 +95,60 @@ void select_mode_state::sound_turn_off()
 {
     block_back->texture = tex_back_sound_off;
     g_SOUND = false;
+}
+
+void select_mode_state::handle_events(grottans::engine* engine)
+{
+    grottans::event e;
+    engine->input(e);
+    switch (e) {
+    case grottans::event::turn_off: {
+        engine->loop = false;
+        break;
+    }
+    case grottans::event::mouse_released: {
+        handle_mouse_event(engine, e);
+        break;
+    }
+    case grottans::event::left_released: {
+        block_select->v_buf = v_buf_classic;
+        g_MODE = MODE::classic;
+        break;
+    }
+    case grottans::event::right_released: {
+        block_select->v_buf = v_buf_extreme;
+        g_MODE = MODE::extreme;
+        break;
+    }
+    case grottans::event::up_released: {
+        if (g_SOUND) {
+            sound_turn_off();
+        } else {
+            sound_turn_on();
+        }
+        break;
+    }
+    case grottans::event::start_released: {
+        if (g_MODE == MODE::classic) {
+            engine->switch_to_state(engine->states[1]);
+        }
+        if (g_MODE == MODE::extreme) {
+            engine->switch_to_state(engine->states[2]);
+        }
+
+        break;
+    }
+    }
+}
+
+void select_mode_state::update(grottans::engine*)
+{
+}
+
+void select_mode_state::draw(grottans::engine* engine)
+{
+    block_back->draw(engine);
+    block_select->draw(engine);
+
+    engine->swap_buffers();
 }
