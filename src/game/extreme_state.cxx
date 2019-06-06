@@ -68,7 +68,7 @@ void extreme_state::handle_events(grottans::engine* engine)
 
     if (e == grottans::event::mouse_released) {
         if (handle_mouse_event(engine)) {
-            e = grottans::event::start_pressed;
+            e = grottans::event::start_released;
         }
     }
 
@@ -236,9 +236,7 @@ bool extreme_state::handle_mouse_event(grottans::engine* engine)
         double delta_x = m_x - static_cast<double>(centr_x);
         //find delta in size block size
         delta_x = delta_x / static_cast<double>(block);
-
         j = 5 + delta_x;
-
         i = floor(m_y / static_cast<double>(h) * 11); // work !!!!!!!!!!!
         ///blocking missclicks on progress_desk
         if (j < 0 || j > 10 || i < 0 || i > 9) {
