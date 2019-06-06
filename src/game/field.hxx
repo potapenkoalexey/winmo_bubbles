@@ -28,11 +28,12 @@ struct field {
 
     bool can_select(const size_t&, const size_t&);
     bool select_around(const size_t&, const size_t&);
-    size_t selecting();
+    size_t selecting_to_disappearing();
 
     void unselect_all();
     void undisappearing_all();
     void unfalling_unshifting_all();
+    void unmotion_all();
     void visible_all();
 
     bool is_all_fixed();

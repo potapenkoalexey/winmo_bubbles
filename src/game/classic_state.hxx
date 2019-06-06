@@ -20,7 +20,7 @@ public:
     void update(grottans::engine*);
     void draw(grottans::engine*);
 
-    void handle_mouse_event(grottans::engine* engine);
+    bool handle_mouse_event(grottans::engine* engine);
 
     static game_state* instance()
     {

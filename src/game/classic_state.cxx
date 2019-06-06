@@ -69,9 +69,10 @@ void classic_state::handle_events(grottans::engine* engine)
         return;
 
     if (e == grottans::event::mouse_released) {
-        handle_mouse_event(engine);
-        /// replacing event to start_pressed
-        e = grottans::event::start_released;
+        if (handle_mouse_event(engine)) {
+            /// replacing event to start_pressed
+            e = grottans::event::start_released;
+        }
     }
 
     switch (e) {
@@ -84,6 +85,7 @@ void classic_state::handle_events(grottans::engine* engine)
         engine->switch_to_state(engine->states[0]);
         g_LEVEL = 1;
         g_SCORE = 0;
+        g_score_in_the_end_of_level = 0;
         break;
     }
     case grottans::event::start_released: {
@@ -97,32 +99,31 @@ void classic_state::handle_events(grottans::engine* engine)
         if (search && game_field->gems[i][j]->visible == true && game_field->gems[i][j]->color != block::palette::non) {
             game_field->gems[i][j]->selected = true;
 
-            size_t delta_score = game_field->selecting();
+            size_t selected_blocks = game_field->selecting_to_disappearing();
 
             ///blocking handling_event
-            if (delta_score) {
+            if (selected_blocks) {
                 game_field->f_state = field::field_state::disappearing;
-                //game_field->mark_falling_blocks();
             }
 
             /// sound
-            if (delta_score > 0 && g_SOUND) {
+            if (selected_blocks > 0 && g_SOUND) {
                 sound_fall->play(grottans::sound_buffer::properties::once);
             }
             /// sound destroy_big_form
-            if (delta_score > 9 && g_SOUND) {
+            if (selected_blocks > 9 && g_SOUND) {
                 sound_destroy_big_form->play(grottans::sound_buffer::properties::once);
             }
 
-            size_t points = progress->delta_to_points(delta_score);
+            size_t points = progress->blocks_to_points(selected_blocks);
             g_SCORE += points;
             progress->increase_progress(engine, points, g_LEVEL);
 
             game_field->unselect_all();
 
             if (progress->get_level_complete_flag()) {
-                ///go to level_complete_mode
                 g_LEVEL++;
+                ///go to level_complete_mode
                 engine->switch_to_state(engine->states[3]);
             }
         }
@@ -193,7 +194,7 @@ void classic_state::draw(grottans::engine* engine)
     engine->swap_buffers();
 }
 
-void classic_state::handle_mouse_event(grottans::engine* engine)
+bool classic_state::handle_mouse_event(grottans::engine* engine)
 {
     size_t w = engine->get_window_width();
     size_t h = engine->get_window_height();
@@ -216,8 +217,9 @@ void classic_state::handle_mouse_event(grottans::engine* engine)
 
         i = floor(m_y / static_cast<double>(h) * 11); // work !!!!!!!!!!!
         ///blocking missclicks on progress_desk
-        if (j < 0 || j > 10 || i < 0 || i > 9)
-            return;
+        if (j < 0 || j > 10 || i < 0 || i > 9) {
+            return false;
+        }
     } else {
         int block = static_cast<int>(w) / 11;
         int centr_y = h / 2 - block / 2;
@@ -227,9 +229,10 @@ void classic_state::handle_mouse_event(grottans::engine* engine)
         j = floor(m_x / static_cast<double>(w) * 11 - 0.5);
         i = 5 + delta_y;
         if (j < 0 || j > 9 || i > 10 || i < 0)
-            return;
+            return false;
     }
 
     game_field->selector->position.x = static_cast<float>(j);
     game_field->selector->position.y = static_cast<float>(i);
+    return true;
 }

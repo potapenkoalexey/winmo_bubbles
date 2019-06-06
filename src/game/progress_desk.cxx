@@ -56,7 +56,7 @@ bool progress_desk::init(grottans::engine* engine)
     return EXIT_SUCCESS;
 }
 
-void progress_desk::update(grottans::engine* engine)
+void progress_desk::update_line_vertex_buffer(grottans::engine* engine)
 {
     ///update vertex_buffer
     engine->destroy_vertex_buffer(block_line->v_buf);
@@ -74,7 +74,7 @@ void progress_desk::set_line_in_null(grottans::engine* engine)
     tr[2].v[1].pos.x = tr[2].v[0].pos.x;
     tr[2].v[2].pos.x = tr[3].v[2].pos.x;
     tr[3].v[1].pos.x = tr[3].v[2].pos.x;
-    update(engine);
+    update_line_vertex_buffer(engine);
 }
 
 void progress_desk::set_line_in_full(grottans::engine* engine)
@@ -82,7 +82,7 @@ void progress_desk::set_line_in_full(grottans::engine* engine)
     tr[2].v[1].pos.x = tr[4].v[1].pos.x;
     tr[2].v[2].pos.x = tr[4].v[2].pos.x;
     tr[3].v[1].pos.x = tr[5].v[1].pos.x;
-    update(engine);
+    update_line_vertex_buffer(engine);
 }
 
 bool progress_desk::get_level_complete_flag()
@@ -95,7 +95,7 @@ void progress_desk::set_level_complete_flag(bool var)
     level_complete_flag = var;
 }
 
-size_t progress_desk::delta_to_points(size_t delta)
+size_t progress_desk::blocks_to_points(size_t delta)
 {
     if (g_MODE == MODE::classic) {
         if (delta < 24)
@@ -119,7 +119,8 @@ void progress_desk::increase_progress(grottans::engine* engine, size_t points, s
 
     if (g_MODE == MODE::classic) {
         points_to_level = levels_classic[level_number];
-    } else {
+    }
+    if (g_MODE == MODE::extreme) {
         points_to_level = levels_extreme[level_number];
     }
 
@@ -134,7 +135,7 @@ void progress_desk::increase_progress(grottans::engine* engine, size_t points, s
     }
 
     ///updating vertex_buffer
-    update(engine);
+    update_line_vertex_buffer(engine);
 
     /// if overflow - set maximum
     if (g_SCORE - g_score_in_the_end_of_level >= points_to_level) {
