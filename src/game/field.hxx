@@ -17,6 +17,14 @@ struct field {
         disappearing //maybe unused because includes in falling
     };
 
+    enum class direction {
+        right,
+        down,
+        left,
+        up,
+        non
+    };
+
     field();
     field(size_t width, size_t height);
 
@@ -34,6 +42,7 @@ struct field {
 
     void unselect_all();
     void undisappearing_all();
+    void unselect_undisappearing_all();
     void unfalling_unshifting_all();
     void unmotion_all();
     void visible_all();
@@ -50,6 +59,7 @@ struct field {
     void update_coord_shifting_blocks(const size_t& i, const size_t& j, const milli_sec& delta_time);
 
     void swap_gems(const size_t& i, const size_t& j, const size_t& m, const size_t& n);
+    bool can_flip(const size_t& i, const size_t& j, direction dir);
 
     void update_blocks_coord();
 

@@ -33,7 +33,8 @@ bool extreme_state::init(grottans::engine* engine)
     ///sounds
     sound_fall = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/00_falling"));
     sound_destroy_big_form = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/02_destroy_big_form"));
-
+    sound_flip = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/08_flip"));
+    sound_cant_flip = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/09_cant_flip"));
     return EXIT_SUCCESS;
 }
 
@@ -152,40 +153,152 @@ void extreme_state::handle_events(grottans::engine* engine)
     case grottans::event::left_released: {
         game_field->selector->texture = game_field->tex_selector;
 
-        if (game_field->selector->position.x > 0) {
-            game_field->selector->position.x -= 1.f;
+        size_t i = static_cast<size_t>(game_field->selector->position.y);
+        size_t j = static_cast<size_t>(game_field->selector->position.x);
+
+        if (game_field->gems[i][j]->motion == false) {
+            if (game_field->selector->position.x > 0) {
+                game_field->selector->position.x -= 1.f;
+            } else {
+                game_field->selector->position.x = 9.f;
+            }
         } else {
-            game_field->selector->position.x = 9.f;
+            if (game_field->can_flip(i, j, field::direction::left)) {
+                game_field->swap_gems(i, j, i, j - 1);
+                //
+                //flip blocks with animation on 180 degrees
+                //
+                if (game_field->selector->position.x > 0) {
+                    game_field->selector->position.x -= 1.f;
+                } else {
+                    game_field->selector->position.x = 9.f;
+                }
+                if (g_SOUND) {
+                    sound_flip->play(grottans::sound_buffer::properties::once);
+                }
+            } else {
+                //
+                //flip blocks with animation on 360 degrees
+                //
+                if (g_SOUND) {
+                    sound_cant_flip->play(grottans::sound_buffer::properties::once);
+                }
+            }
+            game_field->gems[i][j]->motion = false; //is i need???
         }
         break;
     }
     case grottans::event::right_released: {
         game_field->selector->texture = game_field->tex_selector;
 
-        if (game_field->selector->position.x < 9) {
-            game_field->selector->position.x += 1.f;
+        size_t i = static_cast<size_t>(game_field->selector->position.y);
+        size_t j = static_cast<size_t>(game_field->selector->position.x);
+
+        if (game_field->gems[i][j]->motion == false) {
+            if (game_field->selector->position.x < 9.f) {
+                game_field->selector->position.x += 1.f;
+            } else {
+                game_field->selector->position.x = 0.f;
+            }
         } else {
-            game_field->selector->position.x = 0.f;
+            if (game_field->can_flip(i, j, field::direction::right)) {
+                game_field->swap_gems(i, j, i, j + 1);
+                //
+                //flip blocks with animation on 180 degrees
+                //
+                if (game_field->selector->position.x < 9.f) {
+                    game_field->selector->position.x += 1.f;
+                } else {
+                    game_field->selector->position.x = 0.f;
+                }
+                if (g_SOUND) {
+                    sound_flip->play(grottans::sound_buffer::properties::once);
+                }
+            } else {
+                //
+                //flip blocks with animation on 360 degrees
+                //
+                if (g_SOUND) {
+                    sound_cant_flip->play(grottans::sound_buffer::properties::once);
+                }
+            }
+            game_field->gems[i][j]->motion = false; //is i need???
         }
         break;
     }
     case grottans::event::up_released: {
         game_field->selector->texture = game_field->tex_selector;
 
-        if (game_field->selector->position.y > 0) {
-            game_field->selector->position.y -= 1.f;
+        size_t i = static_cast<size_t>(game_field->selector->position.y);
+        size_t j = static_cast<size_t>(game_field->selector->position.x);
+
+        if (game_field->gems[i][j]->motion == false) {
+            if (game_field->selector->position.y > 0) {
+                game_field->selector->position.y -= 1.f;
+            } else {
+                game_field->selector->position.y = 9.f;
+            }
         } else {
-            game_field->selector->position.y = 9.f;
+            if (game_field->can_flip(i, j, field::direction::up)) {
+                game_field->swap_gems(i - 1, j, i, j);
+                //
+                //flip blocks with animation on 180 degrees
+                //
+                if (game_field->selector->position.y > 0) {
+                    game_field->selector->position.y -= 1.f;
+                } else {
+                    game_field->selector->position.y = 9.f;
+                }
+                if (g_SOUND) {
+                    sound_flip->play(grottans::sound_buffer::properties::once);
+                }
+            } else {
+                //
+                //flip blocks with animation on 360 degrees
+                //
+                if (g_SOUND) {
+                    sound_cant_flip->play(grottans::sound_buffer::properties::once);
+                }
+            }
+            game_field->gems[i][j]->motion = false; //is i need???
         }
         break;
     }
     case grottans::event::down_released: {
         game_field->selector->texture = game_field->tex_selector;
 
-        if (game_field->selector->position.y < 9) {
-            game_field->selector->position.y += 1.f;
+        size_t i = static_cast<size_t>(game_field->selector->position.y);
+        size_t j = static_cast<size_t>(game_field->selector->position.x);
+
+        if (game_field->gems[i][j]->motion == false) {
+            if (game_field->selector->position.y < 9) {
+                game_field->selector->position.y += 1.f;
+            } else {
+                game_field->selector->position.y = 0.f;
+            }
         } else {
-            game_field->selector->position.y = 0.f;
+            if (game_field->can_flip(i, j, field::direction::down)) {
+                game_field->swap_gems(i + 1, j, i, j);
+                //
+                //flip blocks with animation on 180 degrees
+                //
+                if (game_field->selector->position.y < 9) {
+                    game_field->selector->position.y += 1.f;
+                } else {
+                    game_field->selector->position.y = 0.f;
+                }
+                if (g_SOUND) {
+                    sound_flip->play(grottans::sound_buffer::properties::once);
+                }
+            } else {
+                //
+                //flip blocks with animation on 360 degrees
+                //
+                if (g_SOUND) {
+                    sound_cant_flip->play(grottans::sound_buffer::properties::once);
+                }
+            }
+            game_field->gems[i][j]->motion = false; //is i need???
         }
         break;
     }

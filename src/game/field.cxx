@@ -333,10 +333,27 @@ void field::undisappearing_all()
 {
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            gems[i][j]->state = block::block_state::fixed;
-            gems[i][j]->tr_disappear[0] = v_buf_disappear[0];
-            gems[i][j]->tr_disappear[1] = v_buf_disappear[1];
-            gems[i][j]->current_time = 0.f;
+            if (gems[i][j]->state != block::block_state::fixed) {
+                gems[i][j]->state = block::block_state::fixed;
+                gems[i][j]->tr_disappear[0] = v_buf_disappear[0];
+                gems[i][j]->tr_disappear[1] = v_buf_disappear[1];
+                gems[i][j]->current_time = 0.f;
+            }
+        }
+    }
+}
+
+void field::unselect_undisappearing_all()
+{
+    for (size_t i = 0; i < width; i++) {
+        for (size_t j = 0; j < height; j++) {
+            gems[i][j]->selected = false;
+            if (gems[i][j]->state != block::block_state::fixed) {
+                gems[i][j]->state = block::block_state::fixed;
+                gems[i][j]->tr_disappear[0] = v_buf_disappear[0];
+                gems[i][j]->tr_disappear[1] = v_buf_disappear[1];
+                gems[i][j]->current_time = 0.f;
+            }
         }
     }
 }
@@ -439,8 +456,6 @@ void field::add_blocks_at_the_top_of_field()
 
 void field::swap_gems(const size_t& i, const size_t& j, const size_t& m, const size_t& n)
 {
-    //if (i < 1)
-    //    return;
     std::unique_ptr<block> copy = std::unique_ptr<block>(new block);
 
     copy->color = gems[i][j]->color;
@@ -460,6 +475,162 @@ void field::swap_gems(const size_t& i, const size_t& j, const size_t& m, const s
     gems[m][n]->selected = copy->selected;
     gems[m][n]->visible = copy->visible;
     gems[m][n]->state = copy->state;
+}
+
+bool field::can_flip(const size_t& i, const size_t& j, field::direction dir)
+{
+    // if checking pair block-to-bomb -> always true, because bomb selecting return 9 !!!
+
+    bool result = false;
+
+    // if block Black - return false
+    if (gems[i][j]->color == block::palette::black || gems[i][j]->color == block::palette::bomb)
+        return result;
+
+    // sort by direction
+    if (dir == direction::up) {
+        if (i > 0) {
+            if (gems[i - 1][j]->color != block::palette::black) {
+
+                if (gems[i - 1][j]->color == block::palette::bomb) {
+                    swap_gems(i, j, i - 1, j);
+                    gems[i - 1][j]->selected = true;
+                    if (selecting_to_disappearing() >= 3) {
+                        unselect_undisappearing_all();
+                        result = true;
+                    }
+                    unselect_undisappearing_all();
+                    swap_gems(i - 1, j, i, j);
+                    return result;
+                }
+
+                swap_gems(i, j, i - 1, j);
+                gems[i][j]->selected = true;
+                if (selecting_to_disappearing() >= 3) {
+                    unselect_undisappearing_all();
+                    result = true;
+                } else {
+                    unselect_undisappearing_all();
+                    gems[i - 1][j]->selected = true;
+                    if (selecting_to_disappearing() >= 3) {
+                        unselect_undisappearing_all();
+                        result = true;
+                    }
+                }
+                //restore previous MAP state
+                unselect_undisappearing_all();
+                swap_gems(i - 1, j, i, j);
+                return result;
+            }
+        }
+    }
+    if (dir == direction::down) {
+        if (i < 9) {
+            if (gems[i + 1][j]->color != block::palette::black) {
+                if (gems[i + 1][j]->color == block::palette::bomb) {
+                    swap_gems(i, j, i + 1, j);
+                    gems[i + 1][j]->selected = true;
+                    if (selecting_to_disappearing() >= 3) {
+                        unselect_undisappearing_all();
+                        result = true;
+                    }
+                    unselect_undisappearing_all();
+                    swap_gems(i + 1, j, i, j);
+                    return result;
+                }
+                swap_gems(i, j, i + 1, j);
+                gems[i][j]->selected = true;
+                if (selecting_to_disappearing() >= 3) {
+                    unselect_undisappearing_all();
+                    result = true;
+                } else {
+                    unselect_undisappearing_all();
+                    gems[i + 1][j]->selected = true;
+                    if (selecting_to_disappearing() >= 3) {
+                        unselect_undisappearing_all();
+                        result = true;
+                    }
+                }
+                //restore previous MAP state
+                unselect_undisappearing_all();
+                swap_gems(i + 1, j, i, j);
+                return result;
+            }
+        }
+    }
+    if (dir == direction::left) {
+        if (j > 0) {
+            if (gems[i][j - 1]->color != block::palette::black) {
+                if (gems[i][j - 1]->color == block::palette::bomb) {
+                    swap_gems(i, j, i, j - 1);
+                    gems[i][j - 1]->selected = true;
+                    if (selecting_to_disappearing() >= 3) {
+                        unselect_undisappearing_all();
+                        result = true;
+                    }
+                    unselect_undisappearing_all();
+                    swap_gems(i, j - 1, i, j);
+                    return result;
+                }
+
+                swap_gems(i, j, i, j - 1);
+                gems[i][j]->selected = true;
+                if (selecting_to_disappearing() >= 3) {
+                    unselect_undisappearing_all();
+                    result = true;
+                } else {
+                    unselect_undisappearing_all();
+                    gems[i][j - 1]->selected = true;
+                    if (selecting_to_disappearing() >= 3) {
+                        unselect_undisappearing_all();
+                        result = true;
+                    }
+                }
+                //restore previous MAP state
+                unselect_undisappearing_all();
+                swap_gems(i, j, i, j - 1);
+                return result;
+            }
+        }
+    }
+    if (dir == direction::right) {
+        if (j < 9) {
+            if (gems[i][j + 1]->color != block::palette::black) {
+
+                if (gems[i][j + 1]->color == block::palette::bomb) {
+                    swap_gems(i, j, i, j + 1);
+                    gems[i][j + 1]->selected = true;
+                    if (selecting_to_disappearing() >= 3) {
+                        unselect_undisappearing_all();
+                        result = true;
+                    }
+                    unselect_undisappearing_all();
+                    swap_gems(i, j + 1, i, j);
+                    return result;
+                }
+
+                swap_gems(i, j, i, j + 1);
+                gems[i][j]->selected = true;
+                if (selecting_to_disappearing() >= 3) {
+                    unselect_undisappearing_all();
+                    result = true;
+                } else {
+                    unselect_undisappearing_all();
+                    gems[i][j + 1]->selected = true;
+                    if (selecting_to_disappearing() >= 3) {
+                        unselect_undisappearing_all();
+                        result = true;
+                    }
+                }
+                //restore previous MAP state
+                unselect_undisappearing_all();
+                swap_gems(i, j, i, j + 1);
+                return result;
+            }
+        }
+    }
+
+    return result;
 }
 
 void field::mark_falling_blocks()
