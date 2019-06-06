@@ -108,7 +108,7 @@ void extreme_state::handle_events(grottans::engine* engine)
             game_field->gems[i][j]->selected = true;
 
             if (game_field->gems[i][j]->color == block::palette::bomb) {
-                game_field->select_around_bomb(i, j);
+                selected_blocks = game_field->select_around_bomb(i, j);
             } else {
                 selected_blocks = game_field->selecting_to_disappearing();
             }
@@ -200,8 +200,8 @@ void extreme_state::update(grottans::engine* engine)
         game_field->f_state = field::field_state::fixed;
         game_field->add_blocks_at_the_top_of_field();
         game_field->mark_falling_blocks();
-        if (!game_field->are_there_falling_blocks()) { ///if the field static
-            ///check game_over
+        if (!game_field->are_there_falling_blocks()) {
+            ///if the field static - check is_game_over
             if (game_field->is_game_over_extreme()) {
                 engine->switch_to_state(engine->states[4]);
             }

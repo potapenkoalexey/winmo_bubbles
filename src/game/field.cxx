@@ -246,46 +246,51 @@ bool field::select_around(const size_t& i, const size_t& j)
     return result;
 }
 
-bool field::select_around_bomb(const size_t& i, const size_t& j)
+size_t field::select_around_bomb(const size_t& i, const size_t& j)
 {
-    bool result = false;
+    size_t result = 1;
 
-    if (gems[i][j]->color == block::palette::bomb) {
-        gems[i][j]->selected = true;
-        gems[i][j]->state = block::block_state::disappearing;
+    gems[i][j]->selected = true;
+    gems[i][j]->state = block::block_state::disappearing;
+    if (j > 0) {
+        gems[i][j - 1]->selected = true;
+        gems[i][j - 1]->state = block::block_state::disappearing;
+        result++;
+    }
+    if (j < 9) {
+        gems[i][j + 1]->selected = true;
+        gems[i][j + 1]->state = block::block_state::disappearing;
+        result++;
+    }
+    if (i > 0) {
+        gems[i - 1][j]->selected = true;
+        gems[i - 1][j]->state = block::block_state::disappearing;
+        result++;
+        if (j < 9) {
+            gems[i - 1][j + 1]->selected = true;
+            gems[i - 1][j + 1]->state = block::block_state::disappearing;
+            result++;
+        }
         if (j > 0) {
-            gems[i][j - 1]->selected = true;
-            gems[i][j - 1]->state = block::block_state::disappearing;
+            gems[i - 1][j - 1]->selected = true;
+            gems[i - 1][j - 1]->state = block::block_state::disappearing;
+            result++;
+        }
+    }
+    if (i < 9) {
+        gems[i + 1][j]->selected = true;
+        gems[i + 1][j]->state = block::block_state::disappearing;
+        result++;
+        if (j > 0) {
+            gems[i + 1][j - 1]->selected = true;
+            gems[i + 1][j - 1]->state = block::block_state::disappearing;
+            result++;
         }
         if (j < 9) {
-            gems[i][j + 1]->selected = true;
-            gems[i][j + 1]->state = block::block_state::disappearing;
+            gems[i + 1][j + 1]->selected = true;
+            gems[i + 1][j + 1]->state = block::block_state::disappearing;
+            result++;
         }
-        if (i > 0) {
-            gems[i - 1][j]->selected = true;
-            gems[i - 1][j]->state = block::block_state::disappearing;
-            if (j < 9) {
-                gems[i - 1][j + 1]->selected = true;
-                gems[i - 1][j + 1]->state = block::block_state::disappearing;
-            }
-            if (j > 0) {
-                gems[i - 1][j - 1]->selected = true;
-                gems[i - 1][j - 1]->state = block::block_state::disappearing;
-            }
-        }
-        if (i < 9) {
-            gems[i + 1][j]->selected = true;
-            gems[i + 1][j]->state = block::block_state::disappearing;
-            if (j > 0) {
-                gems[i + 1][j - 1]->selected = true;
-                gems[i + 1][j - 1]->state = block::block_state::disappearing;
-            }
-            if (j < 9) {
-                gems[i + 1][j + 1]->selected = true;
-                gems[i + 1][j + 1]->state = block::block_state::disappearing;
-            }
-        }
-        result = true;
     }
     return result;
 }

@@ -29,7 +29,7 @@ struct field {
 
     bool can_select(const size_t&, const size_t&);
     bool select_around(const size_t&, const size_t&);
-    bool select_around_bomb(const size_t& i, const size_t& j);
+    size_t select_around_bomb(const size_t& i, const size_t& j);
     size_t selecting_to_disappearing();
 
     void unselect_all();
