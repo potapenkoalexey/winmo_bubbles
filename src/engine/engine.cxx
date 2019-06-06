@@ -606,9 +606,6 @@ public:
     void render(const tri2& t, texture*, const mat2x3&);
     void render(const vertex_buffer&, texture*, const mat2x3&);
 
-    //SDL_Texture* render_text(const std::string& message, const std::string& fontFile, SDL_Color color,
-    //                         int fontSize, SDL_Renderer* renderer);
-
     void set_window_title(const char* name);
     size_t get_window_width();
     size_t get_window_height();
@@ -1515,30 +1512,6 @@ void engine_impl::switch_to_state(game_state* state)
     state->resume(this);
 }
 
-void engine_impl::clear_states()
-{
-    if (std::size(states)) {
-        states.clear();
-    }
-}
-
-void engine_impl::swap_last_two_states()
-{
-    if (std::size(states) < 2) {
-        std::cerr << "states size < 2. could not swap";
-    }
-
-    // cleanup the current state
-    if (!states.empty()) {
-        states.back()->cleanup(this);
-    }
-
-    // store and resume the previous state
-    std::iter_swap(states.rbegin() + 1, states.rbegin());
-
-    states.back()->resume(this);
-}
-
 void engine_impl::change_state(game_state* state)
 {
     // cleanup the current state
@@ -1577,6 +1550,30 @@ void engine_impl::pop_state()
     if (!states.empty()) {
         states.back()->resume(this);
     }
+}
+
+void engine_impl::clear_states()
+{
+    if (std::size(states)) {
+        states.clear();
+    }
+}
+
+void engine_impl::swap_last_two_states()
+{
+    if (std::size(states) < 2) {
+        std::cerr << "states size < 2. could not swap";
+    }
+
+    // cleanup the current state
+    if (!states.empty()) {
+        states.back()->cleanup(this);
+    }
+
+    // store and resume the previous state
+    std::iter_swap(states.rbegin() + 1, states.rbegin());
+
+    states.back()->resume(this);
 }
 
 game_state::~game_state() {}
