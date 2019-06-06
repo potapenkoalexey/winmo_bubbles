@@ -7,6 +7,8 @@
 #include "../../src/engine/engine.hxx"
 #include "./number.hxx"
 
+//if you need to use this class - first of all use set_quantity_of_digits(.,.)
+//after then init()
 class counter {
 public:
     enum class sign {
@@ -14,14 +16,14 @@ public:
         unsign
     };
 
+    void set_quantity_of_digits(const size_t&, sign);
+
     bool init(grottans::engine*);
     void update(size_t);
     void draw(grottans::engine*);
 
     void set_displayed_number(const size_t&);
     bool is_overflow(const size_t&);
-
-    void set_quantity_of_digits(const size_t&, sign);
 
     void set_vertexes(float x, float y, float w, float h);
     void set_color(grottans::color);

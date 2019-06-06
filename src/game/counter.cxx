@@ -80,23 +80,23 @@ bool counter::is_overflow(const size_t& t)
     bool result = false;
     if (quantity_of_digits == 1) {
         if (t > 9)
-            result = false;
+            result = true;
     }
     if (quantity_of_digits == 2) {
         if (t > 99)
-            result = false;
+            result = true;
     }
     if (quantity_of_digits == 3) {
         if (t > 999)
-            result = false;
+            result = true;
     }
     if (quantity_of_digits == 4) {
         if (t > 9999)
-            result = false;
+            result = true;
     }
     if (quantity_of_digits == 5) {
         if (t > 99999)
-            result = false;
+            result = true;
     }
 
     if (!result) {
