@@ -68,7 +68,6 @@ void extreme_state::handle_events(grottans::engine* engine)
 
     if (e == grottans::event::mouse_released) {
         if (handle_mouse_event(engine)) {
-            /// replacing event to start_pressed
             e = grottans::event::start_pressed;
         }
     }
@@ -105,49 +104,49 @@ void extreme_state::handle_events(grottans::engine* engine)
             ///restore standart selector texture
             game_field->selector->texture = game_field->tex_selector;
 
-            ///if block = bomb - disappeaping all blocks around
+            // searching all selected blocks
+            game_field->gems[i][j]->selected = true;
+
             if (game_field->gems[i][j]->color == block::palette::bomb) {
-                game_field->gems[i][j]->selected = true;
-                game_field->select_around(i, j);
-                selected_blocks = 9;
+                game_field->select_around_bomb(i, j);
             } else {
-                // searching all selected blocks
-                game_field->gems[i][j]->selected = true;
                 selected_blocks = game_field->selecting_to_disappearing();
-
-                if (selected_blocks >= 3) {
-                    ///mark block
-                    //game_field->gems[i][j]->selected = true;
-                    game_field->f_state = field::field_state::disappearing;
-
-                    if (g_SOUND) {
-                        sound_fall->play(
-                            grottans::sound_buffer::properties::once);
-                    }
-
-                    if (selected_blocks > 15 && g_SOUND) {
-                        sound_destroy_big_form->play(
-                            grottans::sound_buffer::properties::once);
-                    }
-                    ///translate selected blocks in points
-                    size_t points = progress->blocks_to_points(selected_blocks);
-                    g_SCORE += points;
-                    progress->increase_progress(engine, points, g_LEVEL);
-
-                    game_field->unselect_all();
-
-                    if (progress->get_level_complete_flag()) {
-                        g_LEVEL++;
-                        ///go to level_complete_mode
-                        engine->switch_to_state(engine->states[3]);
-                    }
-                } else {
-                    game_field->unselect_all();
-                    game_field->undisappearing_all();
-                }
             }
+
+            if (selected_blocks >= 3) {
+                ///mark block
+                //game_field->gems[i][j]->selected = true;
+                game_field->f_state = field::field_state::disappearing;
+
+                if (g_SOUND) {
+                    sound_fall->play(
+                        grottans::sound_buffer::properties::once);
+                }
+
+                if (selected_blocks > 15 && g_SOUND) {
+                    sound_destroy_big_form->play(
+                        grottans::sound_buffer::properties::once);
+                }
+                ///translate selected blocks in points
+                size_t points = progress->blocks_to_points(selected_blocks);
+                g_SCORE += points;
+                progress->increase_progress(engine, points, g_LEVEL);
+
+                game_field->unselect_all();
+
+                if (progress->get_level_complete_flag()) {
+                    g_LEVEL++;
+                    ///go to level_complete_mode
+                    engine->switch_to_state(engine->states[3]);
+                }
+            } else {
+                game_field->unselect_all();
+                game_field->undisappearing_all();
+            }
+            //}
         }
 
+        m_counter->set_displayed_number(g_SCORE);
         break;
     }
     case grottans::event::left_released: {
@@ -195,16 +194,15 @@ void extreme_state::handle_events(grottans::engine* engine)
 
 void extreme_state::update(grottans::engine* engine)
 {
-    m_counter->set_displayed_number(g_SCORE);
-
     game_field->update_blocks_coord();
 
     if (game_field->is_all_fixed()) {
         game_field->f_state = field::field_state::fixed;
+        game_field->add_blocks_at_the_top_of_field();
         game_field->mark_falling_blocks();
         if (!game_field->are_there_falling_blocks()) { ///if the field static
             ///check game_over
-            if (0) { //game_field->is_game_over_extreme()) {
+            if (game_field->is_game_over_extreme()) {
                 engine->switch_to_state(engine->states[4]);
             }
         }

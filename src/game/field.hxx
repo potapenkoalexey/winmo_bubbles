@@ -23,11 +23,13 @@ struct field {
     bool initialization(grottans::engine* engine);
     void fill_clasic();
     void fill_extreme();
+    void associate_texture_with_gem(const size_t& i, const size_t& j);
     void draw(grottans::engine* engine);
     grottans::mouse_pos get_mouse_ij(grottans::engine* engine);
 
     bool can_select(const size_t&, const size_t&);
     bool select_around(const size_t&, const size_t&);
+    bool select_around_bomb(const size_t& i, const size_t& j);
     size_t selecting_to_disappearing();
 
     void unselect_all();
@@ -43,6 +45,7 @@ struct field {
     bool are_there_falling_blocks();
     bool is_right_row_free();
     void add_right_row();
+    void add_blocks_at_the_top_of_field();
     void mark_shifting_blocks();
     void update_coord_shifting_blocks(const size_t& i, const size_t& j, const milli_sec& delta_time);
 
@@ -51,6 +54,7 @@ struct field {
     void update_blocks_coord();
 
     bool is_game_over_classic();
+    bool is_game_over_extreme();
 
     size_t width = 0;
     size_t height = 0;

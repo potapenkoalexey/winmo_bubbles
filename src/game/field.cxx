@@ -109,28 +109,7 @@ void field::fill_clasic()
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
             gems[i][j]->get_random_color_from_5();
-            switch (gems[i][j]->color) {
-            case block::palette::red: {
-                gems[i][j]->texture = tex_red;
-                break;
-            }
-            case block::palette::green: {
-                gems[i][j]->texture = tex_green;
-                break;
-            }
-            case block::palette::yellow: {
-                gems[i][j]->texture = tex_yellow;
-                break;
-            }
-            case block::palette::blue: {
-                gems[i][j]->texture = tex_blue;
-                break;
-            }
-            case block::palette::purple: {
-                gems[i][j]->texture = tex_purple;
-                break;
-            }
-            }
+            associate_texture_with_gem(i, j);
         }
     }
 }
@@ -140,33 +119,42 @@ void field::fill_extreme()
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
             gems[i][j]->get_random_color_from_6();
-            switch (gems[i][j]->color) {
-            case block::palette::red: {
-                gems[i][j]->texture = tex_red;
-                break;
-            }
-            case block::palette::green: {
-                gems[i][j]->texture = tex_green;
-                break;
-            }
-            case block::palette::yellow: {
-                gems[i][j]->texture = tex_yellow;
-                break;
-            }
-            case block::palette::blue: {
-                gems[i][j]->texture = tex_blue;
-                break;
-            }
-            case block::palette::purple: {
-                gems[i][j]->texture = tex_purple;
-                break;
-            }
-            case block::palette::black: {
-                gems[i][j]->texture = tex_black;
-                break;
-            }
-            }
+            associate_texture_with_gem(i, j);
         }
+    }
+}
+
+void field::associate_texture_with_gem(const size_t& i, const size_t& j)
+{
+    switch (gems[i][j]->color) {
+    case block::palette::red: {
+        gems[i][j]->texture = tex_red;
+        break;
+    }
+    case block::palette::green: {
+        gems[i][j]->texture = tex_green;
+        break;
+    }
+    case block::palette::yellow: {
+        gems[i][j]->texture = tex_yellow;
+        break;
+    }
+    case block::palette::blue: {
+        gems[i][j]->texture = tex_blue;
+        break;
+    }
+    case block::palette::purple: {
+        gems[i][j]->texture = tex_purple;
+        break;
+    }
+    case block::palette::black: {
+        gems[i][j]->texture = tex_black;
+        break;
+    }
+    case block::palette::bomb: {
+        gems[i][j]->texture = tex_bomb;
+        break;
+    }
     }
 }
 
@@ -223,36 +211,11 @@ bool field::select_around(const size_t& i, const size_t& j)
         gems[i][j]->selected = false;
         return result;
     }
-
-    if (gems[i][j]->color == block::palette::bomb) {
-        gems[i][j]->selected = true;
-        if (j > 0)
-            gems[i][j - 1]->selected = true;
-        if (j < 9)
-            gems[i][j + 1]->selected = true;
-        if (i > 0) {
-            gems[i - 1][j]->selected = true;
-            if (j < 9)
-                gems[i - 1][j + 1]->selected = true;
-            if (j > 0)
-                gems[i - 1][j - 1]->selected = true;
-        }
-        if (i < 9) {
-            gems[i + 1][j]->selected = true;
-            if (j > 0)
-                gems[i + 1][j - 1]->selected = true;
-            if (j < 9)
-                gems[i + 1][j + 1]->selected = true;
-        }
-        return true;
-    }
-
     // gorizontal search
     if (j < 9) { // search right
         if (gems[i][j + 1]->color == gems[i][j]->color && gems[i][j + 1]->visible == true) {
             result = true;
             gems[i][j + 1]->selected = true;
-            //for disappearing
             gems[i][j + 1]->state = block::block_state::disappearing;
         }
     }
@@ -261,7 +224,6 @@ bool field::select_around(const size_t& i, const size_t& j)
         if (gems[i][j - 1]->color == gems[i][j]->color && gems[i][j - 1]->visible == true) {
             result = true;
             gems[i][j - 1]->selected = true;
-            //for disappearing
             gems[i][j - 1]->state = block::block_state::disappearing;
         }
     }
@@ -270,7 +232,6 @@ bool field::select_around(const size_t& i, const size_t& j)
         if (gems[i + 1][j]->color == gems[i][j]->color && gems[i + 1][j]->visible == true) {
             result = true;
             gems[i + 1][j]->selected = true;
-            //for disappearing
             gems[i + 1][j]->state = block::block_state::disappearing;
         }
     }
@@ -278,11 +239,54 @@ bool field::select_around(const size_t& i, const size_t& j)
         if (gems[i - 1][j]->color == gems[i][j]->color && gems[i - 1][j]->visible == true) {
             result = true;
             gems[i - 1][j]->selected = true;
-            //for disappearing
             gems[i - 1][j]->state = block::block_state::disappearing;
         }
     }
 
+    return result;
+}
+
+bool field::select_around_bomb(const size_t& i, const size_t& j)
+{
+    bool result = false;
+
+    if (gems[i][j]->color == block::palette::bomb) {
+        gems[i][j]->selected = true;
+        gems[i][j]->state = block::block_state::disappearing;
+        if (j > 0) {
+            gems[i][j - 1]->selected = true;
+            gems[i][j - 1]->state = block::block_state::disappearing;
+        }
+        if (j < 9) {
+            gems[i][j + 1]->selected = true;
+            gems[i][j + 1]->state = block::block_state::disappearing;
+        }
+        if (i > 0) {
+            gems[i - 1][j]->selected = true;
+            gems[i - 1][j]->state = block::block_state::disappearing;
+            if (j < 9) {
+                gems[i - 1][j + 1]->selected = true;
+                gems[i - 1][j + 1]->state = block::block_state::disappearing;
+            }
+            if (j > 0) {
+                gems[i - 1][j - 1]->selected = true;
+                gems[i - 1][j - 1]->state = block::block_state::disappearing;
+            }
+        }
+        if (i < 9) {
+            gems[i + 1][j]->selected = true;
+            gems[i + 1][j]->state = block::block_state::disappearing;
+            if (j > 0) {
+                gems[i + 1][j - 1]->selected = true;
+                gems[i + 1][j - 1]->state = block::block_state::disappearing;
+            }
+            if (j < 9) {
+                gems[i + 1][j + 1]->selected = true;
+                gems[i + 1][j + 1]->state = block::block_state::disappearing;
+            }
+        }
+        result = true;
+    }
     return result;
 }
 
@@ -406,27 +410,24 @@ void field::add_right_row()
     for (size_t i = 0; i < height; i++) {
         gems[i][j]->visible = true;
         gems[i][j]->get_random_color_from_5();
-        switch (gems[i][j]->color) {
-        case block::palette::red: {
-            gems[i][j]->texture = tex_red;
-            break;
-        }
-        case block::palette::green: {
-            gems[i][j]->texture = tex_green;
-            break;
-        }
-        case block::palette::yellow: {
-            gems[i][j]->texture = tex_yellow;
-            break;
-        }
-        case block::palette::blue: {
-            gems[i][j]->texture = tex_blue;
-            break;
-        }
-        case block::palette::purple: {
-            gems[i][j]->texture = tex_purple;
-            break;
-        }
+        associate_texture_with_gem(i, j);
+    }
+}
+
+void field::add_blocks_at_the_top_of_field()
+{
+    for (size_t j = 0; j < height; j++) {
+        if (gems[0][j]->visible == false) {
+            gems[0][j]->get_random_color_from_7();
+
+            gems[0][j]->visible = true;
+            gems[0][j]->selected = false;
+            gems[0][j]->motion = false;
+            gems[0][j]->state = block::block_state::fixed;
+            gems[0][j]->falling_frame_index = 0;
+            gems[0][j]->shifting_frame_index = 0;
+
+            associate_texture_with_gem(0, j);
         }
     }
 }
@@ -441,19 +442,19 @@ void field::swap_gems(const size_t& i, const size_t& j, const size_t& m, const s
     copy->texture = gems[i][j]->texture;
     copy->selected = gems[i][j]->selected;
     copy->visible = gems[i][j]->visible;
-    //copy->state = gems[i][j]->state;
+    copy->state = gems[i][j]->state;
 
     gems[i][j]->color = gems[m][n]->color;
     gems[i][j]->texture = gems[m][n]->texture;
     gems[i][j]->selected = gems[m][n]->selected;
     gems[i][j]->visible = gems[m][n]->visible;
-    //gems[i][j]->state = gems[m][n]->state;
+    gems[i][j]->state = gems[m][n]->state;
 
     gems[m][n]->color = copy->color;
     gems[m][n]->texture = copy->texture;
     gems[m][n]->selected = copy->selected;
     gems[m][n]->visible = copy->visible;
-    //gems[m][n]->state = copy->state;
+    gems[m][n]->state = copy->state;
 }
 
 void field::mark_falling_blocks()
@@ -575,6 +576,12 @@ bool field::is_game_over_classic()
         }
     }
     return true;
+}
+
+bool field::is_game_over_extreme()
+{
+    //stub
+    return false;
 }
 
 void field::draw(grottans::engine* engine)

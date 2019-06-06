@@ -107,7 +107,7 @@ void classic_state::handle_events(grottans::engine* engine)
             }
 
             /// sound
-            if (selected_blocks > 0 && g_SOUND) {
+            if (selected_blocks > 1 && g_SOUND) {
                 sound_fall->play(grottans::sound_buffer::properties::once);
             }
             /// sound destroy_big_form
