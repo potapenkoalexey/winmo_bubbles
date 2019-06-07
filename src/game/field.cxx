@@ -103,7 +103,7 @@ void field::fill_clasic()
 {
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            gems[i][j]->get_random_color_from_5();
+            gems[i][j]->get_random_color_from_classic();
             associate_texture_with_gem(i, j);
         }
     }
@@ -113,7 +113,7 @@ void field::fill_extreme()
 {
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            gems[i][j]->get_random_color_from_6();
+            gems[i][j]->get_random_color_from_extreme();
             associate_texture_with_gem(i, j);
         }
     }
@@ -426,7 +426,7 @@ void field::add_right_row()
     size_t j = width - 1;
     for (size_t i = 0; i < height; i++) {
         gems[i][j]->visible = true;
-        gems[i][j]->get_random_color_from_5();
+        gems[i][j]->get_random_color_from_classic();
         associate_texture_with_gem(i, j);
     }
 }
@@ -435,7 +435,7 @@ void field::add_blocks_at_the_top_of_field()
 {
     for (size_t j = 0; j < height; j++) {
         if (gems[0][j]->visible == false) {
-            gems[0][j]->get_random_color_from_7();
+            gems[0][j]->get_random_color_from_extreme_with_bomb();
 
             gems[0][j]->visible = true;
             gems[0][j]->selected = false;
@@ -628,6 +628,88 @@ bool field::can_flip(const size_t& i, const size_t& j, field::direction dir)
     return result;
 }
 
+void field::update_fliping_view(const size_t& i, const size_t& j, const milli_sec& delta_time)
+{
+    if (gems[i][j]->flip_direction == block::block_direction::non)
+        return;
+
+    gems[i][j]->current_time += delta_time.count() / 1000.f;
+
+    float one_frame_delta = 1.f / g_FPS / g_FPS_fliping_factor;
+
+    size_t how_may_frames_from_start = static_cast<size_t>(gems[i][j]->current_time / one_frame_delta);
+
+    size_t current_frame_index = how_may_frames_from_start % g_FRAME_OF_FLIPING;
+
+    ///assign new xy-position
+    if (how_may_frames_from_start > gems[i][j]->fliping_frame_index) {
+        ///0.18f - offset without rows in screen coord -1;1
+        float offset = (0.18f / static_cast<float>(g_FRAME_OF_FLIPING - 1) * g_FPS_fliping_factor);
+
+        gems[i][j]->fliping_frame_index++;
+
+        switch (gems[i][j]->flip_direction) {
+        case (block::block_direction::up): {
+            gems[i][j]->move.delta.y += offset;
+            break;
+        }
+        case (block::block_direction::down): {
+            gems[i][j]->move.delta.y -= offset;
+            break;
+        }
+        case (block::block_direction::left): {
+            gems[i][j]->move.delta.x -= offset;
+            break;
+        }
+        case (block::block_direction::right): {
+            gems[i][j]->move.delta.x += offset;
+            break;
+        }
+        }
+    }
+
+    if (gems[i][j]->state == block::block_state::fliping_under) {
+        switch (current_frame_index) {
+        case 0: {
+            gems[i][j]->tr_disappear[0] = v_buf_disappear.at(26);
+            gems[i][j]->tr_disappear[1] = v_buf_disappear.at(27);
+            break;
+        }
+        }
+    }
+    if (gems[i][j]->state == block::block_state::fliping_over) {
+        switch (current_frame_index) {
+        }
+    }
+}
+
+void field::flip_gems_after_animation()
+{
+    for (size_t i = 0; i < width; i++) {
+        for (size_t j = 0; j < height; j++) {
+            if (gems[i][j]->flip_direction != block::block_direction::non) {
+                if (gems[i][j]->fliping_frame_index == 3) {
+                    switch (gems[i][j]->flip_direction) {
+                    case block::block_direction::down: {
+                        gems[i][j]->restore_original_parameters(v_buf_disappear);
+                        gems[i + 1][j]->restore_original_parameters(v_buf_disappear);
+                        swap_gems(i, j, i + 1, j);
+                        break;
+                    }
+                    case block::block_direction::right: {
+                        gems[i][j]->restore_original_parameters(v_buf_disappear);
+                        gems[i][j + 1]->restore_original_parameters(v_buf_disappear);
+                        swap_gems(i, j, i, j + 1);
+                        break;
+                    }
+                    }
+                    return;
+                }
+            }
+        }
+    }
+}
+
 void field::mark_falling_blocks()
 {
     for (int i = width - 2; i >= 0; i--) {
@@ -658,7 +740,7 @@ void field::update_coord_falling_blocks(const size_t& i, const size_t& j, const 
     ///assign new xy-position
     if (how_may_frames_from_start > gems[i][j]->falling_frame_index) {
         ///0.18f - offset without rows in screen coord -1;1
-        gems[i][j]->move.delta.y -= (0.18f / static_cast<float>(g_FRAME_OF_DISAPPEARING - 1) * g_FPS_falling_factor);
+        gems[i][j]->move.delta.y -= (0.18f / static_cast<float>(g_FRAME_OF_FALLING - 1) * g_FPS_falling_factor);
         gems[i][j]->falling_frame_index++;
     }
 
@@ -722,12 +804,21 @@ void field::update_blocks_coord()
 {
     for (int i = width - 1; i >= 0; i--) {
         for (int j = 0; j < height; j++) {
+
             //update uv-triangles for disappeating blocks
             gems[i][j]->update_uv_coord(v_buf_disappear, g_frame_delta);
+
             //update vertical position for falling blocks
             //and gorizontal position for shifting blocks
             update_coord_falling_blocks(i, j, g_frame_delta);
-            update_coord_shifting_blocks(i, j, g_frame_delta);
+
+            if (g_MODE == MODE::classic) {
+                update_coord_shifting_blocks(i, j, g_frame_delta);
+            }
+
+            if (g_MODE == MODE::extreme) {
+                update_fliping_view(i, j, g_frame_delta);
+            }
         }
     }
 

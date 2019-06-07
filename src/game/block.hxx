@@ -18,21 +18,31 @@ struct block {
 
     enum class block_state {
         fixed,
-        swaping,
+        fliping_over,
+        fliping_under,
         falling,
         shifting,
         disappearing
     };
 
+    enum class block_direction {
+        right,
+        down,
+        left,
+        up,
+        non
+    };
+
     palette color = palette::black;
     block_state state = block_state::fixed;
+    block_direction flip_direction = block_direction::non;
 
     bool selected = false;
     bool visible = true;
     bool motion = false;
     grottans::vec2 position{ 0.f, 0.f };
-    grottans::mat2x3 move{}; // = grottans::mat2x3::scale(1.f, 1.f);
-    grottans::mat2x3 aspect{}; // = grottans::mat2x3::scale(1.f, 1.f);
+    grottans::mat2x3 move = grottans::mat2x3::scale(1.f, 1.f);
+    grottans::mat2x3 aspect = grottans::mat2x3::scale(1.f, 1.f);
     grottans::texture* texture = nullptr;
     grottans::vertex_buffer* v_buf = nullptr;
 
@@ -43,6 +53,7 @@ struct block {
 
     size_t falling_frame_index = 0;
     size_t shifting_frame_index = 0;
+    size_t fliping_frame_index = 0;
 
     float get_fps() const { return fps; }
     void set_fps(float fps_value) { fps = fps_value; }
@@ -51,11 +62,15 @@ struct block {
         const std::array<grottans::tri2, 32>& arr_uv_buf,
         const milli_sec& delta_time);
 
-    //void update_i_coord(const milli_sec& delta_time); //maybe unused
+    void update_fliping_view(
+        const std::array<grottans::tri2, 32>& arr_uv_buf,
+        const milli_sec& delta_time);
 
-    void get_random_color_from_5();
-    void get_random_color_from_6();
-    void get_random_color_from_7();
+    void restore_original_parameters(const std::array<grottans::tri2, 32>& arr_uv_buf);
+
+    void get_random_color_from_classic();
+    void get_random_color_from_extreme();
+    void get_random_color_from_extreme_with_bomb();
 
     void draw(grottans::engine*);
 };

@@ -162,11 +162,12 @@ void extreme_state::handle_events(grottans::engine* engine)
             }
         } else {
             if (game_field->can_flip(i, j, field::direction::left)) {
-                //
-                game_field->swap_gems(i, j, i, j - 1);
-                //
                 //flip blocks with animation on 180 degrees
-                //
+                game_field->gems[i][j]->state = block::block_state::fliping_over;
+                game_field->gems[i][j]->flip_direction = block::block_direction::left;
+                game_field->gems[i][j - 1]->state = block::block_state::fliping_under;
+                game_field->gems[i][j - 1]->flip_direction = block::block_direction::right;
+
                 if (game_field->selector->position.x > 0) {
                     game_field->selector->position.x -= g_OFFSET;
                 } else {
@@ -177,13 +178,13 @@ void extreme_state::handle_events(grottans::engine* engine)
                 }
             } else {
                 //
-                //flip blocks with animation on 360 degrees
+                //flip blocks with animation on 360 degrees OR without any animation
                 //
                 if (g_SOUND) {
                     sound_cant_flip->play(grottans::sound_buffer::properties::once);
                 }
             }
-            game_field->gems[i][j]->motion = false; //is i need???
+            //game_field->gems[i][j]->motion = false; //is i need???
         }
         break;
     }
@@ -201,10 +202,11 @@ void extreme_state::handle_events(grottans::engine* engine)
             }
         } else {
             if (game_field->can_flip(i, j, field::direction::right)) {
-                game_field->swap_gems(i, j, i, j + 1);
-                //
-                //flip blocks with animation on 180 degrees
-                //
+                game_field->gems[i][j]->state = block::block_state::fliping_over;
+                game_field->gems[i][j]->flip_direction = block::block_direction::right;
+                game_field->gems[i][j + 1]->state = block::block_state::fliping_under;
+                game_field->gems[i][j + 1]->flip_direction = block::block_direction::left;
+
                 if (game_field->selector->position.x < 9.f) {
                     game_field->selector->position.x += g_OFFSET;
                 } else {
@@ -239,10 +241,11 @@ void extreme_state::handle_events(grottans::engine* engine)
             }
         } else {
             if (game_field->can_flip(i, j, field::direction::up)) {
-                game_field->swap_gems(i - 1, j, i, j);
-                //
-                //flip blocks with animation on 180 degrees
-                //
+                game_field->gems[i][j]->state = block::block_state::fliping_over;
+                game_field->gems[i][j]->flip_direction = block::block_direction::up;
+                game_field->gems[i - 1][j]->state = block::block_state::fliping_under;
+                game_field->gems[i - 1][j]->flip_direction = block::block_direction::down;
+
                 if (game_field->selector->position.y > 0) {
                     game_field->selector->position.y -= g_OFFSET;
                 } else {
@@ -277,10 +280,11 @@ void extreme_state::handle_events(grottans::engine* engine)
             }
         } else {
             if (game_field->can_flip(i, j, field::direction::down)) {
-                game_field->swap_gems(i + 1, j, i, j);
-                //
-                //flip blocks with animation on 180 degrees
-                //
+                game_field->gems[i][j]->state = block::block_state::fliping_over;
+                game_field->gems[i][j]->flip_direction = block::block_direction::down;
+                game_field->gems[i + 1][j]->state = block::block_state::fliping_under;
+                game_field->gems[i + 1][j]->flip_direction = block::block_direction::up;
+
                 if (game_field->selector->position.y < 9) {
                     game_field->selector->position.y += 1.f;
                 } else {
@@ -306,6 +310,7 @@ void extreme_state::handle_events(grottans::engine* engine)
 
 void extreme_state::update(grottans::engine* engine)
 {
+    game_field->flip_gems_after_animation();
     game_field->update_blocks_coord();
 
     if (game_field->is_all_fixed()) {

@@ -30,6 +30,10 @@ extern size_t g_FIELD_HEIGHT;
 //depends on numbers of sprites in textures of the blocks
 extern size_t g_FRAME_OF_DISAPPEARING;
 
+extern size_t g_FRAME_OF_FALLING;
+
+extern size_t g_FRAME_OF_FLIPING;
+
 extern milli_sec g_frame_delta;
 
 //offset selector movement
@@ -40,3 +44,5 @@ extern float g_FPS;
 extern float g_FPS_falling_factor;
 
 extern float g_FPS_shifting_factor;
+
+extern float g_FPS_fliping_factor;

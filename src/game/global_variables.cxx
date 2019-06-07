@@ -18,6 +18,10 @@ size_t g_FIELD_HEIGHT = 10;
 
 size_t g_FRAME_OF_DISAPPEARING = 16;
 
+size_t g_FRAME_OF_FALLING = 16;
+
+size_t g_FRAME_OF_FLIPING = 4;
+
 milli_sec g_frame_delta;
 
 float g_OFFSET = 1.f;
@@ -27,3 +31,5 @@ float g_FPS = 60.f;
 float g_FPS_falling_factor = 4.f;
 
 float g_FPS_shifting_factor = 4.f;
+
+float g_FPS_fliping_factor = 1.f;

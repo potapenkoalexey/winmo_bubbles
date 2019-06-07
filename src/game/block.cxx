@@ -9,7 +9,7 @@ static std::uniform_real_distribution<double> dist_1_11(10.0, 120.0);
 static std::uniform_real_distribution<double> dist_1_17(10.0, 175.0);
 
 ///////////////////////////////////////////////////////////////////////////////
-void block::get_random_color_from_5()
+void block::get_random_color_from_classic()
 {
     int m = static_cast<int>(dist_1_5(mt) / 10);
 
@@ -34,7 +34,7 @@ void block::get_random_color_from_5()
     }
 }
 
-void block::get_random_color_from_6()
+void block::get_random_color_from_extreme()
 {
     int m = static_cast<int>(dist_1_11(mt) / 10);
 
@@ -63,7 +63,7 @@ void block::get_random_color_from_6()
     }
 }
 
-void block::get_random_color_from_7()
+void block::get_random_color_from_extreme_with_bomb()
 {
     int m = static_cast<int>(dist_1_17(mt) / 10);
 
@@ -106,7 +106,7 @@ void block::update_uv_coord(
 
     current_time += delta_time.count() / 1000.f;
 
-    float one_frame_delta = 1.f / fps;
+    float one_frame_delta = 1.f / g_FPS;
 
     size_t how_may_frames_from_start = static_cast<size_t>(current_time / one_frame_delta);
 
@@ -134,6 +134,22 @@ void block::update_uv_coord(
 
         //g_DISAPPEARING_END = true;
     }
+}
+
+void block::restore_original_parameters(const std::array<grottans::tri2, 32>& arr_uv_buf)
+{
+    move.delta.x = 0;
+    move.delta.y = 0;
+    tr_disappear[0] = arr_uv_buf[0];
+    tr_disappear[1] = arr_uv_buf[1];
+    state = block_state::fixed;
+    flip_direction = block::block_direction::non;
+    current_time = 0.f;
+    fliping_frame_index = 0;
+    falling_frame_index = 0;
+    shifting_frame_index = 0;
+    selected = false;
+    motion = false;
 }
 
 void block::draw(grottans::engine* engine)

@@ -11,7 +11,7 @@ struct field {
 
     enum class field_state {
         fixed,
-        swaping,
+        fliping,
         falling,
         shifting,
         disappearing //maybe unused because includes in falling
@@ -60,6 +60,8 @@ struct field {
 
     void swap_gems(const size_t& i, const size_t& j, const size_t& m, const size_t& n);
     bool can_flip(const size_t& i, const size_t& j, direction dir);
+    void update_fliping_view(const size_t& i, const size_t& j, const milli_sec& delta_time);
+    void flip_gems_after_animation();
 
     void update_blocks_coord();
 
