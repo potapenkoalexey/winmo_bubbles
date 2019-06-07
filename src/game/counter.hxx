@@ -25,8 +25,8 @@ public:
     void set_displayed_number(const size_t&);
     bool is_overflow(const size_t&);
 
-    void set_vertexes(float x, float y, float w, float h);
-    void set_color(grottans::color);
+    void set_vertexes(const float& x, const float& y, const float& w, const float& h);
+    void set_color(const grottans::color&);
     void set_vertex_buffer(grottans::engine* engine);
 
 private:

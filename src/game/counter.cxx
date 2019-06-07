@@ -29,7 +29,7 @@ void counter::set_quantity_of_digits(const size_t& t, sign s_)
     }
 }
 
-void counter::set_vertexes(float x, float y, float w, float h)
+void counter::set_vertexes(const float& x, const float& y, const float& w, const float& h)
 {
     //w=h=0.08f in previous version of the game
     for (size_t i = 0; i < quantity_of_digits; i++) {
@@ -37,7 +37,7 @@ void counter::set_vertexes(float x, float y, float w, float h)
     }
 }
 
-void counter::set_color(grottans::color col)
+void counter::set_color(const grottans::color& col)
 {
     if (col.get_r() + col.get_b() + col.get_a() + col.get_a() > 1020) {
         std::cerr << "error: counter: incorrect color" << std::endl;
@@ -57,6 +57,8 @@ void counter::set_vertex_buffer(grottans::engine* engine)
 
 void counter::set_displayed_number(const size_t& t)
 {
+    number_on_screen = t;
+
     if (t == 0) {
         for (size_t i = 0; i < quantity_of_digits; i++) {
             digits[i]->set_number_and_texture(0);
@@ -109,7 +111,37 @@ bool counter::is_overflow(const size_t& t)
 
 void counter::draw(grottans::engine* engine)
 {
-    for (size_t i = 0; i < quantity_of_digits; i++) {
-        digits[i]->draw(engine);
+    if (number_on_screen < 10) {
+        digits[quantity_of_digits - 1]->draw(engine);
+        return;
+    }
+    if (number_on_screen < 100) {
+        digits[quantity_of_digits - 1]->draw(engine);
+        digits[quantity_of_digits - 2]->draw(engine);
+        return;
+    }
+
+    if (number_on_screen < 1000) {
+        digits[quantity_of_digits - 1]->draw(engine);
+        digits[quantity_of_digits - 2]->draw(engine);
+        digits[quantity_of_digits - 3]->draw(engine);
+        return;
+    }
+
+    if (number_on_screen < 10000) {
+        digits[quantity_of_digits - 1]->draw(engine);
+        digits[quantity_of_digits - 2]->draw(engine);
+        digits[quantity_of_digits - 3]->draw(engine);
+        digits[quantity_of_digits - 4]->draw(engine);
+        return;
+    }
+
+    if (number_on_screen < 100000) {
+        digits[quantity_of_digits - 1]->draw(engine);
+        digits[quantity_of_digits - 2]->draw(engine);
+        digits[quantity_of_digits - 3]->draw(engine);
+        digits[quantity_of_digits - 4]->draw(engine);
+        digits[quantity_of_digits - 5]->draw(engine);
+        return;
     }
 }

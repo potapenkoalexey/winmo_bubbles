@@ -165,6 +165,8 @@ void block::update_uv_coord(const std::array<grottans::tri2, 32>& arr_uv_buf,
         state = block_state::fixed;
         ///set to unvisible for drawing
         visible = false;
+        selected = false;
+        motion = false;
 
         //g_DISAPPEARING_END = true;
     }

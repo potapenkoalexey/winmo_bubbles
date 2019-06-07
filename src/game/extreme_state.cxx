@@ -144,9 +144,7 @@ void extreme_state::handle_events(grottans::engine* engine)
                 game_field->unselect_all();
                 game_field->undisappearing_all();
             }
-            //}
         }
-
         m_counter->set_displayed_number(g_SCORE);
         break;
     }
