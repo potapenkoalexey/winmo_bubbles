@@ -20,7 +20,7 @@ size_t g_FRAME_OF_DISAPPEARING = 16;
 
 size_t g_FRAME_OF_FALLING = 16;
 
-size_t g_FRAME_OF_FLIPING = 4;
+size_t g_FRAME_OF_FLIPING = 6;
 
 milli_sec g_frame_delta;
 

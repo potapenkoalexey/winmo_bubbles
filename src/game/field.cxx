@@ -669,16 +669,9 @@ void field::update_fliping_view(const size_t& i, const size_t& j, const milli_se
     }
 
     if (gems[i][j]->state == block::block_state::fliping_under) {
-        switch (current_frame_index) {
-        case 0: {
+        if (current_frame_index == 0) {
             gems[i][j]->tr_disappear[0] = v_buf_disappear.at(26);
             gems[i][j]->tr_disappear[1] = v_buf_disappear.at(27);
-            break;
-        }
-        }
-    }
-    if (gems[i][j]->state == block::block_state::fliping_over) {
-        switch (current_frame_index) {
         }
     }
 }
@@ -688,7 +681,7 @@ void field::flip_gems_after_animation()
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
             if (gems[i][j]->flip_direction != block::block_direction::non) {
-                if (gems[i][j]->fliping_frame_index == 3) {
+                if (gems[i][j]->fliping_frame_index == g_FRAME_OF_FLIPING - 1) {
                     switch (gems[i][j]->flip_direction) {
                     case block::block_direction::down: {
                         gems[i][j]->restore_original_parameters(v_buf_disappear);
@@ -744,7 +737,7 @@ void field::update_coord_falling_blocks(const size_t& i, const size_t& j, const 
         gems[i][j]->falling_frame_index++;
     }
 
-    if (how_may_frames_from_start > 14) {
+    if (how_may_frames_from_start > g_FRAME_OF_FALLING - 1) {
         //restore original state
         gems[i][j]->current_time = 0.f;
         gems[i][j]->falling_frame_index = 0;
@@ -789,7 +782,7 @@ void field::update_coord_shifting_blocks(const size_t& i, const size_t& j, const
         gems[i][j]->shifting_frame_index++;
     }
 
-    if (how_may_frames_from_start > 14) {
+    if (how_may_frames_from_start > g_FRAME_OF_DISAPPEARING - 1) {
         //restore original state
         gems[i][j]->current_time = 0.f;
         gems[i][j]->shifting_frame_index = 0;
