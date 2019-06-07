@@ -57,7 +57,9 @@ void counter::set_vertex_buffer(grottans::engine* engine)
 
 void counter::set_displayed_number(const size_t& t)
 {
-    number_on_screen = t;
+    if (is_overflow(t) == false) {
+        number_on_screen = t;
+    }
 
     if (t == 0) {
         for (size_t i = 0; i < quantity_of_digits; i++) {
@@ -101,12 +103,11 @@ bool counter::is_overflow(const size_t& t)
             result = true;
     }
 
-    if (!result) {
+    if (result) {
         std::cerr << "error: counter overflow" << std::endl;
         throw std::runtime_error("counter overflow");
-        return EXIT_SUCCESS;
     }
-    return EXIT_FAILURE;
+    return false;
 }
 
 void counter::draw(grottans::engine* engine)

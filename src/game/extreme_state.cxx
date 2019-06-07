@@ -13,7 +13,7 @@ bool extreme_state::init(grottans::engine* engine)
 {
     ///field
     game_field = std::unique_ptr<field>(new field);
-    game_field->initialization(engine);
+    game_field->init(engine);
     game_field->fill_extreme();
 
     ///progress desk
@@ -156,18 +156,19 @@ void extreme_state::handle_events(grottans::engine* engine)
 
         if (game_field->gems[i][j]->motion == false) {
             if (game_field->selector->position.x > 0) {
-                game_field->selector->position.x -= 1.f;
+                game_field->selector->position.x -= g_OFFSET;
             } else {
                 game_field->selector->position.x = 9.f;
             }
         } else {
             if (game_field->can_flip(i, j, field::direction::left)) {
+                //
                 game_field->swap_gems(i, j, i, j - 1);
                 //
                 //flip blocks with animation on 180 degrees
                 //
                 if (game_field->selector->position.x > 0) {
-                    game_field->selector->position.x -= 1.f;
+                    game_field->selector->position.x -= g_OFFSET;
                 } else {
                     game_field->selector->position.x = 9.f;
                 }
@@ -194,7 +195,7 @@ void extreme_state::handle_events(grottans::engine* engine)
 
         if (game_field->gems[i][j]->motion == false) {
             if (game_field->selector->position.x < 9.f) {
-                game_field->selector->position.x += 1.f;
+                game_field->selector->position.x += g_OFFSET;
             } else {
                 game_field->selector->position.x = 0.f;
             }
@@ -205,7 +206,7 @@ void extreme_state::handle_events(grottans::engine* engine)
                 //flip blocks with animation on 180 degrees
                 //
                 if (game_field->selector->position.x < 9.f) {
-                    game_field->selector->position.x += 1.f;
+                    game_field->selector->position.x += g_OFFSET;
                 } else {
                     game_field->selector->position.x = 0.f;
                 }
@@ -232,7 +233,7 @@ void extreme_state::handle_events(grottans::engine* engine)
 
         if (game_field->gems[i][j]->motion == false) {
             if (game_field->selector->position.y > 0) {
-                game_field->selector->position.y -= 1.f;
+                game_field->selector->position.y -= g_OFFSET;
             } else {
                 game_field->selector->position.y = 9.f;
             }
@@ -243,7 +244,7 @@ void extreme_state::handle_events(grottans::engine* engine)
                 //flip blocks with animation on 180 degrees
                 //
                 if (game_field->selector->position.y > 0) {
-                    game_field->selector->position.y -= 1.f;
+                    game_field->selector->position.y -= g_OFFSET;
                 } else {
                     game_field->selector->position.y = 9.f;
                 }

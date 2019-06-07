@@ -15,7 +15,7 @@ bool classic_state::init(grottans::engine* engine)
 {
     ///field
     game_field = std::unique_ptr<field>(new field);
-    game_field->initialization(engine);
+    game_field->init(engine);
     game_field->fill_clasic();
 
     ///progress desk

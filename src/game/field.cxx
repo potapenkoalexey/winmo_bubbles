@@ -4,14 +4,9 @@
 #include "./field.hxx"
 #include "./global_variables.hxx"
 
-field::field()
-{
-    //    width = g_FIELD_WIDTH;
-    //    height = g_FIELD_HEIGHT;
-    //    m_state = field_state::fixed;
-}
+field::field() {}
 
-bool field::initialization(grottans::engine* engine)
+bool field::init(grottans::engine* engine)
 {
     width = g_FIELD_WIDTH;
     height = g_FIELD_HEIGHT;

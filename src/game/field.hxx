@@ -28,7 +28,7 @@ struct field {
     field();
     field(size_t width, size_t height);
 
-    bool initialization(grottans::engine* engine);
+    bool init(grottans::engine* engine);
     void fill_clasic();
     void fill_extreme();
     void associate_texture_with_gem(const size_t& i, const size_t& j);
