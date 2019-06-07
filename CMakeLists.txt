@@ -12,6 +12,8 @@ add_executable(${PROJECT_NAME}
         src/engine/color.cxx
         src/engine/sound_buffer.hxx
         src/engine/sound_buffer.cxx
+        src/engine/random_generator.hxx
+        src/engine/random_generator.cxx
         src/game/main.cxx
         src/game/block.hxx
         src/game/block.cxx
