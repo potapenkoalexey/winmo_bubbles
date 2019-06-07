@@ -168,6 +168,8 @@ void extreme_state::handle_events(grottans::engine* engine)
                 game_field->gems[i][j - 1]->state = block::block_state::fliping_under;
                 game_field->gems[i][j - 1]->flip_direction = block::block_direction::right;
 
+                game_field->f_draw_direction = field::draw_direction::clockwise;
+
                 if (game_field->selector->position.x > 0) {
                     game_field->selector->position.x -= g_OFFSET;
                 } else {
@@ -184,7 +186,7 @@ void extreme_state::handle_events(grottans::engine* engine)
                     sound_cant_flip->play(grottans::sound_buffer::properties::once);
                 }
             }
-            //game_field->gems[i][j]->motion = false; //is i need???
+            game_field->gems[i][j]->motion = false;
         }
         break;
     }
@@ -206,6 +208,8 @@ void extreme_state::handle_events(grottans::engine* engine)
                 game_field->gems[i][j]->flip_direction = block::block_direction::right;
                 game_field->gems[i][j + 1]->state = block::block_state::fliping_under;
                 game_field->gems[i][j + 1]->flip_direction = block::block_direction::left;
+
+                game_field->f_draw_direction = field::draw_direction::contr_clockwise;
 
                 if (game_field->selector->position.x < 9.f) {
                     game_field->selector->position.x += g_OFFSET;
@@ -246,6 +250,8 @@ void extreme_state::handle_events(grottans::engine* engine)
                 game_field->gems[i - 1][j]->state = block::block_state::fliping_under;
                 game_field->gems[i - 1][j]->flip_direction = block::block_direction::down;
 
+                game_field->f_draw_direction = field::draw_direction::clockwise;
+
                 if (game_field->selector->position.y > 0) {
                     game_field->selector->position.y -= g_OFFSET;
                 } else {
@@ -284,6 +290,8 @@ void extreme_state::handle_events(grottans::engine* engine)
                 game_field->gems[i][j]->flip_direction = block::block_direction::down;
                 game_field->gems[i + 1][j]->state = block::block_state::fliping_under;
                 game_field->gems[i + 1][j]->flip_direction = block::block_direction::up;
+
+                game_field->f_draw_direction = field::draw_direction::contr_clockwise;
 
                 if (game_field->selector->position.y < 9) {
                     game_field->selector->position.y += 1.f;

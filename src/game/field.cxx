@@ -848,20 +848,37 @@ bool field::is_game_over_extreme()
 
 void field::draw(grottans::engine* engine)
 {
-    grottans::mat2x3 scale = engine->scale;
     //drawing blocks
-    for (size_t i = 0; i < width; i++) {
-        for (size_t j = 0; j < height; j++) {
-            if (gems[i][j]->visible) {
-                //drawing blocks
-                //calculate new ver_buff_triangles
-                v_buf_tmp[0] = v_buf_grid[(i * 10 + j) * 2] + gems[i][j]->tr_disappear[0];
-                v_buf_tmp[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + gems[i][j]->tr_disappear[1];
+    if (f_draw_direction == draw_direction::clockwise) {
+        for (size_t i = 0; i < width; i++) {
+            for (size_t j = 0; j < height; j++) {
+                if (gems[i][j]->visible) {
+                    //drawing blocks
+                    //calculate new ver_buff_triangles
+                    v_buf_tmp[0] = v_buf_grid[(i * 10 + j) * 2] + gems[i][j]->tr_disappear[0];
+                    v_buf_tmp[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + gems[i][j]->tr_disappear[1];
 
-                //creating new vertex buffer
-                gems[i][j]->v_buf = engine->create_vertex_buffer(&v_buf_tmp[0], 2);
-                gems[i][j]->draw(engine);
-                engine->destroy_vertex_buffer(gems[i][j]->v_buf);
+                    //creating new vertex buffer
+                    gems[i][j]->v_buf = engine->create_vertex_buffer(&v_buf_tmp[0], 2);
+                    gems[i][j]->draw(engine);
+                    engine->destroy_vertex_buffer(gems[i][j]->v_buf);
+                }
+            }
+        }
+    } else {
+        for (int i = width - 1; i >= 0; i--) {
+            for (int j = height - 1; j >= 0; j--) {
+                if (gems[i][j]->visible) {
+                    //drawing blocks
+                    //calculate new ver_buff_triangles
+                    v_buf_tmp[0] = v_buf_grid[(i * 10 + j) * 2] + gems[i][j]->tr_disappear[0];
+                    v_buf_tmp[1] = v_buf_grid[(i * 10 + j) * 2 + 1] + gems[i][j]->tr_disappear[1];
+
+                    //creating new vertex buffer
+                    gems[i][j]->v_buf = engine->create_vertex_buffer(&v_buf_tmp[0], 2);
+                    gems[i][j]->draw(engine);
+                    engine->destroy_vertex_buffer(gems[i][j]->v_buf);
+                }
             }
         }
     }

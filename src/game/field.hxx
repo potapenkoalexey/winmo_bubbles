@@ -25,6 +25,11 @@ struct field {
         non
     };
 
+    enum class draw_direction {
+        clockwise,
+        contr_clockwise,
+    };
+
     field();
     field(size_t width, size_t height);
 
@@ -73,6 +78,7 @@ struct field {
     float scale = 0;
 
     field_state f_state = field_state::fixed;
+    draw_direction f_draw_direction = draw_direction::clockwise;
 
     //block selector in centr of the field
     std::unique_ptr<block> selector;
