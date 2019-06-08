@@ -91,76 +91,23 @@ void classic_state::handle_events(grottans::engine* engine)
         break;
     }
     case grottans::event::start_released: {
-
-        size_t i = static_cast<size_t>(game_field->selector->position.y);
-        size_t j = static_cast<size_t>(game_field->selector->position.x);
-
-        bool search = game_field->can_select(i, j);
-
-        /// if block can be selected - marking them
-        if (search && game_field->gems[i][j]->visible == true && game_field->gems[i][j]->color != block::palette::non) {
-            game_field->gems[i][j]->selected = true;
-
-            size_t selected_blocks = game_field->selecting_to_disappearing();
-
-            ///blocking handling_event
-            if (selected_blocks) {
-                game_field->f_state = field::field_state::disappearing;
-            }
-
-            /// sound
-            if (selected_blocks > 1 && g_SOUND) {
-                sound_fall->play(grottans::sound_buffer::properties::once);
-            }
-            /// sound destroy_big_form
-            if (selected_blocks > 9 && g_SOUND) {
-                sound_destroy_big_form->play(grottans::sound_buffer::properties::once);
-            }
-
-            size_t points = progress->blocks_to_points(selected_blocks);
-            g_SCORE += points;
-            progress->increase_progress(engine, points, g_LEVEL);
-
-            game_field->unselect_all();
-
-            if (progress->get_level_complete_flag()) {
-                g_LEVEL++;
-                ///go to level_complete_mode
-                engine->switch_to_state(engine->states[3]);
-            }
-        }
+        handle_start_released_event(engine);
         break;
     }
     case grottans::event::left_released: {
-        if (game_field->selector->position.x > 0) {
-            game_field->selector->position.x -= g_OFFSET;
-        } else {
-            game_field->selector->position.x = 9.f;
-        }
+        handle_left_released_event(engine);
         break;
     }
     case grottans::event::right_released: {
-        if (game_field->selector->position.x < 9) {
-            game_field->selector->position.x += g_OFFSET;
-        } else {
-            game_field->selector->position.x = 0.f;
-        }
+        handle_right_released_event(engine);
         break;
     }
     case grottans::event::up_released: {
-        if (game_field->selector->position.y > 0) {
-            game_field->selector->position.y -= g_OFFSET;
-        } else {
-            game_field->selector->position.y = 9.f;
-        }
+        handle_up_released_event(engine);
         break;
     }
     case grottans::event::down_released: {
-        if (game_field->selector->position.y < 9) {
-            game_field->selector->position.y += g_OFFSET;
-        } else {
-            game_field->selector->position.y = 0.f;
-        }
+        handle_down_released_event(engine);
         break;
     }
     }
@@ -237,4 +184,81 @@ bool classic_state::handle_mouse_event(grottans::engine* engine)
     game_field->selector->position.x = static_cast<float>(j);
     game_field->selector->position.y = static_cast<float>(i);
     return true;
+}
+
+void classic_state::handle_start_released_event(grottans::engine* engine)
+{
+    size_t i = static_cast<size_t>(game_field->selector->position.y);
+    size_t j = static_cast<size_t>(game_field->selector->position.x);
+
+    bool search = game_field->can_select(i, j);
+
+    /// if block can be selected - marking them
+    if (search && game_field->gems[i][j]->visible == true && game_field->gems[i][j]->color != block::palette::non) {
+        game_field->gems[i][j]->selected = true;
+
+        size_t selected_blocks = game_field->selecting_to_disappearing();
+
+        ///blocking handling_event
+        if (selected_blocks) {
+            game_field->f_state = field::field_state::disappearing;
+        }
+
+        /// sound
+        if (selected_blocks > 1 && g_SOUND) {
+            sound_fall->play(grottans::sound_buffer::properties::once);
+        }
+        /// sound destroy_big_form
+        if (selected_blocks > 9 && g_SOUND) {
+            sound_destroy_big_form->play(grottans::sound_buffer::properties::once);
+        }
+
+        size_t points = progress->blocks_to_points(selected_blocks);
+        g_SCORE += points;
+        progress->increase_progress(engine, points, g_LEVEL);
+
+        game_field->unselect_all();
+
+        if (progress->get_level_complete_flag()) {
+            g_LEVEL++;
+            ///go to level_complete_mode
+            engine->switch_to_state(engine->states[3]);
+        }
+    }
+}
+
+void classic_state::handle_left_released_event(grottans::engine* engine)
+{
+    if (game_field->selector->position.x > 0) {
+        game_field->selector->position.x -= g_OFFSET;
+    } else {
+        game_field->selector->position.x = 9.f;
+    }
+}
+
+void classic_state::handle_right_released_event(grottans::engine* engine)
+{
+    if (game_field->selector->position.x < 9) {
+        game_field->selector->position.x += g_OFFSET;
+    } else {
+        game_field->selector->position.x = 0.f;
+    }
+}
+
+void classic_state::handle_up_released_event(grottans::engine* engine)
+{
+    if (game_field->selector->position.y > 0) {
+        game_field->selector->position.y -= g_OFFSET;
+    } else {
+        game_field->selector->position.y = 9.f;
+    }
+}
+
+void classic_state::handle_down_released_event(grottans::engine* engine)
+{
+    if (game_field->selector->position.y < 9) {
+        game_field->selector->position.y += g_OFFSET;
+    } else {
+        game_field->selector->position.y = 0.f;
+    }
 }

@@ -20,6 +20,11 @@ public:
     void draw(grottans::engine*);
 
     bool handle_mouse_event(grottans::engine* engine);
+    void handle_start_released_event(const size_t& i, const size_t& j, grottans::engine* engine);
+    void handle_left_released_event(grottans::engine* engine);
+    void handle_right_released_event(grottans::engine* engine);
+    void handle_up_released_event(grottans::engine* engine);
+    void handle_down_released_event(grottans::engine* engine);
 
     static game_state* instance()
     {
