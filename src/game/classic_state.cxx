@@ -43,8 +43,6 @@ void classic_state::cleanup(grottans::engine*) {}
 
 void classic_state::pause(grottans::engine*) {}
 
-///////////////////////////////////////////////////////////////////////////////
-/// \brief used for new level configuration after level_comlete_state
 void classic_state::resume(grottans::engine* engine)
 {
     game_field->undisappearing_all();
@@ -68,7 +66,7 @@ void classic_state::handle_events(grottans::engine* engine)
     if (game_field->f_state != field::field_state::fixed)
         return;
 
-    if (e == grottans::event::mouse_released) {
+    if (e == grottans::event::mouse_pressed) {
         if (handle_mouse_event(engine)) {
             /// replacing event to start_pressed
             e = grottans::event::start_released;
@@ -155,8 +153,8 @@ bool classic_state::handle_mouse_event(grottans::engine* engine)
         //find centr of the screen
         int centr_x = static_cast<int>(w) / 2;
         //take mouse cursor coordintes in engine
-        size_t m_x = engine->mouse_coord.x;
-        size_t m_y = engine->mouse_coord.y;
+        size_t m_x = engine->mouse_coord_pressed.x;
+        size_t m_y = engine->mouse_coord_pressed.y;
         //find delta
         double delta_x = m_x - static_cast<double>(centr_x);
         //find delta in size block size
@@ -172,8 +170,8 @@ bool classic_state::handle_mouse_event(grottans::engine* engine)
     } else {
         int block = static_cast<int>(w) / 11;
         int centr_y = h / 2 - block / 2;
-        size_t m_x = engine->mouse_coord.x;
-        size_t m_y = engine->mouse_coord.y;
+        size_t m_x = engine->mouse_coord_pressed.x;
+        size_t m_y = engine->mouse_coord_pressed.y;
         double delta_y = (m_y - static_cast<double>(centr_y)) / static_cast<double>(block);
         j = floor(m_x / static_cast<double>(w) * 11 - 0.5);
         i = 5 + delta_y;

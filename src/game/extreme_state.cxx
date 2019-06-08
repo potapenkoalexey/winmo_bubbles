@@ -67,11 +67,8 @@ void extreme_state::handle_events(grottans::engine* engine)
     if (game_field->f_state != field::field_state::fixed)
         return;
 
-    if (e == grottans::event::mouse_released) {
-        if (handle_mouse_event(engine)) {
-            e = grottans::event::start_released;
-        }
-    }
+    handle_mouse_pressed_event(e, engine);
+    handle_mouse_released_event(e, engine);
 
     switch (e) {
     case grottans::event::turn_off: {
@@ -144,44 +141,111 @@ void extreme_state::draw(grottans::engine* engine)
     engine->swap_buffers();
 }
 
-bool extreme_state::handle_mouse_event(grottans::engine* engine)
+bool extreme_state::handle_mouse_pressed_event(grottans::event& e, grottans::engine* engine)
 {
-    size_t w = engine->get_window_width();
-    size_t h = engine->get_window_height();
-    double i = 0;
-    double j = 0;
+    bool result = true;
 
-    if (w > h) {
-        int block = static_cast<int>(h) / 11;
-        //find centr of the screen
-        int centr_x = static_cast<int>(w) / 2;
-        //take mouse cursor coordintes in engine
-        size_t m_x = engine->mouse_coord.x;
-        size_t m_y = engine->mouse_coord.y;
-        //find delta
-        double delta_x = m_x - static_cast<double>(centr_x);
-        //find delta in size block size
-        delta_x = delta_x / static_cast<double>(block);
-        j = 5 + delta_x;
-        i = floor(m_y / static_cast<double>(h) * 11); // work !!!!!!!!!!!
-        ///blocking missclicks on progress_desk
-        if (j < 0 || j > 10 || i < 0 || i > 9) {
+    if (e == grottans::event::mouse_pressed) {
+
+        size_t w = engine->get_window_width();
+        size_t h = engine->get_window_height();
+
+        double i = 0;
+        double j = 0;
+
+        if (w > h) {
+            int block = static_cast<int>(h) / 11;
+            //find centr of the screen
+            int centr_x = static_cast<int>(w) / 2;
+            //take mouse cursor coordintes in engine
+            size_t m_x = engine->mouse_coord_pressed.x;
+            size_t m_y = engine->mouse_coord_pressed.y;
+            //find delta
+            double delta_x = m_x - static_cast<double>(centr_x);
+            //find delta in size block size
+            delta_x = delta_x / static_cast<double>(block);
+            j = 5 + delta_x;
+            i = floor(m_y / static_cast<double>(h) * 11); // work !!!!!!!!!!!
+            ///blocking missclicks on progress_desk
+            if (j < 0 || j > 10 || i < 0 || i > 9) {
+                result = false;
+            }
+        } else {
+            int block = static_cast<int>(w) / 11;
+            int centr_y = h / 2 - block / 2;
+            size_t m_x = engine->mouse_coord_pressed.x;
+            size_t m_y = engine->mouse_coord_pressed.y;
+            double delta_y = (m_y - static_cast<double>(centr_y)) / static_cast<double>(block);
+            j = floor(m_x / static_cast<double>(w) * 11 - 0.5);
+            i = 5 + delta_y;
+            if (j < 0 || j > 9 || i > 10 || i < 0)
+                result = false;
+        }
+
+        game_field->selector->position.x = static_cast<float>(j);
+        game_field->selector->position.y = static_cast<float>(i);
+
+        if (result) {
+            e = grottans::event::start_released;
+        }
+    }
+    return result;
+}
+
+bool extreme_state::handle_mouse_released_event(grottans::event& e, grottans::engine* engine)
+{
+    if (e == grottans::event::mouse_released) {
+
+        size_t w = engine->get_window_width();
+        size_t h = engine->get_window_height();
+
+        size_t mouse_x_pressed = engine->mouse_coord_pressed.x;
+        size_t mouse_y_pressed = engine->mouse_coord_pressed.y;
+        size_t mouse_x_released = engine->mouse_coord_released.x;
+        size_t mouse_y_released = engine->mouse_coord_released.y;
+
+        int delta_x = mouse_x_pressed - mouse_x_released;
+        int delta_y = mouse_y_pressed - mouse_y_released;
+
+        // do not handle small offsets
+        if (abs(delta_x) < w / 20.f && abs(delta_y) < (h - w / 10.f) / 20.f) {
+            game_field->selector->texture = game_field->tex_selector_clutch;
             return false;
         }
-    } else {
-        int block = static_cast<int>(w) / 11;
-        int centr_y = h / 2 - block / 2;
-        size_t m_x = engine->mouse_coord.x;
-        size_t m_y = engine->mouse_coord.y;
-        double delta_y = (m_y - static_cast<double>(centr_y)) / static_cast<double>(block);
-        j = floor(m_x / static_cast<double>(w) * 11 - 0.5);
-        i = 5 + delta_y;
-        if (j < 0 || j > 9 || i > 10 || i < 0)
-            return false;
-    }
+        // first quadrant
+        if (delta_x >= 0 && delta_y >= 0) {
+            if (abs(delta_x) >= abs(delta_y)) {
+                e = grottans::event::left_released;
+            } else {
+                e = grottans::event::up_released;
+            }
+        }
+        // third
+        if (delta_x >= 0 && delta_y < 0) {
+            if (abs(delta_x) >= abs(delta_y)) {
+                e = grottans::event::left_released;
+            } else {
+                e = grottans::event::down_released;
+            }
+        }
+        // second quardant
+        if (delta_x < 0 && delta_y >= 0) {
+            if (abs(delta_x) >= abs(delta_y)) {
+                e = grottans::event::right_released;
+            } else {
+                e = grottans::event::up_released;
+            }
+        }
+        // fourth quadrant
+        if (delta_x < 0 && delta_y < 0) {
+            if (abs(delta_x) >= abs(delta_y)) {
+                e = grottans::event::right_released;
+            } else {
+                e = grottans::event::down_released;
+            }
+        }
 
-    game_field->selector->position.x = static_cast<float>(j);
-    game_field->selector->position.y = static_cast<float>(i);
+    } // end of mouse_released
     return true;
 }
 
@@ -240,7 +304,7 @@ void extreme_state::handle_start_released_event(const size_t& i, const size_t& j
     m_counter->set_displayed_number(g_SCORE);
 }
 
-void extreme_state::handle_left_released_event(grottans::engine* engine)
+void extreme_state::handle_left_released_event(grottans::engine*)
 {
     game_field->selector->texture = game_field->tex_selector;
 
@@ -283,7 +347,7 @@ void extreme_state::handle_left_released_event(grottans::engine* engine)
     }
 }
 
-void extreme_state::handle_right_released_event(grottans::engine* engine)
+void extreme_state::handle_right_released_event(grottans::engine*)
 {
     game_field->selector->texture = game_field->tex_selector;
 
@@ -325,7 +389,7 @@ void extreme_state::handle_right_released_event(grottans::engine* engine)
     }
 }
 
-void extreme_state::handle_up_released_event(grottans::engine* engine)
+void extreme_state::handle_up_released_event(grottans::engine*)
 {
     game_field->selector->texture = game_field->tex_selector;
 
@@ -367,7 +431,7 @@ void extreme_state::handle_up_released_event(grottans::engine* engine)
     }
 }
 
-void extreme_state::handle_down_released_event(grottans::engine* engine)
+void extreme_state::handle_down_released_event(grottans::engine*)
 {
     game_field->selector->texture = game_field->tex_selector;
 

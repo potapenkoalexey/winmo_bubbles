@@ -705,15 +705,15 @@ bool engine_impl::input(event& e)
             //mouse
             if (sdl_event.type == SDL_MOUSEBUTTONDOWN) {
                 e = grottans::event::mouse_pressed;
-                this->mouse_coord.x = sdl_event.button.x;
-                this->mouse_coord.y = sdl_event.button.y;
+                this->mouse_coord_pressed.x = sdl_event.button.x;
+                this->mouse_coord_pressed.y = sdl_event.button.y;
                 return true;
             }
 
             if (sdl_event.type == SDL_MOUSEBUTTONUP) {
                 e = grottans::event::mouse_released;
-                this->mouse_coord.x = sdl_event.button.x;
-                this->mouse_coord.y = sdl_event.button.y;
+                this->mouse_coord_released.x = sdl_event.button.x;
+                this->mouse_coord_released.y = sdl_event.button.y;
                 return true;
             }
 

@@ -92,7 +92,6 @@ void game_over_state::handle_events(grottans::engine* engine)
 
 void game_over_state::update(grottans::engine*)
 {
-    //m_counter->set_displayed_number(g_SCORE);
 }
 
 void game_over_state::draw(grottans::engine* engine)

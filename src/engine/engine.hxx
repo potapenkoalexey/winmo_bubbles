@@ -234,6 +234,8 @@ public:
     mat2x3 scale = grottans::mat2x3::scale(1.f, 1.f);
 
     mouse_pos mouse_coord;
+    mouse_pos mouse_coord_pressed;
+    mouse_pos mouse_coord_released;
 
     std::vector<game_state*> states;
     game_state* current_state;
