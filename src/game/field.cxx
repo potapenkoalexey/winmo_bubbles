@@ -835,8 +835,23 @@ bool field::is_game_over_classic()
 
 bool field::is_game_over_extreme()
 {
-    //stub
-    return false;
+    for (size_t i = 0; i < 10; i++) {
+        for (size_t j = 0; j < 10; j++) {
+            if (can_flip(i, j, direction::up)) {
+                return false;
+            }
+            if (can_flip(i, j, direction::down)) {
+                return false;
+            }
+            if (can_flip(i, j, direction::left)) {
+                return false;
+            }
+            if (can_flip(i, j, direction::right)) {
+                return false;
+            }
+        }
+    }
+    return true;
 }
 
 void field::draw(grottans::engine* engine)

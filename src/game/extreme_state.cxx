@@ -326,6 +326,7 @@ void extreme_state::update(grottans::engine* engine)
         game_field->add_blocks_at_the_top_of_field();
         game_field->mark_falling_blocks();
         if (!game_field->are_there_falling_blocks()) {
+
             ///if the field static - check is_game_over
             if (game_field->is_game_over_extreme()) {
                 engine->switch_to_state(engine->states[4]);
