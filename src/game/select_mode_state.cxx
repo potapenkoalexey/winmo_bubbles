@@ -59,14 +59,27 @@ void select_mode_state::resume(grottans::engine*)
     g_SCORE = 0;
 }
 
+void select_mode_state::sound_turn_on()
+{
+    sound_on->play(grottans::sound_buffer::properties::once);
+    block_back->texture = tex_back_sound_on;
+    g_SOUND = true;
+}
+
+void select_mode_state::sound_turn_off()
+{
+    block_back->texture = tex_back_sound_off;
+    g_SOUND = false;
+}
+
 void select_mode_state::handle_mouse_event(
     grottans::engine* engine,
     grottans::event& e)
 {
     float w = engine->get_window_width();
     float h = engine->get_window_height();
-    size_t m_x = engine->mouse_coord_released.x;
-    size_t m_y = engine->mouse_coord_released.y;
+    size_t m_x = engine->mouse_coord_pressed.x;
+    size_t m_y = engine->mouse_coord_pressed.y;
     float scale_x = engine->scale.col0.x; //0.625
     float scale_y = engine->scale.col1.y; //1
 
@@ -105,28 +118,15 @@ void select_mode_state::handle_mouse_event(
         if ((m_y > 0.58f * h) && (m_y < 0.68f * h) && (m_x > 0.10f * w) && (m_x < 0.48f * w)) {
             block_select->v_buf = v_buf_classic;
             g_MODE = MODE::classic;
-            //e = grottans::event::start_released;
+            e = grottans::event::start_released;
         }
         ///extreme button
         if ((m_y > 0.58f * h) && (m_y < 0.68f * h) && (m_x > 0.52f * w) && (m_x < 0.90f * w)) {
             block_select->v_buf = v_buf_extreme;
             g_MODE = MODE::extreme;
-            //e = grottans::event::start_released;
+            e = grottans::event::start_released;
         }
     }
-}
-
-void select_mode_state::sound_turn_on()
-{
-    sound_on->play(grottans::sound_buffer::properties::once);
-    block_back->texture = tex_back_sound_on;
-    g_SOUND = true;
-}
-
-void select_mode_state::sound_turn_off()
-{
-    block_back->texture = tex_back_sound_off;
-    g_SOUND = false;
 }
 
 void select_mode_state::handle_events(grottans::engine* engine)
