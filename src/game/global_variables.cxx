@@ -26,6 +26,8 @@ milli_sec g_frame_delta;
 
 float g_OFFSET = 1.f;
 
+float g_offset_in_screen_coord = 0.19f;
+
 float g_FPS = 60.f;
 
 float g_FPS_falling_factor = 4.f;

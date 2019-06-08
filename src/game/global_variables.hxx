@@ -39,6 +39,8 @@ extern milli_sec g_frame_delta;
 //offset selector movement
 extern float g_OFFSET;
 
+extern float g_offset_in_screen_coord;
+
 extern float g_FPS;
 
 extern float g_FPS_falling_factor;

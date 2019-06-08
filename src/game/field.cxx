@@ -644,7 +644,7 @@ void field::update_fliping_view(const size_t& i, const size_t& j, const milli_se
     ///assign new xy-position
     if (how_may_frames_from_start > gems[i][j]->fliping_frame_index) {
         ///0.18f - offset without rows in screen coord -1;1
-        float offset = (0.18f / static_cast<float>(g_FRAME_OF_FLIPING - 1) * g_FPS_fliping_factor);
+        float offset = (g_offset_in_screen_coord / static_cast<float>(g_FRAME_OF_FLIPING - 1) * g_FPS_fliping_factor);
 
         gems[i][j]->fliping_frame_index++;
 
@@ -733,7 +733,7 @@ void field::update_coord_falling_blocks(const size_t& i, const size_t& j, const 
     ///assign new xy-position
     if (how_may_frames_from_start > gems[i][j]->falling_frame_index) {
         ///0.18f - offset without rows in screen coord -1;1
-        gems[i][j]->move.delta.y -= (0.18f / static_cast<float>(g_FRAME_OF_FALLING - 1) * g_FPS_falling_factor);
+        gems[i][j]->move.delta.y -= (g_offset_in_screen_coord / static_cast<float>(g_FRAME_OF_FALLING - 1) * g_FPS_falling_factor);
         gems[i][j]->falling_frame_index++;
     }
 
@@ -778,7 +778,7 @@ void field::update_coord_shifting_blocks(const size_t& i, const size_t& j, const
     ///assign new xy-position
     if (how_may_frames_from_start > gems[i][j]->shifting_frame_index) {
         ///0.18f - offset without columns in screen coord -1;1
-        gems[i][j]->move.delta.x -= (0.18f / static_cast<float>(g_FRAME_OF_DISAPPEARING - 1) * g_FPS_shifting_factor);
+        gems[i][j]->move.delta.x -= (g_offset_in_screen_coord / static_cast<float>(g_FRAME_OF_DISAPPEARING - 1) * g_FPS_shifting_factor);
         gems[i][j]->shifting_frame_index++;
     }
 
