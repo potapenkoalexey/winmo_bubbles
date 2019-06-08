@@ -31,6 +31,16 @@ bool game_over_state::init(grottans::engine* engine)
 
     block_back->v_buf = engine->create_vertex_buffer(&tr[0], 2);
 
+    ///counter
+    m_counter = std::unique_ptr<counter>(new counter);
+    m_counter->set_quantity_of_digits(5, counter::sign::unsign);
+    m_counter->init(engine);
+    m_counter->set_vertexes(-0.40f, -0.60f, 0.16f, 0.16f);
+    m_counter->set_color({ 1.0f, 1.0f, 1.0f, 1.0f });
+    m_counter->set_vertex_buffer(engine);
+    m_counter->set_displayed_number(0);
+    m_counter->set_hide_zeros(false);
+
     ///playing sound
     sound_game_over = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/03_game_over"));
 
@@ -48,6 +58,8 @@ void game_over_state::pause(grottans::engine*)
 void game_over_state::resume(grottans::engine*)
 {
     g_score_in_the_end_of_level = 0;
+
+    m_counter->set_displayed_number(g_SCORE);
 
     if (g_SOUND) {
         sound_game_over->play(grottans::sound_buffer::properties::once);
@@ -80,11 +92,13 @@ void game_over_state::handle_events(grottans::engine* engine)
 
 void game_over_state::update(grottans::engine*)
 {
+    //m_counter->set_displayed_number(g_SCORE);
 }
 
 void game_over_state::draw(grottans::engine* engine)
 {
     block_back->draw(engine);
+    m_counter->draw(engine);
 
     engine->swap_buffers();
 }

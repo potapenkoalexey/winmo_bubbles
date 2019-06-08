@@ -28,12 +28,15 @@ public:
     void set_vertexes(const float& x, const float& y, const float& w, const float& h);
     void set_color(const grottans::color&);
     void set_vertex_buffer(grottans::engine* engine);
+    void set_hide_zeros(const bool&);
 
 private:
     size_t quantity_of_digits;
     size_t number_on_screen;
 
     std::array<size_t, 6> score_numbers;
+
+    bool hide_zeros = true;
 
     sign m_sign;
 

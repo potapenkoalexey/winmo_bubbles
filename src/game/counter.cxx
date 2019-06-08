@@ -55,6 +55,11 @@ void counter::set_vertex_buffer(grottans::engine* engine)
     }
 }
 
+void counter::set_hide_zeros(const bool& temp)
+{
+    hide_zeros = temp;
+}
+
 void counter::set_displayed_number(const size_t& t)
 {
     if (is_overflow(t) == false) {
@@ -112,37 +117,43 @@ bool counter::is_overflow(const size_t& t)
 
 void counter::draw(grottans::engine* engine)
 {
-    if (number_on_screen < 10) {
-        digits[quantity_of_digits - 1]->draw(engine);
-        return;
-    }
-    if (number_on_screen < 100) {
-        digits[quantity_of_digits - 1]->draw(engine);
-        digits[quantity_of_digits - 2]->draw(engine);
-        return;
-    }
+    if (hide_zeros) {
+        if (number_on_screen < 10) {
+            digits[quantity_of_digits - 1]->draw(engine);
+            return;
+        }
+        if (number_on_screen < 100) {
+            digits[quantity_of_digits - 1]->draw(engine);
+            digits[quantity_of_digits - 2]->draw(engine);
+            return;
+        }
 
-    if (number_on_screen < 1000) {
-        digits[quantity_of_digits - 1]->draw(engine);
-        digits[quantity_of_digits - 2]->draw(engine);
-        digits[quantity_of_digits - 3]->draw(engine);
-        return;
-    }
+        if (number_on_screen < 1000) {
+            digits[quantity_of_digits - 1]->draw(engine);
+            digits[quantity_of_digits - 2]->draw(engine);
+            digits[quantity_of_digits - 3]->draw(engine);
+            return;
+        }
 
-    if (number_on_screen < 10000) {
-        digits[quantity_of_digits - 1]->draw(engine);
-        digits[quantity_of_digits - 2]->draw(engine);
-        digits[quantity_of_digits - 3]->draw(engine);
-        digits[quantity_of_digits - 4]->draw(engine);
-        return;
-    }
+        if (number_on_screen < 10000) {
+            digits[quantity_of_digits - 1]->draw(engine);
+            digits[quantity_of_digits - 2]->draw(engine);
+            digits[quantity_of_digits - 3]->draw(engine);
+            digits[quantity_of_digits - 4]->draw(engine);
+            return;
+        }
 
-    if (number_on_screen < 100000) {
-        digits[quantity_of_digits - 1]->draw(engine);
-        digits[quantity_of_digits - 2]->draw(engine);
-        digits[quantity_of_digits - 3]->draw(engine);
-        digits[quantity_of_digits - 4]->draw(engine);
-        digits[quantity_of_digits - 5]->draw(engine);
-        return;
+        if (number_on_screen < 100000) {
+            digits[quantity_of_digits - 1]->draw(engine);
+            digits[quantity_of_digits - 2]->draw(engine);
+            digits[quantity_of_digits - 3]->draw(engine);
+            digits[quantity_of_digits - 4]->draw(engine);
+            digits[quantity_of_digits - 5]->draw(engine);
+            return;
+        }
+    } else {
+        for (int i = quantity_of_digits - 1; i >= 0; i--) {
+            digits[i]->draw(engine);
+        }
     }
 }

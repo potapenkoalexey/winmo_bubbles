@@ -4,6 +4,7 @@
 
 #include "../../src/engine/engine.hxx"
 #include "./block.hxx"
+#include "./counter.hxx"
 
 class game_over_state : public grottans::game_state {
 public:
@@ -35,4 +36,6 @@ private:
     std::unique_ptr<block> block_back;
     std::array<grottans::tri2, 2> tr; // v_buf triangles
     std::unique_ptr<grottans::sound_buffer> sound_game_over;
+
+    std::unique_ptr<counter> m_counter;
 };

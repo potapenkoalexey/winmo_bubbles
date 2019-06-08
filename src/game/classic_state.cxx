@@ -86,6 +86,8 @@ void classic_state::handle_events(grottans::engine* engine)
         g_LEVEL = 1;
         g_SCORE = 0;
         g_score_in_the_end_of_level = 0;
+        //for debagging game_over_state
+        //engine->switch_to_state(engine->states[4]);
         break;
     }
     case grottans::event::start_released: {
