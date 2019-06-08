@@ -854,6 +854,44 @@ bool field::is_game_over_extreme()
     return true;
 }
 
+bool field::is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/, grottans::engine* engine)
+{
+    bool result = true;
+
+    size_t w = engine->get_window_width();
+    size_t h = engine->get_window_height();
+
+    if (w > h) {
+        int block = static_cast<int>(h) / 11;
+        //find centr of the screen
+        int centr_x = static_cast<int>(w) / 2;
+        //take mouse cursor coordintes in engine
+        size_t m_x = engine->mouse_coord_pressed.x;
+        size_t m_y = engine->mouse_coord_pressed.y;
+        //find delta
+        double delta_x = m_x - static_cast<double>(centr_x);
+        //find delta in size block size
+        delta_x = delta_x / static_cast<double>(block);
+        j = 5 + delta_x;
+        i = floor(m_y / static_cast<double>(h) * 11); // work !!!!!!!!!!!
+        ///blocking missclicks on progress_desk
+        if (j < 0 || j > 10 || i < 0 || i > 9) {
+            result = false;
+        }
+    } else {
+        int block = static_cast<int>(w) / 11;
+        int centr_y = h / 2 - block / 2;
+        size_t m_x = engine->mouse_coord_pressed.x;
+        size_t m_y = engine->mouse_coord_pressed.y;
+        double delta_y = (m_y - static_cast<double>(centr_y)) / static_cast<double>(block);
+        j = floor(m_x / static_cast<double>(w) * 11 - 0.5);
+        i = 5 + delta_y;
+        if (j < 0 || j > 9 || i > 10 || i < 0)
+            result = false;
+    }
+    return result;
+}
+
 void field::draw(grottans::engine* engine)
 {
     //drawing blocks

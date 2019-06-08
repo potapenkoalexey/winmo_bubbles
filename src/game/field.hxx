@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include <iostream>
 #include <memory>
 
@@ -72,6 +73,8 @@ struct field {
 
     bool is_game_over_classic();
     bool is_game_over_extreme();
+
+    bool is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/, grottans::engine* engine);
 
     size_t width = 0;
     size_t height = 0;
