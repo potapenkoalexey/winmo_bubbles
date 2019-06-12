@@ -26,7 +26,8 @@ milli_sec g_frame_delta;
 
 float g_OFFSET = 1.f;
 
-float g_offset_in_screen_coord = 0.19f;
+///original 0.18f, in range 0.19...0.20 take a rebound of the blocks
+float g_offset_in_screen_coord = 0.18f;
 
 float g_FPS = 60.f;
 
