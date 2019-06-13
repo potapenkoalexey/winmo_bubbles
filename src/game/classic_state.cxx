@@ -52,6 +52,7 @@ void classic_state::resume(grottans::engine* engine)
     game_field->selector->position.x = 5;
     game_field->selector->position.y = 5;
     progress->set_line_in_null(engine);
+    progress->set_dispayed_number(0);
     progress->set_level_complete_flag(false);
     m_counter->set_displayed_number(g_SCORE);
 }
@@ -127,9 +128,18 @@ void classic_state::update(grottans::engine* engine)
             game_field->is_right_row_free();
             game_field->mark_shifting_blocks();
 
-            ///check game_over
-            if (game_field->is_game_over_classic()) {
-                engine->switch_to_state(engine->states[4]);
+            if (game_field->is_all_fixed()) {
+
+                ///check game_over
+                if (game_field->is_game_over_classic()) {
+                    engine->switch_to_state(engine->states[4]);
+                }
+                ///check new level
+                if (progress->get_level_complete_flag()) {
+                    g_LEVEL++;
+                    ///go to level_complete_mode
+                    engine->switch_to_state(engine->states[3]);
+                }
             }
         }
     }
@@ -187,14 +197,15 @@ void classic_state::handle_start_released_event(grottans::engine* engine)
         size_t points = progress->blocks_to_points(selected_blocks);
         g_SCORE += points;
         progress->increase_progress(engine, points, g_LEVEL);
+        progress->set_dispayed_number(points);
 
         game_field->unselect_all();
 
-        if (progress->get_level_complete_flag()) {
-            g_LEVEL++;
-            ///go to level_complete_mode
-            engine->switch_to_state(engine->states[3]);
-        }
+        //        if (progress->get_level_complete_flag()) {
+        //            g_LEVEL++;
+        //            ///go to level_complete_mode
+        //            engine->switch_to_state(engine->states[3]);
+        //        }
     }
 }
 

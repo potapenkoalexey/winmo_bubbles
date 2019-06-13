@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include <memory>
+#include <vector>
 
 #include "../../src/engine/engine.hxx"
 #include "./block.hxx"
@@ -106,5 +107,6 @@ struct field {
     //render tmp for selector
     std::array<grottans::tri2, 2> v_buf_tmp_selector;
 
-    std::unique_ptr<block> gems[10][10];
+    //std::unique_ptr<block> gems[10][10];
+    std::vector<std::vector<block*> > gems; //[10][10];
 };

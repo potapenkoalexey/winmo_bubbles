@@ -30,13 +30,11 @@ void number::draw(grottans::engine* engine)
 void number::set_number_and_texture(const int& t)
 {
     if (t >= 0 && t < 11) {
-        for (size_t i = 0; i < 11; i++) {
-            if (t == i) {
-                texture = numbers_textures[i];
-            }
-        }
+
+        texture = numbers_textures[t];
+
     } else {
-        std::cerr << "error: incorrect number in number class: " << t << std::endl;
+        std::cerr << "error: trying to set incorrect number in number class: " << t << std::endl;
         throw std::runtime_error("can't init number");
     }
 }

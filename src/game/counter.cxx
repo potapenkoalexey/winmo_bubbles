@@ -19,6 +19,7 @@ void counter::set_quantity_of_digits(const size_t& t, sign s_)
 
     if (s_ == sign::sign) {
         quantity++;
+        m_sign = sign::sign;
     }
 
     quantity_of_digits = quantity;
@@ -81,6 +82,10 @@ void counter::set_displayed_number(const size_t& t)
         digits[i]->set_number_and_texture(score_numbers[i]);
 
         tmp = tmp / 10;
+    }
+
+    if (m_sign == sign::sign) {
+        digits[0]->set_number_and_texture(10);
     }
 }
 
@@ -152,6 +157,7 @@ void counter::draw(grottans::engine* engine)
             return;
         }
     } else {
+
         for (int i = quantity_of_digits - 1; i >= 0; i--) {
             digits[i]->draw(engine);
         }

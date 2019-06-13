@@ -23,6 +23,8 @@ public:
     void increase_progress(grottans::engine*, size_t points, size_t points_to_level_);
     void update_line_vertex_buffer(grottans::engine*);
 
+    void set_dispayed_number(const size_t&);
+
 private:
     bool level_complete_flag = false;
 
@@ -36,7 +38,8 @@ private:
 
     std::unique_ptr<block> block_desk;
     std::unique_ptr<block> block_line;
-    std::unique_ptr<counter> emb_counter;
+
+    std::unique_ptr<counter> counter_combo_points;
 
     grottans::texture* tex_desk;
     grottans::texture* tex_line;

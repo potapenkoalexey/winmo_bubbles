@@ -53,6 +53,7 @@ void extreme_state::resume(grottans::engine* engine)
     game_field->selector->position.x = 5;
     game_field->selector->position.y = 5;
     progress->set_line_in_null(engine);
+    progress->set_dispayed_number(0);
     progress->set_level_complete_flag(false);
     m_counter->set_displayed_number(g_SCORE);
 }
@@ -127,6 +128,12 @@ void extreme_state::update(grottans::engine* engine)
             ///if the field static - check is_game_over
             if (game_field->is_game_over_extreme()) {
                 engine->switch_to_state(engine->states[4]);
+            }
+
+            if (progress->get_level_complete_flag()) {
+                g_LEVEL++;
+                ///go to level_complete_mode
+                engine->switch_to_state(engine->states[3]);
             }
         }
     }
@@ -260,14 +267,10 @@ void extreme_state::handle_start_released_event(const size_t& i, const size_t& j
             size_t points = progress->blocks_to_points(selected_blocks);
             g_SCORE += points;
             progress->increase_progress(engine, points, g_LEVEL);
+            progress->set_dispayed_number(points);
 
             game_field->unselect_all();
 
-            if (progress->get_level_complete_flag()) {
-                g_LEVEL++;
-                ///go to level_complete_mode
-                engine->switch_to_state(engine->states[3]);
-            }
         } else {
             game_field->unselect_all();
             game_field->undisappearing_all();
