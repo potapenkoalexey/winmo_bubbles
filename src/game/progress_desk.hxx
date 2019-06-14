@@ -40,6 +40,7 @@ private:
     std::unique_ptr<block> block_line;
 
     std::unique_ptr<counter> counter_combo_points;
+    std::unique_ptr<counter> counter_points_to_level;
 
     grottans::texture* tex_desk;
     grottans::texture* tex_line;

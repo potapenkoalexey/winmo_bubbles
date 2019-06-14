@@ -38,7 +38,7 @@ private:
 
     bool hide_zeros = true;
 
-    sign m_sign;
+    sign m_sign = sign::unsign;
 
     std::vector<std::unique_ptr<number> > digits;
 };
