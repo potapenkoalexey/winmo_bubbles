@@ -30,20 +30,23 @@ bool progress_desk::init(grottans::engine* engine)
     block_desk->texture = tex_desk;
     block_line->texture = tex_line;
 
-    std::ifstream file("./data/vertex_buffers/vert_buffer_for_progress_desk.txt");
-    if (!file) {
-        std::cerr << "can't load vert_buffer_for_progress_desk.txt\n";
-        return EXIT_FAILURE;
-    } else {
-        /// tr0-1 - for desk
-        /// tr2-3 - for line
-        file >> tr[0] >> tr[1] >> tr[2] >> tr[3];
-        if (!sizeof(tr[1])) {
-            std::cerr << "can't create vertex buffer\n";
-            return EXIT_FAILURE;
-        }
-    }
-    file.close();
+    //    std::ifstream file("./data/vertex_buffers/vert_buffer_for_progress_desk.txt");
+    //    if (!file) {
+    //        std::cerr << "can't load vert_buffer_for_progress_desk.txt\n";
+    //        return EXIT_FAILURE;
+    //    } else {
+    //        /// tr0-1 - for desk
+    //        /// tr2-3 - for line
+    //        file >> tr[0] >> tr[1] >> tr[2] >> tr[3];
+    //        if (!sizeof(tr[1])) {
+    //            std::cerr << "can't create vertex buffer\n";
+    //            return EXIT_FAILURE;
+    //        }
+    //    }
+    //    file.close();
+
+    auto text = engine->filter_comments("./data/vertex_buffers/vert_buffer_for_progress_desk.txt");
+    text >> tr[0] >> tr[1] >> tr[2] >> tr[3];
 
     ///creating vertex buffers
     block_desk->v_buf = engine->create_vertex_buffer(&tr[0], 2);

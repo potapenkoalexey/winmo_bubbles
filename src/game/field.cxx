@@ -21,18 +21,21 @@ bool field::init(grottans::engine* engine)
     tex_bomb = engine->create_texture("./data/images/bomb.png");
     tex_red = engine->create_texture("./data/images/red.png");
 
-    std::ifstream file_falling("./data/vertex_buffers/vert_buffers_for_gems.txt");
-    if (!file_falling) {
-        std::cerr << "can't load vert_buffers_for_gems.txt\n";
-        return EXIT_FAILURE;
-    } else {
-        file_falling >> tr[0] >> tr[1] >> tr[2] >> tr[3];
-        if (!sizeof(tr[1])) {
-            std::cerr << "can't create vertex triangles for gems\n";
-            return EXIT_FAILURE;
-        }
-    }
-    file_falling.close();
+    //    std::ifstream file_falling("./data/vertex_buffers/vert_buffers_for_gems.txt");
+    //    if (!file_falling) {
+    //        std::cerr << "can't load vert_buffers_for_gems.txt\n";
+    //        return EXIT_FAILURE;
+    //    } else {
+    //        file_falling >> tr[0] >> tr[1] >> tr[2] >> tr[3];
+    //        if (!sizeof(tr[1])) {
+    //            std::cerr << "can't create vertex triangles for gems\n";
+    //            return EXIT_FAILURE;
+    //        }
+    //    }
+    //    file_falling.close();
+
+    auto text = engine->filter_comments("./data/vertex_buffers/vert_buffers_for_gems.txt");
+    text >> tr[0] >> tr[1] >> tr[2] >> tr[3];
 
     //creating 16 pairs uv-triangles
     for (int i = 31; i >= 1; i -= 2) {

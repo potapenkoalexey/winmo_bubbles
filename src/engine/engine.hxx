@@ -3,6 +3,7 @@
 #include <iosfwd>
 #include <iostream>
 #include <memory>
+#include <sstream>
 #include <string>
 #include <string_view>
 #include <variant>
@@ -214,6 +215,8 @@ public:
 
     virtual sound_buffer* create_sound_buffer(const std::string_view) = 0;
     virtual void destroy_sound_buffer(sound_buffer*) = 0;
+
+    virtual std::stringstream filter_comments(std::string_view file) = 0;
 
     virtual void render_triangle(const triangle&) = 0;
     virtual void render(const tri0&, const color&) = 0;

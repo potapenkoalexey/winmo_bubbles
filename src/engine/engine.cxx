@@ -10,6 +10,7 @@
 #include <memory>
 #include <sstream>
 #include <stdexcept>
+#include <string>
 #include <string_view>
 #include <tuple>
 #include <vector>
@@ -600,6 +601,8 @@ public:
     sound_buffer* create_sound_buffer(std::string_view path);
     void destroy_sound_buffer(sound_buffer* sound);
 
+    std::stringstream filter_comments(std::string_view file);
+
     void render(const tri0&, const color&);
     void render(const tri1&);
     void render(const tri2&, texture*);
@@ -663,6 +666,31 @@ void engine_impl::destroy_sound_buffer(sound_buffer* sound)
 {
     // TODO FIXME first remove from sounds collection
     delete sound;
+}
+
+std::stringstream engine_impl::filter_comments(std::string_view file)
+{
+    std::stringstream out;
+    std::string line;
+
+    grottans::membuf buf = grottans::load_file(file);
+    std::istream in(&buf);
+
+    if (!in) {
+        throw std::runtime_error(std::string("can't open file: ") + file.data());
+    }
+
+    while (std::getline(in, line)) {
+        size_t comment_pos = line.find("//");
+        if (comment_pos != std::string::npos) {
+            line = line.substr(0, comment_pos);
+        }
+        if (!line.empty()) {
+            out << line << '\n';
+        }
+    }
+
+    return out;
 }
 
 ///////////////////////////////////////////////////////////////////////////

@@ -15,19 +15,22 @@ bool game_over_state::init(grottans::engine* engine)
 
     block_back->texture = engine->create_texture("./data/images/my/game_over.png");
 
-    // loading vertex_buffers from files
-    std::ifstream file("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
-    if (!file) {
-        std::cerr << "can't load vert_buffers_for_full_monitor.txt\n";
-        return EXIT_FAILURE;
-    } else {
-        file >> tr[0] >> tr[1];
-        if (!sizeof(tr[1])) {
-            std::cerr << "can't create vertex buffer\n";
-            return EXIT_FAILURE;
-        }
-    }
-    file.close();
+    //    // loading vertex_buffers from files
+    //    std::ifstream file("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
+    //    if (!file) {
+    //        std::cerr << "can't load vert_buffers_for_full_monitor.txt\n";
+    //        return EXIT_FAILURE;
+    //    } else {
+    //        file >> tr[0] >> tr[1];
+    //        if (!sizeof(tr[1])) {
+    //            std::cerr << "can't create vertex buffer\n";
+    //            return EXIT_FAILURE;
+    //        }
+    //    }
+    //    file.close();
+
+    auto text = engine->filter_comments("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
+    text >> tr[0] >> tr[1];
 
     block_back->v_buf = engine->create_vertex_buffer(&tr[0], 2);
 
