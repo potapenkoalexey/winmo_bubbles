@@ -162,6 +162,8 @@ bool extreme_state::handle_mouse_pressed_event(grottans::event& e, grottans::eng
             game_field->selector->position.x = static_cast<float>(j);
             game_field->selector->position.y = static_cast<float>(i);
             e = grottans::event::start_released;
+        } else {
+            result = false;
         }
     }
     return result;

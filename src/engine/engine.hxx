@@ -216,7 +216,7 @@ public:
     virtual sound_buffer* create_sound_buffer(const std::string_view) = 0;
     virtual void destroy_sound_buffer(sound_buffer*) = 0;
 
-    virtual std::stringstream filter_comments(std::string_view file) = 0;
+    virtual std::stringstream load_txt_and_filter_comments(std::string_view file) = 0;
 
     virtual void render_triangle(const triangle&) = 0;
     virtual void render(const tri0&, const color&) = 0;

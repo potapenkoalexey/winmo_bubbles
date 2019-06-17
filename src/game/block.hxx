@@ -55,6 +55,8 @@ struct block {
     size_t shifting_frame_index = 0;
     size_t fliping_frame_index = 0;
 
+    ///////////////////////////////////////////////////////////////////////////
+
     float get_fps() const { return fps; }
     void set_fps(float fps_value) { fps = fps_value; }
 

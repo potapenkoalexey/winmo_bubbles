@@ -77,6 +77,8 @@ struct field {
 
     bool is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/, grottans::engine* engine);
 
+    ///////////////////////////////////////////////////////////////////////////
+
     size_t width = 0;
     size_t height = 0;
     float scale = 0;

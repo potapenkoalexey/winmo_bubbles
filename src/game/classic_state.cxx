@@ -85,8 +85,6 @@ void classic_state::handle_events(grottans::engine* engine)
         g_LEVEL = 1;
         g_SCORE = 0;
         g_score_in_the_end_of_level = 0;
-        //for debagging game_over_state
-        //engine->switch_to_state(engine->states[4]);
         break;
     }
     case grottans::event::start_released: {
@@ -124,12 +122,14 @@ void classic_state::update(grottans::engine* engine)
         ///game_field->undisappearing_all();
 
         game_field->mark_falling_blocks();
-        if (!game_field->are_there_falling_blocks()) { ///if the field static
+        if (!game_field->are_there_falling_blocks()) {
+
             game_field->is_right_row_free();
             game_field->mark_shifting_blocks();
 
             if (game_field->is_all_fixed()) {
 
+                game_field->f_state = field::field_state::fixed;
                 ///check game_over
                 if (game_field->is_game_over_classic()) {
                     engine->switch_to_state(engine->states[4]);
@@ -163,6 +163,8 @@ bool classic_state::handle_mouse_event(grottans::engine* engine)
 
         game_field->selector->position.x = static_cast<float>(j);
         game_field->selector->position.y = static_cast<float>(i);
+    } else {
+        return false;
     }
     return true;
 }
@@ -200,12 +202,6 @@ void classic_state::handle_start_released_event(grottans::engine* engine)
         progress->set_dispayed_number(points);
 
         game_field->unselect_all();
-
-        //        if (progress->get_level_complete_flag()) {
-        //            g_LEVEL++;
-        //            ///go to level_complete_mode
-        //            engine->switch_to_state(engine->states[3]);
-        //        }
     }
 }
 

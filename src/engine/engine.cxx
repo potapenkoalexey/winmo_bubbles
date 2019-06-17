@@ -601,7 +601,7 @@ public:
     sound_buffer* create_sound_buffer(std::string_view path);
     void destroy_sound_buffer(sound_buffer* sound);
 
-    std::stringstream filter_comments(std::string_view file);
+    std::stringstream load_txt_and_filter_comments(std::string_view file);
 
     void render(const tri0&, const color&);
     void render(const tri1&);
@@ -668,7 +668,7 @@ void engine_impl::destroy_sound_buffer(sound_buffer* sound)
     delete sound;
 }
 
-std::stringstream engine_impl::filter_comments(std::string_view file)
+std::stringstream engine_impl::load_txt_and_filter_comments(std::string_view file)
 {
     std::stringstream out;
     std::string line;

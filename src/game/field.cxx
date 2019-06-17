@@ -21,19 +21,7 @@ bool field::init(grottans::engine* engine)
     tex_bomb = engine->create_texture("./data/images/bomb.png");
     tex_red = engine->create_texture("./data/images/red.png");
 
-    //    std::ifstream file_falling("./data/vertex_buffers/vert_buffers_for_gems.txt");
-    //    if (!file_falling) {
-    //        std::cerr << "can't load vert_buffers_for_gems.txt\n";
-    //        return EXIT_FAILURE;
-    //    } else {
-    //        file_falling >> tr[0] >> tr[1] >> tr[2] >> tr[3];
-    //        if (!sizeof(tr[1])) {
-    //            std::cerr << "can't create vertex triangles for gems\n";
-    //            return EXIT_FAILURE;
-    //        }
-    //    }
-    //    file_falling.close();
-
+    //reading vertex file
     auto text = engine->filter_comments("./data/vertex_buffers/vert_buffers_for_gems.txt");
     text >> tr[0] >> tr[1] >> tr[2] >> tr[3];
 
@@ -110,6 +98,7 @@ void field::fill_clasic()
 {
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
+
             gems[i][j]->get_random_color_from_classic();
             associate_texture_with_gem(i, j);
         }
@@ -120,6 +109,7 @@ void field::fill_extreme()
 {
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
+
             gems[i][j]->get_random_color_from_extreme();
             associate_texture_with_gem(i, j);
         }
@@ -254,6 +244,7 @@ size_t field::select_around_bomb(const size_t& i, const size_t& j)
 
     gems[i][j]->selected = true;
     gems[i][j]->state = block::block_state::disappearing;
+
     if (j > 0) {
         gems[i][j - 1]->selected = true;
         gems[i][j - 1]->state = block::block_state::disappearing;
@@ -304,15 +295,17 @@ size_t field::selecting_to_disappearing()
     for (size_t k = 0; k < 9; k++) {
         for (size_t i = 0; i < width; i++) {
             for (size_t j = 0; j < height; j++) {
+
                 if (gems[i][j]->selected) {
                     select_around(i, j);
                 }
             }
         }
     }
-    // counting numberOfSelectedBlocks
+    // counting number_of_selected_blocks
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
+
             if (gems[i][j]->selected) {
                 number_of_selected_blocks++;
             }
@@ -326,6 +319,7 @@ void field::unselect_all()
 {
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
+
             gems[i][j]->selected = false;
         }
     }
@@ -349,6 +343,7 @@ void field::unselect_undisappearing_all()
 {
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
+
             gems[i][j]->selected = false;
             if (gems[i][j]->state != block::block_state::fixed) {
                 gems[i][j]->state = block::block_state::fixed;
@@ -364,6 +359,7 @@ void field::unfalling_unshifting_all()
 {
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
+
             gems[i][j]->move.delta.y = 0.f;
             gems[i][j]->falling_frame_index = 0;
             gems[i][j]->move.delta.x = 0.f;
@@ -376,6 +372,7 @@ void field::unmotion_all()
 {
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
+
             gems[i][j]->motion = false;
         }
     }
@@ -385,6 +382,7 @@ void field::visible_all()
 {
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
+
             gems[i][j]->visible = true;
         }
     }
@@ -392,37 +390,37 @@ void field::visible_all()
 
 bool field::is_all_fixed()
 {
-    bool result = true;
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
             if (gems[i][j]->state != block::block_state::fixed) {
-                result = false;
-                return result;
+
+                return false;
             }
         }
     }
-    return result;
+    return true;
 }
 
 bool field::are_there_falling_blocks()
 {
-    bool result = false;
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
+
             if (gems[i][j]->state == block::block_state::falling) {
-                result = true;
-                return result;
+                return true;
             }
         }
     }
-    return result;
+    return false;
 }
 
 bool field::is_right_row_free()
 {
     bool result = false;
     if (gems[9][9]->visible == false) {
+
         add_right_row();
+
         result = true;
     }
     return result;
@@ -432,6 +430,7 @@ void field::add_right_row()
 {
     size_t j = width - 1;
     for (size_t i = 0; i < height; i++) {
+
         gems[i][j]->visible = true;
         gems[i][j]->get_random_color_from_classic();
         associate_texture_with_gem(i, j);
@@ -442,8 +441,8 @@ void field::add_blocks_at_the_top_of_field()
 {
     for (size_t j = 0; j < height; j++) {
         if (gems[0][j]->visible == false) {
-            gems[0][j]->get_random_color_from_extreme_with_bomb();
 
+            gems[0][j]->get_random_color_from_extreme_with_bomb();
             gems[0][j]->visible = true;
             gems[0][j]->selected = false;
             gems[0][j]->motion = false;

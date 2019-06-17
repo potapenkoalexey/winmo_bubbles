@@ -24,20 +24,7 @@ bool select_mode_state::init(grottans::engine* engine)
     /// tr0-1 - for back
     /// tr2-3 - for classic mode selecter
     /// tr4-5 - for extreme mode selecter
-    //    std::ifstream file("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
-    //    if (!file) {
-    //        std::cerr << "can't load vert_buffers_for_full_monitor.txt\n";
-    //        return EXIT_FAILURE;
-    //    } else {
-    //        file >> tr[0] >> tr[1] >> tr[2] >> tr[3] >> tr[4] >> tr[5];
-    //        if (!sizeof(tr[1])) {
-    //            std::cerr << "can't create vertex buffer\n";
-    //            return EXIT_FAILURE;
-    //        }
-    //    }
-    //    file.close();
-
-    auto text = engine->filter_comments("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
+    auto text = engine->load_txt_and_filter_comments("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
     text >> tr[0] >> tr[1] >> tr[2] >> tr[3] >> tr[4] >> tr[5];
 
     block_back->v_buf = engine->create_vertex_buffer(&tr[0], 2);
