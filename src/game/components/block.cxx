@@ -1,6 +1,6 @@
 #include <random>
 
-#include "../../src/engine/random_generator.hxx"
+#include "../../../src/engine/random_generator.hxx"
 #include "./block.hxx"
 
 static std::mt19937& mt = random_generator::getMt19937();

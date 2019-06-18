@@ -15,28 +15,28 @@ add_executable(${PROJECT_NAME}
         src/engine/random_generator.hxx
         src/engine/random_generator.cxx
         src/game/main.cxx
-        src/game/block.hxx
-        src/game/block.cxx
-        src/game/field.hxx
-        src/game/field.cxx
-        src/game/counter.hxx
-        src/game/counter.cxx
-        src/game/progress_desk.hxx
-        src/game/progress_desk.cxx
-        src/game/select_mode_state.hxx
-        src/game/select_mode_state.cxx
-        src/game/classic_state.hxx
-        src/game/classic_state.cxx
-        src/game/extreme_state.hxx
-        src/game/extreme_state.cxx
-        src/game/level_complete_state.hxx
-        src/game/level_complete_state.cxx
-        src/game/game_over_state.hxx
-        src/game/game_over_state.cxx
+        src/game/components/block.hxx
+        src/game/components/block.cxx
+        src/game/components/field.hxx
+        src/game/components/field.cxx
+        src/game/components/counter.hxx
+        src/game/components/counter.cxx
+        src/game/components/progress_desk.hxx
+        src/game/components/progress_desk.cxx
+        src/game/components/number.hxx
+        src/game/components/number.cxx
+        src/game/states/select_mode_state.hxx
+        src/game/states/select_mode_state.cxx
+        src/game/states/classic_state.hxx
+        src/game/states/classic_state.cxx
+        src/game/states/extreme_state.hxx
+        src/game/states/extreme_state.cxx
+        src/game/states/level_complete_state.hxx
+        src/game/states/level_complete_state.cxx
+        src/game/states/game_over_state.hxx
+        src/game/states/game_over_state.cxx
         src/game/global_variables.hxx
         src/game/global_variables.cxx
-        src/game/number.hxx
-        src/game/number.cxx
 )
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)

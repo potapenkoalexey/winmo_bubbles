@@ -1,8 +1,8 @@
 #include <algorithm>
 #include <fstream>
 
+#include "../global_variables.hxx"
 #include "./field.hxx"
-#include "./global_variables.hxx"
 
 field::field() {}
 
@@ -22,7 +22,7 @@ bool field::init(grottans::engine* engine)
     tex_red = engine->create_texture("./data/images/red.png");
 
     //reading vertex file
-    auto text = engine->filter_comments("./data/vertex_buffers/vert_buffers_for_gems.txt");
+    auto text = engine->load_txt_and_filter_comments("./data/vertex_buffers/vert_buffers_for_gems.txt");
     text >> tr[0] >> tr[1] >> tr[2] >> tr[3];
 
     //creating 16 pairs uv-triangles

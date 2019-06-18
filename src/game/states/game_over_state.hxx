@@ -2,9 +2,9 @@
 
 #include <memory>
 
-#include "../../src/engine/engine.hxx"
-#include "./block.hxx"
-#include "./counter.hxx"
+#include "../../../src/engine/engine.hxx"
+#include "../components/block.hxx"
+#include "../components/counter.hxx"
 
 class game_over_state : public grottans::game_state {
 public:

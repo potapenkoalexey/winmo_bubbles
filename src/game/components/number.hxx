@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../src/engine/color.hxx"
-#include "../../src/engine/engine.hxx"
+#include "../../../src/engine/color.hxx"
+#include "../../../src/engine/engine.hxx"
 
 class number {
 public:

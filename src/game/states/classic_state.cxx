@@ -1,9 +1,9 @@
 #include <cmath>
 #include <fstream>
 
+#include "../global_variables.hxx"
 #include "./classic_state.hxx"
 #include "./game_over_state.hxx"
-#include "./global_variables.hxx"
 #include "./level_complete_state.hxx"
 #include "./select_mode_state.hxx"
 

@@ -1,6 +1,6 @@
 #include <fstream>
 
-#include "./global_variables.hxx"
+#include "../global_variables.hxx"
 #include "./progress_desk.hxx"
 
 bool progress_desk::init(grottans::engine* engine)

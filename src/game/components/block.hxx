@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../src/engine/engine.hxx"
-#include "./global_variables.hxx"
+#include "../../../src/engine/engine.hxx"
+#include "./../global_variables.hxx"
 
 struct block {
 
