@@ -155,12 +155,9 @@ void select_mode_state::handle_events(grottans::engine* engine)
         break;
     }
     case grottans::event::start_released: {
-        if (g_MODE == MODE::classic) {
-            engine->switch_to_state(engine->states[1]);
-        }
-        if (g_MODE == MODE::extreme) {
-            engine->switch_to_state(engine->states[2]);
-        }
+
+        engine->switch_to_state(engine->states[3]);
+
         break;
     }
     }
