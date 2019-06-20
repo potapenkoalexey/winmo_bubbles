@@ -18,7 +18,9 @@ size_t g_FIELD_HEIGHT = 10;
 
 size_t g_FRAME_OF_DISAPPEARING = 16;
 
-size_t g_FRAME_OF_FALLING = 16;
+size_t g_FRAME_OF_FALLING = 8;
+
+size_t g_FRAME_OF_SHIFTING = 8;
 
 size_t g_FRAME_OF_FLIPING = 6;
 
@@ -31,8 +33,8 @@ float g_offset_in_screen_coord = 0.18f;
 
 float g_FPS = 60.f;
 
-float g_FPS_falling_factor = 4.f;
+float g_FPS_FALLING = 90.f;
 
-float g_FPS_shifting_factor = 4.f;
+float g_FPS_SHIFTING = 90.f;
 
-float g_FPS_fliping_factor = 1.f;
+float g_FPS_FLIPING = 60.f;
