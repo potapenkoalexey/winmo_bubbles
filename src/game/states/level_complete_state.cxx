@@ -40,7 +40,7 @@ void level_complete_state::cleanup(grottans::engine*) {}
 
 void level_complete_state::pause(grottans::engine*) {}
 
-void level_complete_state::resume(grottans::engine* engine)
+void level_complete_state::resume(grottans::engine*)
 {
     level_number = g_LEVEL;
 
@@ -49,12 +49,12 @@ void level_complete_state::resume(grottans::engine* engine)
     ///select sound even/uneven
     if (level_number % 2) {
         block_back->texture = tex_even;
-        if (g_SOUND) {
+        if (g_SOUND && level_number > 1) {
             sound_even->play(grottans::sound_buffer::properties::once);
         }
     } else {
         block_back->texture = tex_uneven;
-        if (g_SOUND) {
+        if (g_SOUND && level_number > 1) {
             sound_uneven->play(grottans::sound_buffer::properties::once);
         }
     }

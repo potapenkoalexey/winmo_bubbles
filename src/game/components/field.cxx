@@ -30,6 +30,7 @@ bool field::init(grottans::engine* engine)
         v_buf_disappear[i] = tr[1];
         v_buf_disappear[i - 1] = tr[0];
 
+        ///0.0625f offset between sprites in gem's texture
         tr[0].v[0].uv.y -= 0.0625f;
         tr[0].v[1].uv.y -= 0.0625f;
         tr[0].v[2].uv.y -= 0.0625f;
@@ -44,6 +45,7 @@ bool field::init(grottans::engine* engine)
             v_buf_grid[(i * width + j) * 2] = tr[2];
             v_buf_grid[(i * width + j) * 2 + 1] = tr[3];
 
+            ///0.18f offset between gems in screen coord
             tr[2].v[0].pos.x += 0.18f;
             tr[2].v[1].pos.x += 0.18f;
             tr[2].v[2].pos.x += 0.18f;

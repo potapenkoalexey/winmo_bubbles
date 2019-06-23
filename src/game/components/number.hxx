@@ -14,7 +14,8 @@ public:
     void set_vertexes(float x, float y, float w, float h);
     void set_vertex_buffer(grottans::engine* engine);
 
-    grottans::mat2x3 move{}; // = grottans::mat2x3::scale(1.f, 1.f);
+private:
+    grottans::mat2x3 move{};
 
     std::array<grottans::texture*, 11> numbers_textures;
     std::array<grottans::tri2, 2> vertex_triangles;
