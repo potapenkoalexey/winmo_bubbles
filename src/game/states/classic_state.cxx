@@ -81,7 +81,7 @@ void classic_state::handle_events(grottans::engine* engine)
     }
     case grottans::event::escape_released: {
         ///go to select_mode_state
-        engine->switch_to_state(engine->states[0]);
+        engine->switch_to_state_and_resume(engine->states[0]);
         g_LEVEL = 1;
         g_SCORE = 0;
         g_score_in_the_end_of_level = 0;
@@ -129,16 +129,19 @@ void classic_state::update(grottans::engine* engine)
 
             if (game_field->is_all_fixed()) {
 
+                //game_field->unfalling_unshifting_all();
+                //game_field->undisappearing_all();
+
                 game_field->f_state = field::field_state::fixed;
                 ///check game_over
                 if (game_field->is_game_over_classic()) {
-                    engine->switch_to_state(engine->states[4]);
+                    engine->switch_to_state_and_resume(engine->states[4]);
                 }
                 ///check new level
                 if (progress->get_level_complete_flag()) {
                     g_LEVEL++;
                     ///go to level_complete_mode
-                    engine->switch_to_state(engine->states[3]);
+                    engine->switch_to_state_and_resume(engine->states[3]);
                 }
             }
         }

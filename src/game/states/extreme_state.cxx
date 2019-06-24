@@ -78,7 +78,7 @@ void extreme_state::handle_events(grottans::engine* engine)
     }
     case grottans::event::escape_released: {
         ///go to select_mode_state
-        engine->switch_to_state(engine->states[0]);
+        engine->switch_to_state_and_resume(engine->states[0]);
         g_LEVEL = 1;
         g_SCORE = 0;
         g_score_in_the_end_of_level = 0;
@@ -127,13 +127,13 @@ void extreme_state::update(grottans::engine* engine)
 
             ///if the field static - check is_game_over
             if (game_field->is_game_over_extreme()) {
-                engine->switch_to_state(engine->states[4]);
+                engine->switch_to_state_and_resume(engine->states[4]);
             }
 
             if (progress->get_level_complete_flag()) {
                 g_LEVEL++;
                 ///go to level_complete_mode
-                engine->switch_to_state(engine->states[3]);
+                engine->switch_to_state_and_resume(engine->states[3]);
             }
         }
     }

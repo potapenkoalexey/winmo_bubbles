@@ -866,6 +866,11 @@ bool field::is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/, grot
 {
     bool result = true;
 
+    ///blocking mouse in non-fixed modes of the field
+    if (is_all_fixed() == false) {
+        return false;
+    }
+
     size_t w = engine->get_window_width();
     size_t h = engine->get_window_height();
 

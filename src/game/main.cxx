@@ -16,6 +16,7 @@ using time_point = std::chrono::time_point<clock_timer, nano_sec>;
 int main(int /*argc*/, char** /*argv*/)
 {
     clock_timer timer;
+
     time_point start = timer.now();
 
     grottans::engine* engine = grottans::create_engine();
@@ -26,11 +27,11 @@ int main(int /*argc*/, char** /*argv*/)
     engine->disable_mouse_moution_event();
 
     ///loading states in vector (simple state machine)
-    engine->push_state(select_mode_state::instance()); //0
-    engine->push_state(classic_state::instance()); //1
-    engine->push_state(extreme_state::instance()); //2
-    engine->push_state(level_complete_state::instance()); //3
-    engine->push_state(game_over_state::instance()); //4
+    engine->push_state_and_init(select_mode_state::instance()); //0
+    engine->push_state_and_init(classic_state::instance()); //1
+    engine->push_state_and_init(extreme_state::instance()); //2
+    engine->push_state_and_init(level_complete_state::instance()); //3
+    engine->push_state_and_init(game_over_state::instance()); //4
     ///set a first state
     engine->current_state = engine->states[0];
 

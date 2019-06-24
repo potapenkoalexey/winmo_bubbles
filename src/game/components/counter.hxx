@@ -31,6 +31,11 @@ public:
     void set_hide_zeros(const bool&);
 
 private:
+    //    ///copy prohibited
+    //    counter& operator=(counter&) {}
+    //    ///assign prohibited
+    //    void operator=(const counter&) {}
+
     size_t quantity_of_digits;
     size_t number_on_screen;
 

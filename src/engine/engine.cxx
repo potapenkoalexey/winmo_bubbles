@@ -616,11 +616,11 @@ public:
     void swap_buffers();
     void uninitialize();
 
-    void switch_to_state(game_state*);
+    void switch_to_state_and_resume(game_state*);
     void clear_states();
     void swap_last_two_states();
     void change_state(game_state* state);
-    void push_state(game_state* state);
+    void push_state_and_init(game_state* state);
     void pop_state();
 
     ~engine_impl() {}
@@ -1534,7 +1534,7 @@ size_t engine_impl::get_window_height()
 }
 
 ///std::vector<game_state*> states;
-void engine_impl::switch_to_state(game_state* state)
+void engine_impl::switch_to_state_and_resume(game_state* state)
 {
     current_state = state;
     state->resume(this);
@@ -1553,7 +1553,7 @@ void engine_impl::change_state(game_state* state)
     states.back()->init(this);
 }
 
-void engine_impl::push_state(game_state* state)
+void engine_impl::push_state_and_init(game_state* state)
 {
     // pause current state
     if (!states.empty()) {

@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.9)
 project(winmo_states)
 
-#target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_LIST_DIR}/engine")
-
 add_executable(${PROJECT_NAME}
         src/engine/engine.hxx
         src/engine/engine.cxx
@@ -43,9 +41,9 @@ target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
 target_link_libraries(${PROJECT_NAME} 
    -lSDL2
-   -lm
-   -ldl
-   -lpthread
-   -lrt
    -lGL
+   #-lm
+   #-ldl
+   #-lpthread
+   #-lrt
    )

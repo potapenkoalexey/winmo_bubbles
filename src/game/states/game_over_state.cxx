@@ -68,12 +68,12 @@ void game_over_state::handle_events(grottans::engine* engine)
     }
     case grottans::event::mouse_released: {
         ///go to select_mode_state
-        engine->switch_to_state(engine->states[0]);
+        engine->switch_to_state_and_resume(engine->states[0]);
         break;
     }
     case grottans::event::start_released: {
         ///go to select_mode_state
-        engine->switch_to_state(engine->states[0]);
+        engine->switch_to_state_and_resume(engine->states[0]);
         break;
     }
     }
