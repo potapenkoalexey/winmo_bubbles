@@ -21,6 +21,8 @@ int main(int /*argc*/, char** /*argv*/)
 
     grottans::engine* engine = grottans::create_engine();
 
+    //engine->set_window_size(480, 536);
+
     ///initialize the engine
     engine->initialize();
 

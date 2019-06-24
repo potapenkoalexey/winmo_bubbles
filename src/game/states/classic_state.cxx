@@ -36,6 +36,14 @@ bool classic_state::init(grottans::engine* engine)
     sound_fall = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/00_falling"));
     sound_destroy_big_form = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/02_destroy_big_form"));
 
+    //    //background
+    //    auto text = engine->load_txt_and_filter_comments("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
+    //    text >> tr[0] >> tr[1];
+
+    //    block_back = std::unique_ptr<block>(new block);
+    //    block_back->texture = engine->create_texture("./data/images/my/back_3.png");
+    //    block_back->v_buf = engine->create_vertex_buffer(&tr[0], 2);
+
     return EXIT_SUCCESS;
 }
 
@@ -150,6 +158,7 @@ void classic_state::update(grottans::engine* engine)
 
 void classic_state::draw(grottans::engine* engine)
 {
+    //      block_back->draw(engine);
     game_field->draw(engine);
     progress->draw(engine);
     m_counter->draw(engine);

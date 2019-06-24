@@ -26,17 +26,19 @@ bool field::init(grottans::engine* engine)
     text >> tr[0] >> tr[1] >> tr[2] >> tr[3];
 
     //creating 16 pairs uv-triangles
+    float offset_between_sprites_on_texture = 1.f / g_FRAME_OF_DISAPPEARING; //0.0625f
+
     for (int i = 31; i >= 1; i -= 2) {
         v_buf_disappear[i] = tr[1];
         v_buf_disappear[i - 1] = tr[0];
 
         ///0.0625f offset between sprites in gem's texture
-        tr[0].v[0].uv.y -= 0.0625f;
-        tr[0].v[1].uv.y -= 0.0625f;
-        tr[0].v[2].uv.y -= 0.0625f;
-        tr[1].v[0].uv.y -= 0.0625f;
-        tr[1].v[1].uv.y -= 0.0625f;
-        tr[1].v[2].uv.y -= 0.0625f;
+        tr[0].v[0].uv.y -= offset_between_sprites_on_texture;
+        tr[0].v[1].uv.y -= offset_between_sprites_on_texture;
+        tr[0].v[2].uv.y -= offset_between_sprites_on_texture;
+        tr[1].v[0].uv.y -= offset_between_sprites_on_texture;
+        tr[1].v[1].uv.y -= offset_between_sprites_on_texture;
+        tr[1].v[2].uv.y -= offset_between_sprites_on_texture;
     }
 
     //creating 100 pairs xy-triangles
@@ -46,20 +48,20 @@ bool field::init(grottans::engine* engine)
             v_buf_grid[(i * width + j) * 2 + 1] = tr[3];
 
             ///0.18f offset between gems in screen coord
-            tr[2].v[0].pos.x += 0.18f;
-            tr[2].v[1].pos.x += 0.18f;
-            tr[2].v[2].pos.x += 0.18f;
-            tr[3].v[0].pos.x += 0.18f;
-            tr[3].v[1].pos.x += 0.18f;
-            tr[3].v[2].pos.x += 0.18f;
+            tr[2].v[0].pos.x += g_offset_in_screen_coord;
+            tr[2].v[1].pos.x += g_offset_in_screen_coord;
+            tr[2].v[2].pos.x += g_offset_in_screen_coord;
+            tr[3].v[0].pos.x += g_offset_in_screen_coord;
+            tr[3].v[1].pos.x += g_offset_in_screen_coord;
+            tr[3].v[2].pos.x += g_offset_in_screen_coord;
 
             if (j == 9) {
-                tr[2].v[0].pos.y -= 0.18f;
-                tr[2].v[1].pos.y -= 0.18f;
-                tr[2].v[2].pos.y -= 0.18f;
-                tr[3].v[0].pos.y -= 0.18f;
-                tr[3].v[1].pos.y -= 0.18f;
-                tr[3].v[2].pos.y -= 0.18f;
+                tr[2].v[0].pos.y -= g_offset_in_screen_coord;
+                tr[2].v[1].pos.y -= g_offset_in_screen_coord;
+                tr[2].v[2].pos.y -= g_offset_in_screen_coord;
+                tr[3].v[0].pos.y -= g_offset_in_screen_coord;
+                tr[3].v[1].pos.y -= g_offset_in_screen_coord;
+                tr[3].v[2].pos.y -= g_offset_in_screen_coord;
 
                 //restore original values
                 tr[2].v[0].pos.x = -0.90f;

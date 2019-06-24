@@ -226,6 +226,7 @@ public:
     virtual void render(const vertex_buffer&, texture*, const mat2x3&) = 0;
 
     virtual void set_window_title(const char*) = 0;
+    virtual void set_window_size(const size_t& w, const size_t& h) = 0;
     virtual size_t get_window_width() = 0;
     virtual size_t get_window_height() = 0;
 

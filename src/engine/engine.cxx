@@ -610,6 +610,7 @@ public:
     void render(const vertex_buffer&, texture*, const mat2x3&);
 
     void set_window_title(const char* name);
+    void set_window_size(const size_t& w, const size_t& h);
     size_t get_window_width();
     size_t get_window_height();
 
@@ -617,10 +618,10 @@ public:
     void uninitialize();
 
     void switch_to_state_and_resume(game_state*);
+    void push_state_and_init(game_state* state);
     void clear_states();
     void swap_last_two_states();
     void change_state(game_state* state);
-    void push_state_and_init(game_state* state);
     void pop_state();
 
     ~engine_impl() {}
@@ -1022,6 +1023,16 @@ void engine_impl::set_window_title(const char* name)
     SDL_SetWindowTitle(window, name);
 }
 
+void engine_impl::set_window_size(const size_t& w, const size_t& h)
+{
+    if (w <= 0 || h <= 0) {
+        throw std::runtime_error(std::string("can't set the screen size: incorrect numbers"));
+    }
+    screen_width = w;
+    screen_height = h;
+    scale = grottans::mat2x3::scale(1.f, 1.f);
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief texture_gl_es20::texture_gl_es20
 ///
@@ -1179,14 +1190,16 @@ std::string engine_impl::initialize()
 //    }
 
 #ifdef __unix
+    //  if (screen_width == 0) { //if don't set screen size with set_screen_size(w,h);
     screen_height = h;
     screen_width = w; //1.116
     if (w > h) {
-        scale = grottans::mat2x3::scale(h / (double)w, 1.f);
+        scale = grottans::mat2x3::scale(screen_height / (double)screen_width, 1.f);
     } else {
-        scale = grottans::mat2x3::scale(1.f, w / (double)h);
+        scale = grottans::mat2x3::scale(1.f, screen_width / (double)screen_height);
         //scale = grottans::mat2x3::scale(1.f, 1.f);
     }
+// }
 
 #endif
 #ifdef _WIN32

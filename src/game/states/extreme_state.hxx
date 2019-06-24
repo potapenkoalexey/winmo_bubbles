@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "../../../src/engine/engine.hxx"
-#include "../components/block.hxx"
+#include "../components/counter.hxx"
 #include "../components/field.hxx"
 #include "../components/progress_desk.hxx"
 
