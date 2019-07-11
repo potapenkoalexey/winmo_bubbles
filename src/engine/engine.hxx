@@ -139,6 +139,7 @@ struct membuf : public std::streambuf {
         , buf_size(0)
     {
     }
+
     membuf(std::unique_ptr<char[]> buffer, size_t size)
         : std::streambuf()
         , buf(std::move(buffer))
@@ -149,6 +150,7 @@ struct membuf : public std::streambuf {
         setg(beg_ptr, beg_ptr, end_ptr);
         setp(beg_ptr, end_ptr);
     }
+
     membuf(membuf&& other)
     {
         setp(nullptr, nullptr);

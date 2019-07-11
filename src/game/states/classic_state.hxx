@@ -4,7 +4,6 @@
 
 #include "../../../src/engine/engine.hxx"
 #include "../components/block.hxx"
-//  #include "../components/counter.hxx"
 #include "../components/field.hxx"
 #include "../components/progress_desk.hxx"
 
@@ -39,9 +38,6 @@ protected:
 
 private:
     static classic_state m_classic_state;
-
-    //    std::unique_ptr<block> block_back;
-    //    std::array<grottans::tri2, 2> tr; // v_buf triangles
 
     std::unique_ptr<grottans::sound_buffer> sound_fall;
     std::unique_ptr<grottans::sound_buffer> sound_destroy_big_form;

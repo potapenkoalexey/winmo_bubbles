@@ -29,11 +29,8 @@ private:
     bool level_complete_flag = false;
 
     std::array<size_t, 25> points_classic;
-
     std::array<size_t, 30> points_extreme;
-
     std::array<size_t, 26> levels_classic;
-
     std::array<size_t, 26> levels_extreme;
 
     std::unique_ptr<block> block_desk;

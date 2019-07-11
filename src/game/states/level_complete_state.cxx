@@ -12,22 +12,22 @@ bool level_complete_state::init(grottans::engine* engine)
     block_back = std::unique_ptr<block>(new block);
 
     ///counter
-    m_counter = std::unique_ptr<counter>(new counter);
-    m_counter->set_quantity_of_digits(2, counter::sign::unsign);
-    m_counter->init(engine);
-    m_counter->set_vertexes(0.13f, -0.385f, 0.19f, 0.19f);
-    m_counter->set_color({ 1.0f, 1.0f, 1.0f, 1.0f });
-    m_counter->set_vertex_buffer(engine);
-    m_counter->set_displayed_number(0);
+    counter_level = std::unique_ptr<counter>(new counter);
+    counter_level->set_quantity_of_digits(2, counter::sign::unsign);
+    counter_level->init(engine);
+    counter_level->set_vertexes(0.13f, -0.385f, 0.19f, 0.19f);
+    counter_level->set_color({ 1.0f, 1.0f, 1.0f, 1.0f });
+    counter_level->set_vertex_buffer(engine);
+    counter_level->set_displayed_number(0);
     level_number = g_LEVEL;
 
     tex_even = engine->create_texture("./data/images/my/level_even.png");
     tex_uneven = engine->create_texture("./data/images/my/level_uneven.png");
 
     auto text = engine->load_txt_and_filter_comments("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
-    text >> tr[0] >> tr[1];
+    text >> vert_buf_tr[0] >> vert_buf_tr[1];
 
-    block_back->v_buf = engine->create_vertex_buffer(&tr[0], 2);
+    block_back->v_buf = engine->create_vertex_buffer(&vert_buf_tr[0], 2);
 
     ///sounds
     sound_even = engine->create_sound_buffer("./data/sounds/07_level_even");
@@ -44,7 +44,7 @@ void level_complete_state::resume(grottans::engine*)
 {
     level_number = g_LEVEL;
 
-    m_counter->set_displayed_number(level_number);
+    counter_level->set_displayed_number(level_number);
 
     ///select sound even/uneven
     if (level_number % 2) {
@@ -104,7 +104,7 @@ void level_complete_state::draw(grottans::engine* engine)
 {
     block_back->draw(engine);
 
-    m_counter->draw(engine);
+    counter_level->draw(engine);
 
     engine->swap_buffers();
 }

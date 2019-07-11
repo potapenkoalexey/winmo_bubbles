@@ -34,8 +34,8 @@ private:
     static game_over_state m_game_over_state;
 
     std::unique_ptr<block> block_back;
-    std::array<grottans::tri2, 2> tr; // v_buf triangles
+    std::array<grottans::tri2, 2> vert_buf_tr; // v_buf triangles
     std::unique_ptr<grottans::sound_buffer> sound_game_over;
 
-    std::unique_ptr<counter> m_counter;
+    std::unique_ptr<counter> counter_final_score;
 };

@@ -24,6 +24,11 @@ public:
         return &m_level_complete_state;
     }
 
+protected:
+    level_complete_state() {}
+private:
+    static level_complete_state m_level_complete_state;
+
     size_t level_number;
 
     std::unique_ptr<block> block_back;
@@ -34,12 +39,7 @@ public:
     grottans::sound_buffer* sound_even;
     grottans::sound_buffer* sound_uneven;
 
-    std::array<grottans::tri2, 2> tr; // v_buf triangles
+    std::array<grottans::tri2, 2> vert_buf_tr; // v_buf triangles
 
-    std::unique_ptr<counter> m_counter;
-
-protected:
-    level_complete_state() {}
-private:
-    static level_complete_state m_level_complete_state;
+    std::unique_ptr<counter> counter_level;
 };

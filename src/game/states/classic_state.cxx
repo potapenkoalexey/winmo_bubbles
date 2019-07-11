@@ -158,6 +158,7 @@ void classic_state::update(grottans::engine* engine)
 
 void classic_state::draw(grottans::engine* engine)
 {
+    //background
     //      block_back->draw(engine);
     game_field->draw(engine);
     progress->draw(engine);
