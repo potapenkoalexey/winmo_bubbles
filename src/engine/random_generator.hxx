@@ -28,6 +28,7 @@ private:
         static random_generator s;
         return s;
     }
+
     random_generator(random_generator const&) = delete;
     random_generator& operator=(random_generator const&) = delete;
 

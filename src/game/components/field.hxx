@@ -16,7 +16,7 @@ struct field {
         fliping,
         falling,
         shifting,
-        disappearing //maybe unused because includes in falling
+        disappearing //maybe unused because included in falling
     };
 
     enum class direction {
@@ -34,6 +34,9 @@ struct field {
 
     field();
     //field(const size_t& width, const size_t& height);
+
+    field(field const&) = delete;
+    field& operator=(field const&) = delete;
 
     bool
     init(grottans::engine* engine);

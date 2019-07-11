@@ -27,6 +27,9 @@ public:
         return &m_select_mode_state;
     }
 
+    select_mode_state(select_mode_state const&) = delete;
+    select_mode_state& operator=(select_mode_state const&) = delete;
+
 protected:
     select_mode_state()
     {
@@ -46,7 +49,7 @@ private:
     std::unique_ptr<block> block_back;
     std::unique_ptr<block> block_select;
 
-    std::array<grottans::tri2, 6> tr; // v_buf triangles
+    std::array<grottans::tri2, 6> vert_buf; // v_buf triangles
     grottans::texture* tex_back_sound_on;
     grottans::texture* tex_back_sound_off;
     grottans::vertex_buffer* v_buf_classic;

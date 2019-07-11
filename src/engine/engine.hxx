@@ -13,10 +13,6 @@
 #include "./math_structures.hxx"
 #include "./sound_buffer.hxx"
 
-//extern size_t WIDTH;
-//extern size_t HEIGHT;
-//extern size_t BLOCK;
-
 namespace grottans {
 
 enum class event {

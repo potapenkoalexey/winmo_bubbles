@@ -25,11 +25,11 @@ bool select_mode_state::init(grottans::engine* engine)
     /// tr2-3 - for classic mode selecter
     /// tr4-5 - for extreme mode selecter
     auto text = engine->load_txt_and_filter_comments("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
-    text >> tr[0] >> tr[1] >> tr[2] >> tr[3] >> tr[4] >> tr[5];
+    text >> vert_buf[0] >> vert_buf[1] >> vert_buf[2] >> vert_buf[3] >> vert_buf[4] >> vert_buf[5];
 
-    block_back->v_buf = engine->create_vertex_buffer(&tr[0], 2);
-    v_buf_classic = engine->create_vertex_buffer(&tr[2], 2);
-    v_buf_extreme = engine->create_vertex_buffer(&tr[4], 2);
+    block_back->v_buf = engine->create_vertex_buffer(&vert_buf[0], 2);
+    v_buf_classic = engine->create_vertex_buffer(&vert_buf[2], 2);
+    v_buf_extreme = engine->create_vertex_buffer(&vert_buf[4], 2);
     block_select->v_buf = v_buf_classic;
 
     sound_on = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/10_sound_on.wav"));

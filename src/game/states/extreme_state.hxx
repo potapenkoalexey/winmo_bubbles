@@ -31,8 +31,20 @@ public:
         return &m_extreme_state;
     }
 
+    extreme_state(extreme_state const&) = delete;
+    extreme_state& operator=(extreme_state const&) = delete;
+
 protected:
-    extreme_state() {}
+    extreme_state()
+    {
+        sound_fall = nullptr;
+        sound_flip = nullptr;
+        sound_destroy_big_form = nullptr;
+        sound_cant_flip = nullptr;
+        progress = nullptr;
+        m_counter = nullptr;
+        game_field = nullptr;
+    }
 
 private:
     static extreme_state m_extreme_state;

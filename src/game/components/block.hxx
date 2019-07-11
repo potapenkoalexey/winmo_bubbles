@@ -64,10 +64,6 @@ struct block {
         const std::array<grottans::tri2, 32>& arr_uv_buf,
         const milli_sec& delta_time);
 
-    //    void update_fliping_view(
-    //        const std::array<grottans::tri2, 32>& arr_uv_buf,
-    //        const milli_sec& delta_time);
-
     void restore_original_parameters(const std::array<grottans::tri2, 32>& arr_uv_buf);
 
     void get_random_color_from_classic();

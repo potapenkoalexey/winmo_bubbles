@@ -24,8 +24,20 @@ public:
         return &m_level_complete_state;
     }
 
+    level_complete_state(level_complete_state const&) = delete;
+    level_complete_state& operator=(level_complete_state const&) = delete;
+
 protected:
-    level_complete_state() {}
+    level_complete_state()
+    {
+        block_back = nullptr;
+        tex_even = nullptr;
+        tex_uneven = nullptr;
+        sound_even = nullptr;
+        sound_uneven = nullptr;
+        counter_level = nullptr;
+    }
+
 private:
     static level_complete_state m_level_complete_state;
 

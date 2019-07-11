@@ -31,10 +31,18 @@ public:
         return &m_classic_state;
     }
 
-    friend struct block;
+    classic_state(classic_state const&) = delete;
+    classic_state& operator=(classic_state const&) = delete;
 
 protected:
-    classic_state() {}
+    classic_state()
+    {
+        sound_fall = nullptr;
+        sound_destroy_big_form = nullptr;
+        progress = nullptr;
+        m_counter = nullptr;
+        game_field = nullptr;
+    }
 
 private:
     static classic_state m_classic_state;

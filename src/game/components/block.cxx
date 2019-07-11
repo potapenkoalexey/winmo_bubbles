@@ -131,8 +131,6 @@ void block::update_uv_coord(
         visible = false;
         selected = false;
         motion = false;
-
-        //g_DISAPPEARING_END = true;
     }
 }
 
