@@ -7,38 +7,36 @@
 #include "../../../src/engine/engine.hxx"
 #include "../components/number.hxx"
 
-//if you need to use this class - first of all use set_quantity_of_digits(.,.)
-//after then init()
+// if you need to use this class - first of all use set_quantity_of_digits(.,.)
+// after then init()
 class counter {
 public:
-    enum class sign {
-        sign,
-        unsign
-    };
+  enum class sign { sign, unsign };
 
-    void set_quantity_of_digits(const size_t&, sign);
+  void set_quantity_of_digits(const size_t &, const sign &);
 
-    bool init(grottans::engine*);
-    void update(size_t);
-    void draw(grottans::engine*);
+  bool init(grottans::engine *);
+  void update();
+  void draw(grottans::engine *);
 
-    void set_displayed_number(const size_t&);
-    bool is_overflow(const size_t&);
+  void set_displayed_number(const size_t &);
+  bool is_overflow(const size_t &);
 
-    void set_vertexes(const float& x, const float& y, const float& w, const float& h);
-    void set_color(const grottans::color&);
-    void set_vertex_buffer(grottans::engine* engine);
-    void set_hide_zeros(const bool&);
+  void set_vertexes(const float &x, const float &y, const float &w,
+                    const float &h);
+  void set_color(const grottans::color &);
+  void set_vertex_buffer(grottans::engine *engine);
+  void set_hide_zeros(const bool &);
 
 private:
-    size_t quantity_of_digits;
-    size_t number_on_screen;
+  size_t quantity_of_digits;
+  size_t number_on_screen;
 
-    std::array<size_t, 6> score_numbers;
+  std::array<size_t, 6> score_numbers;
 
-    bool hide_zeros = true;
+  bool hide_zeros = true;
 
-    sign m_sign = sign::unsign;
+  sign m_sign = sign::unsign;
 
-    std::vector<std::unique_ptr<number> > digits;
+  std::vector<std::unique_ptr<number>> digits;
 };
