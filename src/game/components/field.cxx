@@ -420,14 +420,13 @@ bool field::are_there_falling_blocks()
 
 bool field::is_right_row_free()
 {
-    bool result = false;
     if (gems[9][9]->visible == false) {
 
         add_right_row();
 
-        result = true;
+        return true;
     }
-    return result;
+    return false;
 }
 
 void field::add_right_row()
@@ -484,7 +483,7 @@ void field::swap_gems(const size_t& i, const size_t& j, const size_t& m, const s
 
 bool field::can_flip(const size_t& i, const size_t& j, field::direction dir)
 {
-    // if checking pair block-to-bomb -> always true, because bomb selecting return 9 !!!
+    // if checking pair block-to-bomb -> always true, because bomb selecting return 6-9 !!!
 
     bool result = false;
 
