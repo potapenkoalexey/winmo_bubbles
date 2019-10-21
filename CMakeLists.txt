@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.9)
-project(winmo_states)
+project(winmo_bubbles)
 
 add_executable(${PROJECT_NAME}
         src/engine/engine.hxx
