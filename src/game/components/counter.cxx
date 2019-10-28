@@ -130,6 +130,9 @@ bool counter::is_overflow(const size_t& t)
 
 void counter::draw(grottans::engine* engine)
 {
+    if (quantity_of_digits == 0)
+        return;
+
     if (hide_zeros) {
         if (number_on_screen < 10) {
             digits[quantity_of_digits - 1]->draw(engine);
