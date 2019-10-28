@@ -93,6 +93,12 @@ void level_complete_state::handle_events(grottans::engine* engine)
         }
         break;
     }
+    case grottans::event::escape_released: {
+        //go to the select_game_mode
+        if (g_LEVEL == 1)
+            engine->switch_to_state_and_resume(engine->states[0]);
+        break;
+    }
     }
 }
 
@@ -107,4 +113,8 @@ void level_complete_state::draw(grottans::engine* engine)
     counter_level->draw(engine);
 
     engine->swap_buffers();
+}
+
+level_complete_state::~level_complete_state()
+{
 }

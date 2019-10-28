@@ -27,6 +27,9 @@ public:
 
     void set_dispayed_number(const size_t&);
 
+    progress_desk();
+    ~progress_desk();
+
 private:
     progress_desk(const progress_desk&) = delete;
     void operator=(const progress_desk&) = delete;
