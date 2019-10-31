@@ -37,6 +37,8 @@ add_executable(${PROJECT_NAME}
         src/game/global_variables.cxx
 )
 
+target_include_directories(${PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}/src")
+
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
 target_link_libraries(${PROJECT_NAME} 

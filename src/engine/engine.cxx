@@ -30,7 +30,7 @@
 
 // turn off the specific warning. Can also use "-Wall"
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-#include "../../src/stbimage/stb_image.h"
+#include "../../src/stb/stb_image.h"
 #pragma GCC diagnostic pop
 
 static PFNGLCREATESHADERPROC glCreateShader = nullptr;

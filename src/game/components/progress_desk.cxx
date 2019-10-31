@@ -83,6 +83,14 @@ void progress_desk::set_dispayed_number(const size_t& number)
     }
 }
 
+progress_desk::progress_desk()
+{
+}
+
+progress_desk::~progress_desk()
+{
+}
+
 void progress_desk::draw(grottans::engine* engine)
 {
     block_desk->draw(engine);
