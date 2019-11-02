@@ -9,6 +9,17 @@
 
 extreme_state extreme_state::m_extreme_state;
 
+extreme_state::extreme_state()
+{
+    sound_fall = nullptr;
+    sound_flip = nullptr;
+    sound_destroy_big_form = nullptr;
+    sound_cant_flip = nullptr;
+    progress = nullptr;
+    m_counter = nullptr;
+    game_field = nullptr;
+}
+
 bool extreme_state::init(grottans::engine* engine)
 {
     ///field
@@ -17,7 +28,7 @@ bool extreme_state::init(grottans::engine* engine)
     game_field->fill_extreme();
 
     ///progress desk
-    progress = std::unique_ptr<progress_desk>(new progress_desk);
+    progress = std::unique_ptr<progress_desk>(new progress_desk());
     progress->init(engine);
     progress->set_line_in_null(engine);
 

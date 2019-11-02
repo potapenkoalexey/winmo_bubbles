@@ -83,6 +83,14 @@ void progress_desk::set_dispayed_number(const size_t& number)
     }
 }
 
+progress_desk::progress_desk()
+{
+}
+
+progress_desk::~progress_desk()
+{
+}
+
 void progress_desk::draw(grottans::engine* engine)
 {
     block_desk->draw(engine);
@@ -107,7 +115,10 @@ void progress_desk::set_line_in_full(grottans::engine* engine)
     update_line_vertex_buffer(engine);
 }
 
-bool progress_desk::get_level_complete_flag() { return level_complete_flag; }
+bool progress_desk::get_level_complete_flag()
+{
+    return level_complete_flag;
+}
 
 void progress_desk::set_level_complete_flag(const bool& var)
 {

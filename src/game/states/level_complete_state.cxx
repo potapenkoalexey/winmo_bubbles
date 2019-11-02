@@ -7,6 +7,16 @@
 
 level_complete_state level_complete_state::m_level_complete_state;
 
+level_complete_state::level_complete_state()
+{
+    block_back = nullptr;
+    tex_even = nullptr;
+    tex_uneven = nullptr;
+    sound_even = nullptr;
+    sound_uneven = nullptr;
+    counter_level = nullptr;
+}
+
 bool level_complete_state::init(grottans::engine* engine)
 {
     block_back = std::unique_ptr<block>(new block);
