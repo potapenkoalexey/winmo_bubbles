@@ -31,16 +31,7 @@ public:
     select_mode_state& operator=(select_mode_state const&) = delete;
 
 protected:
-    select_mode_state()
-    {
-        block_back = nullptr;
-        block_select = nullptr;
-        tex_back_sound_on = nullptr;
-        tex_back_sound_off = nullptr;
-        v_buf_classic = nullptr;
-        v_buf_extreme = nullptr;
-        sound_on = nullptr;
-    }
+    select_mode_state();
 
 private:
     static select_mode_state m_select_mode_state;

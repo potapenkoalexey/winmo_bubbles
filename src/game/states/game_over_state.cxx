@@ -8,6 +8,13 @@
 
 game_over_state game_over_state::m_game_over_state;
 
+game_over_state::game_over_state()
+{
+    block_back = nullptr;
+    sound_game_over = nullptr;
+    counter_final_score = nullptr;
+}
+
 bool game_over_state::init(grottans::engine* engine)
 {
     //block_classic = new block;

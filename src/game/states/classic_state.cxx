@@ -11,6 +11,14 @@
 
 classic_state classic_state::m_classic_state;
 
+classic_state::classic_state()
+{
+    sound_fall = nullptr;
+    sound_destroy_big_form = nullptr;
+    progress = nullptr;
+    m_counter = nullptr;
+    game_field = nullptr;
+}
 bool classic_state::init(grottans::engine* engine)
 {
     ///field

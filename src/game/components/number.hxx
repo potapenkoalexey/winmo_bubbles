@@ -17,7 +17,6 @@ public:
     void cleanup();
 
     number();
-    //number(grottans::engine* engine);
     ~number();
 
 private:
