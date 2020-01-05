@@ -3,7 +3,7 @@
 #include "../global_variables.hxx"
 #include "./progress_desk.hxx"
 
-bool progress_desk::init(grottans::engine* engine)
+bool progress_desk::init()
 {
     points_classic = { 2, 6, 12, 20, 30, 42, 56, 72, 90,
         110, 132, 156, 182, 210, 240, 272, 306, 342,
@@ -65,7 +65,7 @@ bool progress_desk::init(grottans::engine* engine)
     return EXIT_SUCCESS;
 }
 
-void progress_desk::update_line_vertex_buffer(grottans::engine* engine)
+void progress_desk::update_line_vertex_buffer()
 {
     /// update vertex_buffer
     engine->destroy_vertex_buffer(block_line->v_buf);
@@ -83,15 +83,14 @@ void progress_desk::set_dispayed_number(const size_t& number)
     }
 }
 
-progress_desk::progress_desk()
-{
-}
-
 progress_desk::~progress_desk()
 {
+    //error generated
+    //    engine->destroy_texture(tex_desk);
+    //    engine->destroy_texture(tex_line);
 }
 
-void progress_desk::draw(grottans::engine* engine)
+void progress_desk::draw()
 {
     block_desk->draw(engine);
     block_line->draw(engine);
@@ -99,20 +98,20 @@ void progress_desk::draw(grottans::engine* engine)
     counter_points_to_level->draw();
 }
 
-void progress_desk::set_line_in_null(grottans::engine* engine)
+void progress_desk::set_line_in_null()
 {
     tr[2].v[1].pos.x = tr[2].v[0].pos.x;
     tr[2].v[2].pos.x = tr[3].v[2].pos.x;
     tr[3].v[1].pos.x = tr[3].v[2].pos.x;
-    update_line_vertex_buffer(engine);
+    update_line_vertex_buffer();
 }
 
-void progress_desk::set_line_in_full(grottans::engine* engine)
+void progress_desk::set_line_in_full()
 {
     tr[2].v[1].pos.x = tr[4].v[1].pos.x;
     tr[2].v[2].pos.x = tr[4].v[2].pos.x;
     tr[3].v[1].pos.x = tr[5].v[1].pos.x;
-    update_line_vertex_buffer(engine);
+    update_line_vertex_buffer();
 }
 
 bool progress_desk::get_level_complete_flag()
@@ -143,7 +142,7 @@ size_t progress_desk::blocks_to_points(size_t delta)
     return 0;
 }
 
-void progress_desk::increase_progress(grottans::engine* engine,
+void progress_desk::increase_progress(
     const size_t& points,
     const size_t& level_number)
 {
@@ -162,18 +161,18 @@ void progress_desk::increase_progress(grottans::engine* engine,
 
     /// if line oveflow
     if (tr[3].v[1].pos.x >= tr[5].v[1].pos.x) {
-        set_line_in_full(engine);
+        set_line_in_full();
     }
 
     /// updating vertex_buffer
-    update_line_vertex_buffer(engine);
+    update_line_vertex_buffer();
 
     /// if overflow - set maximum
     if (g_SCORE - g_score_in_the_end_of_level >= points_to_level) {
         /// saving score
         g_score_in_the_end_of_level = g_SCORE;
 
-        set_line_in_full(engine);
+        set_line_in_full();
         /// set the level complite flag
         level_complete_flag = true;
     }

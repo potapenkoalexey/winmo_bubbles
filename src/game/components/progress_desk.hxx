@@ -9,30 +9,35 @@
 
 class progress_desk {
 public:
-    bool init(grottans::engine*);
-    void draw(grottans::engine*);
+    bool init();
+    void draw();
 
-    void set_line_in_null(grottans::engine*);
-    void set_line_in_full(grottans::engine*);
+    void set_line_in_null();
+    void set_line_in_full();
 
     bool get_level_complete_flag();
     void set_level_complete_flag(const bool&);
 
     size_t blocks_to_points(size_t delta);
 
-    void increase_progress(grottans::engine*, const size_t& points,
-        const size_t& points_to_level_);
+    void increase_progress(const size_t& points, const size_t& points_to_level_);
 
-    void update_line_vertex_buffer(grottans::engine*);
+    void update_line_vertex_buffer();
 
     void set_dispayed_number(const size_t&);
 
-    progress_desk();
+    progress_desk(grottans::engine* e)
+        : engine{ e }
+    {
+    }
     ~progress_desk();
 
 private:
+    progress_desk() = delete;
     progress_desk(const progress_desk&) = delete;
     void operator=(const progress_desk&) = delete;
+
+    grottans::engine* engine;
 
     bool level_complete_flag = false;
 

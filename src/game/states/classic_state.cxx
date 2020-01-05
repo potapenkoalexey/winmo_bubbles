@@ -27,9 +27,9 @@ bool classic_state::init(grottans::engine* engine)
     game_field->fill_clasic();
 
     ///progress desk
-    progress = std::unique_ptr<progress_desk>(new progress_desk());
-    progress->init(engine);
-    progress->set_line_in_null(engine);
+    progress = std::unique_ptr<progress_desk>(new progress_desk(engine));
+    progress->init();
+    progress->set_line_in_null();
 
     ///counter
     m_counter = std::unique_ptr<counter>(new counter(engine));
@@ -67,7 +67,7 @@ void classic_state::resume(grottans::engine* engine)
     game_field->fill_clasic();
     game_field->selector->position.x = 5;
     game_field->selector->position.y = 5;
-    progress->set_line_in_null(engine);
+    progress->set_line_in_null();
     progress->set_dispayed_number(0);
     progress->set_level_complete_flag(false);
     m_counter->set_displayed_number(g_SCORE);
@@ -169,7 +169,7 @@ void classic_state::draw(grottans::engine* engine)
     //background
     //      block_back->draw(engine);
     game_field->draw();
-    progress->draw(engine);
+    progress->draw();
     m_counter->draw();
 
     engine->swap_buffers();
@@ -219,7 +219,7 @@ void classic_state::handle_start_released_event(grottans::engine* engine)
 
         size_t points = progress->blocks_to_points(selected_blocks);
         g_SCORE += points;
-        progress->increase_progress(engine, points, g_LEVEL);
+        progress->increase_progress(points, g_LEVEL);
         progress->set_dispayed_number(points);
 
         game_field->unselect_all();
