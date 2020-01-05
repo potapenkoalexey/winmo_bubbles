@@ -5,23 +5,32 @@
 
 class number {
 public:
-    bool init(grottans::engine* engine);
-    void draw(grottans::engine* engine);
+    bool init();
+    void draw();
 
     void set_number_and_texture(const int&);
     void set_in_null();
     void set_color(const grottans::color& color);
     void set_vertexes(const float& x, const float& y, const float& w,
         const float& h);
-    void set_vertex_buffer(grottans::engine* engine);
+    void set_vertex_buffer();
     void cleanup();
 
-    number();
+    number(grottans::engine* e)
+        : engine{ e }
+        , move{}
+        , texture{ nullptr }
+        , vertex_buffer{ nullptr }
+    {
+    }
     ~number();
 
 private:
+    number() = delete;
     number(const number&) = delete;
     void operator=(const number&) = delete;
+
+    grottans::engine* engine;
 
     grottans::mat2x3 move;
 

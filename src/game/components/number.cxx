@@ -1,6 +1,6 @@
 #include "./number.hxx"
 
-bool number::init(grottans::engine* engine)
+bool number::init()
 {
     numbers_textures[0] = engine->create_texture("./data/font/0.png");
     numbers_textures[1] = engine->create_texture("./data/font/1.png");
@@ -22,7 +22,7 @@ bool number::init(grottans::engine* engine)
     return EXIT_SUCCESS;
 }
 
-void number::draw(grottans::engine* engine)
+void number::draw()
 {
     engine->render(*vertex_buffer, texture, move * engine->scale);
 }
@@ -87,19 +87,15 @@ void number::set_vertexes(const float& x, const float& y, const float& w,
     vertex_triangles[1].v[2].uv.y = 1.f;
 }
 
-void number::set_vertex_buffer(grottans::engine* engine)
+void number::set_vertex_buffer()
 {
     vertex_buffer = engine->create_vertex_buffer(&vertex_triangles[0], 2);
-}
-
-number::number()
-{
-    move = {};
-    texture = nullptr;
-    vertex_buffer = nullptr;
 }
 
 number::~number()
 {
     //can't delete numbers_textures - refactor class!
+    //    for (auto x : numbers_textures) {
+    //        engine->destroy_texture(x);
+    //    }
 }
