@@ -22,8 +22,8 @@ select_mode_state::select_mode_state()
 
 bool select_mode_state::init(grottans::engine* engine)
 {
-    block_back = std::unique_ptr<block>(new block);
-    block_select = std::unique_ptr<block>(new block);
+    block_back = std::unique_ptr<block>(new block(engine));
+    block_select = std::unique_ptr<block>(new block(engine));
 
     tex_back_sound_on = engine->create_texture("./data/images/my/select_game_type.png");
     tex_back_sound_off = engine->create_texture("./data/images/my/select_game_type_no_sound.png");
@@ -180,8 +180,8 @@ void select_mode_state::update(grottans::engine*)
 
 void select_mode_state::draw(grottans::engine* engine)
 {
-    block_back->draw(engine);
-    block_select->draw(engine);
+    block_back->draw();
+    block_select->draw();
 
     engine->swap_buffers();
 }

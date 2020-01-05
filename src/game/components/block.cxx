@@ -160,13 +160,15 @@ void block::restore_original_parameters(const std::array<grottans::tri2, 32>& ar
     motion = false;
 }
 
-void block::draw(grottans::engine* engine)
+void block::draw()
 {
     engine->render(*v_buf, texture, move * aspect * engine->scale);
 }
 
-block::block()
+block::block(grottans::engine* e)
 {
+    engine = e;
+
     move.delta.x = 0;
     move.delta.y = 0;
     state = block_state::fixed;

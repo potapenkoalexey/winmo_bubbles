@@ -18,7 +18,7 @@ game_over_state::game_over_state()
 bool game_over_state::init(grottans::engine* engine)
 {
     //block_classic = new block;
-    block_back = std::unique_ptr<block>(new block);
+    block_back = std::unique_ptr<block>(new block(engine));
 
     block_back->texture = engine->create_texture("./data/images/my/game_over.png");
 
@@ -92,7 +92,7 @@ void game_over_state::update(grottans::engine*)
 
 void game_over_state::draw(grottans::engine* engine)
 {
-    block_back->draw(engine);
+    block_back->draw();
     counter_final_score->draw();
 
     engine->swap_buffers();

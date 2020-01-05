@@ -19,7 +19,7 @@ level_complete_state::level_complete_state()
 
 bool level_complete_state::init(grottans::engine* engine)
 {
-    block_back = std::unique_ptr<block>(new block);
+    block_back = std::unique_ptr<block>(new block(engine));
 
     ///counter
     counter_level = std::unique_ptr<counter>(new counter(engine));
@@ -118,7 +118,7 @@ void level_complete_state::update(grottans::engine*)
 
 void level_complete_state::draw(grottans::engine* engine)
 {
-    block_back->draw(engine);
+    block_back->draw();
 
     counter_level->draw();
 

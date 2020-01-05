@@ -21,8 +21,8 @@ bool progress_desk::init()
         3200, 3500, 3800, 4100, 4400, 4700, 5000, 5200, 5400,
         5600, 5800, 6000, 6200, 6400, 6600, 6800, 7000 };
 
-    block_desk = std::unique_ptr<block>(new block);
-    block_line = std::unique_ptr<block>(new block);
+    block_desk = std::unique_ptr<block>(new block(engine));
+    block_line = std::unique_ptr<block>(new block(engine));
 
     tex_desk = engine->create_texture("./data/images/my/progress_desk.png");
     tex_line = engine->create_texture("./data/images/my/progress_line.png");
@@ -92,8 +92,8 @@ progress_desk::~progress_desk()
 
 void progress_desk::draw()
 {
-    block_desk->draw(engine);
-    block_line->draw(engine);
+    block_desk->draw();
+    block_line->draw();
     counter_combo_points->draw();
     counter_points_to_level->draw();
 }

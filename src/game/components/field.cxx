@@ -100,13 +100,13 @@ bool field::init()
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
             //gems[i][j] = std::unique_ptr<block>(new block());
-            gems[i][j] = new block();
+            gems[i][j] = new block(engine);
             gems[i][j]->tr_disappear[0] = v_buf_disappear[0];
             gems[i][j]->tr_disappear[1] = v_buf_disappear[1];
         }
     }
 
-    selector = std::unique_ptr<block>(new block);
+    selector = std::unique_ptr<block>(new block(engine));
     selector->texture = tex_selector;
     selector->position = { 5.f, 5.f };
     selector->tr_disappear[0] = v_buf_disappear[0];
@@ -477,7 +477,7 @@ void field::add_blocks_at_the_top_of_field()
 
 void field::swap_gems(const size_t& i, const size_t& j, const size_t& m, const size_t& n)
 {
-    std::unique_ptr<block> copy = std::unique_ptr<block>(new block);
+    std::unique_ptr<block> copy = std::unique_ptr<block>(new block(engine));
 
     copy->color = gems[i][j]->color;
     copy->texture = gems[i][j]->texture;
@@ -937,7 +937,7 @@ void field::draw()
 
                     //creating new vertex buffer
                     gems[i][j]->v_buf = engine->create_vertex_buffer(&v_buf_tmp[0], 2);
-                    gems[i][j]->draw(engine);
+                    gems[i][j]->draw();
                     engine->destroy_vertex_buffer(gems[i][j]->v_buf);
                 }
             }
@@ -953,7 +953,7 @@ void field::draw()
 
                     //creating new vertex buffer
                     gems[i][j]->v_buf = engine->create_vertex_buffer(&v_buf_tmp[0], 2);
-                    gems[i][j]->draw(engine);
+                    gems[i][j]->draw();
                     engine->destroy_vertex_buffer(gems[i][j]->v_buf);
                 }
             }
@@ -963,7 +963,7 @@ void field::draw()
     //drawing selector only in field::fixed mode
     if (f_state == field_state::fixed) {
         selector->v_buf = engine->create_vertex_buffer(&v_buf_tmp_selector[0], 2);
-        selector->draw(engine);
+        selector->draw();
         engine->destroy_vertex_buffer(selector->v_buf);
     }
 }

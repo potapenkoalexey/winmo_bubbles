@@ -71,12 +71,16 @@ public:
     void get_random_color_from_extreme();
     void get_random_color_from_extreme_with_bomb();
 
-    void draw(grottans::engine*);
+    void draw();
 
-    block();
+    block(grottans::engine* e);
+
     ~block();
 
 private:
+    block() = delete;
     block(const block&) = delete;
     void operator=(const block&) = delete;
+
+    grottans::engine* engine;
 };
