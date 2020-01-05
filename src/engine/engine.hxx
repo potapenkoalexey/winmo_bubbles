@@ -251,17 +251,17 @@ void destroy_engine(engine* e);
 ///////////////////////////////////////////////////////////////////////////////
 class game_state {
 public:
-    virtual bool init(grottans::engine*) = 0;
-    virtual void cleanup(grottans::engine*) = 0;
+    virtual bool init(grottans::engine* e) = 0;
+    virtual void cleanup() = 0;
 
-    virtual void pause(grottans::engine*) = 0;
-    virtual void resume(grottans::engine*) = 0;
+    virtual void pause() = 0;
+    virtual void resume() = 0;
 
-    virtual void handle_events(grottans::engine*) = 0;
-    virtual void update(grottans::engine*) = 0;
-    virtual void draw(grottans::engine*) = 0;
+    virtual void handle_events() = 0;
+    virtual void update() = 0;
+    virtual void draw() = 0;
 
-    void change_state(grottans::engine* engine, game_state* state)
+    void change_state(game_state* state)
     {
         engine->change_state(state);
     }
@@ -270,6 +270,7 @@ public:
 
 protected:
     game_state() {}
+    grottans::engine* engine;
 };
 
 ///////////////////////////////////////////////////////////////////////////////

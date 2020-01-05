@@ -15,8 +15,14 @@ game_over_state::game_over_state()
     counter_final_score = nullptr;
 }
 
-bool game_over_state::init(grottans::engine* engine)
+game_over_state::~game_over_state()
 {
+}
+
+bool game_over_state::init(grottans::engine* e)
+{
+    engine = e;
+
     //block_classic = new block;
     block_back = std::unique_ptr<block>(new block(engine));
 
@@ -43,15 +49,15 @@ bool game_over_state::init(grottans::engine* engine)
     return EXIT_SUCCESS;
 }
 
-void game_over_state::cleanup(grottans::engine*)
+void game_over_state::cleanup()
 {
 }
 
-void game_over_state::pause(grottans::engine*)
+void game_over_state::pause()
 {
 }
 
-void game_over_state::resume(grottans::engine*)
+void game_over_state::resume()
 {
     g_score_in_the_end_of_level = 0;
 
@@ -62,7 +68,7 @@ void game_over_state::resume(grottans::engine*)
     }
 }
 
-void game_over_state::handle_events(grottans::engine* engine)
+void game_over_state::handle_events()
 {
     grottans::event e;
 
@@ -86,11 +92,11 @@ void game_over_state::handle_events(grottans::engine* engine)
     }
 }
 
-void game_over_state::update(grottans::engine*)
+void game_over_state::update()
 {
 }
 
-void game_over_state::draw(grottans::engine* engine)
+void game_over_state::draw()
 {
     block_back->draw();
     counter_final_score->draw();

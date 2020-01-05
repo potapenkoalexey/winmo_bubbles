@@ -40,9 +40,9 @@ int main(int /*argc*/, char** /*argv*/)
     while (engine->loop) {
         time_point end_last_frame = timer.now();
 
-        engine->current_state->handle_events(engine);
-        engine->current_state->update(engine);
-        engine->current_state->draw(engine);
+        engine->current_state->handle_events();
+        engine->current_state->update();
+        engine->current_state->draw();
 
         g_frame_delta = std::chrono::duration_cast<milli_sec>(end_last_frame - start);
         if (g_frame_delta.count() < 15) { ///~60fps

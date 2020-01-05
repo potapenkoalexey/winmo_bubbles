@@ -10,21 +10,21 @@
 class classic_state : public grottans::game_state {
 public:
     bool init(grottans::engine*);
-    void cleanup(grottans::engine*);
+    void cleanup();
 
-    void pause(grottans::engine*);
-    void resume(grottans::engine*);
+    void pause();
+    void resume();
 
-    void handle_events(grottans::engine*);
-    void update(grottans::engine*);
-    void draw(grottans::engine*);
+    void handle_events();
+    void update();
+    void draw();
 
-    bool handle_mouse_event(grottans::engine* engine);
-    void handle_start_released_event(grottans::engine* engine);
-    void handle_left_released_event(grottans::engine* engine);
-    void handle_right_released_event(grottans::engine* engine);
-    void handle_up_released_event(grottans::engine* engine);
-    void handle_down_released_event(grottans::engine* engine);
+    bool handle_mouse_event();
+    void handle_start_released_event();
+    void handle_left_released_event();
+    void handle_right_released_event();
+    void handle_up_released_event();
+    void handle_down_released_event();
 
     static game_state* instance()
     {

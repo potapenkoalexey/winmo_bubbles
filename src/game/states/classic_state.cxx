@@ -19,8 +19,10 @@ classic_state::classic_state()
     m_counter = nullptr;
     game_field = nullptr;
 }
-bool classic_state::init(grottans::engine* engine)
+bool classic_state::init(grottans::engine* e)
 {
+    engine = e;
+
     ///field
     game_field = std::unique_ptr<field>(new field(engine));
     game_field->init();
@@ -55,11 +57,11 @@ bool classic_state::init(grottans::engine* engine)
     return EXIT_SUCCESS;
 }
 
-void classic_state::cleanup(grottans::engine*) {}
+void classic_state::cleanup() {}
 
-void classic_state::pause(grottans::engine*) {}
+void classic_state::pause() {}
 
-void classic_state::resume(grottans::engine* engine)
+void classic_state::resume()
 {
     game_field->undisappearing_all();
     game_field->unfalling_unshifting_all();
@@ -73,7 +75,7 @@ void classic_state::resume(grottans::engine* engine)
     m_counter->set_displayed_number(g_SCORE);
 }
 
-void classic_state::handle_events(grottans::engine* engine)
+void classic_state::handle_events()
 {
     grottans::event e;
 
@@ -84,7 +86,7 @@ void classic_state::handle_events(grottans::engine* engine)
         return;
 
     if (e == grottans::event::mouse_pressed) {
-        if (handle_mouse_event(engine)) {
+        if (handle_mouse_event()) {
             /// replacing event to start_pressed
             e = grottans::event::start_released;
         }
@@ -104,29 +106,29 @@ void classic_state::handle_events(grottans::engine* engine)
         break;
     }
     case grottans::event::start_released: {
-        handle_start_released_event(engine);
+        handle_start_released_event();
         break;
     }
     case grottans::event::left_released: {
-        handle_left_released_event(engine);
+        handle_left_released_event();
         break;
     }
     case grottans::event::right_released: {
-        handle_right_released_event(engine);
+        handle_right_released_event();
         break;
     }
     case grottans::event::up_released: {
-        handle_up_released_event(engine);
+        handle_up_released_event();
         break;
     }
     case grottans::event::down_released: {
-        handle_down_released_event(engine);
+        handle_down_released_event();
         break;
     }
     }
 }
 
-void classic_state::update(grottans::engine* engine)
+void classic_state::update()
 {
     m_counter->set_displayed_number(g_SCORE);
 
@@ -164,7 +166,7 @@ void classic_state::update(grottans::engine* engine)
     }
 }
 
-void classic_state::draw(grottans::engine* engine)
+void classic_state::draw()
 {
     //background
     //      block_back->draw(engine);
@@ -175,7 +177,7 @@ void classic_state::draw(grottans::engine* engine)
     engine->swap_buffers();
 }
 
-bool classic_state::handle_mouse_event(grottans::engine* engine)
+bool classic_state::handle_mouse_event()
 {
     double i = 0;
     double j = 0;
@@ -190,7 +192,7 @@ bool classic_state::handle_mouse_event(grottans::engine* engine)
     return true;
 }
 
-void classic_state::handle_start_released_event(grottans::engine* engine)
+void classic_state::handle_start_released_event()
 {
     size_t i = static_cast<size_t>(game_field->selector->position.y);
     size_t j = static_cast<size_t>(game_field->selector->position.x);
@@ -226,7 +228,7 @@ void classic_state::handle_start_released_event(grottans::engine* engine)
     }
 }
 
-void classic_state::handle_left_released_event(grottans::engine* engine)
+void classic_state::handle_left_released_event()
 {
     if (game_field->selector->position.x > 0) {
         game_field->selector->position.x -= g_OFFSET;
@@ -235,7 +237,7 @@ void classic_state::handle_left_released_event(grottans::engine* engine)
     }
 }
 
-void classic_state::handle_right_released_event(grottans::engine* engine)
+void classic_state::handle_right_released_event()
 {
     if (game_field->selector->position.x < 9) {
         game_field->selector->position.x += g_OFFSET;
@@ -244,7 +246,7 @@ void classic_state::handle_right_released_event(grottans::engine* engine)
     }
 }
 
-void classic_state::handle_up_released_event(grottans::engine* engine)
+void classic_state::handle_up_released_event()
 {
     if (game_field->selector->position.y > 0) {
         game_field->selector->position.y -= g_OFFSET;
@@ -253,7 +255,7 @@ void classic_state::handle_up_released_event(grottans::engine* engine)
     }
 }
 
-void classic_state::handle_down_released_event(grottans::engine* engine)
+void classic_state::handle_down_released_event()
 {
     if (game_field->selector->position.y < 9) {
         game_field->selector->position.y += g_OFFSET;

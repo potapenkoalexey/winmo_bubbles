@@ -17,8 +17,16 @@ level_complete_state::level_complete_state()
     counter_level = nullptr;
 }
 
-bool level_complete_state::init(grottans::engine* engine)
+level_complete_state::~level_complete_state()
 {
+    delete tex_even;
+    delete tex_uneven;
+}
+
+bool level_complete_state::init(grottans::engine* e)
+{
+    engine = e;
+
     block_back = std::unique_ptr<block>(new block(engine));
 
     ///counter
@@ -40,17 +48,17 @@ bool level_complete_state::init(grottans::engine* engine)
     block_back->v_buf = engine->create_vertex_buffer(&vert_buf_tr[0], 2);
 
     ///sounds
-    sound_even = engine->create_sound_buffer("./data/sounds/07_level_even");
-    sound_uneven = engine->create_sound_buffer("./data/sounds/04_level_uneven");
+    sound_even = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/07_level_even"));
+    sound_uneven = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/04_level_uneven"));
 
     return EXIT_SUCCESS;
 }
 
-void level_complete_state::cleanup(grottans::engine*) {}
+void level_complete_state::cleanup() {}
 
-void level_complete_state::pause(grottans::engine*) {}
+void level_complete_state::pause() {}
 
-void level_complete_state::resume(grottans::engine*)
+void level_complete_state::resume()
 {
     level_number = g_LEVEL;
 
@@ -70,7 +78,7 @@ void level_complete_state::resume(grottans::engine*)
     }
 }
 
-void level_complete_state::handle_events(grottans::engine* engine)
+void level_complete_state::handle_events()
 {
     grottans::event e;
 
@@ -112,19 +120,15 @@ void level_complete_state::handle_events(grottans::engine* engine)
     }
 }
 
-void level_complete_state::update(grottans::engine*)
+void level_complete_state::update()
 {
 }
 
-void level_complete_state::draw(grottans::engine* engine)
+void level_complete_state::draw()
 {
     block_back->draw();
 
     counter_level->draw();
 
     engine->swap_buffers();
-}
-
-level_complete_state::~level_complete_state()
-{
 }

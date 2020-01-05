@@ -1118,7 +1118,7 @@ void engine_impl::uninitialize()
 {
     //cleaning stack if the states
     while (!states.empty()) {
-        states.back()->cleanup(this);
+        states.back()->cleanup();
         states.pop_back();
     }
 
@@ -1550,14 +1550,14 @@ size_t engine_impl::get_window_height()
 void engine_impl::switch_to_state_and_resume(game_state* state)
 {
     current_state = state;
-    state->resume(this);
+    state->resume();
 }
 
 void engine_impl::change_state(game_state* state)
 {
     // cleanup the current state
     if (!states.empty()) {
-        states.back()->cleanup(this);
+        states.back()->cleanup();
         states.pop_back();
     }
 
@@ -1570,7 +1570,7 @@ void engine_impl::push_state_and_init(game_state* state)
 {
     // pause current state
     if (!states.empty()) {
-        states.back()->pause(this);
+        states.back()->pause();
     }
 
     // store and init the new state
@@ -1583,13 +1583,13 @@ void engine_impl::pop_state()
     // cleanup the current state
     if (!states.empty()) {
 
-        states.back()->cleanup(this);
+        states.back()->cleanup();
         states.pop_back();
     }
 
     // resume previous state
     if (!states.empty()) {
-        states.back()->resume(this);
+        states.back()->resume();
     }
 }
 
@@ -1608,13 +1608,13 @@ void engine_impl::swap_last_two_states()
 
     // cleanup the current state
     if (!states.empty()) {
-        states.back()->cleanup(this);
+        states.back()->cleanup();
     }
 
     // store and resume the previous state
     std::iter_swap(states.rbegin() + 1, states.rbegin());
 
-    states.back()->resume(this);
+    states.back()->resume();
 }
 
 game_state::~game_state() {}

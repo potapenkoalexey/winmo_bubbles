@@ -10,14 +10,14 @@
 class level_complete_state : public grottans::game_state {
 public:
     bool init(grottans::engine*);
-    void cleanup(grottans::engine*);
+    void cleanup();
 
-    void pause(grottans::engine*);
-    void resume(grottans::engine*);
+    void pause();
+    void resume();
 
-    void handle_events(grottans::engine*);
-    void update(grottans::engine*);
-    void draw(grottans::engine*);
+    void handle_events();
+    void update();
+    void draw();
 
     static game_state* instance()
     {
@@ -42,8 +42,8 @@ private:
     grottans::texture* tex_even;
     grottans::texture* tex_uneven;
 
-    grottans::sound_buffer* sound_even;
-    grottans::sound_buffer* sound_uneven;
+    std::unique_ptr<grottans::sound_buffer> sound_even;
+    std::unique_ptr<grottans::sound_buffer> sound_uneven;
 
     std::array<grottans::tri2, 2> vert_buf_tr; // v_buf triangles
 

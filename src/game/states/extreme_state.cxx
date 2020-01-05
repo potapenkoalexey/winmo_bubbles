@@ -20,8 +20,14 @@ extreme_state::extreme_state()
     game_field = nullptr;
 }
 
-bool extreme_state::init(grottans::engine* engine)
+extreme_state::~extreme_state()
 {
+}
+
+bool extreme_state::init(grottans::engine* e)
+{
+    engine = e;
+
     ///field
     game_field = std::unique_ptr<field>(new field(engine));
     game_field->init();
@@ -49,13 +55,13 @@ bool extreme_state::init(grottans::engine* engine)
     return EXIT_SUCCESS;
 }
 
-void extreme_state::cleanup(grottans::engine*) {}
+void extreme_state::cleanup() {}
 
-void extreme_state::pause(grottans::engine*) {}
+void extreme_state::pause() {}
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief used for new level configuration after level_comlete_state
-void extreme_state::resume(grottans::engine* engine)
+void extreme_state::resume()
 {
     game_field->undisappearing_all();
     game_field->unfalling_unshifting_all();
@@ -69,7 +75,7 @@ void extreme_state::resume(grottans::engine* engine)
     m_counter->set_displayed_number(g_SCORE);
 }
 
-void extreme_state::handle_events(grottans::engine* engine)
+void extreme_state::handle_events()
 {
     grottans::event e;
 
@@ -79,8 +85,8 @@ void extreme_state::handle_events(grottans::engine* engine)
     if (game_field->f_state != field::field_state::fixed)
         return;
 
-    handle_mouse_pressed_event(e, engine);
-    handle_mouse_released_event(e, engine);
+    handle_mouse_pressed_event(e);
+    handle_mouse_released_event(e);
 
     switch (e) {
     case grottans::event::turn_off: {
@@ -103,29 +109,29 @@ void extreme_state::handle_events(grottans::engine* engine)
             break;
         }
 
-        handle_start_released_event(i, j, engine);
+        handle_start_released_event(i, j);
         break;
     }
     case grottans::event::left_released: {
-        handle_left_released_event(engine);
+        handle_left_released_event();
         break;
     }
     case grottans::event::right_released: {
-        handle_right_released_event(engine);
+        handle_right_released_event();
         break;
     }
     case grottans::event::up_released: {
-        handle_up_released_event(engine);
+        handle_up_released_event();
         break;
     }
     case grottans::event::down_released: {
-        handle_down_released_event(engine);
+        handle_down_released_event();
         break;
     }
     }
 }
 
-void extreme_state::update(grottans::engine* engine)
+void extreme_state::update()
 {
     game_field->flip_gems_after_animation();
     game_field->update_blocks_coord();
@@ -150,7 +156,7 @@ void extreme_state::update(grottans::engine* engine)
     }
 }
 
-void extreme_state::draw(grottans::engine* engine)
+void extreme_state::draw()
 {
     game_field->draw();
     progress->draw();
@@ -159,7 +165,7 @@ void extreme_state::draw(grottans::engine* engine)
     engine->swap_buffers();
 }
 
-bool extreme_state::handle_mouse_pressed_event(grottans::event& e, grottans::engine* engine)
+bool extreme_state::handle_mouse_pressed_event(grottans::event& e)
 {
     bool result = true;
 
@@ -180,7 +186,7 @@ bool extreme_state::handle_mouse_pressed_event(grottans::event& e, grottans::eng
     return result;
 }
 
-bool extreme_state::handle_mouse_released_event(grottans::event& e, grottans::engine* engine)
+bool extreme_state::handle_mouse_released_event(grottans::event& e)
 {
     if (e == grottans::event::mouse_released) {
         double i = 0;
@@ -241,7 +247,7 @@ bool extreme_state::handle_mouse_released_event(grottans::event& e, grottans::en
     return true;
 }
 
-void extreme_state::handle_start_released_event(const size_t& i, const size_t& j, grottans::engine* engine)
+void extreme_state::handle_start_released_event(const size_t& i, const size_t& j)
 {
     size_t selected_blocks = 0;
     if (game_field->gems[i][j]->motion == false) {
@@ -292,7 +298,7 @@ void extreme_state::handle_start_released_event(const size_t& i, const size_t& j
     m_counter->set_displayed_number(g_SCORE);
 }
 
-void extreme_state::handle_left_released_event(grottans::engine*)
+void extreme_state::handle_left_released_event()
 {
     game_field->selector->texture = game_field->tex_selector;
 
@@ -335,7 +341,7 @@ void extreme_state::handle_left_released_event(grottans::engine*)
     }
 }
 
-void extreme_state::handle_right_released_event(grottans::engine*)
+void extreme_state::handle_right_released_event()
 {
     game_field->selector->texture = game_field->tex_selector;
 
@@ -377,7 +383,7 @@ void extreme_state::handle_right_released_event(grottans::engine*)
     }
 }
 
-void extreme_state::handle_up_released_event(grottans::engine*)
+void extreme_state::handle_up_released_event()
 {
     game_field->selector->texture = game_field->tex_selector;
 
@@ -419,7 +425,7 @@ void extreme_state::handle_up_released_event(grottans::engine*)
     }
 }
 
-void extreme_state::handle_down_released_event(grottans::engine*)
+void extreme_state::handle_down_released_event()
 {
     game_field->selector->texture = game_field->tex_selector;
 

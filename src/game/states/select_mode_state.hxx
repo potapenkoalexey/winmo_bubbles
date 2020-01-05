@@ -7,15 +7,15 @@
 
 class select_mode_state : public grottans::game_state {
 public:
-    bool init(grottans::engine*);
-    void cleanup(grottans::engine*);
+    bool init(grottans::engine* e);
+    void cleanup();
 
-    void pause(grottans::engine*);
-    void resume(grottans::engine*);
+    void pause();
+    void resume();
 
-    void handle_events(grottans::engine*);
-    void update(grottans::engine*);
-    void draw(grottans::engine*);
+    void handle_events();
+    void update();
+    void draw();
 
     void handle_mouse_event(grottans::engine* engine, grottans::event& e);
 
@@ -29,6 +29,8 @@ public:
 
     select_mode_state(select_mode_state const&) = delete;
     select_mode_state& operator=(select_mode_state const&) = delete;
+
+    ~select_mode_state();
 
 protected:
     select_mode_state();

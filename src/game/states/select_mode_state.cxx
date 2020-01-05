@@ -20,8 +20,18 @@ select_mode_state::select_mode_state()
     sound_on = nullptr;
 }
 
-bool select_mode_state::init(grottans::engine* engine)
+select_mode_state::~select_mode_state()
 {
+    delete tex_back_sound_on;
+    delete tex_back_sound_off;
+    delete v_buf_classic;
+    delete v_buf_extreme;
+}
+
+bool select_mode_state::init(grottans::engine* e)
+{
+    engine = e;
+
     block_back = std::unique_ptr<block>(new block(engine));
     block_select = std::unique_ptr<block>(new block(engine));
 
@@ -44,16 +54,15 @@ bool select_mode_state::init(grottans::engine* engine)
     block_select->v_buf = v_buf_classic;
 
     sound_on = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/10_sound_on.wav"));
-    //sound_on = engine->create_sound_buffer("./data/sounds/10_sound_on.wav"); //without uni_ptr
 
     return EXIT_SUCCESS;
 }
 
-void select_mode_state::cleanup(grottans::engine*) {}
+void select_mode_state::cleanup() {}
 
-void select_mode_state::pause(grottans::engine*) {}
+void select_mode_state::pause() {}
 
-void select_mode_state::resume(grottans::engine*)
+void select_mode_state::resume()
 {
     g_score_in_the_end_of_level = 0;
     g_LEVEL = 1;
@@ -130,7 +139,7 @@ void select_mode_state::handle_mouse_event(
     }
 }
 
-void select_mode_state::handle_events(grottans::engine* engine)
+void select_mode_state::handle_events()
 {
     grottans::event e;
     engine->input(e);
@@ -174,11 +183,11 @@ void select_mode_state::handle_events(grottans::engine* engine)
     }
 }
 
-void select_mode_state::update(grottans::engine*)
+void select_mode_state::update()
 {
 }
 
-void select_mode_state::draw(grottans::engine* engine)
+void select_mode_state::draw()
 {
     block_back->draw();
     block_select->draw();
