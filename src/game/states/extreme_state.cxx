@@ -23,8 +23,8 @@ extreme_state::extreme_state()
 bool extreme_state::init(grottans::engine* engine)
 {
     ///field
-    game_field = std::unique_ptr<field>(new field);
-    game_field->init(engine);
+    game_field = std::unique_ptr<field>(new field(engine));
+    game_field->init();
     game_field->fill_extreme();
 
     ///progress desk
@@ -33,12 +33,12 @@ bool extreme_state::init(grottans::engine* engine)
     progress->set_line_in_null(engine);
 
     ///counter
-    m_counter = std::unique_ptr<counter>(new counter);
+    m_counter = std::unique_ptr<counter>(new counter(engine));
     m_counter->set_quantity_of_digits(5, counter::sign::unsign);
-    m_counter->init(engine);
+    m_counter->init();
     m_counter->set_vertexes(0.55f, -0.87f, 0.08f, 0.08f);
     m_counter->set_color({ 1.0f, 1.0f, 1.0f, 1.0f });
-    m_counter->set_vertex_buffer(engine);
+    m_counter->set_vertex_buffer();
     m_counter->set_displayed_number(0);
 
     ///sounds
@@ -152,9 +152,9 @@ void extreme_state::update(grottans::engine* engine)
 
 void extreme_state::draw(grottans::engine* engine)
 {
-    game_field->draw(engine);
+    game_field->draw();
     progress->draw(engine);
-    m_counter->draw(engine);
+    m_counter->draw();
 
     engine->swap_buffers();
 }
@@ -168,7 +168,7 @@ bool extreme_state::handle_mouse_pressed_event(grottans::event& e, grottans::eng
         double i = 0;
         double j = 0;
 
-        if (game_field->is_mouse_clicked_in_field(i, j, engine)) {
+        if (game_field->is_mouse_clicked_in_field(i, j)) {
 
             game_field->selector->position.x = static_cast<float>(j);
             game_field->selector->position.y = static_cast<float>(i);
@@ -185,7 +185,7 @@ bool extreme_state::handle_mouse_released_event(grottans::event& e, grottans::en
     if (e == grottans::event::mouse_released) {
         double i = 0;
         double j = 0;
-        if (game_field->is_mouse_clicked_in_field(i, j, engine)) {
+        if (game_field->is_mouse_clicked_in_field(i, j)) {
 
             size_t w = engine->get_window_width();
             size_t h = engine->get_window_height();

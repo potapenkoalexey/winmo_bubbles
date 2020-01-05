@@ -1,6 +1,6 @@
 #include "./counter.hxx"
 
-bool counter::init(grottans::engine* engine)
+bool counter::init()
 {
     for (size_t i = 0; i < quantity_of_digits; i++) {
         digits[i]->init(engine);
@@ -50,7 +50,7 @@ void counter::set_color(const grottans::color& col)
     }
 }
 
-void counter::set_vertex_buffer(grottans::engine* engine)
+void counter::set_vertex_buffer()
 {
     for (size_t i = 0; i < quantity_of_digits; i++) {
         digits[i]->set_vertex_buffer(engine);
@@ -58,12 +58,6 @@ void counter::set_vertex_buffer(grottans::engine* engine)
 }
 
 void counter::set_hide_zeros(const bool& temp) { hide_zeros = temp; }
-
-counter::counter()
-{
-    hide_zeros = true;
-    m_sign = sign::unsign;
-}
 
 counter::~counter()
 {
@@ -128,7 +122,7 @@ bool counter::is_overflow(const size_t& t)
     return false;
 }
 
-void counter::draw(grottans::engine* engine)
+void counter::draw()
 {
     if (quantity_of_digits == 0)
         return;

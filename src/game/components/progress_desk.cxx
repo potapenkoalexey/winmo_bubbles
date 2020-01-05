@@ -43,22 +43,22 @@ bool progress_desk::init(grottans::engine* engine)
     tr[5] = tr[3];
 
     /// counter
-    counter_combo_points = std::unique_ptr<counter>(new counter);
+    counter_combo_points = std::unique_ptr<counter>(new counter(engine));
     counter_combo_points->set_quantity_of_digits(3, counter::sign::sign);
-    counter_combo_points->init(engine);
+    counter_combo_points->init();
     counter_combo_points->set_vertexes(-0.25f, -0.87f, 0.08f, 0.08f);
     counter_combo_points->set_color({ 1.0f, 0.5f, 0.0f, 1.0f });
-    counter_combo_points->set_vertex_buffer(engine);
+    counter_combo_points->set_vertex_buffer();
     counter_combo_points->set_displayed_number(0);
     counter_combo_points->set_hide_zeros(false);
 
     /// counter
-    counter_points_to_level = std::unique_ptr<counter>(new counter);
+    counter_points_to_level = std::unique_ptr<counter>(new counter(engine));
     counter_points_to_level->set_quantity_of_digits(4, counter::sign::unsign);
-    counter_points_to_level->init(engine);
+    counter_points_to_level->init();
     counter_points_to_level->set_vertexes(-0.95f, -0.87f, 0.08f, 0.08f);
     counter_points_to_level->set_color({ 1.0f, 1.0f, 1.0f, 1.0f });
-    counter_points_to_level->set_vertex_buffer(engine);
+    counter_points_to_level->set_vertex_buffer();
     counter_points_to_level->set_displayed_number(0);
     counter_points_to_level->set_hide_zeros(true);
 
@@ -95,8 +95,8 @@ void progress_desk::draw(grottans::engine* engine)
 {
     block_desk->draw(engine);
     block_line->draw(engine);
-    counter_combo_points->draw(engine);
-    counter_points_to_level->draw(engine);
+    counter_combo_points->draw();
+    counter_points_to_level->draw();
 }
 
 void progress_desk::set_line_in_null(grottans::engine* engine)

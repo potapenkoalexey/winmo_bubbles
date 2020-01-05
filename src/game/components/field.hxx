@@ -32,19 +32,24 @@ struct field {
         contr_clockwise,
     };
 
-    field();
+    field(grottans::engine* e)
+        : engine{ e }
+    {
+    }
+
     //field(const size_t& width, const size_t& height);
     ~field();
 
+    field() = delete;
     field(field const&) = delete;
     field& operator=(field const&) = delete;
 
-    bool init(grottans::engine* engine);
+    bool init();
     void fill_clasic();
     void fill_extreme();
     void associate_texture_with_gem(const size_t& i, const size_t& j);
-    void draw(grottans::engine* engine);
-    grottans::mouse_pos get_mouse_ij(grottans::engine* engine);
+    void draw();
+    grottans::mouse_pos get_mouse_ij();
 
     bool can_select(const size_t&, const size_t&);
     bool select_around(const size_t&, const size_t&);
@@ -79,9 +84,11 @@ struct field {
     bool is_game_over_classic();
     bool is_game_over_extreme();
 
-    bool is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/, grottans::engine* engine);
+    bool is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/);
 
     ///////////////////////////////////////////////////////////////////////////
+
+    grottans::engine* engine;
 
     size_t width = 0;
     size_t height = 0;

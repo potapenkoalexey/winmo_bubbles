@@ -16,24 +16,33 @@ public:
 
     void set_quantity_of_digits(const size_t&, const sign&);
 
-    bool init(grottans::engine*);
+    bool init();
     void update();
-    void draw(grottans::engine*);
+    void draw();
 
     void set_displayed_number(const size_t&);
     bool is_overflow(const size_t&);
 
     void set_vertexes(const float& x, const float& y, const float& w, const float& h);
     void set_color(const grottans::color&);
-    void set_vertex_buffer(grottans::engine* engine);
+    void set_vertex_buffer();
     void set_hide_zeros(const bool&);
 
-    counter();
+    counter(grottans::engine* e)
+        : engine{ e }
+        , hide_zeros{ true }
+        , m_sign{ sign::unsign }
+    {
+    }
+
     ~counter();
 
 private:
+    counter() = delete;
     counter(const counter&) = delete;
     void operator=(const counter&) = delete;
+
+    grottans::engine* engine;
 
     size_t quantity_of_digits;
     size_t number_on_screen;

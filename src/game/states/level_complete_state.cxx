@@ -22,12 +22,12 @@ bool level_complete_state::init(grottans::engine* engine)
     block_back = std::unique_ptr<block>(new block);
 
     ///counter
-    counter_level = std::unique_ptr<counter>(new counter);
+    counter_level = std::unique_ptr<counter>(new counter(engine));
     counter_level->set_quantity_of_digits(2, counter::sign::unsign);
-    counter_level->init(engine);
+    counter_level->init();
     counter_level->set_vertexes(0.13f, -0.385f, 0.19f, 0.19f);
     counter_level->set_color({ 1.0f, 1.0f, 1.0f, 1.0f });
-    counter_level->set_vertex_buffer(engine);
+    counter_level->set_vertex_buffer();
     counter_level->set_displayed_number(0);
     level_number = g_LEVEL;
 
@@ -120,7 +120,7 @@ void level_complete_state::draw(grottans::engine* engine)
 {
     block_back->draw(engine);
 
-    counter_level->draw(engine);
+    counter_level->draw();
 
     engine->swap_buffers();
 }

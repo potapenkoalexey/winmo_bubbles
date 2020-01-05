@@ -4,8 +4,6 @@
 #include "../global_variables.hxx"
 #include "./field.hxx"
 
-field::field() {}
-
 field::~field()
 {
     for (size_t i = 0; i < width; i++) {
@@ -13,9 +11,19 @@ field::~field()
             delete gems[i][j];
         }
     }
+
+    //    engine->destroy_texture(tex_selector_clutch);
+    //    engine->destroy_texture(tex_selector);
+    //    engine->destroy_texture(tex_yellow);
+    //    engine->destroy_texture(tex_purple);
+    //    engine->destroy_texture(tex_green);
+    //    engine->destroy_texture(tex_black);
+    //    engine->destroy_texture(tex_bomb);
+    //    engine->destroy_texture(tex_blue);
+    //    engine->destroy_texture(tex_red);
 }
 
-bool field::init(grottans::engine* engine)
+bool field::init()
 {
     width = g_FIELD_WIDTH;
     height = g_FIELD_HEIGHT;
@@ -872,7 +880,7 @@ bool field::is_game_over_extreme()
     return true;
 }
 
-bool field::is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/, grottans::engine* engine)
+bool field::is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/)
 {
     bool result = true;
 
@@ -915,7 +923,7 @@ bool field::is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/, grot
     return result;
 }
 
-void field::draw(grottans::engine* engine)
+void field::draw()
 {
     //drawing blocks
     if (f_draw_direction == draw_direction::clockwise) {

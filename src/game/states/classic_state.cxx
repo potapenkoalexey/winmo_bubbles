@@ -22,8 +22,8 @@ classic_state::classic_state()
 bool classic_state::init(grottans::engine* engine)
 {
     ///field
-    game_field = std::unique_ptr<field>(new field);
-    game_field->init(engine);
+    game_field = std::unique_ptr<field>(new field(engine));
+    game_field->init();
     game_field->fill_clasic();
 
     ///progress desk
@@ -32,12 +32,12 @@ bool classic_state::init(grottans::engine* engine)
     progress->set_line_in_null(engine);
 
     ///counter
-    m_counter = std::unique_ptr<counter>(new counter);
+    m_counter = std::unique_ptr<counter>(new counter(engine));
     m_counter->set_quantity_of_digits(5, counter::sign::unsign);
-    m_counter->init(engine);
+    m_counter->init();
     m_counter->set_vertexes(0.55f, -0.87f, 0.08f, 0.08f);
     m_counter->set_color({ 1.0f, 1.0f, 1.0f, 1.0f });
-    m_counter->set_vertex_buffer(engine);
+    m_counter->set_vertex_buffer();
     m_counter->set_displayed_number(0);
 
     ///sounds
@@ -168,9 +168,9 @@ void classic_state::draw(grottans::engine* engine)
 {
     //background
     //      block_back->draw(engine);
-    game_field->draw(engine);
+    game_field->draw();
     progress->draw(engine);
-    m_counter->draw(engine);
+    m_counter->draw();
 
     engine->swap_buffers();
 }
@@ -180,7 +180,7 @@ bool classic_state::handle_mouse_event(grottans::engine* engine)
     double i = 0;
     double j = 0;
 
-    if (game_field->is_mouse_clicked_in_field(i, j, engine)) {
+    if (game_field->is_mouse_clicked_in_field(i, j)) {
 
         game_field->selector->position.x = static_cast<float>(j);
         game_field->selector->position.y = static_cast<float>(i);
