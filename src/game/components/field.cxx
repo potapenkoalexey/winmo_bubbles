@@ -6,6 +6,15 @@
 
 field::field() {}
 
+field::~field()
+{
+    for (size_t i = 0; i < width; i++) {
+        for (size_t j = 0; j < height; j++) {
+            delete gems[i][j];
+        }
+    }
+}
+
 bool field::init(grottans::engine* engine)
 {
     width = g_FIELD_WIDTH;

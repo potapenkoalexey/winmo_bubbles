@@ -10,7 +10,7 @@ using milli_sec = std::chrono::milliseconds;
 ///////////////////////////////////////////////////////////////////////////////
 class settings {
 public:
-    void initialize(grottans::engine* engine, const std::string_view& file);
+    int initialize(grottans::engine* engine, const std::string_view& file);
 
     ~settings();
 

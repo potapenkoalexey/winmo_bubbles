@@ -36,6 +36,8 @@ add_executable(${PROJECT_NAME}
         ${CMAKE_CURRENT_LIST_DIR}/src/game/states/game_over_state.cxx
         ${CMAKE_CURRENT_LIST_DIR}/src/game/global_variables.hxx
         ${CMAKE_CURRENT_LIST_DIR}/src/game/global_variables.cxx
+        ${CMAKE_CURRENT_LIST_DIR}/src/game/settings.hxx
+        ${CMAKE_CURRENT_LIST_DIR}/src/game/settings.cxx
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}/src")

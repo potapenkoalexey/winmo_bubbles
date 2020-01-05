@@ -34,12 +34,12 @@ struct field {
 
     field();
     //field(const size_t& width, const size_t& height);
+    ~field();
 
     field(field const&) = delete;
     field& operator=(field const&) = delete;
 
-    bool
-    init(grottans::engine* engine);
+    bool init(grottans::engine* engine);
     void fill_clasic();
     void fill_extreme();
     void associate_texture_with_gem(const size_t& i, const size_t& j);

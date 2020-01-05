@@ -23,7 +23,6 @@ int main(int /*argc*/, char** /*argv*/)
 
     //engine->set_window_size(480, 536);
 
-    ///initialize the engine
     engine->initialize();
 
     engine->disable_mouse_moution_event();
@@ -53,6 +52,8 @@ int main(int /*argc*/, char** /*argv*/)
     }
 
     engine->uninitialize();
+
+    grottans::destroy_engine(engine);
 
     return EXIT_SUCCESS;
 }

@@ -1126,7 +1126,7 @@ void engine_impl::uninitialize()
     extern DECLSPEC void SDLCALL TTF_Quit(void);
     SDL_DestroyWindow(window);
     SDL_Quit();
-    destroy_engine(this);
+    //destroy_engine(this);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
