@@ -13,6 +13,8 @@ add_executable(${PROJECT_NAME}
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/sound_buffer.cxx
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/random_generator.hxx
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/random_generator.cxx
+        ${CMAKE_CURRENT_LIST_DIR}/src/engine/game_state.hxx
+        ${CMAKE_CURRENT_LIST_DIR}/src/engine/game_state.cxx
         ${CMAKE_CURRENT_LIST_DIR}/src/game/main.cxx
         ${CMAKE_CURRENT_LIST_DIR}/src/game/components/block.hxx
         ${CMAKE_CURRENT_LIST_DIR}/src/game/components/block.cxx
