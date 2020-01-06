@@ -70,6 +70,7 @@ static void load_gl_func(const char* func_name, T& result)
     result = reinterpret_cast<T>(gl_pointer);
 }
 
+#ifndef NDEBUG
 #define OM_GL_CHECK()                                                              \
     {                                                                              \
         const GLenum err = glGetError();                                           \
@@ -96,6 +97,11 @@ static void load_gl_func(const char* func_name, T& result)
             assert(false);                                                         \
         }                                                                          \
     }
+#else
+#define OM_GL_CHECK() \
+    {                 \
+    }
+#endif
 
 namespace grottans {
 
