@@ -624,7 +624,7 @@ public:
     void change_state(game_state* state);
     void pop_state();
 
-    ~engine_impl() {}
+    ~engine_impl();
     //  mouse_pos mouse_coord;
 
     size_t screen_width = 0;
@@ -1591,6 +1591,14 @@ void engine_impl::pop_state()
     if (!states.empty()) {
         states.back()->resume();
     }
+}
+
+engine_impl::~engine_impl()
+{
+    delete shader00;
+    delete shader01;
+    delete shader02;
+    delete shader03;
 }
 
 void engine_impl::clear_states()
