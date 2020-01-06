@@ -7,5 +7,5 @@ int settings::initialize(grottans::engine* engine, const std::string_view& file)
 
     //    buf.getline(temp, 80, ' ');
 
-    //    return 0;
+    return 0;
 }

@@ -27,7 +27,7 @@ int main(int /*argc*/, char** /*argv*/)
 
     engine->disable_mouse_moution_event();
 
-    ///loading states in vector (simple state machine)
+    ///loading states in the engine (simple state-machine)
     engine->push_state_and_init(select_mode_state::instance()); //0
     engine->push_state_and_init(classic_state::instance()); //1
     engine->push_state_and_init(extreme_state::instance()); //2
