@@ -1,5 +1,9 @@
 #include "./counter.hxx"
 
+counter::~counter()
+{
+}
+
 bool counter::init()
 {
     for (size_t i = 0; i < quantity_of_digits; i++) {
@@ -58,10 +62,6 @@ void counter::set_vertex_buffer()
 }
 
 void counter::set_hide_zeros(const bool& temp) { hide_zeros = temp; }
-
-counter::~counter()
-{
-}
 
 void counter::set_displayed_number(const size_t& t)
 {

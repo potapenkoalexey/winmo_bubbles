@@ -52,6 +52,7 @@ bool extreme_state::init(grottans::engine* e)
     sound_destroy_big_form = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/02_destroy_big_form"));
     sound_flip = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/08_flip"));
     sound_cant_flip = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/09_cant_flip"));
+
     return EXIT_SUCCESS;
 }
 

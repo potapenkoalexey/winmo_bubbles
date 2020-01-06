@@ -31,6 +31,8 @@ public:
         return &m_classic_state;
     }
 
+    ~classic_state();
+
     classic_state(classic_state const&) = delete;
     classic_state& operator=(classic_state const&) = delete;
 

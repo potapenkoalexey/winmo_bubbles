@@ -19,6 +19,9 @@ classic_state::classic_state()
     m_counter = nullptr;
     game_field = nullptr;
 }
+
+classic_state::~classic_state() {}
+
 bool classic_state::init(grottans::engine* e)
 {
     engine = e;

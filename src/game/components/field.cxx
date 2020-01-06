@@ -12,15 +12,15 @@ field::~field()
         }
     }
 
-    //    engine->destroy_texture(tex_selector_clutch);
-    //    engine->destroy_texture(tex_selector);
-    //    engine->destroy_texture(tex_yellow);
-    //    engine->destroy_texture(tex_purple);
-    //    engine->destroy_texture(tex_green);
-    //    engine->destroy_texture(tex_black);
-    //    engine->destroy_texture(tex_bomb);
-    //    engine->destroy_texture(tex_blue);
-    //    engine->destroy_texture(tex_red);
+    delete tex_red;
+    delete tex_blue;
+    delete tex_bomb;
+    delete tex_black;
+    delete tex_green;
+    delete tex_purple;
+    delete tex_yellow;
+    delete tex_selector;
+    delete tex_selector_clutch;
 }
 
 bool field::init()

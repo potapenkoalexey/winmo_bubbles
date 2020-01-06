@@ -22,6 +22,13 @@ bool number::init()
     return EXIT_SUCCESS;
 }
 
+number::~number()
+{
+    for (auto x : numbers_textures) {
+        delete x;
+    }
+}
+
 void number::draw()
 {
     engine->render(*vertex_buffer, texture, move * engine->scale);
@@ -90,12 +97,4 @@ void number::set_vertexes(const float& x, const float& y, const float& w,
 void number::set_vertex_buffer()
 {
     vertex_buffer = engine->create_vertex_buffer(&vertex_triangles[0], 2);
-}
-
-number::~number()
-{
-    //can't delete numbers_textures - refactor class!
-    //    for (auto x : numbers_textures) {
-    //        engine->destroy_texture(x);
-    //    }
 }

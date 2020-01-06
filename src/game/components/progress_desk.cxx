@@ -65,6 +65,12 @@ bool progress_desk::init()
     return EXIT_SUCCESS;
 }
 
+progress_desk::~progress_desk()
+{
+    delete tex_desk;
+    delete tex_line;
+}
+
 void progress_desk::update_line_vertex_buffer()
 {
     /// update vertex_buffer
@@ -81,13 +87,6 @@ void progress_desk::set_dispayed_number(const size_t& number)
     } else {
         counter_points_to_level->set_displayed_number(levels_extreme[g_LEVEL]);
     }
-}
-
-progress_desk::~progress_desk()
-{
-    //error generated
-    //    engine->destroy_texture(tex_desk);
-    //    engine->destroy_texture(tex_line);
 }
 
 void progress_desk::draw()
