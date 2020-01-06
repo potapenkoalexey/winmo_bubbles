@@ -261,11 +261,6 @@ public:
     virtual void update() = 0;
     virtual void draw() = 0;
 
-    void change_state(game_state* state)
-    {
-        engine->change_state(state);
-    }
-
     virtual ~game_state();
 
 protected:
