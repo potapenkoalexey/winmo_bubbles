@@ -138,7 +138,6 @@ void extreme_state::update()
     game_field->update_blocks_coord();
 
     if (game_field->is_all_fixed()) {
-        game_field->f_state = field::field_state::fixed;
         game_field->add_blocks_at_the_top_of_field();
         game_field->mark_falling_blocks();
         if (!game_field->are_there_falling_blocks()) {

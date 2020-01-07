@@ -138,11 +138,11 @@ void classic_state::update()
     game_field->update_blocks_coord();
 
     if (game_field->is_all_fixed()) {
-        game_field->f_state = field::field_state::fixed;
         ///restore broken blocks
-        ///game_field->undisappearing_all();
+        //game_field->undisappearing_all();
 
         game_field->mark_falling_blocks();
+
         if (!game_field->are_there_falling_blocks()) {
 
             game_field->is_right_row_free();
@@ -153,7 +153,6 @@ void classic_state::update()
                 //game_field->unfalling_unshifting_all();
                 //game_field->undisappearing_all();
 
-                game_field->f_state = field::field_state::fixed;
                 ///check game_over
                 if (game_field->is_game_over_classic()) {
                     engine->switch_to_state_and_resume(engine->states[4]);
@@ -172,7 +171,7 @@ void classic_state::update()
 void classic_state::draw()
 {
     //background
-    //      block_back->draw(engine);
+    //    block_back->draw(engine);
     game_field->draw();
     progress->draw();
     m_counter->draw();

@@ -419,6 +419,9 @@ bool field::is_all_fixed()
             }
         }
     }
+
+    f_state = field_state::fixed;
+
     return true;
 }
 
