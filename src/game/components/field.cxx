@@ -736,6 +736,8 @@ void field::mark_falling_blocks()
             if (gems[i][j]->visible == true) {
                 if (gems[i + 1][j]->state == block::block_state::falling || gems[i + 1][j]->visible == false) {
                     gems[i][j]->state = block::block_state::falling;
+                    //for hiding selector when blocks falling
+                    f_state = field_state::falling;
                 }
             }
         }
@@ -781,6 +783,8 @@ void field::mark_shifting_blocks()
             if (gems[i][j]->visible == true) {
                 if (gems[i][j - 1]->state == block::block_state::shifting || gems[i][j - 1]->visible == false) {
                     gems[i][j]->state = block::block_state::shifting;
+                    //for hiding selector when blocks shifting
+                    f_state = field_state::shifting;
                 }
             }
         }
