@@ -1100,7 +1100,7 @@ float engine_impl::get_time_from_init()
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief EngineReal::createTexture
 ///
-texture* engine_impl::create_texture(gconst std::string path)
+texture* engine_impl::create_texture(const std::string path)
 {
     return new texture_gl_es20(path);
 }
