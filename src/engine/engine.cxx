@@ -70,7 +70,7 @@ static void load_gl_func(const char* func_name, T& result)
     result = reinterpret_cast<T>(gl_pointer);
 }
 
-#ifndef NDEBUG
+#ifdef GL_CHECK_FOR_DEBUG
 #define OM_GL_CHECK()                                                              \
     {                                                                              \
         const GLenum err = glGetError();                                           \
@@ -1100,7 +1100,7 @@ float engine_impl::get_time_from_init()
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief EngineReal::createTexture
 ///
-texture* engine_impl::create_texture(const std::string path)
+texture* engine_impl::create_texture(gconst std::string path)
 {
     return new texture_gl_es20(path);
 }

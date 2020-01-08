@@ -9,6 +9,7 @@
 #include <variant>
 #include <vector>
 
+#include "../game/global_variables.hxx"
 #include "./color.hxx"
 #include "./game_state.hxx"
 #include "./math_structures.hxx"

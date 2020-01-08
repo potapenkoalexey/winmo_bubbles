@@ -3,6 +3,8 @@
 #include <chrono>
 #include <cstddef>
 
+#define GL_CHECK_FOR_DEBUG
+
 using milli_sec = std::chrono::milliseconds;
 
 enum class MODE {
