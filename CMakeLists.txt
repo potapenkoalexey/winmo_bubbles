@@ -45,7 +45,7 @@ add_executable(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}/src")
 
 #check this instruction work
-target_link_options(${PROJECT_NAME} PRIVATE -static)
+#target_link_options(${PROJECT_NAME} PRIVATE -static)
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
