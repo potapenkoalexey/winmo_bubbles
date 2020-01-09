@@ -41,8 +41,8 @@ struct field {
     ~field();
 
     field() = delete;
-    field(field const&) = delete;
-    field& operator=(field const&) = delete;
+    field(const field&) = delete;
+    const field& operator=(const field&) = delete;
 
     bool init();
     void fill_clasic();

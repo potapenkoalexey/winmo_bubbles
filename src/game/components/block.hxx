@@ -77,10 +77,10 @@ public:
 
     ~block();
 
-private:
     block() = delete;
     block(const block&) = delete;
-    void operator=(const block&) = delete;
+    const block& operator=(const block&) = delete;
 
+private:
     grottans::engine* engine;
 };

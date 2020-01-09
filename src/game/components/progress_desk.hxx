@@ -32,11 +32,11 @@ public:
     }
     ~progress_desk();
 
-private:
     progress_desk() = delete;
     progress_desk(const progress_desk&) = delete;
-    void operator=(const progress_desk&) = delete;
+    const progress_desk& operator=(const progress_desk&) = delete;
 
+private:                                                         
     grottans::engine* engine;
 
     bool level_complete_flag = false;

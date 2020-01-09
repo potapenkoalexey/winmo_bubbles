@@ -3,7 +3,7 @@
 #include "../../../src/engine/color.hxx"
 #include "../../../src/engine/engine.hxx"
 
-class number {
+class number final {
 public:
     bool init();
     void draw();
@@ -25,11 +25,11 @@ public:
     }
     ~number();
 
-private:
     number() = delete;
     number(const number&) = delete;
-    void operator=(const number&) = delete;
+    const number& operator=(const number&) = delete;
 
+private:
     grottans::engine* engine;
 
     grottans::mat2x3 move;

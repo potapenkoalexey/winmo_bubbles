@@ -37,11 +37,11 @@ public:
 
     ~counter();
 
-private:
     counter() = delete;
     counter(const counter&) = delete;
-    void operator=(const counter&) = delete;
+    const counter& operator=(const counter&) = delete;
 
+private:
     grottans::engine* engine;
 
     size_t quantity_of_digits;
