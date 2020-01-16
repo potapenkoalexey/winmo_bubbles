@@ -124,6 +124,15 @@ void field::fill_clasic()
             associate_texture_with_gem(i, j);
         }
     }
+
+    /*
+    block* gems[i][j];
+
+    block *p = (block *)array;
+    int n_cells = nrows * ncols;
+    while ( --n_cells >= 0 )
+    (p++)->get_random_color_from_classic = 0;
+    */
 }
 
 void field::fill_extreme()
