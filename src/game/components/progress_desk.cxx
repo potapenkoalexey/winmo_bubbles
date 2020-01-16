@@ -3,6 +3,15 @@
 #include "../global_variables.hxx"
 #include "./progress_desk.hxx"
 
+progress_desk::~progress_desk()
+{
+    delete tex_desk;
+    delete tex_line;
+
+    delete block_desk->v_buf;
+    delete block_line->v_buf;
+}
+
 bool progress_desk::init()
 {
     points_classic = { 2, 6, 12, 20, 30, 42, 56, 72, 90,
@@ -63,12 +72,6 @@ bool progress_desk::init()
     counter_points_to_level->set_hide_zeros(true);
 
     return EXIT_SUCCESS;
-}
-
-progress_desk::~progress_desk()
-{
-    delete tex_desk;
-    delete tex_line;
 }
 
 void progress_desk::update_line_vertex_buffer()

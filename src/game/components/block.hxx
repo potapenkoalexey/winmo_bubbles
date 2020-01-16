@@ -50,8 +50,7 @@ public:
     void draw();
 
     block(grottans::engine* e)
-        : engine{ e }
-        , color{ palette::black }
+        : color{ palette::black }
         , state{ block_state::fixed }
         , flip_direction{ block::block_direction::non }
         , selected{ false }
@@ -64,9 +63,10 @@ public:
         , v_buf{ nullptr }
         , fps{ g_FPS }
         , current_time{ 0.f }
-        , fliping_frame_index{ 0 }
         , falling_frame_index{ 0 }
         , shifting_frame_index{ 0 }
+        , fliping_frame_index{ 0 }
+        , engine{ e }
     {
         move.delta.x = 0;
         move.delta.y = 0;
