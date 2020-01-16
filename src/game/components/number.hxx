@@ -11,8 +11,7 @@ public:
     void set_number_and_texture(const int&);
     void set_in_null();
     void set_color(const grottans::color& color);
-    void set_vertexes(const float& x, const float& y, const float& w,
-        const float& h);
+    void set_vertexes(const float& x, const float& y, const float& w, const float& h);
     void set_vertex_buffer();
     void cleanup();
 

@@ -28,6 +28,13 @@ public:
 
     progress_desk(grottans::engine* e)
         : engine{ e }
+        , level_complete_flag{ false }
+        , block_desk{ nullptr }
+        , block_line{ nullptr }
+        , counter_combo_points{ nullptr }
+        , counter_points_to_level{ nullptr }
+        , tex_desk{ nullptr }
+        , tex_line{ nullptr }
     {
     }
     ~progress_desk();
@@ -36,10 +43,10 @@ public:
     progress_desk(const progress_desk&) = delete;
     const progress_desk& operator=(const progress_desk&) = delete;
 
-private:                                                         
+private:
     grottans::engine* engine;
 
-    bool level_complete_flag = false;
+    bool level_complete_flag;
 
     std::array<size_t, 25> points_classic;
     std::array<size_t, 30> points_extreme;

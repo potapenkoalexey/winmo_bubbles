@@ -29,7 +29,12 @@ public:
     game_over_state& operator=(game_over_state const&) = delete;
 
 protected:
-    game_over_state();
+    game_over_state()
+        : block_back{ nullptr }
+        , sound_game_over{ nullptr }
+        , counter_final_score{ nullptr }
+    {
+    }
 
 private:
     static game_over_state m_game_over_state;

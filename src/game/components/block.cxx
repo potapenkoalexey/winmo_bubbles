@@ -8,6 +8,10 @@ static std::uniform_real_distribution<double> dist_1_5(10.0, 60.0);
 static std::uniform_real_distribution<double> dist_1_11(10.0, 120.0);
 static std::uniform_real_distribution<double> dist_1_17(10.0, 175.0);
 
+block::~block()
+{
+}
+
 float block::get_fps() const
 {
     return fps;
@@ -163,32 +167,4 @@ void block::restore_original_parameters(const std::array<grottans::tri2, 32>& ar
 void block::draw()
 {
     engine->render(*v_buf, texture, move * aspect * engine->scale);
-}
-
-block::block(grottans::engine* e)
-{
-    engine = e;
-
-    move.delta.x = 0;
-    move.delta.y = 0;
-    state = block_state::fixed;
-    flip_direction = block::block_direction::non;
-    color = palette::black;
-    current_time = 0.f;
-    fliping_frame_index = 0;
-    falling_frame_index = 0;
-    shifting_frame_index = 0;
-    selected = false;
-    motion = false;
-    visible = true;
-    fps = g_FPS;
-    position = { 0.f, 0.f };
-    move = grottans::mat2x3::scale(1.f, 1.f);
-    aspect = grottans::mat2x3::scale(1.f, 1.f);
-    texture = nullptr;
-    v_buf = nullptr;
-}
-
-block::~block()
-{
 }

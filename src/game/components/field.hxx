@@ -34,10 +34,25 @@ struct field {
 
     field(grottans::engine* e)
         : engine{ e }
+        , width{ g_FIELD_WIDTH }
+        , height{ g_FIELD_HEIGHT }
+        , scale{ 0 }
+        , f_state{ field_state::fixed }
+        , f_draw_direction{ draw_direction::clockwise }
+        , selector{ nullptr }
+        , tex_selector_clutch{ nullptr }
+        , tex_selector{ nullptr }
+        , tex_yellow{ nullptr }
+        , tex_purple{ nullptr }
+        , tex_green{ nullptr }
+        , tex_black{ nullptr }
+        , tex_blue{ nullptr }
+        , tex_bomb{ nullptr }
+        , tex_red{ nullptr }
+
     {
     }
 
-    //field(const size_t& width, const size_t& height);
     ~field();
 
     field() = delete;
@@ -90,25 +105,25 @@ struct field {
 
     grottans::engine* engine;
 
-    size_t width = 0;
-    size_t height = 0;
-    float scale = 0;
+    size_t width;
+    size_t height;
+    float scale;
 
-    field_state f_state = field_state::fixed;
-    draw_direction f_draw_direction = draw_direction::clockwise;
+    field_state f_state;
+    draw_direction f_draw_direction;
 
     //block selector in centr of the field
     std::unique_ptr<block> selector;
 
-    grottans::texture* tex_selector_clutch = nullptr;
-    grottans::texture* tex_selector = nullptr;
-    grottans::texture* tex_yellow = nullptr;
-    grottans::texture* tex_purple = nullptr;
-    grottans::texture* tex_green = nullptr;
-    grottans::texture* tex_black = nullptr;
-    grottans::texture* tex_blue = nullptr;
-    grottans::texture* tex_bomb = nullptr;
-    grottans::texture* tex_red = nullptr;
+    grottans::texture* tex_selector_clutch;
+    grottans::texture* tex_selector;
+    grottans::texture* tex_yellow;
+    grottans::texture* tex_purple;
+    grottans::texture* tex_green;
+    grottans::texture* tex_black;
+    grottans::texture* tex_blue;
+    grottans::texture* tex_bomb;
+    grottans::texture* tex_red;
 
     std::array<grottans::tri2, 4> tr;
     //xy-triangles for all field positions
