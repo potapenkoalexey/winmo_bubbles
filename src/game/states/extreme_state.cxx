@@ -118,6 +118,8 @@ void extreme_state::handle_events()
         handle_down_released_event();
         break;
     }
+    default:
+        break;
     }
 }
 

@@ -82,6 +82,8 @@ void game_over_state::handle_events()
         engine->switch_to_state_and_resume(engine->states[0]);
         break;
     }
+    default:
+        break;
     }
 }
 

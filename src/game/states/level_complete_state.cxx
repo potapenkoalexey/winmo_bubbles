@@ -11,6 +11,7 @@ level_complete_state::~level_complete_state()
 {
     delete tex_even;
     delete tex_uneven;
+    delete block_back->v_buf;
 }
 
 bool level_complete_state::init(grottans::engine* e)
@@ -86,7 +87,6 @@ void level_complete_state::handle_events()
         } else {
             ///go to extreme_mode new level
             engine->switch_to_state_and_resume(engine->states[2]);
-            //break;
         }
         break;
     }
@@ -97,16 +97,16 @@ void level_complete_state::handle_events()
         } else {
             ///go to extreme_mode new level
             engine->switch_to_state_and_resume(engine->states[2]);
-            //break;
         }
         break;
     }
     case grottans::event::escape_released: {
         //go to the select_game_mode
-        if (g_LEVEL == 1)
-            engine->switch_to_state_and_resume(engine->states[0]);
+        engine->switch_to_state_and_resume(engine->states[0]);
         break;
     }
+    default:
+        break;
     }
 }
 

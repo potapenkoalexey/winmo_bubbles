@@ -13,6 +13,7 @@ select_mode_state::~select_mode_state()
 {
     delete tex_back_sound_on;
     delete tex_back_sound_off;
+    delete block_back->v_buf;
     delete v_buf_classic;
     delete v_buf_extreme;
 }
@@ -169,6 +170,8 @@ void select_mode_state::handle_events()
 
         break;
     }
+    default:
+        break;
     }
 }
 
