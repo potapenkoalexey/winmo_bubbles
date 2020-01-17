@@ -1,6 +1,15 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.13)
 
-project(winmo_bubbles)
+project(winmo_bubbles VERSION 2.1 LANGUAGES CXX)
+
+#if (WIN32)
+#SET(CMAKE_C_COMPILER C:\\MinGW\\bin\\)
+#SET(CMAKE_CXX_COMPILER C:\\MinGW\\bin\\)
+#endif()
+
+if(NOT CMAKE_CXX_EXTENSIONS)
+    set(CMAKE_CXX_EXTENSIONS OFF)
+endif()
 
 add_executable(${PROJECT_NAME}
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/engine.hxx
