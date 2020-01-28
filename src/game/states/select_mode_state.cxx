@@ -73,15 +73,15 @@ void select_mode_state::sound_turn_off()
 }
 
 void select_mode_state::handle_mouse_event(
-    grottans::engine* engine,
+    grottans::engine* /*eng*/,
     grottans::event& e)
 {
     float w = engine->get_window_width();
     float h = engine->get_window_height();
     size_t m_x = engine->mouse_coord_pressed.x;
     size_t m_y = engine->mouse_coord_pressed.y;
-    float scale_x = engine->scale.col0.x; //0.625
-    float scale_y = engine->scale.col1.y; //1
+    // float scale_x = engine->scale.col0.x; //0.625
+    // float scale_y = engine->scale.col1.y; //1
 
     if (w >= h) {
         ///handling sound button
