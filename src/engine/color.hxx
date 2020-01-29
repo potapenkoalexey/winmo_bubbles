@@ -16,10 +16,10 @@ public:
     float get_b() const;
     float get_a() const;
 
-    void set_r(const float r);
-    void set_g(const float g);
-    void set_b(const float b);
-    void set_a(const float a);
+    void set_r(const float& r);
+    void set_g(const float& g);
+    void set_b(const float& b);
+    void set_a(const float& a);
 
 private:
     std::uint32_t rgba = 0;

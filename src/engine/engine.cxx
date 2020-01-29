@@ -492,7 +492,7 @@ public:
         SDL_AudioSpec audio_spec);
     ~sound_buffer_impl() final;
 
-    void play(const properties prop) final
+    void play(const properties& prop) final
     {
         // Lock callback function
         SDL_LockAudioDevice(device);

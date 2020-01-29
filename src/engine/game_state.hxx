@@ -21,7 +21,10 @@ public:
     virtual ~game_state();
 
 protected:
-    game_state() {}
+    game_state()
+        : engine{ nullptr }
+    {
+    }
 
     grottans::engine* engine;
 };

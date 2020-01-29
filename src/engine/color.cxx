@@ -44,25 +44,25 @@ float color::get_a() const
     return a_ / 255.f;
 }
 
-void color::set_r(const float r)
+void color::set_r(const float& r)
 {
     std::uint32_t r_ = static_cast<std::uint32_t>(r * 255);
     rgba &= 0xFFFFFF00;
     rgba |= (r_ << 0);
 }
-void color::set_g(const float g)
+void color::set_g(const float& g)
 {
     std::uint32_t g_ = static_cast<std::uint32_t>(g * 255);
     rgba &= 0xFFFF00FF;
     rgba |= (g_ << 8);
 }
-void color::set_b(const float b)
+void color::set_b(const float& b)
 {
     std::uint32_t b_ = static_cast<std::uint32_t>(b * 255);
     rgba &= 0xFF00FFFF;
     rgba |= (b_ << 16);
 }
-void color::set_a(const float a)
+void color::set_a(const float& a)
 {
     std::uint32_t a_ = static_cast<std::uint32_t>(a * 255);
     rgba &= 0x00FFFFFF;
