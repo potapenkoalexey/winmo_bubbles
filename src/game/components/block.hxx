@@ -3,8 +3,15 @@
 #include "../../../src/engine/engine.hxx"
 #include "./../global_variables.hxx"
 
+/*!
+\file
+\class 'block' class description
+
+this class is base for all graphical elements
+*/
 class block {
 public:
+    /// set of block colors
     enum class palette {
         non,
         red,
@@ -16,15 +23,17 @@ public:
         yellow
     };
 
+    /// set of block states
     enum class block_state {
-        fixed,
-        fliping_over,
-        fliping_under,
-        falling,
-        shifting,
-        disappearing
+        fixed, ///< indicates that block is stationary
+        fliping_over, ///< indicates that block is over of other blocks on render
+        fliping_under, ///< indicates that block is under of other blocks on render
+        falling, ///< indicates that there isn't block under this block and it can fall
+        shifting, ///< indicates that there isn't block in left of this block
+        disappearing ///< indicates that block should disappear
     };
 
+    /// used for indicating flipping direction
     enum class block_direction {
         right,
         down,
@@ -33,22 +42,41 @@ public:
         non
     };
 
+    /*! \brief return current FPS value*/
     float get_fps() const;
-    void set_fps(float fps_value);
 
+    /*! \brief set new FPS value*/
+    void set_fps(const float& fps_value);
+
+    /*! \brief update UV-coordinates of the block
+        \param[in] arr_uv_buf array of the UV-coordinates on texture
+        \param[in] delta_time global timestamp between frames
+    */
     void update_uv_coord(
         const std::array<grottans::tri2, 32>& arr_uv_buf,
         const milli_sec& delta_time);
 
+    /*! \brief restoring primary parameters of the block
+        \param[in] arr_uv_buf array with UV coordinates on texture
+    */
     void restore_original_parameters(
         const std::array<grottans::tri2, 32>& arr_uv_buf);
 
+    /*! \brief set random color in classic mode
+    */
     void get_random_color_from_classic();
+    /*! \brief set primary random color in extreme mode
+    */
     void get_random_color_from_extreme();
+    /*! \brief set random color in extreme mode
+    */
     void get_random_color_from_extreme_with_bomb();
 
+    /*! \brief block rendering
+    */
     void draw();
 
+    /*! \brief constructor*/
     block(grottans::engine* e)
         : color{ palette::black }
         , state{ block_state::fixed }

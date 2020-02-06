@@ -17,7 +17,7 @@ float block::get_fps() const
     return fps;
 }
 
-void block::set_fps(float fps_value)
+void block::set_fps(const float& fps_value)
 {
     fps = fps_value;
 }

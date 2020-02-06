@@ -27,16 +27,17 @@ int main(int /*argc*/, char** /*argv*/)
 
     engine->disable_mouse_moution_event();
 
-    ///loading states in the engine (simple state-machine)
+    //loading states in the engine (simple state-machine)
+    //using this index we can switch the states among themselves
     engine->push_state_and_init(select_mode_state::instance()); //0
     engine->push_state_and_init(classic_state::instance()); //1
     engine->push_state_and_init(extreme_state::instance()); //2
     engine->push_state_and_init(level_complete_state::instance()); //3
     engine->push_state_and_init(game_over_state::instance()); //4
-    ///set a first state
+    //set a first current state
     engine->current_state = engine->states[0];
 
-    ///main loop
+    //main loop
     while (engine->loop) {
         time_point end_last_frame = timer.now();
 
@@ -45,7 +46,7 @@ int main(int /*argc*/, char** /*argv*/)
         engine->current_state->draw();
 
         g_frame_delta = std::chrono::duration_cast<milli_sec>(end_last_frame - start);
-        if (g_frame_delta.count() < 15) { ///~60fps
+        if (g_frame_delta.count() < 15) { //~60fps
             std::this_thread::yield();
         }
         start = end_last_frame;

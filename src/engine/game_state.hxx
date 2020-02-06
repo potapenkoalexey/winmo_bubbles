@@ -25,7 +25,6 @@ protected:
         : engine{ nullptr }
     {
     }
-
     grottans::engine* engine;
 };
 
