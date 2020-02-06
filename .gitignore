@@ -3,6 +3,10 @@
 ./winmo_bubbles
 winmo_bubbles.exe
 
+.Doxyfile.*
+/html
+/latex
+
 todo.txt
 
 *.txt.user
