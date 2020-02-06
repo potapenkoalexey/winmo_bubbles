@@ -6,6 +6,7 @@ winmo_bubbles.exe
 .Doxyfile.*
 /html
 /latex
+/doxygen
 
 todo.txt
 
