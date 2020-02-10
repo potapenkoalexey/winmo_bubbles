@@ -48,7 +48,7 @@ public:
     /*! \brief set new FPS value*/
     void set_fps(const float& fps_value);
 
-    /*! \brief update UV-coordinates of the block
+    /*! \brief update UV-coordinates of the block every frame
         \param[in] arr_uv_buf array of the UV-coordinates on texture
         \param[in] delta_time global timestamp between frames
     */

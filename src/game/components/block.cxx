@@ -110,7 +110,7 @@ void block::get_random_color_from_extreme_with_bomb()
     }
 }
 
-///animation of disappearing
+//animation of disappearing
 void block::update_uv_coord(
     const std::array<grottans::tri2, 32>& arr_uv_buf,
     const milli_sec& delta_time)
@@ -128,20 +128,22 @@ void block::update_uv_coord(
 
     if (current_frame_index > 15) {
         std::cerr << "incorrect frame index!" << std::endl;
+        restore_original_parameters(arr_uv_buf);
+        return;
     }
 
-    ///assign UV-triangles of disappearing texture
+    //assign UV-triangles of disappearing texture
     tr_disappear[0] = arr_uv_buf.at(current_frame_index * 2);
     tr_disappear[1] = arr_uv_buf.at(current_frame_index * 2 + 1);
 
     if (current_frame_index == 15) {
-        ///restore original block texture
+        //restore original block texture
         tr_disappear[0] = arr_uv_buf[0];
         tr_disappear[1] = arr_uv_buf[1];
 
         current_time = 0.f;
         state = block_state::fixed;
-        ///set to unvisible for drawing
+        //set to unvisible for drawing
         visible = false;
         selected = false;
         motion = false;
