@@ -90,10 +90,10 @@ std::istream& operator>>(std::istream& is, uv_pos&);
 
 struct vertex {
     vertex()
-        : x(0.f)
-        , y(0.f)
-        , tx(0.f)
-        , ty(0.f)
+        : x{ 0.f }
+        , y{ 0.f }
+        , tx{ 0.f }
+        , ty{ 0.f }
     {
     }
     float x;
@@ -134,14 +134,14 @@ struct membuf : public std::streambuf {
     membuf()
         : std::streambuf()
         , buf()
-        , buf_size(0)
+        , buf_size{ 0 }
     {
     }
 
     membuf(std::unique_ptr<char[]> buffer, size_t size)
         : std::streambuf()
         , buf(std::move(buffer))
-        , buf_size(size)
+        , buf_size{ size }
     {
         char* beg_ptr = buf.get();
         char* end_ptr = beg_ptr + buf_size;
@@ -149,7 +149,7 @@ struct membuf : public std::streambuf {
         setp(beg_ptr, end_ptr);
     }
 
-    membuf(membuf&& other)
+    membuf(membuf&& other) noexcept
     {
         setp(nullptr, nullptr);
         setg(nullptr, nullptr, nullptr);
@@ -208,7 +208,7 @@ public:
     virtual void clear_states() = 0;
     //virtual void swap_last_two_states() = 0;
 
-    virtual texture* create_texture(const std::string) = 0;
+    virtual texture* create_texture(const std::string&) = 0;
     virtual void destroy_texture(texture*) = 0;
     virtual vertex_buffer* create_vertex_buffer(const tri2*, const std::size_t) = 0;
     virtual void destroy_vertex_buffer(vertex_buffer*) = 0;

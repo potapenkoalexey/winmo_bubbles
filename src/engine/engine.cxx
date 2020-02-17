@@ -599,7 +599,7 @@ public:
     bool is_key_down(const enum keys key);
     void render_triangle(const triangle&);
 
-    texture* create_texture(std::string path);
+    texture* create_texture(const std::string& path);
     void destroy_texture(texture* t);
     vertex_buffer* create_vertex_buffer(const tri2*, std::size_t);
     void destroy_vertex_buffer(vertex_buffer*);
@@ -1100,7 +1100,7 @@ float engine_impl::get_time_from_init()
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief EngineReal::createTexture
 ///
-texture* engine_impl::create_texture(const std::string path)
+texture* engine_impl::create_texture(const std::string& path)
 {
     return new texture_gl_es20(path);
 }

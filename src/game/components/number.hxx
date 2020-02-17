@@ -17,7 +17,8 @@ public:
 
     number(grottans::engine* e)
         : engine{ e }
-        , move{}
+        //, move{}
+        , numbers_textures{}
         , texture{ nullptr }
         , vertex_buffer{ nullptr }
     {
