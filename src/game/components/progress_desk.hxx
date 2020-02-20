@@ -29,6 +29,10 @@ public:
     progress_desk(grottans::engine* e)
         : engine{ e }
         , level_complete_flag{ false }
+        , points_classic{}
+        , points_extreme{}
+        , levels_classic{}
+        , levels_extreme{}
         , block_desk{ nullptr }
         , block_line{ nullptr }
         , counter_combo_points{ nullptr }

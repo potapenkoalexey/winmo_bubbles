@@ -8,15 +8,15 @@
 
 class extreme_state : public grottans::game_state {
 public:
-    bool init(grottans::engine*);
-    void cleanup();
+    bool init(grottans::engine*) override;
+    void cleanup() override;
 
-    void pause();
-    void resume();
+    void pause() override;
+    void resume() override;
 
-    void handle_events();
-    void update();
-    void draw();
+    void handle_events() override;
+    void update() override;
+    void draw() override;
 
     bool handle_mouse_pressed_event(grottans::event&);
     bool handle_mouse_released_event(grottans::event& e);
@@ -31,16 +31,15 @@ public:
         return &m_extreme_state;
     }
 
-    ~extreme_state();
-
+    ~extreme_state() override;
     extreme_state(extreme_state const&) = delete;
     extreme_state& operator=(extreme_state const&) = delete;
 
 protected:
     extreme_state()
         : sound_fall{ nullptr }
-        , sound_flip{ nullptr }
         , sound_destroy_big_form{ nullptr }
+        , sound_flip{ nullptr }
         , sound_cant_flip{ nullptr }
         , progress{ nullptr }
         , m_counter{ nullptr }

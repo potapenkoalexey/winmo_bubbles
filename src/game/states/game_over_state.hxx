@@ -8,23 +8,22 @@
 
 class game_over_state : public grottans::game_state {
 public:
-    bool init(grottans::engine* e);
-    void cleanup();
+    bool init(grottans::engine* e) override;
+    void cleanup() final;
 
-    void pause();
-    void resume();
+    void pause() override;
+    void resume() override;
 
-    void handle_events();
-    void update();
-    void draw();
+    void handle_events() override;
+    void update() override;
+    void draw() override;
 
     static game_state* instance()
     {
         return &m_game_over_state;
     }
 
-    ~game_over_state();
-
+    ~game_over_state() override;
     game_over_state(game_over_state const&) = delete;
     game_over_state& operator=(game_over_state const&) = delete;
 

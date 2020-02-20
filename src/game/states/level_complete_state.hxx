@@ -9,25 +9,24 @@
 
 class level_complete_state : public grottans::game_state {
 public:
-    bool init(grottans::engine*);
-    void cleanup();
+    bool init(grottans::engine*) override;
+    void cleanup() override;
 
-    void pause();
-    void resume();
+    void pause() override;
+    void resume() override;
 
-    void handle_events();
-    void update();
-    void draw();
+    void handle_events() override;
+    void update() override;
+    void draw() override;
 
     static game_state* instance()
     {
         return &m_level_complete_state;
     }
 
+    ~level_complete_state() override;
     level_complete_state(level_complete_state const&) = delete;
     level_complete_state& operator=(level_complete_state const&) = delete;
-
-    ~level_complete_state();
 
 protected:
     level_complete_state()

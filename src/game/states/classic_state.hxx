@@ -9,15 +9,15 @@
 
 class classic_state : public grottans::game_state {
 public:
-    bool init(grottans::engine*);
-    void cleanup();
+    bool init(grottans::engine*) override;
+    void cleanup() override;
 
-    void pause();
-    void resume();
+    void pause() override;
+    void resume() override;
 
-    void handle_events();
-    void update();
-    void draw();
+    void handle_events() override;
+    void update() override;
+    void draw() override;
 
     bool handle_mouse_event();
     void handle_start_released_event();
@@ -31,8 +31,7 @@ public:
         return &m_classic_state;
     }
 
-    ~classic_state();
-
+    ~classic_state() override;
     classic_state(classic_state const&) = delete;
     classic_state& operator=(classic_state const&) = delete;
 

@@ -41,7 +41,7 @@ enum class event {
     turn_off
 };
 
-std::ostream& operator<<(std::ostream& stream, const event e);
+std::ostream& operator<<(std::ostream& stream, const event& e);
 
 enum class keys {
     left,
@@ -118,16 +118,24 @@ std::istream& operator>>(std::istream& is, triangle&);
 
 class texture {
 public:
-    virtual ~texture();
     virtual std::uint32_t get_width() const = 0;
     virtual std::uint32_t get_height() const = 0;
+
+    texture() = default;
+    virtual ~texture();
+    texture(texture const&) = delete;
+    texture& operator=(texture const&) = delete;
 };
 
 class vertex_buffer {
 public:
     virtual const v2* data() const = 0;
     virtual size_t size() const = 0;
+
+    vertex_buffer() = default;
     virtual ~vertex_buffer();
+    vertex_buffer(vertex_buffer const&) = delete;
+    vertex_buffer& operator=(vertex_buffer const&) = delete;
 };
 
 struct membuf : public std::streambuf {
@@ -174,6 +182,9 @@ struct membuf : public std::streambuf {
             return egptr() - gptr();
         }
     }
+
+    membuf(membuf const&) = delete;
+    membuf& operator=(membuf const&) = delete;
 
     char* begin() const { return eback(); }
     size_t size() const { return buf_size; }

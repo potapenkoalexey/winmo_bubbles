@@ -140,7 +140,7 @@ membuf load_file(std::string_view path)
 ///
 class texture_gl_es20 : public texture {
 public:
-    explicit texture_gl_es20(std::string path);
+    explicit texture_gl_es20(const std::string& path);
     ~texture_gl_es20() override;
 
     void bind() const
@@ -1042,8 +1042,8 @@ void engine_impl::set_window_size(const size_t& w, const size_t& h)
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief texture_gl_es20::texture_gl_es20
 ///
-texture_gl_es20::texture_gl_es20(std::string path)
-    : file_path(path)
+texture_gl_es20::texture_gl_es20(const std::string& path)
+    : file_path{ path }
 {
     membuf file_contents = load_file(path);
 
