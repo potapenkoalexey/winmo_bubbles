@@ -1,8 +1,8 @@
 #include "./counter.hxx"
 
-counter::~counter()
-{
-}
+//counter::~counter()
+//{
+//}
 
 bool counter::init()
 {

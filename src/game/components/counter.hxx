@@ -30,13 +30,15 @@ public:
 
     counter(grottans::engine* e)
         : engine{ e }
+        , quantity_of_digits{ 0 }
+        , number_on_screen{ 0 }
+        , score_numbers{ 0 }
         , hide_zeros{ true }
         , m_sign{ sign::unsign }
     {
     }
 
-    ~counter();
-
+    ~counter() = default;
     counter() = delete;
     counter(const counter&) = delete;
     const counter& operator=(const counter&) = delete;

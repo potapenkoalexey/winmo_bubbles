@@ -8,9 +8,9 @@ static std::uniform_real_distribution<double> dist_1_5(10.0, 60.0);
 static std::uniform_real_distribution<double> dist_1_11(10.0, 120.0);
 static std::uniform_real_distribution<double> dist_1_17(10.0, 175.0);
 
-block::~block()
-{
-}
+//block::~block()
+//{
+//}
 
 float block::get_fps() const
 {

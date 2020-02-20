@@ -20,7 +20,7 @@ public:
 
     size_t blocks_to_points(size_t delta);
 
-    void increase_progress(const size_t& points, const size_t& points_to_level_);
+    void increase_progress(const size_t& points, const size_t& level_number);
 
     void update_line_vertex_buffer();
 

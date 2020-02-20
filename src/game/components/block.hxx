@@ -99,7 +99,7 @@ public:
         move.delta.x = 0;
         move.delta.y = 0;
     }
-    ~block();
+    ~block() = default;
     block() = delete;
     block(const block&) = delete;
     const block& operator=(const block&) = delete;
