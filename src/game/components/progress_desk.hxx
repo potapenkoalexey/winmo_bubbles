@@ -46,6 +46,8 @@ public:
     progress_desk() = delete;
     progress_desk(const progress_desk&) = delete;
     const progress_desk& operator=(const progress_desk&) = delete;
+    progress_desk(progress_desk&&) = delete;
+    progress_desk& operator=(progress_desk&&) = delete;
 
 private:
     grottans::engine* engine;

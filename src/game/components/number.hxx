@@ -28,6 +28,8 @@ public:
     number() = delete;
     number(const number&) = delete;
     const number& operator=(const number&) = delete;
+    number(number&&) = delete;
+    number& operator=(number&&) = delete;
 
 private:
     grottans::engine* engine;

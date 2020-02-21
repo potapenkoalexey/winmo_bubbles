@@ -42,6 +42,8 @@ public:
     counter() = delete;
     counter(const counter&) = delete;
     const counter& operator=(const counter&) = delete;
+    counter(counter&&) = delete;
+    counter& operator=(counter&&) = delete;
 
 private:
     grottans::engine* engine;

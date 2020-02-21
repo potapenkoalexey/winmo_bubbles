@@ -103,6 +103,8 @@ public:
     block() = delete;
     block(const block&) = delete;
     const block& operator=(const block&) = delete;
+    block(block&&) = delete;
+    block& operator=(block&&) = delete;
 
     ///////////////////////////////////////////////////////////////////////////
     palette color;
