@@ -17,9 +17,9 @@ public:
     using milli_sec = std::chrono::milliseconds;
 
     enum class MODE {
-        non,
-        extreme,
-        classic
+        non = 0,
+        extreme = 1,
+        classic = 2
     };
 
     MODE g_MODE;
