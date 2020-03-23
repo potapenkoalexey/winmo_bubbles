@@ -1,4 +1,4 @@
-image: gcc:9.2 cmake:13.16.5
+image: leanid/fedora26 gcc:9.2 cmake:13.16
 
 pipelines:
   default:
