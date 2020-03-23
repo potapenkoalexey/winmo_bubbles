@@ -1,8 +1,9 @@
-image: leanid/fedora26 gcc:9.2 cmake:13.16
-
+image: leanid/fedora_latest
 pipelines:
   default:
     - step:
         script:
-          - cmake .
+          - git clean -df
+          - cmake -configure .
+          - cmake -generate .
           - make
