@@ -1443,7 +1443,7 @@ std::string engine_impl::initialize()
                 //                    { AUDIO_S32LSB, 4 }, { AUDIO_S32MSB, 4 }, { AUDIO_F32LSB, 4 },
                 //                    { AUDIO_F32MSB, 4 },
 
-                audio_device_spec.format = AUDIO_S16LSB; //AUDIO_S16LSB;
+                audio_device_spec.format = AUDIO_S16SYS; //AUDIO_S16LSB;
                 audio_device_spec.channels = 2;
                 audio_device_spec.samples = 2048; // must be power of 2
                 audio_device_spec.callback = engine_impl::audio_callback;

@@ -55,7 +55,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}/src")
 
 #check this instruction work
 #target_link_options(${PROJECT_NAME} PRIVATE -static)
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/SDL2-2.0.9)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/SDL2-2.0.12)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
 if (UNIX)
