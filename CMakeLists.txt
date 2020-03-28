@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.10)
 
 project(winmo_bubbles VERSION 2.1 LANGUAGES CXX)
 
@@ -55,7 +55,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}/src")
 
 #check this instruction work
 #target_link_options(${PROJECT_NAME} PRIVATE -static)
-
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/SDL2-2.0.9)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
 if (UNIX)
@@ -63,19 +63,19 @@ if (UNIX)
 #set_property(TARGET sdl PROPERTY
 #        IMPORTED_LOCATION ${CMAKE_CURRENT_LIST_DIR}/libs/unix/SDL2.a)
 target_link_libraries(${PROJECT_NAME}
-   -lSDL2
+   SDL2
    #-sdl
    -lGL
    )
 endif()
 
 if (WIN32)
-add_library(sdl STATIC IMPORTED)
-set_property(TARGET sdl PROPERTY
-        IMPORTED_LOCATION ${CMAKE_CURRENT_LIST_DIR}/libs/win/SDL2.dll)
+#add_library(sdl STATIC IMPORTED)
+#set_property(TARGET sdl PROPERTY
+#        IMPORTED_LOCATION ${CMAKE_CURRENT_LIST_DIR}/libs/win/SDL2.dll)
 
 target_link_libraries(${PROJECT_NAME}
-    sdl
+    SDL2
     -lopengl32
     )
 endif()
