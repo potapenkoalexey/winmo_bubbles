@@ -569,7 +569,7 @@ sound_buffer_impl::sound_buffer_impl(std::string_view path,
         // cvt.buf has cvt.len_cvt bytes of converted data now.
         SDL_FreeWAV(buffer);
         buffer = tmp_buf.get();
-        length = cvt.len_cvt;
+        length = static_cast<uint32_t>(cvt.len_cvt);
     }
 }
 
@@ -1171,7 +1171,10 @@ std::string engine_impl::initialize()
 
     stringstream serr;
 
-    const int init_result = SDL_Init(SDL_INIT_EVERYTHING);
+    const int init_result = SDL_Init(
+                SDL_INIT_TIMER | SDL_INIT_AUDIO | SDL_INIT_VIDEO | SDL_INIT_EVENTS |
+                SDL_INIT_JOYSTICK | SDL_INIT_HAPTIC | SDL_INIT_GAMECONTROLLER);
+                //SDL_INIT_EVERYTHING);
     if (init_result != 0) {
         const char* err_message = SDL_GetError();
         std::cerr << "error: initialization failed: " << err_message << std::endl;
@@ -1435,6 +1438,7 @@ std::string engine_impl::initialize()
                 glViewport(0, 0, screen_width, screen_height); //
                 OM_GL_CHECK();
 
+//#define SDL_AUDIODRIVER alsa
                 // initialize audio
                 audio_device_spec.freq = 48000;
 
@@ -1443,8 +1447,8 @@ std::string engine_impl::initialize()
                 //                    { AUDIO_S32LSB, 4 }, { AUDIO_S32MSB, 4 }, { AUDIO_F32LSB, 4 },
                 //                    { AUDIO_F32MSB, 4 },
 
-                audio_device_spec.format = AUDIO_S16SYS; //AUDIO_S16LSB;
-                audio_device_spec.channels = 2;
+                audio_device_spec.format = AUDIO_S16LSB; //AUDIO_S16LSB;
+                audio_device_spec.channels = 4;
                 audio_device_spec.samples = 2048; // must be power of 2
                 audio_device_spec.callback = engine_impl::audio_callback;
                 audio_device_spec.userdata = this;
@@ -1485,7 +1489,7 @@ std::string engine_impl::initialize()
 
                 if (audio_device == 0) {
                     std::cerr << "failed open audio device: " << SDL_GetError();
-                    throw std::runtime_error("audio failed");
+                    throw std::runtime_error("\naudio failed");
                 } else {
                     std::cout << "audio device selected: " << default_audio_device_name
                               << '\n'

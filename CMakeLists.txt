@@ -55,16 +55,12 @@ target_include_directories(${PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}/src")
 
 #check this instruction work
 #target_link_options(${PROJECT_NAME} PRIVATE -static)
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/SDL2-2.0.12)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/SDL2-2.0.8)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
 if (UNIX)
-#add_library(sdl STATIC IMPORTED)
-#set_property(TARGET sdl PROPERTY
-#        IMPORTED_LOCATION ${CMAKE_CURRENT_LIST_DIR}/libs/unix/SDL2.a)
 target_link_libraries(${PROJECT_NAME}
    SDL2
-   #-sdl
    -lGL
    )
 endif()
@@ -73,7 +69,6 @@ if (WIN32)
 #add_library(sdl STATIC IMPORTED)
 #set_property(TARGET sdl PROPERTY
 #        IMPORTED_LOCATION ${CMAKE_CURRENT_LIST_DIR}/libs/win/SDL2.dll)
-
 target_link_libraries(${PROJECT_NAME}
     SDL2
     -lopengl32
