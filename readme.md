@@ -1,7 +1,6 @@
 Build Platform   | Status
 ---------------- | ----------------------
 Linux x64        | ![Linux x64](https://img.shields.io/bitbucket/pipelines/grottansbarn/winmo_bubbles.svg?style=flat-square)
-                 | ![Linux x64](https://img.shields.io/docker/automated/grottansbarn/winmo_bubbles.svg?style=flat-square)
 
 Learning repository.
 
