@@ -55,7 +55,7 @@ bool progress_desk::init()
     counter_combo_points = std::unique_ptr<counter>(new counter(engine));
     counter_combo_points->set_quantity_of_digits(3, counter::sign::sign);
     counter_combo_points->init();
-    counter_combo_points->set_vertexes(-0.25f, -0.87f, 0.08f, 0.08f);
+    counter_combo_points->set_vertexes(-0.22f, -0.87f, 0.08f, 0.08f);
     counter_combo_points->set_color({ 1.0f, 0.5f, 0.0f, 1.0f });
     counter_combo_points->set_vertex_buffer();
     counter_combo_points->set_displayed_number(0);
