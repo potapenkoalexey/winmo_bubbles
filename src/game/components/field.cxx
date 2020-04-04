@@ -877,8 +877,8 @@ bool field::is_game_over_classic()
 
 bool field::is_game_over_extreme()
 {
-    for (size_t i = 0; i < 10; i++) {
-        for (size_t j = 0; j < 10; j++) {
+    for (size_t i = 0; i < width; i++) {
+        for (size_t j = 0; j < height; j++) {
             if (can_flip(i, j, direction::up)) {
                 return false;
             }
@@ -927,7 +927,7 @@ bool field::is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/)
         }
     } else {
         int block = static_cast<int>(w) / 11;
-        int centr_y = h / 2 - block / 2;
+        int centr_y = h / 2 - block / 2; /*its normal*/
         size_t m_x = engine->mouse_coord_pressed.x;
         size_t m_y = engine->mouse_coord_pressed.y;
         double delta_y = (m_y - static_cast<double>(centr_y)) / static_cast<double>(block);
