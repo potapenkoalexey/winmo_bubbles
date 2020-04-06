@@ -4,6 +4,9 @@ pipelines:
     - step:
         script:
           - git clean -df
-          - cmake -configure .
-          - cmake -generate .
-          - make
+          - mkdir build
+          - cd build
+          - cmake ..
+          #- cmake -configure .
+          #- cmake -generate .
+          - make -j6
