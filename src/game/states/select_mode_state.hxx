@@ -51,9 +51,12 @@ private:
     std::unique_ptr<block> block_select;
 
     std::array<grottans::tri2, 6> vert_buf; // v_buf triangles
+
     grottans::texture* tex_back_sound_on;
     grottans::texture* tex_back_sound_off;
+
     grottans::vertex_buffer* v_buf_classic;
     grottans::vertex_buffer* v_buf_extreme;
-    std::unique_ptr<grottans::sound_buffer> sound_on;
+
+    grottans::sound_buffer* sound_on;
 };

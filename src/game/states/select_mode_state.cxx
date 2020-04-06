@@ -16,6 +16,8 @@ select_mode_state::~select_mode_state()
     delete block_back->v_buf;
     delete v_buf_classic;
     delete v_buf_extreme;
+
+    delete sound_on;
 }
 
 bool select_mode_state::init(grottans::engine* e)
@@ -43,7 +45,7 @@ bool select_mode_state::init(grottans::engine* e)
     v_buf_extreme = engine->create_vertex_buffer(&vert_buf[4], 2);
     block_select->v_buf = v_buf_classic;
 
-    sound_on = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/10_sound_on.wav"));
+    sound_on = engine->create_sound_buffer("./data/sounds/10_sound_on.wav");
 
     return EXIT_SUCCESS;
 }

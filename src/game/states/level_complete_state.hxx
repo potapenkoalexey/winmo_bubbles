@@ -49,8 +49,8 @@ private:
     grottans::texture* tex_even;
     grottans::texture* tex_uneven;
 
-    std::unique_ptr<grottans::sound_buffer> sound_even;
-    std::unique_ptr<grottans::sound_buffer> sound_uneven;
+    grottans::sound_buffer* sound_even;
+    grottans::sound_buffer* sound_uneven;
 
     std::array<grottans::tri2, 2> vert_buf_tr; // v_buf triangles
 

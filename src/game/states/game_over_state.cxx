@@ -10,6 +10,7 @@ game_over_state game_over_state::m_game_over_state;
 
 game_over_state::~game_over_state()
 {
+    delete sound_game_over;
 }
 
 bool game_over_state::init(grottans::engine* e)
@@ -37,7 +38,7 @@ bool game_over_state::init(grottans::engine* e)
     counter_final_score->set_hide_zeros(false);
 
     ///playing sound
-    sound_game_over = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/03_game_over"));
+    sound_game_over = engine->create_sound_buffer("./data/sounds/03_game_over");
 
     return EXIT_SUCCESS;
 }

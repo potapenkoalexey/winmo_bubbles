@@ -12,6 +12,9 @@ level_complete_state::~level_complete_state()
     delete tex_even;
     delete tex_uneven;
     delete block_back->v_buf;
+
+    delete sound_even;
+    delete sound_uneven;
 }
 
 bool level_complete_state::init(grottans::engine* e)
@@ -39,8 +42,8 @@ bool level_complete_state::init(grottans::engine* e)
     block_back->v_buf = engine->create_vertex_buffer(&vert_buf_tr[0], 2);
 
     ///sounds
-    sound_even = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/07_level_even"));
-    sound_uneven = uni_ptr_sound(engine->create_sound_buffer("./data/sounds/04_level_uneven"));
+    sound_even = engine->create_sound_buffer("./data/sounds/07_level_even");
+    sound_uneven = engine->create_sound_buffer("./data/sounds/04_level_uneven");
 
     return EXIT_SUCCESS;
 }

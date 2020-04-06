@@ -48,8 +48,8 @@ protected:
 private:
     static classic_state m_classic_state;
 
-    std::unique_ptr<grottans::sound_buffer> sound_fall;
-    std::unique_ptr<grottans::sound_buffer> sound_destroy_big_form;
+    grottans::sound_buffer* sound_fall;
+    grottans::sound_buffer* sound_destroy_big_form;
 
     std::unique_ptr<progress_desk> progress;
 

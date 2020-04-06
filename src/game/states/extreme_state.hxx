@@ -50,10 +50,10 @@ protected:
 private:
     static extreme_state m_extreme_state;
 
-    std::unique_ptr<grottans::sound_buffer> sound_fall;
-    std::unique_ptr<grottans::sound_buffer> sound_destroy_big_form;
-    std::unique_ptr<grottans::sound_buffer> sound_flip;
-    std::unique_ptr<grottans::sound_buffer> sound_cant_flip;
+    grottans::sound_buffer* sound_fall;
+    grottans::sound_buffer* sound_destroy_big_form;
+    grottans::sound_buffer* sound_flip;
+    grottans::sound_buffer* sound_cant_flip;
 
     std::unique_ptr<progress_desk> progress;
 
