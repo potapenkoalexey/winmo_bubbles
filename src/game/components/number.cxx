@@ -37,9 +37,7 @@ void number::draw()
 void number::set_number_and_texture(const int& t)
 {
     if (t >= 0 && t < 11) {
-
         texture = numbers_textures[t];
-
     } else {
         std::cerr << "error: trying to set incorrect number in number class: " << t
                   << std::endl;

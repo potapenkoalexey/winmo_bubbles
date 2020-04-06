@@ -17,7 +17,7 @@ bool game_over_state::init(grottans::engine* e)
     engine = e;
 
     //block_classic = new block;
-    block_back = std::unique_ptr<block>(new block(engine));
+    block_back = std::make_unique<block>(engine);
 
     block_back->texture = engine->create_texture("./data/images/my/game_over.png");
 
@@ -27,7 +27,7 @@ bool game_over_state::init(grottans::engine* e)
     block_back->v_buf = engine->create_vertex_buffer(&vert_buf_tr[0], 2);
 
     ///counter
-    counter_final_score = std::unique_ptr<counter>(new counter(engine));
+    counter_final_score = std::make_unique<counter>(engine);
     counter_final_score->set_quantity_of_digits(5, counter::sign::unsign);
     counter_final_score->init();
     counter_final_score->set_vertexes(-0.40f, -0.60f, 0.16f, 0.16f);

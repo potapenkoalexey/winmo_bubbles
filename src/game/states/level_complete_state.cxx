@@ -18,10 +18,10 @@ bool level_complete_state::init(grottans::engine* e)
 {
     engine = e;
 
-    block_back = std::unique_ptr<block>(new block(engine));
+    block_back = std::make_unique<block>(engine);
 
     ///counter
-    counter_level = std::unique_ptr<counter>(new counter(engine));
+    counter_level = std::make_unique<counter>(engine);
     counter_level->set_quantity_of_digits(2, counter::sign::unsign);
     counter_level->init();
     counter_level->set_vertexes(0.13f, -0.385f, 0.19f, 0.19f);

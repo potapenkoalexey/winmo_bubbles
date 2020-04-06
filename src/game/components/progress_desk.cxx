@@ -30,8 +30,8 @@ bool progress_desk::init()
         3200, 3500, 3800, 4100, 4400, 4700, 5000, 5200, 5400,
         5600, 5800, 6000, 6200, 6400, 6600, 6800, 7000 };
 
-    block_desk = std::unique_ptr<block>(new block(engine));
-    block_line = std::unique_ptr<block>(new block(engine));
+    block_desk = std::make_unique<block>(engine);
+    block_line = std::make_unique<block>(engine);
 
     tex_desk = engine->create_texture("./data/images/my/progress_desk.png");
     tex_line = engine->create_texture("./data/images/my/progress_line.png");
@@ -52,7 +52,7 @@ bool progress_desk::init()
     tr[5] = tr[3];
 
     /// counter
-    counter_combo_points = std::unique_ptr<counter>(new counter(engine));
+    counter_combo_points = std::make_unique<counter>(engine);
     counter_combo_points->set_quantity_of_digits(3, counter::sign::sign);
     counter_combo_points->init();
     counter_combo_points->set_vertexes(-0.22f, -0.87f, 0.08f, 0.08f);
@@ -62,7 +62,7 @@ bool progress_desk::init()
     counter_combo_points->set_hide_zeros(false);
 
     /// counter
-    counter_points_to_level = std::unique_ptr<counter>(new counter(engine));
+    counter_points_to_level = std::make_unique<counter>(engine);
     counter_points_to_level->set_quantity_of_digits(4, counter::sign::unsign);
     counter_points_to_level->init();
     counter_points_to_level->set_vertexes(-0.95f, -0.87f, 0.08f, 0.08f);

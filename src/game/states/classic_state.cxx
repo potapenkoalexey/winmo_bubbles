@@ -18,17 +18,17 @@ bool classic_state::init(grottans::engine* e)
     engine = e;
 
     ///field
-    game_field = std::unique_ptr<field>(new field(engine));
+    game_field = std::make_unique<field>(engine);
     game_field->init();
     game_field->fill_clasic();
 
     ///progress desk
-    progress = std::unique_ptr<progress_desk>(new progress_desk(engine));
+    progress = std::make_unique<progress_desk>(engine);
     progress->init();
     progress->set_line_in_null();
 
     ///counter
-    m_counter = std::unique_ptr<counter>(new counter(engine));
+    m_counter = std::make_unique<counter>(engine);
     m_counter->set_quantity_of_digits(5, counter::sign::unsign);
     m_counter->init();
     m_counter->set_vertexes(0.55f, -0.87f, 0.08f, 0.08f);

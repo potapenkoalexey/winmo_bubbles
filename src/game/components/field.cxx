@@ -106,7 +106,7 @@ bool field::init()
         }
     }
 
-    selector = std::unique_ptr<block>(new block(engine));
+    selector = std::make_unique<block>(engine);
     selector->texture = tex_selector;
     selector->position = { 5.f, 5.f };
     selector->tr_disappear[0] = v_buf_disappear[0];
