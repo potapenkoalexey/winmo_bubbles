@@ -17,7 +17,7 @@ void counter::set_quantity_of_digits(const size_t& t, const sign& s_)
     size_t quantity = t;
     if (t > 5) {
         quantity_of_digits = 0;
-        std::cerr << "error: too much number of the digits" << std::endl;
+        std::cerr << __FILE__ << __LINE__ << "error: too much number of the digits" << std::endl;
         throw std::runtime_error("can't start counter");
     }
 
@@ -30,7 +30,7 @@ void counter::set_quantity_of_digits(const size_t& t, const sign& s_)
 
     /// creating new numbers
     for (size_t i = 0; i < quantity; i++) {
-        digits.push_back(std::unique_ptr<number>(new number(engine)));
+        digits.push_back(std::make_unique<number>(engine));
     }
 }
 
@@ -116,7 +116,7 @@ bool counter::is_overflow(const size_t& t)
     }
 
     if (result) {
-        std::cerr << "error: counter overflow" << std::endl;
+        std::cerr << __FILE__ << __LINE__ << "error: counter overflow" << std::endl;
         throw std::runtime_error("counter overflow");
     }
     return false;

@@ -124,15 +124,6 @@ void field::fill_clasic()
             associate_texture_with_gem(i, j);
         }
     }
-
-    /*
-    block* gems[i][j];
-
-    block *p = (block *)array;
-    int n_cells = nrows * ncols;
-    while ( --n_cells >= 0 )
-    (p++)->get_random_color_from_classic = 0;
-    */
 }
 
 void field::fill_extreme()
@@ -280,7 +271,7 @@ size_t field::select_around_bomb(const size_t& i, const size_t& j)
         gems[i][j - 1]->state = block::block_state::disappearing;
         result++;
     }
-    if (j < 9) {
+    if (j < (width - 1)) {
         gems[i][j + 1]->selected = true;
         gems[i][j + 1]->state = block::block_state::disappearing;
         result++;
@@ -289,7 +280,7 @@ size_t field::select_around_bomb(const size_t& i, const size_t& j)
         gems[i - 1][j]->selected = true;
         gems[i - 1][j]->state = block::block_state::disappearing;
         result++;
-        if (j < 9) {
+        if (j < (width - 1)) {
             gems[i - 1][j + 1]->selected = true;
             gems[i - 1][j + 1]->state = block::block_state::disappearing;
             result++;
@@ -300,7 +291,7 @@ size_t field::select_around_bomb(const size_t& i, const size_t& j)
             result++;
         }
     }
-    if (i < 9) {
+    if (i < (height - 1)) {
         gems[i + 1][j]->selected = true;
         gems[i + 1][j]->state = block::block_state::disappearing;
         result++;
@@ -309,7 +300,7 @@ size_t field::select_around_bomb(const size_t& i, const size_t& j)
             gems[i + 1][j - 1]->state = block::block_state::disappearing;
             result++;
         }
-        if (j < 9) {
+        if (j < (width - 1)) {
             gems[i + 1][j + 1]->selected = true;
             gems[i + 1][j + 1]->state = block::block_state::disappearing;
             result++;
@@ -322,7 +313,7 @@ size_t field::selecting_to_disappearing()
 {
     size_t number_of_selected_blocks = 0;
 
-    for (size_t k = 0; k < 9; k++) {
+    for (size_t k = 0; k < (width - 1); k++) { //k - needs for check all field
         for (size_t i = 0; i < width; i++) {
             for (size_t j = 0; j < height; j++) {
 
@@ -449,7 +440,7 @@ bool field::are_there_falling_blocks()
 
 bool field::is_right_row_free()
 {
-    if (gems[9][9]->visible == false) {
+    if (gems[height - 1][width - 1]->visible == false) {
 
         add_right_row();
 
@@ -489,7 +480,7 @@ void field::add_blocks_at_the_top_of_field()
 
 void field::swap_gems(const size_t& i, const size_t& j, const size_t& m, const size_t& n)
 {
-    std::unique_ptr<block> copy = std::unique_ptr<block>(new block(engine));
+    std::unique_ptr<block> copy = std::make_unique<block>(engine);
 
     copy->color = gems[i][j]->color;
     copy->texture = gems[i][j]->texture;
@@ -558,7 +549,7 @@ bool field::can_flip(const size_t& i, const size_t& j, field::direction dir)
         }
     }
     if (dir == direction::down) {
-        if (i < 9) {
+        if (i < (height - 1)) {
             if (gems[i + 1][j]->color != block::palette::black) {
                 if (gems[i + 1][j]->color == block::palette::bomb) {
                     swap_gems(i, j, i + 1, j);
@@ -627,7 +618,7 @@ bool field::can_flip(const size_t& i, const size_t& j, field::direction dir)
         }
     }
     if (dir == direction::right) {
-        if (j < 9) {
+        if (j < (width - 1)) {
             if (gems[i][j + 1]->color != block::palette::black) {
 
                 if (gems[i][j + 1]->color == block::palette::bomb) {
@@ -758,7 +749,7 @@ void field::mark_falling_blocks()
 
 void field::update_coord_falling_blocks(const size_t& i, const size_t& j, const milli_sec& delta_time)
 {
-    if (i == 9)
+    if (i == (height - 1))
         return;
     if (gems[i][j]->state != block::block_state::falling) {
         return;

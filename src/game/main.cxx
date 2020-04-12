@@ -13,6 +13,8 @@ using nano_sec = std::chrono::nanoseconds;
 using milli_sec = std::chrono::milliseconds;
 using time_point = std::chrono::time_point<clock_timer, nano_sec>;
 
+#define FRAME_TIME 15
+
 int main(int /*argc*/, char** /*argv*/)
 {
     clock_timer timer;
@@ -46,7 +48,7 @@ int main(int /*argc*/, char** /*argv*/)
         engine->current_state->draw();
 
         g_frame_delta = std::chrono::duration_cast<milli_sec>(end_last_frame - start);
-        if (g_frame_delta.count() < 15) { //~60fps
+        if (g_frame_delta.count() < FRAME_TIME) { //~60fps
             std::this_thread::yield();
         }
         start = end_last_frame;
