@@ -91,15 +91,15 @@ bool field::init()
         }
     }
 
-    gems.resize(10);
-    for (int i = 0, size = gems.size(); i < size; ++i) {
-        gems[i].resize(10);
+    gems.resize(height);
+    for (size_t i = 0, size = height; i < size; ++i) {
+        gems[i].resize(width);
     }
 
     ///creating 100 blocks-tiles
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            //gems[i][j] = std::unique_ptr<block>(new block());
+            //gems[i][j] = std::unique_ptr<block>();
             gems[i][j] = new block(engine);
             gems[i][j]->tr_disappear[0] = v_buf_disappear[0];
             gems[i][j]->tr_disappear[1] = v_buf_disappear[1];
