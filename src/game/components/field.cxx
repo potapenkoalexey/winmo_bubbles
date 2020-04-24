@@ -462,7 +462,7 @@ void field::add_right_row()
 
 void field::add_blocks_at_the_top_of_field()
 {
-    for (size_t j = 0; j < height; j++) {
+    for (size_t j = 0; j < width; j++) {
         if (gems[0][j]->visible == false) {
 
             gems[0][j]->get_random_color_from_extreme_with_bomb();
