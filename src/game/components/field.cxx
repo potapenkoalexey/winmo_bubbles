@@ -438,7 +438,7 @@ bool field::are_there_falling_blocks()
     return false;
 }
 
-bool field::is_right_row_free()
+bool field::if_right_row_free_add_right_row()
 {
     if (gems[height - 1][width - 1]->visible == false) {
 

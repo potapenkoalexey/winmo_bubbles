@@ -140,7 +140,7 @@ void classic_state::update()
 
         if (!game_field->are_there_falling_blocks()) {
 
-            game_field->is_right_row_free();
+            game_field->if_right_row_free_add_right_row();
             game_field->mark_shifting_blocks();
 
             if (game_field->is_all_fixed()) {
