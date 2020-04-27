@@ -128,9 +128,12 @@ mat2x3 operator*(const mat2x3& m1, const mat2x3& m2)
     r.col1.x = m1.col0.x * m2.col1.x + m1.col1.x * m2.col1.y;
     r.col0.y = m1.col0.y * m2.col0.x + m1.col1.y * m2.col0.y;
     r.col1.y = m1.col0.y * m2.col1.x + m1.col1.y * m2.col1.y;
-
-    r.delta.x = m1.delta.x * m2.col0.x + m1.delta.y * m2.col0.y + m2.delta.x;
-    r.delta.y = m1.delta.x * m2.col1.x + m1.delta.y * m2.col1.y + m2.delta.y;
+    //dreco-engine
+    r.delta.x = m1.col0.x * m2.delta.x + m1.col0.y * m2.delta.y + m1.delta.x;
+    r.delta.y = m1.col1.x * m2.delta.x + m1.col1.y * m2.delta.y + m1.delta.y;
+    //old
+    // r.delta.x = m1.delta.x * m2.col0.x + m1.delta.y * m2.col0.y + m2.delta.x;
+    // r.delta.y = m1.delta.x * m2.col1.x + m1.delta.y * m2.col1.y + m2.delta.y;
 
     return r;
 }

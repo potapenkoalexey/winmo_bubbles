@@ -116,7 +116,7 @@ public:
     bool motion;
     grottans::vec2 position;
     grottans::mat2x3 move;
-    grottans::mat2x3 aspect;
+    grottans::mat2x3 aspect; //internal "scale"
     grottans::texture* texture;
     grottans::vertex_buffer* v_buf;
 
