@@ -24,9 +24,9 @@ struct mat2 {
 
 struct mat2x3 {
     mat2x3();
+    void scale_myself(const float& scale);
     static mat2x3 identiry();
     static mat2x3 scale(const float& scale);
-    void scale_myself(const float& scale);
     static mat2x3 scale(const float& sx, const float& sy);
     static mat2x3 rotation(const float& thetha);
     static mat2x3 move(const vec2& delta);
