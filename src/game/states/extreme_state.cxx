@@ -57,6 +57,7 @@ void extreme_state::resume()
 {
     game_field->undisappearing_all();
     game_field->unfalling_unshifting_all();
+    game_field->unscale_all();
     game_field->visible_all();
     game_field->fill_extreme();
     game_field->selector->position.x = 5;

@@ -409,6 +409,16 @@ void field::visible_all()
     }
 }
 
+void field::unscale_all()
+{
+    for (size_t i = 0; i < width; i++) {
+        for (size_t j = 0; j < height; j++) {
+
+            gems[i][j]->scale.scale_myself(1.f);
+        }
+    }
+}
+
 bool field::is_all_fixed()
 {
     for (size_t i = 0; i < width; i++) {

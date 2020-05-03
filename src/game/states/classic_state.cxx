@@ -61,6 +61,7 @@ void classic_state::resume()
 {
     game_field->undisappearing_all();
     game_field->unfalling_unshifting_all();
+    game_field->unscale_all();
     game_field->visible_all();
     game_field->fill_clasic();
     game_field->selector->position.x = 5;
@@ -184,9 +185,7 @@ bool classic_state::handle_mouse_event()
         game_field->selector->position.x = static_cast<float>(j);
         game_field->selector->position.y = static_cast<float>(i);
         //try to resize gems on click through it center  !!!!!!!!!!!!!!
-        //game_field->gems[i][j]->aspect.col0.x /= 2.f;
-        //game_field->gems[i][j]->aspect.col1.y /= 2.f;
-
+        game_field->gems[i][j]->scale.scale_myself(0.5f);
     } else {
         return false;
     }

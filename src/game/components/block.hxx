@@ -86,7 +86,7 @@ public:
         , motion{ false }
         , position{ 0.f, 0.f }
         , move{ grottans::mat2x3::scale(1.f, 1.f) }
-        , aspect{ grottans::mat2x3::scale(1.f, 1.f) }
+        , scale{ grottans::mat2x3::scale(1.f, 1.f) }
         , texture{ nullptr }
         , v_buf{ nullptr }
         , fps{ g_FPS }
@@ -116,7 +116,7 @@ public:
     bool motion;
     grottans::vec2 position;
     grottans::mat2x3 move;
-    grottans::mat2x3 aspect; //internal "scale"
+    grottans::mat2x3 scale; //internal "scale"
     grottans::texture* texture;
     grottans::vertex_buffer* v_buf;
 

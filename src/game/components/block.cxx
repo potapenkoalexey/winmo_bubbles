@@ -154,6 +154,8 @@ void block::restore_original_parameters(const std::array<grottans::tri2, 32>& ar
 {
     move.delta.x = 0;
     move.delta.y = 0;
+//    scale.col0.x = 1.f;
+//    scale.col1.y = 1.f;
     tr_disappear[0] = arr_uv_buf[0];
     tr_disappear[1] = arr_uv_buf[1];
     state = block_state::fixed;
@@ -168,5 +170,5 @@ void block::restore_original_parameters(const std::array<grottans::tri2, 32>& ar
 
 void block::draw()
 {
-    engine->render(*v_buf, texture, move * /*aspect **/ engine->scale);
+    engine->render(*v_buf, texture, move * scale * engine->scale);
 }

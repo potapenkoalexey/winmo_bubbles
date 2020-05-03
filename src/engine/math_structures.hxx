@@ -6,7 +6,7 @@ namespace grottans {
 
 struct vec2 {
     vec2();
-    vec2(float x, float y);
+    vec2(const float& x, const float& y);
     float x = 0;
     float y = 0;
 };
@@ -16,8 +16,8 @@ vec2 operator+(const vec2& l, const vec2& r);
 struct mat2 {
     mat2();
     static mat2 identiry();
-    static mat2 scale(float scale);
-    static mat2 rotation(float thetha);
+    static mat2 scale(const float& scale);
+    static mat2 rotation(const float& thetha);
     vec2 col0;
     vec2 col1;
 };
@@ -25,9 +25,10 @@ struct mat2 {
 struct mat2x3 {
     mat2x3();
     static mat2x3 identiry();
-    static mat2x3 scale(float scale);
-    static mat2x3 scale(float sx, float sy);
-    static mat2x3 rotation(float thetha);
+    static mat2x3 scale(const float& scale);
+    void scale_myself(const float& scale);
+    static mat2x3 scale(const float& sx, const float& sy);
+    static mat2x3 rotation(const float& thetha);
     static mat2x3 move(const vec2& delta);
     vec2 col0;
     vec2 col1;

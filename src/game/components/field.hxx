@@ -79,6 +79,7 @@ struct field {
     void unfalling_unshifting_all();
     void unmotion_all();
     void visible_all();
+    void unscale_all();
 
     bool is_all_fixed();
 
