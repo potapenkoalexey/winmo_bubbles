@@ -170,5 +170,5 @@ void block::restore_original_parameters(const std::array<grottans::tri2, 32>& ar
 
 void block::draw()
 {
-    engine->render(*v_buf, texture, move * scale * engine->scale);
+    engine->render(*v_buf, texture, move * engine->scale * scale);
 }

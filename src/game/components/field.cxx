@@ -71,25 +71,24 @@ bool field::init()
             tr[3].v[0].pos.x += g_offset_in_screen_coord;
             tr[3].v[1].pos.x += g_offset_in_screen_coord;
             tr[3].v[2].pos.x += g_offset_in_screen_coord;
-
-            if (j == 9) {
-                tr[2].v[0].pos.y -= g_offset_in_screen_coord;
-                tr[2].v[1].pos.y -= g_offset_in_screen_coord;
-                tr[2].v[2].pos.y -= g_offset_in_screen_coord;
-                tr[3].v[0].pos.y -= g_offset_in_screen_coord;
-                tr[3].v[1].pos.y -= g_offset_in_screen_coord;
-                tr[3].v[2].pos.y -= g_offset_in_screen_coord;
-
-                //restore original values
-                tr[2].v[0].pos.x = -0.90f;
-                tr[2].v[1].pos.x = -0.72f;
-                tr[2].v[2].pos.x = -0.72f;
-                tr[3].v[0].pos.x = -0.90f;
-                tr[3].v[1].pos.x = -0.72f;
-                tr[3].v[2].pos.x = -0.90f;
-            }
         }
+
+        tr[2].v[0].pos.y -= g_offset_in_screen_coord;
+        tr[2].v[1].pos.y -= g_offset_in_screen_coord;
+        tr[2].v[2].pos.y -= g_offset_in_screen_coord;
+        tr[3].v[0].pos.y -= g_offset_in_screen_coord;
+        tr[3].v[1].pos.y -= g_offset_in_screen_coord;
+        tr[3].v[2].pos.y -= g_offset_in_screen_coord;
+
+        //restore original values
+        tr[2].v[0].pos.x = -0.90f;
+        tr[2].v[1].pos.x = -0.72f;
+        tr[2].v[2].pos.x = -0.72f;
+        tr[3].v[0].pos.x = -0.90f;
+        tr[3].v[1].pos.x = -0.72f;
+        tr[3].v[2].pos.x = -0.90f;
     }
+
 
     gems.resize(height);
     for (size_t i = 0, size = height; i < size; ++i) {
@@ -99,7 +98,6 @@ bool field::init()
     ///creating 100 blocks-tiles
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            //gems[i][j] = std::unique_ptr<block>();
             gems[i][j] = new block(engine);
             gems[i][j]->tr_disappear[0] = v_buf_disappear[0];
             gems[i][j]->tr_disappear[1] = v_buf_disappear[1];
