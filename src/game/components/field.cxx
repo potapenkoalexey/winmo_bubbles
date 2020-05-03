@@ -71,24 +71,22 @@ bool field::init()
             tr[3].v[0].pos.x += g_offset_in_screen_coord;
             tr[3].v[1].pos.x += g_offset_in_screen_coord;
             tr[3].v[2].pos.x += g_offset_in_screen_coord;
-
-            if (j == 9) {
-                tr[2].v[0].pos.y -= g_offset_in_screen_coord;
-                tr[2].v[1].pos.y -= g_offset_in_screen_coord;
-                tr[2].v[2].pos.y -= g_offset_in_screen_coord;
-                tr[3].v[0].pos.y -= g_offset_in_screen_coord;
-                tr[3].v[1].pos.y -= g_offset_in_screen_coord;
-                tr[3].v[2].pos.y -= g_offset_in_screen_coord;
-
-                //restore original values
-                tr[2].v[0].pos.x = -0.90f;
-                tr[2].v[1].pos.x = -0.72f;
-                tr[2].v[2].pos.x = -0.72f;
-                tr[3].v[0].pos.x = -0.90f;
-                tr[3].v[1].pos.x = -0.72f;
-                tr[3].v[2].pos.x = -0.90f;
-            }
         }
+
+        tr[2].v[0].pos.y -= g_offset_in_screen_coord;
+        tr[2].v[1].pos.y -= g_offset_in_screen_coord;
+        tr[2].v[2].pos.y -= g_offset_in_screen_coord;
+        tr[3].v[0].pos.y -= g_offset_in_screen_coord;
+        tr[3].v[1].pos.y -= g_offset_in_screen_coord;
+        tr[3].v[2].pos.y -= g_offset_in_screen_coord;
+
+        //restore original values
+        tr[2].v[0].pos.x = -0.90f;
+        tr[2].v[1].pos.x = -0.72f;
+        tr[2].v[2].pos.x = -0.72f;
+        tr[3].v[0].pos.x = -0.90f;
+        tr[3].v[1].pos.x = -0.72f;
+        tr[3].v[2].pos.x = -0.90f;
     }
 
     gems.resize(height);
