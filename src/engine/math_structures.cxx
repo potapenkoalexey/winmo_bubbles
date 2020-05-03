@@ -10,7 +10,7 @@ vec2::vec2()
 {
 }
 
-vec2::vec2(float x_, float y_)
+vec2::vec2(const float& x_, const float& y_)
     : x(x_)
     , y(y_)
 {
@@ -47,7 +47,7 @@ mat2x3 mat2x3::identiry()
     return mat2x3::scale(1.f);
 }
 
-mat2 mat2::scale(float scale)
+mat2 mat2::scale(const float& scale)
 {
     mat2 result;
     result.col0.x = scale;
@@ -55,7 +55,7 @@ mat2 mat2::scale(float scale)
     return result;
 }
 
-mat2x3 mat2x3::scale(float scale)
+mat2x3 mat2x3::scale(const float& scale)
 {
     mat2x3 result;
     result.col0.x = scale;
@@ -63,7 +63,7 @@ mat2x3 mat2x3::scale(float scale)
     return result;
 }
 
-mat2x3 mat2x3::scale(float sx, float sy)
+mat2x3 mat2x3::scale(const float& sx, const float& sy)
 {
     mat2x3 r;
     r.col0.x = sx;
@@ -71,7 +71,7 @@ mat2x3 mat2x3::scale(float sx, float sy)
     return r;
 }
 
-mat2 mat2::rotation(float thetha)
+mat2 mat2::rotation(const float& thetha)
 {
     mat2 result;
 
@@ -84,7 +84,7 @@ mat2 mat2::rotation(float thetha)
     return result;
 }
 
-mat2x3 mat2x3::rotation(float thetha)
+mat2x3 mat2x3::rotation(const float& thetha)
 {
     mat2x3 result;
 
