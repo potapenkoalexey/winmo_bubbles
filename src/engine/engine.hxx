@@ -10,10 +10,13 @@
 #include <vector>
 
 #include "../game/global_variables.hxx"
-#include "./color.hxx"
-#include "./game_state.hxx"
-#include "./math_structures.hxx"
-#include "./sound_buffer.hxx"
+#include "color.hxx"
+#include "game_state.hxx"
+#include "math_structures.hxx"
+#include "membuf.hxx"
+#include "sound_buffer.hxx"
+#include "texture.hxx"
+#include "vertex_buffer.hxx"
 
 namespace grottans {
 
@@ -68,8 +71,18 @@ enum class palette {
 };
 
 struct mouse_pos {
-    mouse_pos();
-    mouse_pos(size_t x, size_t y);
+    mouse_pos()
+        : x{ 0 }
+        , y{ 0 }
+    {
+    }
+
+    mouse_pos(const size_t& x_, const size_t& y_)
+        : x{ x_ }
+        , y{ y_ }
+    {
+    }
+
     size_t x = 0;
     size_t y = 0;
 };
@@ -115,84 +128,6 @@ struct triangle {
 };
 
 std::istream& operator>>(std::istream& is, triangle&);
-
-class texture {
-public:
-    virtual std::uint32_t get_width() const = 0;
-    virtual std::uint32_t get_height() const = 0;
-
-    texture() = default;
-    virtual ~texture();
-    texture(texture const&) = delete;
-    texture& operator=(texture const&) = delete;
-};
-
-class vertex_buffer {
-public:
-    virtual const v2* data() const = 0;
-    virtual size_t size() const = 0;
-
-    vertex_buffer() = default;
-    virtual ~vertex_buffer();
-    vertex_buffer(vertex_buffer const&) = delete;
-    vertex_buffer& operator=(vertex_buffer const&) = delete;
-};
-
-struct membuf : public std::streambuf {
-    membuf()
-        : std::streambuf()
-        , buf()
-        , buf_size{ 0 }
-    {
-    }
-
-    membuf(std::unique_ptr<char[]> buffer, size_t size)
-        : std::streambuf()
-        , buf(std::move(buffer))
-        , buf_size{ size }
-    {
-        char* beg_ptr = buf.get();
-        char* end_ptr = beg_ptr + buf_size;
-        setg(beg_ptr, beg_ptr, end_ptr);
-        setp(beg_ptr, end_ptr);
-    }
-
-    membuf(membuf&& other) noexcept
-    {
-        setp(nullptr, nullptr);
-        setg(nullptr, nullptr, nullptr);
-
-        other.swap(*this);
-
-        buf = std::move(other.buf);
-        buf_size = other.buf_size;
-
-        other.buf_size = 0;
-    }
-
-    pos_type seekoff(off_type pos, std::ios_base::seekdir seek_dir,
-        std::ios_base::openmode) override
-    {
-        // TODO implement it in correct way
-        if (seek_dir == std::ios_base::beg) {
-            return 0 + pos;
-        } else if (seek_dir == std::ios_base::end) {
-            return buf_size + pos;
-        } else {
-            return egptr() - gptr();
-        }
-    }
-
-    membuf(membuf const&) = delete;
-    membuf& operator=(membuf const&) = delete;
-
-    char* begin() const { return eback(); }
-    size_t size() const { return buf_size; }
-
-private:
-    std::unique_ptr<char[]> buf;
-    size_t buf_size;
-};
 
 membuf load_file(std::string_view path);
 

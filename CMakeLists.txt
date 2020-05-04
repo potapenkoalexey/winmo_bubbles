@@ -16,6 +16,7 @@ add_executable(${PROJECT_NAME}
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/engine.cxx
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/math_structures.hxx
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/math_structures.cxx
+        ${CMAKE_CURRENT_LIST_DIR}/src/engine/membuf.hxx
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/color.hxx
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/color.cxx
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/sound_buffer.hxx
@@ -24,6 +25,9 @@ add_executable(${PROJECT_NAME}
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/random_generator.cxx
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/game_state.hxx
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/game_state.cxx
+        ${CMAKE_CURRENT_LIST_DIR}/src/engine/texture.hxx
+        ${CMAKE_CURRENT_LIST_DIR}/src/engine/texture.cxx
+        ${CMAKE_CURRENT_LIST_DIR}/src/engine/vertex_buffer.hxx
         ${CMAKE_CURRENT_LIST_DIR}/src/game/main.cxx
         ${CMAKE_CURRENT_LIST_DIR}/src/game/components/block.hxx
         ${CMAKE_CURRENT_LIST_DIR}/src/game/components/block.cxx

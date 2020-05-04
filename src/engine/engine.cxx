@@ -105,8 +105,6 @@ static void load_gl_func(const char* func_name, T& result)
 
 namespace grottans {
 
-texture::~texture() {}
-
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief load_file
 ///
@@ -361,18 +359,6 @@ const std::array<bind, 9> keys{
         bind{ "start", SDLK_RETURN, event::start_pressed, event::start_released, keys::start },
         bind{ "mouse", SDL_MOUSEBUTTONDOWN, event::mouse_pressed, event::mouse_released, keys::mouse } }
 };
-
-mouse_pos::mouse_pos()
-    : x(0)
-    , y(0)
-{
-}
-
-mouse_pos::mouse_pos(size_t x_, size_t y_)
-    : x(x_)
-    , y(y_)
-{
-}
 
 std::ostream& operator<<(std::ostream& stream, const event e)
 {
