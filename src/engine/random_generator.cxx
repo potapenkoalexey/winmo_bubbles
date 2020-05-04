@@ -1,5 +1,7 @@
 #include "./random_generator.hxx"
 
+namespace grottans {
+
 std::mt19937& random_generator::getMt19937()
 {
     /* // internal random generator from Intel CPU
@@ -8,3 +10,5 @@ std::mt19937& random_generator::getMt19937()
     */
     return random_generator::instance().mMt;
 }
+
+} // end of namespace

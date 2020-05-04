@@ -238,4 +238,5 @@ tri2 operator+(const tri2& l, const tri2& r)
 
     return res;
 }
-}
+
+} // end of namespace

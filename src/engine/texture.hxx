@@ -15,4 +15,4 @@ public:
     texture& operator=(texture const&) = delete;
 };
 
-} //end of namespace
+} // end of namespace

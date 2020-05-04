@@ -18,9 +18,6 @@ public:
     virtual void play(const properties&) = 0;
 };
 
-///////////////////////////////////////////////////////////////////////////////
-/// \brief The sound_buffer_impl class
-///
 class sound_buffer_impl : public sound_buffer {
 public:
     sound_buffer_impl(std::string_view path, SDL_AudioDeviceID device,
@@ -51,7 +48,6 @@ public:
     bool is_looped = false;
 };
 
-///////////////////////////////////////////////////////////////////////////////
 static std::string_view get_sound_format_name(uint16_t format_value)
 {
     static const std::map<int, std::string_view> format = {
@@ -79,4 +75,4 @@ static std::size_t get_sound_format_size(uint16_t format_value)
     return it->second;
 }
 
-} //end of namespace
+} // end of namespace

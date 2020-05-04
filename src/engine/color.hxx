@@ -27,4 +27,4 @@ private:
 
 std::istream& operator>>(std::istream& is, color&);
 
-} //end of namespace
+} // end of namespace

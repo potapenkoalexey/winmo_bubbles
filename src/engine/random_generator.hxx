@@ -3,6 +3,8 @@
 #include <chrono>
 #include <random>
 
+namespace grottans {
+
 class random_generator {
 public:
     static std::mt19937& getMt19937();
@@ -34,3 +36,5 @@ private:
 
     std::mt19937 mMt;
 };
+
+} // end of namespace

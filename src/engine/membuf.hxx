@@ -61,4 +61,4 @@ private:
     size_t buf_size;
 };
 
-} //end of namespace
+} // end of namespace

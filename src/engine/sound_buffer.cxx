@@ -72,4 +72,5 @@ sound_buffer_impl::~sound_buffer_impl()
     buffer = nullptr;
     length = 0;
 }
-}
+
+} // end of namespace

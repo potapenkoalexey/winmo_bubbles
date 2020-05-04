@@ -83,4 +83,5 @@ std::istream& operator>>(std::istream& is, v2&);
 std::istream& operator>>(std::istream& is, tri0&);
 std::istream& operator>>(std::istream& is, tri1&);
 std::istream& operator>>(std::istream& is, tri2&);
-}
+
+} // end of namespace

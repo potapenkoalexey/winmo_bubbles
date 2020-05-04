@@ -3,7 +3,7 @@
 #include "../../../src/engine/random_generator.hxx"
 #include "./block.hxx"
 
-static std::mt19937& mt = random_generator::getMt19937();
+static std::mt19937& mt = grottans::random_generator::getMt19937();
 static std::uniform_real_distribution<double> dist_1_5(10.0, 60.0);
 static std::uniform_real_distribution<double> dist_1_11(10.0, 120.0);
 static std::uniform_real_distribution<double> dist_1_17(10.0, 175.0);

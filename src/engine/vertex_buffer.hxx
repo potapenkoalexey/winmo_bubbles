@@ -15,4 +15,4 @@ public:
     vertex_buffer& operator=(vertex_buffer const&) = delete;
 };
 
-} //end of namespace
+} // end of namespace

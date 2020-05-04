@@ -1,6 +1,6 @@
 #pragma once
 
-#include "./engine.hxx"
+#include "engine.hxx"
 
 namespace grottans {
 
@@ -28,4 +28,4 @@ protected:
     grottans::engine* engine;
 };
 
-} ///end of namespace
+} // end of namespace

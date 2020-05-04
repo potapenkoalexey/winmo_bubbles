@@ -3,4 +3,5 @@
 namespace grottans {
 
 texture::~texture() {}
-}
+
+} // end of namespace

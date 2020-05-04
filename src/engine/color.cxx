@@ -1,6 +1,7 @@
 #include <assert.h>
 
 #include "color.hxx"
+
 namespace grottans {
 
 color::color(std::uint32_t rgba_)
