@@ -24,7 +24,6 @@ add_executable(${PROJECT_NAME}
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/random_generator.hxx
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/random_generator.cxx
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/game_state.hxx
-        ${CMAKE_CURRENT_LIST_DIR}/src/engine/game_state.cxx
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/texture.hxx
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/texture.cxx
         ${CMAKE_CURRENT_LIST_DIR}/src/engine/vertex_buffer.hxx
