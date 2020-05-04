@@ -13,7 +13,7 @@ struct membuf : public std::streambuf {
     {
     }
 
-    membuf(std::unique_ptr<char[]> buffer, size_t size)
+    membuf(std::unique_ptr<char[]> buffer, const size_t& size)
         : std::streambuf()
         , buf(std::move(buffer))
         , buf_size{ size }

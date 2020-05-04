@@ -9,7 +9,7 @@ color::color(std::uint32_t rgba_)
 {
 }
 
-color::color(float r, float g, float b, float a)
+color::color(const float& r, const float& g, const float& b, const float& a)
 {
     assert(r <= 1 && r >= 0);
     assert(g <= 1 && g >= 0);

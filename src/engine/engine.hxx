@@ -156,7 +156,7 @@ public:
 
     virtual texture* create_texture(const std::string&) = 0;
     virtual void destroy_texture(texture*) = 0;
-    virtual vertex_buffer* create_vertex_buffer(const tri2*, const std::size_t) = 0;
+    virtual vertex_buffer* create_vertex_buffer(const tri2*, const size_t&) = 0;
     virtual void destroy_vertex_buffer(vertex_buffer*) = 0;
 
     virtual sound_buffer* create_sound_buffer(const std::string_view) = 0;
@@ -195,17 +195,5 @@ public:
 
 engine* create_engine();
 void destroy_engine(engine* e);
-
-///////////////////////////////////////////////////////////////////////////////
-struct mouse_click_rectangle {
-public:
-    mouse_click_rectangle();
-    mouse_click_rectangle(size_t x0_, size_t x1_, size_t y0_, size_t y1_);
-    bool is_mouse_pressed(size_t x, size_t y);
-    size_t x0; // botton bound (include)
-    size_t x1; // upper bound
-    size_t y0; // left bound (include)
-    size_t y1; // right bound
-};
 
 } // end of namespace grottans

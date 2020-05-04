@@ -9,7 +9,7 @@ class color {
 public:
     color() = default;
     explicit color(std::uint32_t rgba_);
-    color(float r, float g, float b, float a);
+    color(const float& r, const float& g, const float& b, const float& a);
 
     float get_r() const;
     float get_g() const;

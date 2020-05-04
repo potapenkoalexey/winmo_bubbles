@@ -126,7 +126,7 @@ void progress_desk::set_level_complete_flag(const bool& var)
     level_complete_flag = var;
 }
 
-size_t progress_desk::blocks_to_points(size_t delta)
+size_t progress_desk::blocks_to_points(const size_t& delta)
 {
     if (g_MODE == MODE::classic) {
         if (delta < 24)

@@ -18,7 +18,7 @@ public:
     bool get_level_complete_flag();
     void set_level_complete_flag(const bool&);
 
-    size_t blocks_to_points(size_t delta);
+    size_t blocks_to_points(const size_t& delta);
 
     void increase_progress(const size_t& points, const size_t& level_number);
 

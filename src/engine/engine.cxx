@@ -460,7 +460,7 @@ public:
 
     texture* create_texture(const std::string& path);
     void destroy_texture(texture* t);
-    vertex_buffer* create_vertex_buffer(const tri2*, std::size_t);
+    vertex_buffer* create_vertex_buffer(const tri2*, const size_t&);
     void destroy_vertex_buffer(vertex_buffer*);
 
     sound_buffer* create_sound_buffer(std::string_view path);
@@ -562,7 +562,7 @@ std::stringstream engine_impl::load_txt_and_filter_comments(std::string_view fil
 ///////////////////////////////////////////////////////////////////////////
 /// \brief EngineReal::createVertexBuffer
 ///
-vertex_buffer* engine_impl::create_vertex_buffer(const tri2* triangles, std::size_t n)
+vertex_buffer* engine_impl::create_vertex_buffer(const tri2* triangles, const size_t& n)
 {
     return new VertexBufferImpl(triangles, n);
 }
