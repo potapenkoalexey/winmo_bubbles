@@ -4,7 +4,7 @@
 
 namespace grottans {
 
-color::color(std::uint32_t rgba_)
+color::color(const std::uint32_t& rgba_)
     : rgba(rgba_)
 {
 }

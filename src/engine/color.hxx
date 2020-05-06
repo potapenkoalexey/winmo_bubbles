@@ -8,7 +8,7 @@ namespace grottans {
 class color {
 public:
     color() = default;
-    explicit color(std::uint32_t rgba_);
+    explicit color(const std::uint32_t& rgba_);
     color(const float& r, const float& g, const float& b, const float& a);
 
     float get_r() const;

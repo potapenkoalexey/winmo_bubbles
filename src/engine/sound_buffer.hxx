@@ -48,7 +48,7 @@ public:
     bool is_looped = false;
 };
 
-static std::string_view get_sound_format_name(uint16_t format_value)
+static std::string_view[[maybe_unused]] get_sound_format_name(uint16_t format_value)
 {
     static const std::map<int, std::string_view> format = {
         { AUDIO_U8, "AUDIO_U8" }, { AUDIO_S8, "AUDIO_S8" },
