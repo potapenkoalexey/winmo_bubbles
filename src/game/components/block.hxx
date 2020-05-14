@@ -11,7 +11,7 @@ this class is base for all graphical elements
 */
 class block {
 public:
-    /// set of block colors
+    /** block colors */
     enum class palette {
         non,
         red,
@@ -23,7 +23,7 @@ public:
         yellow
     };
 
-    /// set of block states
+    /** block states */
     enum class block_state {
         fixed, ///< indicates that block is stationary
         fliping_over, ///< indicates that block is over of other blocks on render
@@ -33,7 +33,7 @@ public:
         disappearing ///< indicates that block should disappear
     };
 
-    /// used for indicating flipping direction
+    /** used for indicating flipping direction */
     enum class block_direction {
         right,
         down,
@@ -65,9 +65,11 @@ public:
     /*! \brief set random color in classic mode
     */
     void get_random_color_from_classic();
+
     /*! \brief set primary random color in extreme mode
     */
     void get_random_color_from_extreme();
+
     /*! \brief set random color in extreme mode
     */
     void get_random_color_from_extreme_with_bomb();
