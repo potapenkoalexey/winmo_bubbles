@@ -19,7 +19,7 @@ public:
     void set_uv_coord(grottans::engine& e, float delta_time);
 
 private:
-    std::vector<sprite> sprites_;
+    //std::vector<sprite> sprites_;
 
     float fps;
 
