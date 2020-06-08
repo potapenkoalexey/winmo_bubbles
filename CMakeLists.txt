@@ -2,17 +2,22 @@ cmake_minimum_required(VERSION 3.10)
 
 project(winmo_bubbles VERSION 2.1 LANGUAGES CXX)
 
+##### turn off cmake extentions
 if(NOT CMAKE_CXX_EXTENSIONS)
     set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
 
+##### sdl
+add_subdirectory(libs/SDL2-2.0.8)
+include_directories(libs/SDL2-2.0.8/include)
+
+##### additional sdl headers
+include_directories(src/SDL2)
+
+##### main project
 file(GLOB_RECURSE GAME_SRC_FILES
     "${CMAKE_CURRENT_LIST_DIR}/src/game/*.hxx"
     "${CMAKE_CURRENT_LIST_DIR}/src/game/*.cxx"
-    )
-file(GLOB_RECURSE ENGINE_SRC_FILES
-    "${CMAKE_CURRENT_LIST_DIR}/src/engine/*.hxx"
-    "${CMAKE_CURRENT_LIST_DIR}/src/engine/*.cxx"
     )
 
 add_executable(${PROJECT_NAME}
@@ -20,18 +25,23 @@ add_executable(${PROJECT_NAME}
     ${GAME_SRC_FILES}
     )
 
-#check this instruction work
-#target_link_options(${PROJECT_NAME} PRIVATE -static)
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/SDL2-2.0.8)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
-target_include_directories(${PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}/src")
+
+##### engine lib
+file(GLOB_RECURSE ENGINE_SRC_FILES
+    "${CMAKE_CURRENT_LIST_DIR}/src/engine/*.hxx"
+    "${CMAKE_CURRENT_LIST_DIR}/src/engine/*.cxx"
+    )
 
 set(ENGINE_LIB_NAME engine)
+
 add_library(${ENGINE_LIB_NAME}
     ${ENGINE_SRC_FILES}
     )
+
 target_compile_features(${ENGINE_LIB_NAME} PUBLIC cxx_std_17)
 
+##### linking engine lib
 if (UNIX)
     target_link_libraries(${ENGINE_LIB_NAME}
         SDL2
@@ -44,21 +54,18 @@ elseif (WIN32)
         )
 endif()
 
+##### linking main project
 if (UNIX)
     target_link_libraries(${PROJECT_NAME}
         ${ENGINE_LIB_NAME}
         )
 elseif (WIN32)
-    #add_library(sdl STATIC IMPORTED)
-    #set_property(TARGET sdl PROPERTY
-    #    IMPORTED_LOCATION ${CMAKE_CURRENT_LIST_DIR}/libs/win/SDL2.dll)
     target_link_libraries(${PROJECT_NAME}
         ${ENGINE_LIB_NAME}
         )
 endif()
 
-#set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
-
+##### documentation
 #if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
 #    # documentation build as an option and set it to ON by default
 #    option(BUILD_DOC "Build documentation" ON)

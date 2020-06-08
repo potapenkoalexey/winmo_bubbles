@@ -19,11 +19,11 @@
 #include "engine.hxx"
 #include "sound_buffer.hxx"
 
-#include "../SDL2/SDL_image.h"
-#include "../SDL2/SDL_ttf.h"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_opengl.h>
-#include <SDL2/SDL_opengl_glext.h>
+#include "SDL_image.h"
+#include "SDL_ttf.h"
+#include "SDL.h"
+#include "SDL_opengl.h"
+#include "SDL_opengl_glext.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #pragma GCC diagnostic push
