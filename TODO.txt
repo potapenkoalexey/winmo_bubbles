@@ -1,0 +1,4 @@
+1. save & load state and max results from file
+2. fix selecting_for_disappearing() in field class: now all field checks (width-1) times, but we need at least width*6 times (hotfix) or realize recurse ckecking
+3. integrate project for Android Studio (use cmake to prepare files)
+4. review render system for correct objects scaling and rotation (now it scale and rotating relative to the center of screen coordinates). it will be easy to work with texture and animation.
