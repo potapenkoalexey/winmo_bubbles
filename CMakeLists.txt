@@ -21,7 +21,6 @@ file(GLOB_RECURSE GAME_SRC_FILES
     )
 
 add_executable(${PROJECT_NAME}
-    ${CMAKE_CURRENT_LIST_DIR}/src/game/main.cxx
     ${GAME_SRC_FILES}
     )
 
