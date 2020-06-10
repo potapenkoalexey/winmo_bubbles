@@ -1,84 +1,64 @@
 #include "ini_handler.hxx"
 
-ini_handler::ini_handler(const std::string& filename)
+namespace grottans {
+
+ini_handler::ini_handler(const std::string& filename_)
 {
     // We initialize our variable.
-    this->filename = filename;
-    this->error = false;
+    filename = filename_;
+    error = false;
 
-    // Open our current file
+    file.open(filename);
 
-    this->file.open(filename);
-
-
-    std::string actual_line,actual_section,key,value;
+    std::string actual_line, actual_section, key, value;
 
     bool in_section = false;
 
-    // To save our current section.
+    // To save our current section
     std::unordered_map<std::string,std::string> section;
 
-    // Check if the file is good
-    if(this->file.is_open())
-    {
-        // Read everyline
-        while(std::getline(file,actual_line))
-        {
-            // Line is empty? Skip the line.
-            if(!actual_line.size())
-                continue;
+    if(this->file.is_open()){
+        while(std::getline(file, actual_line)){
+            // Line is empty? Skip the line
+            if(!actual_line.size()) continue;
 
             // Section found
-            if(actual_line[0] == '[' && actual_line[actual_line.size() - 1] == ']')
-            {
-                if(actual_section != this->s_get_section(actual_line))
-                {
+            if(actual_line[0] == '[' && actual_line[actual_line.size() - 1] == ']'){
+                if(actual_section != s_get_section(actual_line)){
                     // Not empty section or first section/line
-                    if(!section.empty() && !actual_section.empty())
-                    {
-                        // We add to our file the finished section.
+                    if(!section.empty() && !actual_section.empty()){
+                        // We add to our file the finished section
                         config[actual_section] = section;
 
                         // Clear the current section
                         section.clear();
                     }
                     // Set new section
-                    actual_section = this->s_get_section(actual_line);
+                    actual_section = s_get_section(actual_line);
                 }
                 in_section = true;
-            }
-            else
-            {
+            } else {
                 // In_section
-                if(in_section)
-                {
+                if(in_section){
                     // Get our line
-                    if(this->get_line(actual_line,key,value))
+                    if(get_line(actual_line, key, value))
                     {
                         section[key] = value;
-                    }
-                    else
-                    {
-                        // This is a commentary? do nothing.
+                    } else {
+                        // Is this a commentary? do nothing
                     }
                 }
             }
         }
-        // Add our last section
-        if(!section.empty())
-        {
+        // Add last section
+        if(!section.empty()){
             config[actual_section] = section;
             section.clear();
         }
 
-
-        // Don't need the file anymore.
         file.close();
-    }
-    else
-    {
-        // Some random error.
-        this->error = true;
+    } else {
+        error = true;
     }
 }
 
@@ -87,17 +67,20 @@ void ini_handler::close()
     // Safe check for our current file
     if(filename.size() == 0)
         return;
-    // We already have our file in the buffer, so we delete the content of our file.
-    this->file.open(filename, std::ofstream::out | std::ofstream::trunc);
 
-    // Here, we set up the content for the ending of file. Plus, handling the last empty line in the file.
-    std::size_t count = 0,total_section = config.size(),total_key,key_count = 0;
+    // We already have our file in the buffer, so we delete the content of our file
+    file.open(filename, std::ofstream::out | std::ofstream::trunc);
+
+    // Here, we set up the content for the ending of file. Plus, handling the last empty line in the file
+    size_t count {0};
+    size_t total_section { config.size() };
+    size_t total_key{};
+    size_t key_count {0};
 
 
 
     //We start to go through every section
-    for(auto section: config)
-    {
+    for(auto section: config){
         ++count;
         key_count = 0;
 
@@ -105,37 +88,32 @@ void ini_handler::close()
         total_key = section.second.size();
 
         // We start to go through every key
-        for(auto key : section.second)
-        {
+        for(auto key : section.second){
             ++key_count;
-            if(key_count != total_key)
-            {
+            if(key_count != total_key){
                 file << key.first + " = " + key.second << std::endl;
-            }
-            else
-            {
+            } else {
                 file << key.first + " = " + key.second;
             }
 
         }
-        if(count != total_section)
-        {
+        if(count != total_section){
             file << std::endl << std::endl;
         }
     }
 
 
     // We clear the old content.
-    this->config.clear();
-    this->filename.clear();
-    this->file.close();
-    this->error = false;
+    config.clear();
+    filename.clear();
+    file.close();
+    error = false;
 }
 
 
 bool ini_handler::error_check()
 {
-    return this->error;
+    return error;
 }
 
 //Set functions
@@ -147,37 +125,36 @@ void ini_handler::set(const std::string& section, const std::string& key, const 
 
 void ini_handler::set_int(const std::string& section, const std::string& key, const unsigned long long& value)
 {
-    this->set(section,key, std::to_string(value));
+    set(section,key, std::to_string(value));
 }
 
 void ini_handler::set_real(const std::string& section, const std::string& key, const double& value)
 {
-    this->set(section,key,std::to_string(value));
+    set(section,key,std::to_string(value));
 }
 
 void ini_handler::set_boolean(const std::string& section, const std::string& key, const bool& value)
 {
     if(value)
-        this->set(section,key,"True");
+        set(section,key,"True");
     else
-        this->set(section,key,"False");
+        set(section,key,"False");
 }
 
 // Get functions
 
 std::string ini_handler::get(const std::string& section, const std::string& key)
 {
-    if(!this->config.count(section) || !this->config[section].count(key))
-    {
+    if(!config.count(section) || !config[section].count(key)){
         return "";
     }
-    return this->config[section][key];
+    return config[section][key];
 }
 
 unsigned long long ini_handler::get_int(const std::string& section, const std::string& key)
 {
     std::string::size_type sz {0};
-    const std::string str = this->get(section,key);
+    const std::string str = get(section,key);
 
     return str.size() ? std::stoull(str,&sz,0) : 0;
 }
@@ -185,22 +162,21 @@ unsigned long long ini_handler::get_int(const std::string& section, const std::s
 double ini_handler::get_real(const std::string& section, const std::string& key)
 {
     std::string::size_type sz {0};
-    const std::string str = this->get(section,key);
+    const std::string str = get(section,key);
 
     return str.size() ? std::stod(str,&sz) : 0;
 }
 
 bool ini_handler::get_boolean(const std::string& section, const std::string& key)
 {
-    const std::string str = this->get(section,key);
+    const std::string str = get(section,key);
     return str == "True" ? true : false;
 }
 
 std::set<std::string> ini_handler::get_section() const
 {
     std::set<std::string> buffer;
-    for(auto section: config)
-    {
+    for(auto section: config){
         buffer.insert(section.first);
     }
     return buffer;
@@ -213,9 +189,7 @@ std::set<std::string> ini_handler::get_fields(const std::string& section)
     if(!config.count(section))
         return buffer;
 
-
-    for(auto key : config[section] )
-    {
+    for(auto key : config[section] ){
         buffer.insert(key.first);
     }
     return buffer;
@@ -257,3 +231,5 @@ bool ini_handler::get_line(const std::string& line, std::string& key, std::strin
 
     return false;
 }
+
+} // end of namespace

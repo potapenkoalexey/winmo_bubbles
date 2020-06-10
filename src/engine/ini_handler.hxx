@@ -5,6 +5,8 @@
 #include <unordered_map>
 #include <set>
 
+namespace grottans {
+
 class ini_handler
 {
 public:
@@ -13,6 +15,11 @@ public:
     {
         this->close();
     }
+
+    ini_handler(const ini_handler&) = delete;
+    const ini_handler& operator=(const ini_handler&) = delete;
+    ini_handler(ini_handler&&) = delete;
+    ini_handler& operator=(ini_handler&&) = delete;
 
     //Will return true if an error occurred.
     bool error_check();
@@ -75,3 +82,5 @@ private:
     //function to get the current key and its value;
     bool get_line(const std::string& line, std::string& key, std::string& value);
 };
+
+} // end of namespace
