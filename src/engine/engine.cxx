@@ -1047,6 +1047,9 @@ std::string engine_impl::initialize()
     //init SDL_TTF
     extern DECLSPEC int SDLCALL TTF_Init(void);
 
+    //load settings.ini
+    ini_handl = std::make_unique<ini_handler>("./data/config/settings.ini");
+
     // get and set the desired window size
     // game screen factor = 536/480 = 1.096
     SDL_DisplayMode DM;
