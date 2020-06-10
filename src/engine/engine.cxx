@@ -18,6 +18,7 @@
 #include "../../src/picopng/picopng.hxx"
 #include "engine.hxx"
 #include "sound_buffer.hxx"
+#include "ini_handler.hxx"
 
 #include "SDL_image.h"
 #include "SDL_ttf.h"
@@ -489,6 +490,9 @@ public:
     void change_state(game_state* state);
     void pop_state();
 
+    bool save_global_variables();
+    bool restore_global_variables();
+
     ~engine_impl();
     //  mouse_pos mouse_coord;
 
@@ -509,6 +513,8 @@ private:
     SDL_AudioDeviceID audio_device;
     SDL_AudioSpec audio_device_spec;
     std::vector<sound_buffer_impl*> sounds;
+
+    std::unique_ptr<ini_handler> ini_handl;
 };
 
 void engine_impl::disable_mouse_moution_event()
@@ -1459,6 +1465,20 @@ void engine_impl::pop_state()
     if (!states.empty()) {
         states.back()->resume();
     }
+}
+
+bool engine_impl::save_global_variables()
+{
+    // save gloabal variables to ini file
+    // with help of internal ini_handler
+    return EXIT_SUCCESS;
+}
+
+bool engine_impl::restore_global_variables()
+{
+    // restore gloabal variables to ini file
+    // with help of internal ini_handler
+    return EXIT_SUCCESS;
 }
 
 engine_impl::~engine_impl()
