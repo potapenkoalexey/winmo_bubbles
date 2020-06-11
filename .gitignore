@@ -9,7 +9,7 @@ winmo_bubbles.exe
 /html
 /latex
 /doxygen
-
+/data/config/settings.ini
 *.txt.user
   
 # Prerequisites
