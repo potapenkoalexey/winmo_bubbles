@@ -1,18 +1,18 @@
 #pragma once
 
 #include <fstream>
+#include <set>
 #include <string>
 #include <unordered_map>
-#include <set>
 
 namespace grottans {
 
-class ini_handler
-{
+class ini_handler {
 public:
     ini_handler(const std::string& filename);
-    ~ini_handler(){
-        close();
+    ~ini_handler()
+    {
+        //close();
     }
 
     ini_handler(const ini_handler&) = delete;
@@ -25,10 +25,10 @@ public:
 
     // set functions
     // set will create/modify a section/key/value, same for the similar functions
-    void set(const std::string& section,const std::string& key,const std::string& value);
-    void set_int(const std::string& section,const std::string& key,const unsigned long long& value);
-    void set_real(const std::string& section,const std::string& key,const float& value);
-    void set_boolean(const std::string& section,const std::string& key,const bool& value);
+    void set(const std::string& section, const std::string& key, const std::string& value);
+    void set_int(const std::string& section, const std::string& key, const unsigned long long& value);
+    void set_real(const std::string& section, const std::string& key, const float& value);
+    void set_boolean(const std::string& section, const std::string& key, const bool& value);
 
     // read functions
     // will return a empty string, if there isn't any section or key
@@ -61,10 +61,9 @@ public:
     void close();
 
 private:
-
     std::string filename;
     std::fstream file;
-    std::unordered_map<std::string, std::unordered_map<std::string,std::string>> config;
+    std::unordered_map<std::string, std::unordered_map<std::string, std::string> > config;
     bool error;
 
     // function to get the current section;
