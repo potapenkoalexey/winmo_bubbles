@@ -179,6 +179,9 @@ public:
     virtual void swap_buffers() = 0;
     virtual void uninitialize() = 0;
 
+    virtual bool save_settings() = 0;
+    virtual bool restore_settings() = 0;
+
     virtual ~engine() {}
 
     mat2x3 scale = grottans::mat2x3::scale(1.f, 1.f);

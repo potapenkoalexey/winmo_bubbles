@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "ini_handler.hxx"
+#include "../game/global_variables.hxx"
 
 namespace grottans {
 
@@ -68,7 +69,7 @@ ini_handler::ini_handler(const std::string& filename_)
     }
 }
 
-void ini_handler::close()
+void ini_handler::save_settings_to_file()
 {
     if (filename.size() == 0)
         return;
@@ -138,6 +139,13 @@ void ini_handler::set_boolean(const std::string& section, const std::string& key
         set(section, key, "true");
     else
         set(section, key, "false");
+}
+
+bool ini_handler::update()
+{
+    set("Settings", "g_LEVEL", std::to_string(g_LEVEL));
+    set("Settings", "g_SCORE", std::to_string(g_SCORE));
+    set("Settings", "g_score_in_the_end_of_level", std::to_string(g_score_in_the_end_of_level));
 }
 
 std::string ini_handler::get(const std::string& section, const std::string& key)

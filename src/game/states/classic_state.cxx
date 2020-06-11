@@ -95,6 +95,7 @@ void classic_state::handle_events()
     }
     case grottans::event::escape_released: {
         ///go to select_mode_state
+        engine->save_settings();
         engine->switch_to_state_and_resume(engine->states[0]);
         g_LEVEL = 1;
         g_SCORE = 0;

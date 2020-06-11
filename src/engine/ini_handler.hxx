@@ -12,7 +12,7 @@ public:
     ini_handler(const std::string& filename);
     ~ini_handler()
     {
-        //close();
+        //save_settings_to_file();
     }
 
     ini_handler(const ini_handler&) = delete;
@@ -29,6 +29,8 @@ public:
     void set_int(const std::string& section, const std::string& key, const unsigned long long& value);
     void set_real(const std::string& section, const std::string& key, const float& value);
     void set_boolean(const std::string& section, const std::string& key, const bool& value);
+
+    bool update();
 
     // read functions
     // will return a empty string, if there isn't any section or key
@@ -58,7 +60,7 @@ public:
     bool del_section(const std::string& section);
 
     // Will add the new content to the file
-    void close();
+    void save_settings_to_file();
 
 private:
     std::string filename;

@@ -490,8 +490,8 @@ public:
     void change_state(game_state* state);
     void pop_state();
 
-    bool save_global_variables();
-    bool restore_global_variables();
+    bool save_settings();
+    bool restore_settings();
 
     ~engine_impl();
     //  mouse_pos mouse_coord;
@@ -1470,17 +1470,20 @@ void engine_impl::pop_state()
     }
 }
 
-bool engine_impl::save_global_variables()
+bool engine_impl::save_settings()
 {
     // save gloabal variables to ini file
     // with help of internal ini_handler
+    ini_handl->update();
+    ini_handl->save_settings_to_file();
     return EXIT_SUCCESS;
 }
 
-bool engine_impl::restore_global_variables()
+bool engine_impl::restore_settings()
 {
     // restore gloabal variables to ini file
     // with help of internal ini_handler
+    //ini_handl->restore_settings_from_file();
     return EXIT_SUCCESS;
 }
 
