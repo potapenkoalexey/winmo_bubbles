@@ -21,7 +21,7 @@ ini_handler::ini_handler(const std::string& filename_)
     bool in_section = false;
 
     // To save our current section
-    std::unordered_map<std::string, std::string> section;
+    std::map<std::string, std::string> section;
 
     if (this->file.is_open()) {
         while (std::getline(file, actual_line)) {
@@ -49,7 +49,7 @@ ini_handler::ini_handler(const std::string& filename_)
                 if (in_section) {
                     // get line
                     if (get_line(actual_line, key, value)) {
-                        std::cout << "-- INI: " << key << " = " << value << std::endl;
+                        std::cout << "-- INI: " << actual_section << ": " << key << " = " << value << std::endl;
                         section[key] = value;
                     } else {
                         // Is this a commentary? do nothing

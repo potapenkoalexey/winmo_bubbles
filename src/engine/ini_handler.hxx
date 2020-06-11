@@ -3,7 +3,7 @@
 #include <fstream>
 #include <set>
 #include <string>
-#include <unordered_map>
+#include <map>
 
 namespace grottans {
 
@@ -12,7 +12,8 @@ public:
     ini_handler(const std::string& filename);
     ~ini_handler()
     {
-        //save_settings_to_file();
+        update();
+        save_settings_to_file();
     }
 
     ini_handler(const ini_handler&) = delete;
@@ -65,7 +66,7 @@ public:
 private:
     std::string filename;
     std::fstream file;
-    std::unordered_map<std::string, std::unordered_map<std::string, std::string> > config;
+    std::map<std::string, std::map<std::string, std::string> > config;
     bool error;
 
     // function to get the current section;
