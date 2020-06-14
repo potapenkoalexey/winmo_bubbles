@@ -491,7 +491,8 @@ public:
     void pop_state();
 
     bool save_settings();
-    bool restore_settings();
+    bool load_original_settings();
+    bool load_saved_settings();
 
     bool is_mouse_clicked_in_coord(const float& lx, const float& rx, const float& ly, const float& ry);
 
@@ -1474,18 +1475,25 @@ void engine_impl::pop_state()
 
 bool engine_impl::save_settings()
 {
-    // save gloabal variables to ini file
-    // with help of internal ini_handler
+    // save global variables to ini file
     ini_handl->update();
     ini_handl->save_settings_to_file();
     return EXIT_SUCCESS;
 }
 
-bool engine_impl::restore_settings()
+bool engine_impl::load_saved_settings()
 {
-    // restore gloabal variables to ini file
-    // with help of internal ini_handler
-    //ini_handl->restore_settings_from_file();
+    // restore global variables from ini file
+    // from "saved" section
+    ini_handl->load_saved_settings();
+    return EXIT_SUCCESS;
+}
+
+bool engine_impl::load_original_settings()
+{
+    // restore global variables from ini file
+    // from "original" section
+    ini_handl->load_original_settings();
     return EXIT_SUCCESS;
 }
 

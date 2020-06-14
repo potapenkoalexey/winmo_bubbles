@@ -31,8 +31,6 @@ public:
     void set_real(const std::string& section, const std::string& key, const float& value);
     void set_boolean(const std::string& section, const std::string& key, const bool& value);
 
-    bool update();
-
     // read functions
     // will return a empty string, if there isn't any section or key
     std::string get(const std::string& section, const std::string& key);
@@ -54,14 +52,18 @@ public:
     std::set<std::string> get_fields(const std::string& section);
 
     // delete/close function
-    // will return true if is sucessful
+    // will return true if is successful
     bool del_key(const std::string& section, const std::string& key);
 
-    // return true if is sucessful
     bool del_section(const std::string& section);
 
-    // Will add the new content to the file
+    // write new values
+    bool update();
+
     void save_settings_to_file();
+
+    bool load_saved_settings();
+    bool load_original_settings();
 
 private:
     std::string filename;

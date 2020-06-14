@@ -113,8 +113,59 @@ void ini_handler::save_settings_to_file()
     error = false;
 }
 
+bool ini_handler::update()
+{
+    if (g_MODE == MODE::classic)
+        set("Saved", "g_MODE", "1");
+    else if (g_MODE == MODE::extreme)
+        set("Saved", "g_MODE", "2");
+    else
+        set("Saved", "g_MODE", "0");
+
+    set("Saved", "g_LEVEL", std::to_string(g_LEVEL));
+    set("Saved", "g_SCORE", std::to_string(g_SCORE));
+    set_boolean("Saved", "g_SOUND", g_SOUND);
+
+    return true;
+}
+
+bool ini_handler::load_saved_settings()
+{
+    unsigned long long temp = get_int("Saved", "g_MODE");
+    if (temp == 0)
+        g_MODE = MODE::non;
+    else if (temp == 1)
+        g_MODE = MODE::classic;
+    else if (temp ==2)
+        g_MODE = MODE::extreme;
+
+    g_LEVEL = static_cast<size_t>(get_int("Saved", "g_LEVEL"));
+    g_SCORE = static_cast<size_t>(get_int("Saved", "g_SCORE"));
+    g_SOUND = get_boolean("Saved", "g_SOUND");
+
+    return true;
+}
+
+bool ini_handler::load_original_settings()
+{
+    unsigned long long temp = get_int("Original", "g_MODE");
+    if (temp == 0)
+        g_MODE = MODE::non;
+    else if (temp == 1)
+        g_MODE = MODE::classic;
+    else if (temp ==2)
+        g_MODE = MODE::extreme;
+
+    g_LEVEL = static_cast<size_t>(get_int("Original", "g_LEVEL"));
+    g_SCORE = static_cast<size_t>(get_int("Original", "g_SCORE"));
+    g_SOUND = get_boolean("Original", "g_SOUND");
+    return true;
+}
+
 bool ini_handler::error_check()
 {
+    ///
+    ///
     return error;
 }
 
@@ -139,13 +190,6 @@ void ini_handler::set_boolean(const std::string& section, const std::string& key
         set(section, key, "true");
     else
         set(section, key, "false");
-}
-
-bool ini_handler::update()
-{
-    set("Settings", "g_LEVEL", std::to_string(g_LEVEL));
-    set("Settings", "g_SCORE", std::to_string(g_SCORE));
-    set("Settings", "g_score_in_the_end_of_level", std::to_string(g_score_in_the_end_of_level));
 }
 
 std::string ini_handler::get(const std::string& section, const std::string& key)
