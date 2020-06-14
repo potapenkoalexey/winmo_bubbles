@@ -493,6 +493,8 @@ public:
     bool save_settings();
     bool restore_settings();
 
+    bool is_mouse_clicked_in_coord(const float& lx, const float& rx, const float& ly, const float& ry);
+
     ~engine_impl();
     //  mouse_pos mouse_coord;
 
@@ -1485,6 +1487,17 @@ bool engine_impl::restore_settings()
     // with help of internal ini_handler
     //ini_handl->restore_settings_from_file();
     return EXIT_SUCCESS;
+}
+
+bool engine_impl::is_mouse_clicked_in_coord(const float& lx, const float& rx, const float& ly, const float& ry)
+{
+    float w = screen_width;
+    float h = screen_height;
+    size_t m_x = mouse_coord_pressed.x;
+    size_t m_y = mouse_coord_pressed.y;
+    // float scale_x = engine->scale.col0.x; //0.625
+    // float scale_y = engine->scale.col1.y; //1
+    return ((m_y > ly * h) && (m_y < ry * h) && (m_x > lx * w) && (m_x < rx * w));
 }
 
 engine_impl::~engine_impl()

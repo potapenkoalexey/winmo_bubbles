@@ -88,14 +88,10 @@ void select_mode_state::handle_mouse_event(
 {
     float w = engine->get_window_width();
     float h = engine->get_window_height();
-    size_t m_x = engine->mouse_coord_pressed.x;
-    size_t m_y = engine->mouse_coord_pressed.y;
-    // float scale_x = engine->scale.col0.x; //0.625
-    // float scale_y = engine->scale.col1.y; //1
 
     if (w >= h) {
         ///handling sound button
-        if ((m_y > 0.5f * h) && (m_y < 0.62f * h) && (m_x > 0.45f * w) && (m_x < 0.55f * w)) {
+        if (engine->is_mouse_clicked_in_coord(0.45f, 0.55f, 0.5f, 0.62f)) {
             if (g_SOUND) {
                 sound_turn_off();
             } else {
@@ -103,13 +99,13 @@ void select_mode_state::handle_mouse_event(
             }
         }
         ///classic button
-        if ((m_y > 0.68f * h) && (m_y < 0.79f * h) && (m_x > 0.26f * w) && (m_x < 0.49f * w)) {
+        if (engine->is_mouse_clicked_in_coord(0.26f, 0.49f, 0.68f, 0.79f)) {
             block_select->v_buf = v_buf_classic;
             g_MODE = MODE::classic;
             e = grottans::event::start_released;
         }
         ///extreme button
-        if ((m_y > 0.68f * h) && (m_y < 0.79f * h) && (m_x > 0.52f * w) && (m_x < 0.75f * w)) {
+        if (engine->is_mouse_clicked_in_coord(0.52f, 0.75f, 0.68f, 0.79f)) {
             block_select->v_buf = v_buf_extreme;
             g_MODE = MODE::extreme;
             e = grottans::event::start_released;
@@ -117,7 +113,7 @@ void select_mode_state::handle_mouse_event(
     }
     if (w < h) {
         ///handling sound button
-        if ((m_y > 0.5f * h) && (m_y < 0.58f * h) && (m_x > 0.45f * w) && (m_x < 0.55f * w)) {
+        if (engine->is_mouse_clicked_in_coord(0.45f, 0.55f, 0.50f, 0.58f)) {
             if (g_SOUND) {
                 sound_turn_off();
             } else {
@@ -125,13 +121,13 @@ void select_mode_state::handle_mouse_event(
             }
         }
         ///classic button
-        if ((m_y > 0.58f * h) && (m_y < 0.68f * h) && (m_x > 0.10f * w) && (m_x < 0.48f * w)) {
+        if (engine->is_mouse_clicked_in_coord(0.10f, 0.48f, 0.58f, 0.68f)) {
             block_select->v_buf = v_buf_classic;
             g_MODE = MODE::classic;
             e = grottans::event::start_released;
         }
         ///extreme button
-        if ((m_y > 0.58f * h) && (m_y < 0.68f * h) && (m_x > 0.52f * w) && (m_x < 0.90f * w)) {
+        if (engine->is_mouse_clicked_in_coord(0.52f, 0.90f, 0.58f, 0.68f)) {
             block_select->v_buf = v_buf_extreme;
             g_MODE = MODE::extreme;
             e = grottans::event::start_released;

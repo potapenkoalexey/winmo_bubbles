@@ -182,6 +182,8 @@ public:
     virtual bool save_settings() = 0;
     virtual bool restore_settings() = 0;
 
+    virtual bool is_mouse_clicked_in_coord(const float& lx, const float& rx, const float& ly, const float& ry) = 0;
+
     virtual ~engine() {}
 
     mat2x3 scale = grottans::mat2x3::scale(1.f, 1.f);
