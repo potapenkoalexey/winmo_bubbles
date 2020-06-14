@@ -29,15 +29,6 @@ bool classic_state::init(grottans::engine* e)
     progress->init();
     progress->set_line_in_null();
 
-    ///counter
-    m_counter = std::make_unique<counter>(engine);
-    m_counter->set_quantity_of_digits(5, counter::sign::unsign);
-    m_counter->init();
-    m_counter->set_vertexes(0.55f, -0.87f, 0.08f, 0.08f);
-    m_counter->set_color({ 1.0f, 1.0f, 1.0f, 1.0f });
-    m_counter->set_vertex_buffer();
-    m_counter->set_displayed_number(0);
-
     ///sounds
     sound_fall = engine->create_sound_buffer("./data/sounds/00_falling");
     sound_destroy_big_form = engine->create_sound_buffer("./data/sounds/02_destroy_big_form");
@@ -68,7 +59,7 @@ void classic_state::resume()
     progress->set_line_in_null();
     progress->set_dispayed_number(0);
     progress->set_level_complete_flag(false);
-    m_counter->set_displayed_number(g_SCORE);
+    progress->set_displayed_score(g_SCORE);
 }
 
 void classic_state::handle_events()
@@ -129,8 +120,6 @@ void classic_state::handle_events()
 
 void classic_state::update()
 {
-    m_counter->set_displayed_number(g_SCORE);
-
     game_field->update_blocks_coord();
 
     if (game_field->is_all_fixed()) {
@@ -170,7 +159,6 @@ void classic_state::draw()
     //    block_back->draw(engine);
     game_field->draw();
     progress->draw();
-    m_counter->draw();
 
     engine->swap_buffers();
 }
@@ -224,6 +212,7 @@ void classic_state::handle_start_released_event()
 
         game_field->unselect_all();
     }
+    progress->set_displayed_score(g_SCORE);
 }
 
 void classic_state::handle_left_released_event()

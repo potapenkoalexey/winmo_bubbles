@@ -42,7 +42,6 @@ protected:
         , sound_flip{ nullptr }
         , sound_cant_flip{ nullptr }
         , progress{ nullptr }
-        , m_counter{ nullptr }
         , game_field{ nullptr }
     {
     }
@@ -56,8 +55,6 @@ private:
     grottans::sound_buffer* sound_cant_flip;
 
     std::unique_ptr<progress_desk> progress;
-
-    std::unique_ptr<counter> m_counter;
 
     std::unique_ptr<field> game_field;
 };

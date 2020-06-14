@@ -95,7 +95,7 @@ void select_mode_state::handle_mouse_event(
     float w = engine->get_window_width();
     float h = engine->get_window_height();
 
-    if (w >= h) {
+    if (w >= h) { ///landscape mode
         ///handling sound button
         if (engine->is_mouse_clicked_in_coord(0.45f, 0.55f, 0.5f, 0.62f)) {
             if (g_SOUND) {
@@ -107,17 +107,25 @@ void select_mode_state::handle_mouse_event(
         ///classic button
         if (engine->is_mouse_clicked_in_coord(0.26f, 0.49f, 0.68f, 0.79f)) {
             block_select->v_buf = v_buf_classic;
+            engine->load_original_settings();
             g_MODE = MODE::classic;
             e = grottans::event::start_released;
         }
         ///extreme button
         if (engine->is_mouse_clicked_in_coord(0.52f, 0.75f, 0.68f, 0.79f)) {
             block_select->v_buf = v_buf_extreme;
+            engine->load_original_settings();
             g_MODE = MODE::extreme;
             e = grottans::event::start_released;
         }
+        ///load_save button
+        if (engine->is_mouse_clicked_in_coord(0.39f, 0.63f, 0.81f, 0.92f)) {
+            block_select->v_buf = v_buf_load_save;
+            engine->load_saved_settings();
+            e = grottans::event::start_released;
+        }
     }
-    if (w < h) {
+    if (w < h) { ///portrait mode
         ///handling sound button
         if (engine->is_mouse_clicked_in_coord(0.45f, 0.55f, 0.50f, 0.58f)) {
             if (g_SOUND) {
@@ -136,6 +144,12 @@ void select_mode_state::handle_mouse_event(
         if (engine->is_mouse_clicked_in_coord(0.52f, 0.90f, 0.58f, 0.68f)) {
             block_select->v_buf = v_buf_extreme;
             g_MODE = MODE::extreme;
+            e = grottans::event::start_released;
+        }
+        ///load_save button
+        if (engine->is_mouse_clicked_in_coord(0.31f, 0.69f, 0.70f, 0.80f)) {
+            block_select->v_buf = v_buf_load_save;
+            engine->load_saved_settings();
             e = grottans::event::start_released;
         }
     }

@@ -136,7 +136,7 @@ bool ini_handler::load_saved_settings()
         g_MODE = MODE::non;
     else if (temp == 1)
         g_MODE = MODE::classic;
-    else if (temp ==2)
+    else if (temp == 2)
         g_MODE = MODE::extreme;
 
     g_LEVEL = static_cast<size_t>(get_int("Saved", "g_LEVEL"));
@@ -153,7 +153,7 @@ bool ini_handler::load_original_settings()
         g_MODE = MODE::non;
     else if (temp == 1)
         g_MODE = MODE::classic;
-    else if (temp ==2)
+    else if (temp == 2)
         g_MODE = MODE::extreme;
 
     g_LEVEL = static_cast<size_t>(get_int("Original", "g_LEVEL"));

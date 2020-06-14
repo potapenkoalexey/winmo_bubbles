@@ -25,6 +25,7 @@ public:
     void update_line_vertex_buffer();
 
     void set_dispayed_number(const size_t&);
+    void set_displayed_score(const size_t&);
 
     progress_desk(grottans::engine* e)
         : engine{ e }
@@ -37,6 +38,7 @@ public:
         , block_line{ nullptr }
         , counter_combo_points{ nullptr }
         , counter_points_to_level{ nullptr }
+        , counter_score{ nullptr }
         , tex_desk{ nullptr }
         , tex_line{ nullptr }
     {
@@ -64,6 +66,7 @@ private:
 
     std::unique_ptr<counter> counter_combo_points;
     std::unique_ptr<counter> counter_points_to_level;
+    std::unique_ptr<counter> counter_score;
 
     grottans::texture* tex_desk;
     grottans::texture* tex_line;
