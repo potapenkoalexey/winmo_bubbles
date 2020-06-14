@@ -33,8 +33,8 @@ bool progress_desk::init()
     block_desk = std::make_unique<block>(engine);
     block_line = std::make_unique<block>(engine);
 
-    tex_desk = engine->create_texture("./data/images/my/progress_desk.png");
-    tex_line = engine->create_texture("./data/images/my/progress_line.png");
+    tex_desk = engine->create_texture("./data/images/gui/progress_desk.png");
+    tex_line = engine->create_texture("./data/images/gui/progress_line.png");
 
     block_desk->texture = tex_desk;
     block_line->texture = tex_line;

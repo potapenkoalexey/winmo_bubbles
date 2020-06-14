@@ -20,7 +20,7 @@ bool game_over_state::init(grottans::engine* e)
     //block_classic = new block;
     block_back = std::make_unique<block>(engine);
 
-    block_back->texture = engine->create_texture("./data/images/my/game_over.png");
+    block_back->texture = engine->create_texture("./data/images/gui/game_over.png");
 
     auto text = engine->load_txt_and_filter_comments("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
     text >> vert_buf_tr[0] >> vert_buf_tr[1];

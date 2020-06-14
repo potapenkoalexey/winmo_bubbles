@@ -33,8 +33,8 @@ bool level_complete_state::init(grottans::engine* e)
     counter_level->set_displayed_number(0);
     level_number = g_LEVEL;
 
-    tex_even = engine->create_texture("./data/images/my/level_even.png");
-    tex_uneven = engine->create_texture("./data/images/my/level_uneven.png");
+    tex_even = engine->create_texture("./data/images/gui/level_even.png");
+    tex_uneven = engine->create_texture("./data/images/gui/level_uneven.png");
 
     auto text = engine->load_txt_and_filter_comments("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
     text >> vert_buf_tr[0] >> vert_buf_tr[1];

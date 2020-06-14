@@ -11,11 +11,12 @@ select_mode_state select_mode_state::m_select_mode_state;
 
 select_mode_state::~select_mode_state()
 {
-    delete tex_back_sound_on;
-    delete tex_back_sound_off;
+    delete tex_back;
     delete block_back->v_buf;
+    delete block_sound->v_buf;
     delete v_buf_classic;
     delete v_buf_extreme;
+    delete v_buf_sound;
 
     delete sound_on;
 }
@@ -26,24 +27,31 @@ bool select_mode_state::init(grottans::engine* e)
 
     block_back = std::make_unique<block>(engine);
     block_select = std::make_unique<block>(engine);
+    block_sound = std::make_unique<block>(engine);
 
-    tex_back_sound_on = engine->create_texture("./data/images/my/select_game_type.png");
-    tex_back_sound_off = engine->create_texture("./data/images/my/select_game_type_no_sound.png");
+    tex_back = engine->create_texture("./data/images/gui/select_game_type.png");
+    tex_sound_on = engine->create_texture("./data/images/gui/sound_on.png");
+    tex_sound_off = engine->create_texture("./data/images/gui/sound_off.png");
+    tex_selector = engine->create_texture("./data/images/gui/main_select.png");
 
-    block_back->texture = tex_back_sound_on;
-    block_select->texture = engine->create_texture("./data/images/my/main_select.png");
+    block_back->texture = tex_back;
+    block_select->texture = tex_selector;
+    block_sound->texture = tex_sound_on;
 
     /// loading vertex_buffers from files
     /// tr0-1 - for back
     /// tr2-3 - for classic mode selecter
     /// tr4-5 - for extreme mode selecter
     auto text = engine->load_txt_and_filter_comments("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
-    text >> vert_buf[0] >> vert_buf[1] >> vert_buf[2] >> vert_buf[3] >> vert_buf[4] >> vert_buf[5];
+    text >> vert_buf[0] >> vert_buf[1] >> vert_buf[2] >> vert_buf[3] >> vert_buf[4] >> vert_buf[5] >> vert_buf[6] >> vert_buf[7];
 
     block_back->v_buf = engine->create_vertex_buffer(&vert_buf[0], 2);
+
     v_buf_classic = engine->create_vertex_buffer(&vert_buf[2], 2);
     v_buf_extreme = engine->create_vertex_buffer(&vert_buf[4], 2);
     block_select->v_buf = v_buf_classic;
+
+    block_sound->v_buf = engine->create_vertex_buffer(&vert_buf[6], 2);
 
     sound_on = engine->create_sound_buffer("./data/sounds/10_sound_on.wav");
 
@@ -64,13 +72,13 @@ void select_mode_state::resume()
 void select_mode_state::sound_turn_on()
 {
     sound_on->play(grottans::sound_buffer::properties::once);
-    block_back->texture = tex_back_sound_on;
+    block_sound->texture = tex_sound_on;
     g_SOUND = true;
 }
 
 void select_mode_state::sound_turn_off()
 {
-    block_back->texture = tex_back_sound_off;
+    block_sound->texture = tex_sound_off;
     g_SOUND = false;
 }
 
@@ -185,6 +193,7 @@ void select_mode_state::draw()
 {
     block_back->draw();
     block_select->draw();
+    block_sound->draw();
 
     engine->swap_buffers();
 }

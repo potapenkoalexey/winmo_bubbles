@@ -28,15 +28,15 @@ bool field::init()
     width = g_FIELD_WIDTH;
     height = g_FIELD_HEIGHT;
 
-    tex_selector_clutch = engine->create_texture("./data/images/my/selector_clutch.png");
-    tex_selector = engine->create_texture("./data/images/my/selector.png");
-    tex_yellow = engine->create_texture("./data/images/yellow.png");
-    tex_purple = engine->create_texture("./data/images/purple.png");
-    tex_green = engine->create_texture("./data/images/green.png");
-    tex_black = engine->create_texture("./data/images/black.png");
-    tex_blue = engine->create_texture("./data/images/blue.png");
-    tex_bomb = engine->create_texture("./data/images/bomb.png");
-    tex_red = engine->create_texture("./data/images/red.png");
+    tex_selector_clutch = engine->create_texture("./data/images/gui/selector_clutch.png");
+    tex_selector = engine->create_texture("./data/images/gui/selector.png");
+    tex_yellow = engine->create_texture("./data/images/gems/yellow.png");
+    tex_purple = engine->create_texture("./data/images/gems/purple.png");
+    tex_green = engine->create_texture("./data/images/gems/green.png");
+    tex_black = engine->create_texture("./data/images/gems/black.png");
+    tex_blue = engine->create_texture("./data/images/gems/blue.png");
+    tex_bomb = engine->create_texture("./data/images/gems/bomb.png");
+    tex_red = engine->create_texture("./data/images/gems/red.png");
 
     //reading vertex file
     auto text = engine->load_txt_and_filter_comments("./data/vertex_buffers/vert_buffers_for_gems.txt");
