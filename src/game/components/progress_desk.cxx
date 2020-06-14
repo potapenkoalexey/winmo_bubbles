@@ -195,3 +195,16 @@ void progress_desk::increase_progress(
         level_complete_flag = true;
     }
 }
+
+void progress_desk::update_progress_line_after_settings_restore()
+{
+    size_t points_to_level = 0;
+
+    if (g_MODE == MODE::classic) {
+        points_to_level = levels_classic[g_LEVEL];
+    } else {
+        points_to_level = levels_extreme[g_LEVEL];
+    }
+
+//    increase_progress(g_SCORE - points_to_level, g_LEVEL);
+}
