@@ -22,6 +22,8 @@ public:
 
     void increase_progress(const size_t& points, const size_t& level_number);
 
+    void update_progress_line_after_settings_restore();
+
     void update_line_vertex_buffer();
 
     void set_dispayed_points(const size_t&);

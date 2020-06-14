@@ -57,6 +57,8 @@ void classic_state::resume()
     game_field->selector->position.x = 5;
     game_field->selector->position.y = 5;
     progress->set_line_in_null();
+    //need to be called only if the load_save mode selected
+    //progress->update_progress_line_after_settings_restore();
     progress->set_dispayed_points(0);
     progress->set_level_complete_flag(false);
     progress->set_displayed_score(g_SCORE);
