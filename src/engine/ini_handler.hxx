@@ -10,11 +10,7 @@ namespace grottans {
 class ini_handler {
 public:
     ini_handler(const std::string& filename);
-    ~ini_handler()
-    {
-        update();
-        save_settings_to_file();
-    }
+    ~ini_handler();
 
     ini_handler(const ini_handler&) = delete;
     const ini_handler& operator=(const ini_handler&) = delete;

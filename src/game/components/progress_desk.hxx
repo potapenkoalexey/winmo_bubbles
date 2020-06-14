@@ -24,7 +24,7 @@ public:
 
     void update_line_vertex_buffer();
 
-    void set_dispayed_number(const size_t&);
+    void set_dispayed_points(const size_t&);
     void set_displayed_score(const size_t&);
 
     progress_desk(grottans::engine* e)

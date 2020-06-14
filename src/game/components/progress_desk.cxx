@@ -91,13 +91,13 @@ void progress_desk::update_line_vertex_buffer()
     block_line->v_buf = engine->create_vertex_buffer(&tr[2], 2);
 }
 
-void progress_desk::set_dispayed_number(const size_t& number)
+void progress_desk::set_dispayed_points(const size_t& number)
 {
     counter_combo_points->set_displayed_number(number);
 
-    if (g_MODE == MODE::classic) {
+    if (g_MODE == MODE::classic){
         counter_points_to_level->set_displayed_number(levels_classic[g_LEVEL]);
-    } else {
+    } else if (g_MODE == MODE::extreme){
         counter_points_to_level->set_displayed_number(levels_extreme[g_LEVEL]);
     }
 }
