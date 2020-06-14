@@ -180,7 +180,9 @@ public:
     virtual void uninitialize() = 0;
 
     virtual bool save_settings() = 0;
-    virtual bool restore_settings() = 0;
+    virtual bool load_original_settings() = 0;
+    virtual bool load_saved_settings() = 0;
+
 
     virtual bool is_mouse_clicked_in_coord(const float& lx, const float& rx, const float& ly, const float& ry) = 0;
 

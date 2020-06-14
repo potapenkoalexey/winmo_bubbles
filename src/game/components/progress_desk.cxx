@@ -51,7 +51,7 @@ bool progress_desk::init()
     tr[4] = tr[2];
     tr[5] = tr[3];
 
-    /// counter
+    /// displays points you earned for the previous combination
     counter_combo_points = std::make_unique<counter>(engine);
     counter_combo_points->set_quantity_of_digits(3, counter::sign::sign);
     counter_combo_points->init();
@@ -61,7 +61,7 @@ bool progress_desk::init()
     counter_combo_points->set_displayed_number(0);
     counter_combo_points->set_hide_zeros(false);
 
-    /// counter
+    /// displays points you need to earn to complete level
     counter_points_to_level = std::make_unique<counter>(engine);
     counter_points_to_level->set_quantity_of_digits(4, counter::sign::unsign);
     counter_points_to_level->init();
@@ -70,6 +70,16 @@ bool progress_desk::init()
     counter_points_to_level->set_vertex_buffer();
     counter_points_to_level->set_displayed_number(0);
     counter_points_to_level->set_hide_zeros(true);
+
+    /// displays game score
+    counter_score = std::make_unique<counter>(engine);
+    counter_score->set_quantity_of_digits(5, counter::sign::unsign);
+    counter_score->init();
+    counter_score->set_vertexes(0.55f, -0.87f, 0.08f, 0.08f);
+    counter_score->set_color({ 1.0f, 1.0f, 1.0f, 1.0f });
+    counter_score->set_vertex_buffer();
+    counter_score->set_displayed_number(0);
+    counter_score->set_hide_zeros(true);
 
     return EXIT_SUCCESS;
 }
@@ -92,12 +102,18 @@ void progress_desk::set_dispayed_number(const size_t& number)
     }
 }
 
+void progress_desk::set_displayed_score(const size_t & score)
+{
+    counter_score->set_displayed_number(score);
+}
+
 void progress_desk::draw()
 {
     block_desk->draw();
     block_line->draw();
     counter_combo_points->draw();
     counter_points_to_level->draw();
+    counter_score->draw();
 }
 
 void progress_desk::set_line_in_null()

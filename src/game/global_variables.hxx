@@ -9,8 +9,8 @@ using milli_sec = std::chrono::milliseconds;
 
 enum class MODE {
     non,
-    extreme,
-    classic
+    classic,
+    extreme
 };
 
 extern MODE g_MODE;

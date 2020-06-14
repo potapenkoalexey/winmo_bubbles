@@ -40,7 +40,6 @@ protected:
         : sound_fall{ nullptr }
         , sound_destroy_big_form{ nullptr }
         , progress{ nullptr }
-        , m_counter{ nullptr }
         , game_field{ nullptr }
     {
     }
@@ -52,8 +51,6 @@ private:
     grottans::sound_buffer* sound_destroy_big_form;
 
     std::unique_ptr<progress_desk> progress;
-
-    std::unique_ptr<counter> m_counter;
 
     std::unique_ptr<field> game_field;
 };
