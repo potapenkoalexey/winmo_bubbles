@@ -69,6 +69,16 @@ ini_handler::ini_handler(const std::string& filename_)
     }
 }
 
+ini_handler::~ini_handler()
+{
+    // clear the old content
+    config.clear();
+    filename.clear();
+    file.close();
+    update();
+    save_settings_to_file();
+}
+
 void ini_handler::save_settings_to_file()
 {
     if (filename.size() == 0)
@@ -106,10 +116,6 @@ void ini_handler::save_settings_to_file()
         }
     }
 
-    // clear the old content
-    config.clear();
-    filename.clear();
-    file.close();
     error = false;
 }
 

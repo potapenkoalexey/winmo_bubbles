@@ -57,7 +57,7 @@ void classic_state::resume()
     game_field->selector->position.x = 5;
     game_field->selector->position.y = 5;
     progress->set_line_in_null();
-    progress->set_dispayed_number(0);
+    progress->set_dispayed_points(0);
     progress->set_level_complete_flag(false);
     progress->set_displayed_score(g_SCORE);
 }
@@ -87,10 +87,11 @@ void classic_state::handle_events()
     case grottans::event::escape_released: {
         ///go to select_mode_state
         engine->save_settings();
-        engine->switch_to_state_and_resume(engine->states[0]);
         g_LEVEL = 1;
         g_SCORE = 0;
         g_score_in_the_end_of_level = 0;
+        engine->switch_to_state_and_resume(engine->states[0]);
+
         break;
     }
     case grottans::event::start_released: {
@@ -208,7 +209,7 @@ void classic_state::handle_start_released_event()
         size_t points = progress->blocks_to_points(selected_blocks);
         g_SCORE += points;
         progress->increase_progress(points, g_LEVEL);
-        progress->set_dispayed_number(points);
+        progress->set_dispayed_points(points);
 
         game_field->unselect_all();
     }

@@ -198,7 +198,7 @@ void select_mode_state::handle_events()
         break;
     }
     case grottans::event::start_released: {
-
+        ///transfer to level_complete_state
         engine->switch_to_state_and_resume(engine->states[3]);
 
         break;
