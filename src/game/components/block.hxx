@@ -1,7 +1,40 @@
 #pragma once
 
+#include <iostream>
+
 #include "../../../src/engine/engine.hxx"
 #include "./../global_variables.hxx"
+
+/** block colors */
+enum palette {
+    non,
+    red,
+    blue,
+    bomb,
+    green,
+    black,
+    purple,
+    yellow
+};
+
+/** block states */
+enum block_state {
+    fixed, ///< indicates that block is stationary
+    fliping_over, ///< indicates that block is over of other blocks on render
+    fliping_under, ///< indicates that block is under of other blocks on render
+    falling, ///< indicates that there isn't block under this block and it can fall
+    shifting, ///< indicates that there isn't block in left of this block
+    disappearing ///< indicates that block should disappear
+};
+
+/** used for indicating flipping direction */
+enum block_direction {
+    right,
+    down,
+    left,
+    up,
+    no
+};
 
 /*!
 \file
@@ -11,36 +44,6 @@ this class is base for all graphical elements
 */
 class block {
 public:
-    /** block colors */
-    enum class palette {
-        non,
-        red,
-        blue,
-        bomb,
-        green,
-        black,
-        purple,
-        yellow
-    };
-
-    /** block states */
-    enum class block_state {
-        fixed, ///< indicates that block is stationary
-        fliping_over, ///< indicates that block is over of other blocks on render
-        fliping_under, ///< indicates that block is under of other blocks on render
-        falling, ///< indicates that there isn't block under this block and it can fall
-        shifting, ///< indicates that there isn't block in left of this block
-        disappearing ///< indicates that block should disappear
-    };
-
-    /** used for indicating flipping direction */
-    enum class block_direction {
-        right,
-        down,
-        left,
-        up,
-        non
-    };
 
     /*! \brief return current FPS value*/
     float get_fps() const;
@@ -82,7 +85,7 @@ public:
     block(grottans::engine* e)
         : color{ palette::black }
         , state{ block_state::fixed }
-        , flip_direction{ block::block_direction::non }
+        , flip_direction{ block_direction::no }
         , selected{ false }
         , visible{ true }
         , motion{ false }
@@ -133,4 +136,14 @@ public:
 
 private:
     grottans::engine* engine;
+
+    friend std::istream& operator>> (std::istream& in, block& p);
+    friend std::ostream& operator<< (std::ostream& out, const block& p);
+
+    friend std::istream& operator>> (std::istream& in, palette& p);
+    friend std::ostream& operator<< (std::ostream& out, const palette& p);
+    friend std::istream& operator>> (std::istream& in, block_state& p);
+    friend std::ostream& operator<< (std::ostream& out, const block_state& p);
+    friend std::istream& operator>> (std::istream& in, block_direction& p);
+    friend std::ostream& operator<< (std::ostream& out, const block_direction& p);
 };

@@ -189,7 +189,7 @@ void classic_state::handle_start_released_event()
     bool search = game_field->can_select(i, j);
 
     /// if block can be selected - marking them
-    if (search && game_field->gems[i][j]->visible == true && game_field->gems[i][j]->color != block::palette::non) {
+    if (search && game_field->gems[i][j]->visible == true && game_field->gems[i][j]->color != palette::non) {
         game_field->gems[i][j]->selected = true;
 
         size_t selected_blocks = game_field->selecting_to_disappearing();
