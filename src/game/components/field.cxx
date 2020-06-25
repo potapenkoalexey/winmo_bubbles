@@ -954,6 +954,7 @@ bool field::load_field_from_file()
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
             ss >> (*gems[i][j]);
+            std::cout << gems[i][j]->color << std::endl;
         }
     }
 

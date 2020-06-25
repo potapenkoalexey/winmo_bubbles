@@ -23,7 +23,7 @@ bool classic_state::init(grottans::engine* e)
     game_field = std::make_unique<field>(engine);
     game_field->init();
     game_field->fill_clasic();
-    //game_field->load_field_from_file();
+    game_field->load_field_from_file();
 
     ///progress desk
     progress = std::make_unique<progress_desk>(engine);
