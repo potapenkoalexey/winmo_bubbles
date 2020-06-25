@@ -92,7 +92,7 @@ void extreme_state::handle_events()
         size_t i = static_cast<size_t>(game_field->selector->position.y);
         size_t j = static_cast<size_t>(game_field->selector->position.x);
 
-        if (game_field->gems[i][j]->color == block::palette::black) {
+        if (game_field->gems[i][j]->color == palette::black) {
             break;
         }
 
@@ -249,7 +249,7 @@ void extreme_state::handle_start_released_event(const size_t& i, const size_t& j
         // searching all selected blocks
         game_field->gems[i][j]->selected = true;
 
-        if (game_field->gems[i][j]->color == block::palette::bomb) {
+        if (game_field->gems[i][j]->color == palette::bomb) {
             selected_blocks = game_field->select_around_bomb(i, j);
         } else {
             selected_blocks = game_field->selecting_to_disappearing();
@@ -301,10 +301,10 @@ void extreme_state::handle_left_released_event()
     } else {
         if (game_field->can_flip(i, j, field::direction::left)) {
             //flip blocks with animation on 180 degrees
-            game_field->gems[i][j]->state = block::block_state::fliping_over;
-            game_field->gems[i][j]->flip_direction = block::block_direction::left;
-            game_field->gems[i][j - 1]->state = block::block_state::fliping_under;
-            game_field->gems[i][j - 1]->flip_direction = block::block_direction::right;
+            game_field->gems[i][j]->state = block_state::fliping_over;
+            game_field->gems[i][j]->flip_direction = block_direction::left;
+            game_field->gems[i][j - 1]->state = block_state::fliping_under;
+            game_field->gems[i][j - 1]->flip_direction = block_direction::right;
 
             game_field->f_draw_direction = field::draw_direction::clockwise;
 
@@ -343,10 +343,10 @@ void extreme_state::handle_right_released_event()
         }
     } else {
         if (game_field->can_flip(i, j, field::direction::right)) {
-            game_field->gems[i][j]->state = block::block_state::fliping_over;
-            game_field->gems[i][j]->flip_direction = block::block_direction::right;
-            game_field->gems[i][j + 1]->state = block::block_state::fliping_under;
-            game_field->gems[i][j + 1]->flip_direction = block::block_direction::left;
+            game_field->gems[i][j]->state = block_state::fliping_over;
+            game_field->gems[i][j]->flip_direction = block_direction::right;
+            game_field->gems[i][j + 1]->state = block_state::fliping_under;
+            game_field->gems[i][j + 1]->flip_direction = block_direction::left;
 
             game_field->f_draw_direction = field::draw_direction::contr_clockwise;
 
@@ -385,10 +385,10 @@ void extreme_state::handle_up_released_event()
         }
     } else {
         if (game_field->can_flip(i, j, field::direction::up)) {
-            game_field->gems[i][j]->state = block::block_state::fliping_over;
-            game_field->gems[i][j]->flip_direction = block::block_direction::up;
-            game_field->gems[i - 1][j]->state = block::block_state::fliping_under;
-            game_field->gems[i - 1][j]->flip_direction = block::block_direction::down;
+            game_field->gems[i][j]->state = block_state::fliping_over;
+            game_field->gems[i][j]->flip_direction = block_direction::up;
+            game_field->gems[i - 1][j]->state = block_state::fliping_under;
+            game_field->gems[i - 1][j]->flip_direction = block_direction::down;
 
             game_field->f_draw_direction = field::draw_direction::clockwise;
 
@@ -427,10 +427,10 @@ void extreme_state::handle_down_released_event()
         }
     } else {
         if (game_field->can_flip(i, j, field::direction::down)) {
-            game_field->gems[i][j]->state = block::block_state::fliping_over;
-            game_field->gems[i][j]->flip_direction = block::block_direction::down;
-            game_field->gems[i + 1][j]->state = block::block_state::fliping_under;
-            game_field->gems[i + 1][j]->flip_direction = block::block_direction::up;
+            game_field->gems[i][j]->state = block_state::fliping_over;
+            game_field->gems[i][j]->flip_direction = block_direction::down;
+            game_field->gems[i + 1][j]->state = block_state::fliping_under;
+            game_field->gems[i + 1][j]->flip_direction = block_direction::up;
 
             game_field->f_draw_direction = field::draw_direction::contr_clockwise;
 

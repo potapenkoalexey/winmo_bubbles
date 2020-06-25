@@ -138,31 +138,31 @@ void field::fill_extreme()
 void field::associate_texture_with_gem(const size_t& i, const size_t& j)
 {
     switch (gems[i][j]->color) {
-    case block::palette::red: {
+    case palette::red: {
         gems[i][j]->texture = tex_red;
         break;
     }
-    case block::palette::green: {
+    case palette::green: {
         gems[i][j]->texture = tex_green;
         break;
     }
-    case block::palette::yellow: {
+    case palette::yellow: {
         gems[i][j]->texture = tex_yellow;
         break;
     }
-    case block::palette::blue: {
+    case palette::blue: {
         gems[i][j]->texture = tex_blue;
         break;
     }
-    case block::palette::purple: {
+    case palette::purple: {
         gems[i][j]->texture = tex_purple;
         break;
     }
-    case block::palette::black: {
+    case palette::black: {
         gems[i][j]->texture = tex_black;
         break;
     }
-    case block::palette::bomb: {
+    case palette::bomb: {
         gems[i][j]->texture = tex_bomb;
         break;
     }
@@ -175,21 +175,21 @@ bool field::can_select(const size_t& i, const size_t& j)
     bool result = false; // if search find nothing
 
     // if block is black of unvisible - return false
-    if (gems[i][j]->color == block::palette::black || gems[i][j]->color == block::palette::non)
+    if (gems[i][j]->color == palette::black || gems[i][j]->color == palette::non)
         return result;
     if (gems[i][j]->visible == false)
         return result;
 
     // gorizontal search
     if (j < 9) { // search right
-        if (gems[i][j + 1]->color != block::palette::black || gems[i][j + 1]->color != block::palette::bomb) {
+        if (gems[i][j + 1]->color != palette::black || gems[i][j + 1]->color != palette::bomb) {
             if (gems[i][j + 1]->color == gems[i][j]->color && gems[i][j + 1]->visible == true) {
                 result = true;
             }
         }
     }
     if (j > 0) { // search left
-        if (gems[i][j - 1]->color != block::palette::black || gems[i][j - 1]->color != block::palette::bomb) {
+        if (gems[i][j - 1]->color != palette::black || gems[i][j - 1]->color != palette::bomb) {
             if (gems[i][j - 1]->color == gems[i][j]->color && gems[i][j - 1]->visible == true) {
                 result = true;
             }
@@ -197,14 +197,14 @@ bool field::can_select(const size_t& i, const size_t& j)
     }
     // vertical search
     if (i < 9) { // search down
-        if (gems[i + 1][j]->color != block::palette::black || gems[i + 1][j]->color != block::palette::bomb) {
+        if (gems[i + 1][j]->color != palette::black || gems[i + 1][j]->color != palette::bomb) {
             if (gems[i + 1][j]->color == gems[i][j]->color && gems[i + 1][j]->visible == true) {
                 result = true;
             }
         }
     }
     if (i > 0) { // search up
-        if (gems[i - 1][j]->color != block::palette::black || gems[i - 1][j]->color != block::palette::bomb) {
+        if (gems[i - 1][j]->color != palette::black || gems[i - 1][j]->color != palette::bomb) {
             if (gems[i - 1][j]->color == gems[i][j]->color && gems[i - 1][j]->visible == true) {
                 result = true;
             }
@@ -218,7 +218,7 @@ bool field::select_around(const size_t& i, const size_t& j)
     // i - line, j - row
     bool result = false; /// if block can be select
 
-    if (gems[i][j]->color == block::palette::black) {
+    if (gems[i][j]->color == palette::black) {
         gems[i][j]->selected = false;
         return result;
     }
@@ -227,7 +227,7 @@ bool field::select_around(const size_t& i, const size_t& j)
         if (gems[i][j + 1]->color == gems[i][j]->color && gems[i][j + 1]->visible == true) {
             result = true;
             gems[i][j + 1]->selected = true;
-            gems[i][j + 1]->state = block::block_state::disappearing;
+            gems[i][j + 1]->state = block_state::disappearing;
         }
     }
 
@@ -235,7 +235,7 @@ bool field::select_around(const size_t& i, const size_t& j)
         if (gems[i][j - 1]->color == gems[i][j]->color && gems[i][j - 1]->visible == true) {
             result = true;
             gems[i][j - 1]->selected = true;
-            gems[i][j - 1]->state = block::block_state::disappearing;
+            gems[i][j - 1]->state = block_state::disappearing;
         }
     }
     // vertical search
@@ -243,14 +243,14 @@ bool field::select_around(const size_t& i, const size_t& j)
         if (gems[i + 1][j]->color == gems[i][j]->color && gems[i + 1][j]->visible == true) {
             result = true;
             gems[i + 1][j]->selected = true;
-            gems[i + 1][j]->state = block::block_state::disappearing;
+            gems[i + 1][j]->state = block_state::disappearing;
         }
     }
     if (i > 0) { // search up
         if (gems[i - 1][j]->color == gems[i][j]->color && gems[i - 1][j]->visible == true) {
             result = true;
             gems[i - 1][j]->selected = true;
-            gems[i - 1][j]->state = block::block_state::disappearing;
+            gems[i - 1][j]->state = block_state::disappearing;
         }
     }
 
@@ -262,45 +262,45 @@ size_t field::select_around_bomb(const size_t& i, const size_t& j)
     size_t result = 1;
 
     gems[i][j]->selected = true;
-    gems[i][j]->state = block::block_state::disappearing;
+    gems[i][j]->state = block_state::disappearing;
 
     if (j > 0) {
         gems[i][j - 1]->selected = true;
-        gems[i][j - 1]->state = block::block_state::disappearing;
+        gems[i][j - 1]->state = block_state::disappearing;
         result++;
     }
     if (j < (width - 1)) {
         gems[i][j + 1]->selected = true;
-        gems[i][j + 1]->state = block::block_state::disappearing;
+        gems[i][j + 1]->state = block_state::disappearing;
         result++;
     }
     if (i > 0) {
         gems[i - 1][j]->selected = true;
-        gems[i - 1][j]->state = block::block_state::disappearing;
+        gems[i - 1][j]->state = block_state::disappearing;
         result++;
         if (j < (width - 1)) {
             gems[i - 1][j + 1]->selected = true;
-            gems[i - 1][j + 1]->state = block::block_state::disappearing;
+            gems[i - 1][j + 1]->state = block_state::disappearing;
             result++;
         }
         if (j > 0) {
             gems[i - 1][j - 1]->selected = true;
-            gems[i - 1][j - 1]->state = block::block_state::disappearing;
+            gems[i - 1][j - 1]->state = block_state::disappearing;
             result++;
         }
     }
     if (i < (height - 1)) {
         gems[i + 1][j]->selected = true;
-        gems[i + 1][j]->state = block::block_state::disappearing;
+        gems[i + 1][j]->state = block_state::disappearing;
         result++;
         if (j > 0) {
             gems[i + 1][j - 1]->selected = true;
-            gems[i + 1][j - 1]->state = block::block_state::disappearing;
+            gems[i + 1][j - 1]->state = block_state::disappearing;
             result++;
         }
         if (j < (width - 1)) {
             gems[i + 1][j + 1]->selected = true;
-            gems[i + 1][j + 1]->state = block::block_state::disappearing;
+            gems[i + 1][j + 1]->state = block_state::disappearing;
             result++;
         }
     }
@@ -348,8 +348,8 @@ void field::undisappearing_all()
 {
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            if (gems[i][j]->state != block::block_state::fixed) {
-                gems[i][j]->state = block::block_state::fixed;
+            if (gems[i][j]->state != block_state::fixed) {
+                gems[i][j]->state = block_state::fixed;
                 gems[i][j]->tr_disappear[0] = v_buf_disappear[0];
                 gems[i][j]->tr_disappear[1] = v_buf_disappear[1];
                 gems[i][j]->current_time = 0.f;
@@ -364,8 +364,8 @@ void field::unselect_undisappearing_all()
         for (size_t j = 0; j < height; j++) {
 
             gems[i][j]->selected = false;
-            if (gems[i][j]->state != block::block_state::fixed) {
-                gems[i][j]->state = block::block_state::fixed;
+            if (gems[i][j]->state != block_state::fixed) {
+                gems[i][j]->state = block_state::fixed;
                 gems[i][j]->tr_disappear[0] = v_buf_disappear[0];
                 gems[i][j]->tr_disappear[1] = v_buf_disappear[1];
                 gems[i][j]->current_time = 0.f;
@@ -411,7 +411,7 @@ bool field::is_all_fixed()
 {
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            if (gems[i][j]->state != block::block_state::fixed) {
+            if (gems[i][j]->state != block_state::fixed) {
 
                 return false;
             }
@@ -428,7 +428,7 @@ bool field::are_there_falling_blocks()
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
 
-            if (gems[i][j]->state == block::block_state::falling) {
+            if (gems[i][j]->state == block_state::falling) {
                 return true;
             }
         }
@@ -467,7 +467,7 @@ void field::add_blocks_at_the_top_of_field()
             gems[0][j]->visible = true;
             gems[0][j]->selected = false;
             gems[0][j]->motion = false;
-            gems[0][j]->state = block::block_state::fixed;
+            gems[0][j]->state = block_state::fixed;
             gems[0][j]->falling_frame_index = 0;
             gems[0][j]->shifting_frame_index = 0;
 
@@ -506,15 +506,15 @@ bool field::can_flip(const size_t& i, const size_t& j, field::direction dir)
     bool result = false;
 
     // if block Black - return false
-    if (gems[i][j]->color == block::palette::black || gems[i][j]->color == block::palette::bomb)
+    if (gems[i][j]->color == palette::black || gems[i][j]->color == palette::bomb)
         return result;
 
     // sort by direction
     if (dir == direction::up) {
         if (i > 0) {
-            if (gems[i - 1][j]->color != block::palette::black) {
+            if (gems[i - 1][j]->color != palette::black) {
 
-                if (gems[i - 1][j]->color == block::palette::bomb) {
+                if (gems[i - 1][j]->color == palette::bomb) {
                     swap_gems(i, j, i - 1, j);
                     gems[i - 1][j]->selected = true;
                     if (selecting_to_disappearing() >= 3) {
@@ -548,8 +548,8 @@ bool field::can_flip(const size_t& i, const size_t& j, field::direction dir)
     }
     if (dir == direction::down) {
         if (i < (height - 1)) {
-            if (gems[i + 1][j]->color != block::palette::black) {
-                if (gems[i + 1][j]->color == block::palette::bomb) {
+            if (gems[i + 1][j]->color != palette::black) {
+                if (gems[i + 1][j]->color == palette::bomb) {
                     swap_gems(i, j, i + 1, j);
                     gems[i + 1][j]->selected = true;
                     if (selecting_to_disappearing() >= 3) {
@@ -582,8 +582,8 @@ bool field::can_flip(const size_t& i, const size_t& j, field::direction dir)
     }
     if (dir == direction::left) {
         if (j > 0) {
-            if (gems[i][j - 1]->color != block::palette::black) {
-                if (gems[i][j - 1]->color == block::palette::bomb) {
+            if (gems[i][j - 1]->color != palette::black) {
+                if (gems[i][j - 1]->color == palette::bomb) {
                     swap_gems(i, j, i, j - 1);
                     gems[i][j - 1]->selected = true;
                     if (selecting_to_disappearing() >= 3) {
@@ -617,9 +617,9 @@ bool field::can_flip(const size_t& i, const size_t& j, field::direction dir)
     }
     if (dir == direction::right) {
         if (j < (width - 1)) {
-            if (gems[i][j + 1]->color != block::palette::black) {
+            if (gems[i][j + 1]->color != palette::black) {
 
-                if (gems[i][j + 1]->color == block::palette::bomb) {
+                if (gems[i][j + 1]->color == palette::bomb) {
                     swap_gems(i, j, i, j + 1);
                     gems[i][j + 1]->selected = true;
                     if (selecting_to_disappearing() >= 3) {
@@ -657,7 +657,7 @@ bool field::can_flip(const size_t& i, const size_t& j, field::direction dir)
 
 void field::update_fliping_view(const size_t& i, const size_t& j, const milli_sec& delta_time)
 {
-    if (gems[i][j]->flip_direction == block::block_direction::non)
+    if (gems[i][j]->flip_direction == block_direction::no)
         return;
 
     gems[i][j]->current_time += delta_time.count() / 1000.f;
@@ -676,26 +676,26 @@ void field::update_fliping_view(const size_t& i, const size_t& j, const milli_se
         gems[i][j]->fliping_frame_index++;
 
         switch (gems[i][j]->flip_direction) {
-        case (block::block_direction::up): {
+        case (block_direction::up): {
             gems[i][j]->move.delta.y += offset;
             break;
         }
-        case (block::block_direction::down): {
+        case (block_direction::down): {
             gems[i][j]->move.delta.y -= offset;
             break;
         }
-        case (block::block_direction::left): {
+        case (block_direction::left): {
             gems[i][j]->move.delta.x -= offset;
             break;
         }
-        case (block::block_direction::right): {
+        case (block_direction::right): {
             gems[i][j]->move.delta.x += offset;
             break;
         }
         }
     }
 
-    if (gems[i][j]->state == block::block_state::fliping_under) {
+    if (gems[i][j]->state == block_state::fliping_under) {
         if (current_frame_index == 0) {
             gems[i][j]->tr_disappear[0] = v_buf_disappear.at(26);
             gems[i][j]->tr_disappear[1] = v_buf_disappear.at(27);
@@ -707,16 +707,16 @@ void field::flip_gems_after_animation()
 {
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            if (gems[i][j]->flip_direction != block::block_direction::non) {
+            if (gems[i][j]->flip_direction != block_direction::no) {
                 if (gems[i][j]->fliping_frame_index == g_FRAME_OF_FLIPING - 1) {
                     switch (gems[i][j]->flip_direction) {
-                    case block::block_direction::down: {
+                    case block_direction::down: {
                         gems[i][j]->restore_original_parameters(v_buf_disappear);
                         gems[i + 1][j]->restore_original_parameters(v_buf_disappear);
                         swap_gems(i, j, i + 1, j);
                         break;
                     }
-                    case block::block_direction::right: {
+                    case block_direction::right: {
                         gems[i][j]->restore_original_parameters(v_buf_disappear);
                         gems[i][j + 1]->restore_original_parameters(v_buf_disappear);
                         swap_gems(i, j, i, j + 1);
@@ -735,8 +735,8 @@ void field::mark_falling_blocks()
     for (int i = width - 2; i >= 0; i--) {
         for (size_t j = 0; j < height; j++) {
             if (gems[i][j]->visible == true) {
-                if (gems[i + 1][j]->state == block::block_state::falling || gems[i + 1][j]->visible == false) {
-                    gems[i][j]->state = block::block_state::falling;
+                if (gems[i + 1][j]->state == block_state::falling || gems[i + 1][j]->visible == false) {
+                    gems[i][j]->state = block_state::falling;
                     //for hiding selector when blocks falling
                     f_state = field_state::falling;
                 }
@@ -749,7 +749,7 @@ void field::update_coord_falling_blocks(const size_t& i, const size_t& j, const 
 {
     if (i == (height - 1))
         return;
-    if (gems[i][j]->state != block::block_state::falling) {
+    if (gems[i][j]->state != block_state::falling) {
         return;
     }
 
@@ -771,7 +771,7 @@ void field::update_coord_falling_blocks(const size_t& i, const size_t& j, const 
         gems[i][j]->current_time = 0.f;
         gems[i][j]->falling_frame_index = 0;
         gems[i][j]->move.delta.y = 0.f;
-        gems[i][j]->state = block::block_state::fixed;
+        gems[i][j]->state = block_state::fixed;
         //swap with bottom block
         swap_gems(i, j, i + 1, j);
     }
@@ -782,8 +782,8 @@ void field::mark_shifting_blocks()
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 1; j < height; j++) {
             if (gems[i][j]->visible == true) {
-                if (gems[i][j - 1]->state == block::block_state::shifting || gems[i][j - 1]->visible == false) {
-                    gems[i][j]->state = block::block_state::shifting;
+                if (gems[i][j - 1]->state == block_state::shifting || gems[i][j - 1]->visible == false) {
+                    gems[i][j]->state = block_state::shifting;
                     //for hiding selector when blocks shifting
                     f_state = field_state::shifting;
                 }
@@ -796,7 +796,7 @@ void field::update_coord_shifting_blocks(const size_t& i, const size_t& j, const
 {
     if (j == 0)
         return;
-    if (gems[i][j]->state != block::block_state::shifting) {
+    if (gems[i][j]->state != block_state::shifting) {
         return;
     }
 
@@ -818,7 +818,7 @@ void field::update_coord_shifting_blocks(const size_t& i, const size_t& j, const
         gems[i][j]->current_time = 0.f;
         gems[i][j]->shifting_frame_index = 0;
         gems[i][j]->move.delta.x = 0.f;
-        gems[i][j]->state = block::block_state::fixed;
+        gems[i][j]->state = block_state::fixed;
         //swap with left block
         swap_gems(i, j, i, j - 1);
     }

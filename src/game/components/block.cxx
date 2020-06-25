@@ -12,6 +12,86 @@ static std::uniform_real_distribution<double> dist_1_17(10.0, 175.0);
 //{
 //}
 
+std::istream& operator>> (std::istream& in, palette& p)
+{
+    unsigned tmp = 0;
+    in >> tmp;
+    //TODO: check that u is a valid "palette" value
+    p = static_cast<palette>(tmp);
+    return in;
+}
+
+std::ostream& operator<< (std::ostream& out, const palette& p)
+{
+    //TODO: check that race is a valid "palette" value
+    unsigned tmp = p;
+    out << tmp;
+    return out;
+}
+
+std::istream& operator>> (std::istream& in, block_state& p)
+{
+    unsigned tmp = 0;
+    in >> tmp;
+    //TODO: check that u is a valid "palette" value
+    p = static_cast<block_state>(tmp);
+    return in;
+}
+
+std::ostream& operator<< (std::ostream& out, const block_state& p)
+{
+    //TODO: check that race is a valid "palette" value
+    unsigned tmp = p;
+    out << tmp;
+    return out;
+}
+
+std::istream& operator>> (std::istream& in, block_direction& p)
+{
+    unsigned tmp = 0;
+    in >> tmp;
+    //TODO: check that u is a valid "palette" value
+    p = static_cast<block_direction>(tmp);
+    return in;
+}
+
+std::ostream& operator<< (std::ostream& out, const block_direction& p)
+{
+    //TODO: check that race is a valid "palette" value
+    unsigned tmp = p;
+    out << tmp;
+    return out;
+}
+
+std::istream& operator>> (std::istream& in, block& p)
+{
+//    in >> p.color;
+//    in >> p.state;
+//    in >> p.flip_direction;
+//    in >> p.selected;
+//    in >> p.visible;
+//    in >> p.motion;
+//    in >> p.position;
+//    in >> p.aspect;
+//    in >> p.texture;
+//    in >> p.v_buf;
+//    in >> p.fps;
+//    in >> p.current_time;
+//    in >> p.falling_frame_index;
+//    in >> p.shifting_frame_index;
+//    in >> p.fliping_frame_index;
+//    in >> p.engine;
+
+    return in;
+}
+std::ostream& operator<< (std::ostream& out, const block& p)
+{
+    //
+    //
+    //
+    return out;
+}
+
 float block::get_fps() const
 {
     return fps;
@@ -157,7 +237,7 @@ void block::restore_original_parameters(const std::array<grottans::tri2, 32>& ar
     tr_disappear[0] = arr_uv_buf[0];
     tr_disappear[1] = arr_uv_buf[1];
     state = block_state::fixed;
-    flip_direction = block::block_direction::non;
+    flip_direction = block_direction::no;
     current_time = 0.f;
     fliping_frame_index = 0;
     falling_frame_index = 0;
