@@ -23,6 +23,7 @@ bool classic_state::init(grottans::engine* e)
     game_field = std::make_unique<field>(engine);
     game_field->init();
     game_field->fill_clasic();
+    //game_field->load_field_from_file();
 
     ///progress desk
     progress = std::make_unique<progress_desk>(engine);
@@ -89,6 +90,7 @@ void classic_state::handle_events()
     case grottans::event::escape_released: {
         ///go to select_mode_state
         engine->save_settings();
+        game_field->save_field_to_file();
         g_LEVEL = 1;
         g_SCORE = 0;
         g_score_in_the_end_of_level = 0;

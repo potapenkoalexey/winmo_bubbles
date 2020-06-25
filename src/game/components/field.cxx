@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <fstream>
+#include <sstream>
 
 #include "../global_variables.hxx"
 #include "./field.hxx"
@@ -926,6 +927,37 @@ bool field::is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/)
             result = false;
     }
     return result;
+}
+
+bool field::save_field_to_file()
+{
+    std::fstream fs("./data/config/field.dat");
+    if (!fs.is_open()) {
+        std::cerr << "Can't write into file /config/field.dat!\n";
+        return EXIT_FAILURE;
+    }
+
+    for (size_t i = 0; i < width; i++) {
+        for (size_t j = 0; j < height; j++) {
+            fs << (*gems[i][j]);
+        }
+    }
+
+    fs.close();
+    return EXIT_SUCCESS;
+}
+
+bool field::load_field_from_file()
+{
+    std::stringstream ss("./data/config/field.dat");
+
+    for (size_t i = 0; i < width; i++) {
+        for (size_t j = 0; j < height; j++) {
+            ss >> (*gems[i][j]);
+        }
+    }
+
+    return EXIT_SUCCESS;
 }
 
 void field::draw()
