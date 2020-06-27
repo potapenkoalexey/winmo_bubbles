@@ -54,15 +54,7 @@ elseif (WIN32)
 endif()
 
 ##### linking main project
-if (UNIX)
-    target_link_libraries(${PROJECT_NAME}
-        ${ENGINE_LIB_NAME}
-        )
-elseif (WIN32)
-    target_link_libraries(${PROJECT_NAME}
-        ${ENGINE_LIB_NAME}
-        )
-endif()
+target_link_libraries(${PROJECT_NAME} ${ENGINE_LIB_NAME})
 
 ##### documentation
 #if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
