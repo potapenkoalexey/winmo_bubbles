@@ -24,6 +24,21 @@ vec2 operator+(const vec2& l, const vec2& r)
     return result;
 }
 
+std::istream& operator>> (std::istream& in, vec2& p)
+{
+    float x, y;
+    in >> x >> y;
+    p.x = x;
+    p.y = y;
+    return in;
+}
+
+std::ostream& operator<< (std::ostream& out, const vec2& p)
+{
+    out << p.x << p.y;
+    return out;
+}
+
 mat2::mat2()
     : col0(1.0f, 0.f)
     , col1(0.f, 1.f)
@@ -35,6 +50,18 @@ mat2x3::mat2x3()
     , col1(0.f, 1.f)
     , delta(0.f, 0.f)
 {
+}
+
+std::istream& operator>> (std::istream& in, mat2x3& p)
+{
+    in >> p.col0 >> p.col1 >> p.delta;
+    return in;
+}
+
+std::ostream& operator<< (std::ostream& out, const mat2x3& p)
+{
+    out << p.col0 << p.col1 << p.delta;
+    return out;
 }
 
 mat2 mat2::identiry()

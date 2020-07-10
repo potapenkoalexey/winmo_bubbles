@@ -9,10 +9,8 @@ winmo_bubbles.exe
 /html
 /latex
 /doxygen
-data/config/settings.ini
-/data/config/settings.ini
 *.ini 
-
+*.dat
 *.txt.user
  
 # Prerequisites

@@ -122,6 +122,7 @@ void select_mode_state::handle_mouse_event(
         if (engine->is_mouse_clicked_in_coord(0.39f, 0.63f, 0.81f, 0.92f)) {
             block_select->v_buf = v_buf_load_save;
             engine->load_saved_settings();
+            //engine->set_flag_load_game();
             e = grottans::event::start_released;
         }
     }

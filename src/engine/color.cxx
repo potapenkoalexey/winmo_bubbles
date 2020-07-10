@@ -84,4 +84,10 @@ std::istream& operator>>(std::istream& is, color& c)
     return is;
 }
 
+std::ostream& operator<<(std::ostream &out, const color &p)
+{
+    out << p.get_r() << p.get_g() << p.get_b() << p.get_a();
+    return out;
+}
+
 } // end of namespace

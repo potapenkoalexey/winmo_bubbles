@@ -103,6 +103,9 @@ struct field {
 
     bool is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/);
 
+    bool save_field_to_file();
+    bool load_field_from_file();
+
     ///////////////////////////////////////////////////////////////////////////
 
     grottans::engine* engine;

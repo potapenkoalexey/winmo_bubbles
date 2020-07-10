@@ -12,6 +12,8 @@ struct vec2 {
 };
 
 vec2 operator+(const vec2& l, const vec2& r);
+std::istream& operator>> (std::istream& in, grottans::vec2& p);
+std::ostream& operator<< (std::ostream& out, const grottans::vec2& p);
 
 struct mat2 {
     mat2();
@@ -38,6 +40,8 @@ vec2 operator*(const vec2& v, const mat2& m);
 mat2 operator*(const mat2& m1, const mat2& m2);
 vec2 operator*(const vec2& v, const mat2x3& m);
 mat2x3 operator*(const mat2x3& m1, const mat2x3& m2);
+std::istream& operator>> (std::istream& in, mat2x3& p);
+std::ostream& operator<< (std::ostream& out, const mat2x3& p);
 
 /// vertex with position only
 struct v0 {

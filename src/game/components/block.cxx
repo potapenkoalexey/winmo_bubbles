@@ -58,37 +58,44 @@ std::istream& operator>> (std::istream& in, block_direction& p)
 std::ostream& operator<< (std::ostream& out, const block_direction& p)
 {
     //TODO: check that race is a valid "palette" value
-    unsigned tmp = p;
-    out << tmp;
+    out << static_cast<unsigned>(p);
     return out;
 }
 
 std::istream& operator>> (std::istream& in, block& p)
 {
-//    in >> p.color;
-//    in >> p.state;
-//    in >> p.flip_direction;
-//    in >> p.selected;
-//    in >> p.visible;
-//    in >> p.motion;
-//    in >> p.position;
-//    in >> p.aspect;
-//    in >> p.texture;
-//    in >> p.v_buf;
-//    in >> p.fps;
-//    in >> p.current_time;
-//    in >> p.falling_frame_index;
-//    in >> p.shifting_frame_index;
-//    in >> p.fliping_frame_index;
-//    in >> p.engine;
+    in >> p.color;
+    in >> p.state;
+    in >> p.flip_direction;
+    in >> p.selected;
+    in >> p.visible;
+    in >> p.motion;
+    in >> p.position;
+    in >> p.aspect;
+    in >> p.fps;
+    in >> p.current_time;
+    in >> p.falling_frame_index;
+    in >> p.shifting_frame_index;
+    in >> p.fliping_frame_index;
 
     return in;
 }
 std::ostream& operator<< (std::ostream& out, const block& p)
 {
-    //
-    //
-    //
+    out << p.color;
+    out << p.state;
+    out << p.flip_direction;
+    out << p.selected;
+    out << p.visible;
+    out << p.motion;
+    out << p.position;
+    out << p.aspect;
+    out << p.fps;
+    out << p.current_time;
+    out << p.falling_frame_index;
+    out << p.shifting_frame_index;
+    out << p.fliping_frame_index;
+
     return out;
 }
 

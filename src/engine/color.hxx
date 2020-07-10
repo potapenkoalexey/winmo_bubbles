@@ -23,8 +23,9 @@ public:
 
 private:
     std::uint32_t rgba = 0;
-};
 
-std::istream& operator>>(std::istream& is, color&);
+    friend std::istream& operator>>(std::istream& is, color&);
+    friend std::ostream& operator<< (std::ostream& out, const color& p);
+};
 
 } // end of namespace
