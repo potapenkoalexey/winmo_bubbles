@@ -7,6 +7,10 @@
 
 namespace grottans {
 
+/*!
+\file
+\class 'ini_handler' class description
+*/
 class ini_handler {
 public:
     ini_handler(const std::string& filename);
@@ -20,24 +24,30 @@ public:
     // will return true if an error occurred
     bool error_check();
 
-    // set functions
-    // set will create/modify a section/key/value, same for the similar functions
+    /*! \brief sets the value into to key in section, will create/modify a section/key/value
+        \param[in] section - section in the ini file
+        \param[in] key - name of the key
+        \param[in] value - value
+    */
     void set(const std::string& section, const std::string& key, const std::string& value);
     void set_int(const std::string& section, const std::string& key, const unsigned long long& value);
     void set_real(const std::string& section, const std::string& key, const float& value);
     void set_boolean(const std::string& section, const std::string& key, const bool& value);
 
-    // read functions
-    // will return a empty string, if there isn't any section or key
+    /*! \brief gets the value from key in section
+        \param[in] section - section in the ini file
+        \param[in] key - name of the key
+        \return[out] return a empty string, if there isn't any section or key
+    */
     std::string get(const std::string& section, const std::string& key);
 
-    // will return 0, if there isn't any section or key
+    /*! \brief gets the value (int, float, bool from key in section
+        \param[in] section - section in the ini file
+        \param[in] key - name of the key
+        \return[out] return 0, if there isn't any section or key
+    */
     unsigned long long get_int(const std::string& section, const std::string& key);
-
-    // will return 0, if there isn't any section or key
     float get_real(const std::string& section, const std::string& key);
-
-    // will return 0, if there isn't any section or key
     bool get_boolean(const std::string& section, const std::string& key);
 
     // section func
