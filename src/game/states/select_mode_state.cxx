@@ -12,12 +12,12 @@ select_mode_state select_mode_state::m_select_mode_state;
 select_mode_state::~select_mode_state()
 {
     delete tex_back;
+    delete tex_sound_on;
+    delete tex_sound_off;
+    delete tex_selector;
     delete block_back->v_buf;
     delete block_sound->v_buf;
-    delete v_buf_classic;
-    delete v_buf_extreme;
-    delete v_buf_load_save;
-    delete v_buf_sound;
+    delete block_select->v_buf;
 
     delete sound_on;
 }
@@ -40,9 +40,11 @@ bool select_mode_state::init(grottans::engine* e)
     block_sound->texture = tex_sound_on;
 
     /// loading vertex_buffers from files
-    /// tr0-1 - for back
-    /// tr2-3 - for classic mode selecter
-    /// tr4-5 - for extreme mode selecter
+    /// tr0-1 - for background image
+    /// tr2-3 - for classic mode button
+    /// tr4-5 - for extreme mode button
+    /// tr6-7 - for sound button
+    /// tr8-9 - for load button
     auto text = engine->load_txt_and_filter_comments("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
     text >> vert_buf[0] >> vert_buf[1]
          >> vert_buf[2] >> vert_buf[3]
