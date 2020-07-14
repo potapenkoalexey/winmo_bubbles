@@ -15,6 +15,7 @@ enum class MODE {
 
 extern MODE g_MODE;
 extern bool g_SOUND;
+extern bool g_LOAD_SAVED_STATE;
 extern size_t g_LEVEL;
 extern size_t g_POINTS;
 extern size_t g_SCORE;
