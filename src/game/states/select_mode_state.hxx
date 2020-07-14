@@ -35,10 +35,14 @@ protected:
     select_mode_state()
         : block_back{ nullptr }
         , block_select{ nullptr }
+        , block_sound{ nullptr }
         , tex_back{ nullptr }
+        , tex_selector{ nullptr }
+        , tex_sound_on{ nullptr }
+        , tex_sound_off{ nullptr }
         , v_buf_classic{ nullptr }
         , v_buf_extreme{ nullptr }
-        , v_buf_sound{ nullptr }
+        , v_buf_load_save{ nullptr }
         , sound_on{ nullptr }
     {
     }
@@ -61,7 +65,6 @@ private:
     grottans::vertex_buffer* v_buf_classic;
     grottans::vertex_buffer* v_buf_extreme;
     grottans::vertex_buffer* v_buf_load_save;
-    grottans::vertex_buffer* v_buf_sound;
 
     grottans::sound_buffer* sound_on;
 };

@@ -12,6 +12,9 @@ MODE g_MODE = MODE::classic;
 /*! @brief Debug option.*/
 bool g_SOUND = true;
 
+/*! @brief this variable is TRUE in case when player selects loading previous game*/
+bool g_LOAD_SAVED_STATE = false;
+
 /*! @brief Startup level number. Should be equal 1.*/
 size_t g_LEVEL = 1;
 
