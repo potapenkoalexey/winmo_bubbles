@@ -22,6 +22,7 @@ field::~field()
     delete tex_yellow;
     delete tex_selector;
     delete tex_selector_clutch;
+    delete sound_add_row;
 }
 
 bool field::init()
@@ -110,6 +111,8 @@ bool field::init()
     selector->position = { 5.f, 5.f };
     selector->tr_disappear[0] = v_buf_disappear[0];
     selector->tr_disappear[1] = v_buf_disappear[1];
+
+    sound_add_row = engine->create_sound_buffer("./data/sounds/01_add_row");
 
     return EXIT_SUCCESS;
 }
@@ -457,6 +460,8 @@ void field::add_right_row()
         gems[i][j]->get_random_color_from_classic();
         associate_texture_with_gem(i, j);
     }
+
+    sound_add_row->play(grottans::sound_buffer::properties::once);
 }
 
 void field::add_blocks_at_the_top_of_field()

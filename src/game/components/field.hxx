@@ -49,6 +49,7 @@ struct field {
         , tex_blue{ nullptr }
         , tex_bomb{ nullptr }
         , tex_red{ nullptr }
+        , sound_add_row{ nullptr }
 
     {
     }
@@ -141,4 +142,6 @@ struct field {
     std::array<grottans::tri2, 2> v_buf_tmp_selector;
 
     std::vector<std::vector<block*> > gems; //[10][10];
+
+    grottans::sound_buffer* sound_add_row;
 };
