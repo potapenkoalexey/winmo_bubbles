@@ -1345,8 +1345,11 @@ std::string engine_impl::initialize()
                 const char* default_audio_device_name = nullptr;
 
                 const int num_audio_devices = SDL_GetNumAudioDevices(SDL_FALSE);
+
                 if (num_audio_devices > 0) {
-                    default_audio_device_name = SDL_GetAudioDeviceName(0, SDL_FALSE);
+                    // set the audio device number 0..num_audio_devices
+                    default_audio_device_name = SDL_GetAudioDeviceName(num_audio_devices, SDL_FALSE);
+
                     for (int i = 0; i < num_audio_devices; ++i) {
                         std::cout << "audio device #" << i << ": "
                                   << SDL_GetAudioDeviceName(i, SDL_FALSE) << '\n';
