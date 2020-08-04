@@ -110,7 +110,7 @@ void block::set_fps(const float& fps_value)
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-void block::get_random_color_from_classic()
+void block::set_random_color_from_classic()
 {
     int m = static_cast<int>(dist_1_5(mt) / 10);
 
@@ -135,7 +135,7 @@ void block::get_random_color_from_classic()
     }
 }
 
-void block::get_random_color_from_extreme()
+void block::set_random_color_from_extreme()
 {
     int m = static_cast<int>(dist_1_11(mt) / 10);
 
@@ -164,7 +164,7 @@ void block::get_random_color_from_extreme()
     }
 }
 
-void block::get_random_color_from_extreme_with_bomb()
+void block::set_random_color_from_extreme_with_bomb()
 {
     int m = static_cast<int>(dist_1_17(mt) / 10);
 

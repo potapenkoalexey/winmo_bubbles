@@ -15,7 +15,7 @@ public:
     void set_line_in_null();
     void set_line_in_full();
 
-    bool get_level_complete_flag();
+    bool get_level_complete_flag() const;
     void set_level_complete_flag(const bool&);
 
     size_t blocks_to_points(const size_t& delta);

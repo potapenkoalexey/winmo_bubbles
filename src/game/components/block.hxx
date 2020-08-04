@@ -67,15 +67,15 @@ public:
 
     /*! \brief set random color in classic mode
     */
-    void get_random_color_from_classic();
+    void set_random_color_from_classic();
 
     /*! \brief set primary random color in extreme mode
     */
-    void get_random_color_from_extreme();
+    void set_random_color_from_extreme();
 
     /*! \brief set random color in extreme mode
     */
-    void get_random_color_from_extreme_with_bomb();
+    void set_random_color_from_extreme_with_bomb();
 
     /*! \brief block rendering
     */

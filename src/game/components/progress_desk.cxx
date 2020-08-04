@@ -132,7 +132,7 @@ void progress_desk::set_line_in_full()
     update_line_vertex_buffer();
 }
 
-bool progress_desk::get_level_complete_flag()
+bool progress_desk::get_level_complete_flag() const
 {
     return level_complete_flag;
 }
