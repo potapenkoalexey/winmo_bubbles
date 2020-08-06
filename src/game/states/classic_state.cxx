@@ -54,13 +54,14 @@ void classic_state::resume()
     game_field->undisappearing_all();
     game_field->unfalling_unshifting_all();
     game_field->visible_all();
-//    if (g_LOAD_SAVED_STATE){
-//        ///need to fix, this call should be more beautiful
-//        game_field->load_field_from_file();
-//        g_LOAD_SAVED_STATE = false;
-//    } else {
+    if (g_LOAD_SAVED_STATE){
+        ///need to fix, this call should be more beautiful
+        game_field->load_field_from_file();
+        g_LOAD_SAVED_STATE = false;
+    } else {
         game_field->fill_clasic();
-//    }
+    }
+//    game_field->fill_clasic();
     game_field->selector->position.x = 5;
     game_field->selector->position.y = 5;
     progress->set_line_in_null();

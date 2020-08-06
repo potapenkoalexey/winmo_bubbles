@@ -80,7 +80,10 @@ std::istream& operator>>(std::istream& is, color& c)
     is >> g;
     is >> b;
     is >> a;
-    c = color(r, g, b, a);
+    c.set_r(r);
+    c.set_g(g);
+    c.set_b(b);
+    c.set_a(a);
     return is;
 }
 

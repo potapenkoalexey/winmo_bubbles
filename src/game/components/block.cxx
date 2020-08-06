@@ -64,37 +64,39 @@ std::ostream& operator<< (std::ostream& out, const block_direction& p)
 
 std::istream& operator>> (std::istream& in, block& p)
 {
-    in >> p.color;
-    in >> p.state;
-    in >> p.flip_direction;
-    in >> p.selected;
-    in >> p.visible;
-    in >> p.motion;
-    in >> p.position;
-    in >> p.aspect;
-    in >> p.fps;
-    in >> p.current_time;
-    in >> p.falling_frame_index;
-    in >> p.shifting_frame_index;
-    in >> p.fliping_frame_index;
+    in >> p.color
+    >> p.state
+    >> p.flip_direction
+    >> p.selected
+    >> p.visible
+    >> p.motion
+    >> p.position
+    >> p.move
+    >> p.aspect
+    >> p.fps
+    >> p.current_time
+    >> p.falling_frame_index
+    >> p.shifting_frame_index
+    >> p.fliping_frame_index;
 
     return in;
 }
 std::ostream& operator<< (std::ostream& out, const block& p)
 {
-    out << p.color;
-    out << p.state;
-    out << p.flip_direction;
-    out << p.selected;
-    out << p.visible;
-    out << p.motion;
-    out << p.position;
-    out << p.aspect;
-    out << p.fps;
-    out << p.current_time;
-    out << p.falling_frame_index;
-    out << p.shifting_frame_index;
-    out << p.fliping_frame_index;
+    out << p.color
+    << p.state
+    << p.flip_direction
+    << p.selected
+    << p.visible
+    << p.motion
+    << p.position
+    << p.move
+    << p.aspect
+    << p.fps
+    << p.current_time
+    << p.falling_frame_index
+    << p.shifting_frame_index
+    << p.fliping_frame_index;
 
     return out;
 }

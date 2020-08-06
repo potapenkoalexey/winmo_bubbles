@@ -11,7 +11,7 @@ ini_handler::ini_handler(const std::string& filename_)
     filename = filename_;
     error = false;
 
-    file.open(filename);
+    file.open(filename, std::ios::in | std::ios::binary);
 
     std::string actual_line = "";
     std::string actual_section = "";
@@ -85,7 +85,7 @@ void ini_handler::save_settings_to_file()
         return;
 
     // already have our file in the buffer, so delete the content of file
-    file.open(filename, std::ofstream::out | std::ofstream::trunc);
+    file.open(filename, std::ios::out | std::ios::binary);// std::ofstream::out | std::ofstream::trunc);
 
     // set up the content for the ending of file. Plus, handling the last empty line in the file
     size_t count{ 0 };
