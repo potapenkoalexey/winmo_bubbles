@@ -944,7 +944,7 @@ bool field::save_field_to_file()
 
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            fs << (*gems[i][j]);
+            fs << (*gems[i][j]); // << '\n';
         }
     }
 
@@ -954,12 +954,12 @@ bool field::save_field_to_file()
 
 bool field::load_field_from_file()
 {
-    std::stringstream ss("./data/config/field.dat");
+    std::stringstream ss("./data/config/field.dat", std::ios::binary);
 
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
             ss >> (*gems[i][j]);
-            std::cout << gems[i][j]->color << std::endl;
+            std::cout << *gems[i][j];// << std::endl;
         }
     }
 
