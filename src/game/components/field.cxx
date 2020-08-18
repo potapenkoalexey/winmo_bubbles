@@ -936,15 +936,18 @@ bool field::is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/)
 
 bool field::save_field_to_file()
 {
-    std::fstream fs("./data/config/field.dat");
+    std::ofstream fs;
+    fs.open("./data/config/field.dat", std::fstream::out | std::ios::binary);
+
     if (!fs.is_open()) {
-        std::cerr << "Can't write into file /config/field.dat!\n";
+        std::cerr << "Can't write into the /config/field.dat!\n";
         return EXIT_FAILURE;
     }
 
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            fs << (*gems[i][j]); // << '\n';
+            fs.write((char*)(gems[i][j]), sizeof(block));
+            //fs << (*gems[i][j]); // << '\n';
         }
     }
 
@@ -954,12 +957,19 @@ bool field::save_field_to_file()
 
 bool field::load_field_from_file()
 {
-    std::stringstream ss("./data/config/field.dat", std::ios::binary);
+    std::ifstream fs;
+    fs.open("./data/config/field.dat", std::fstream::in | std::ios::binary);
+
+    if (!fs.is_open()) {
+        std::cerr << "Can't read from the /config/field.dat!\n";
+        return EXIT_FAILURE;
+    }
 
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            ss >> (*gems[i][j]);
-            std::cout << *gems[i][j];// << std::endl;
+            fs.read((char*)(gems[i][j]), sizeof(block));
+            //restore texture
+            associate_texture_with_gem(i,j);
         }
     }
 
