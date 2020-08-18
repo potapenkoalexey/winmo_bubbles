@@ -947,7 +947,6 @@ bool field::save_field_to_file()
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
             fs.write((char*)(gems[i][j]), sizeof(block));
-            //fs << (*gems[i][j]); // << '\n';
         }
     }
 
@@ -967,9 +966,13 @@ bool field::load_field_from_file()
 
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
+            // load basic data
             fs.read((char*)(gems[i][j]), sizeof(block));
-            //restore texture
+            // restore internal pointers
+            gems[i][j]->set_engine(engine);
             associate_texture_with_gem(i,j);
+            // !!!!!!!!!!!!!
+            // fix loading more than second stage -> firts disappearing -> stage complete
         }
     }
 

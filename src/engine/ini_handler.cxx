@@ -130,6 +130,7 @@ bool ini_handler::update()
 
     set("Saved", "g_LEVEL", std::to_string(g_LEVEL));
     set("Saved", "g_SCORE", std::to_string(g_SCORE));
+    set("Saved", "g_score_in_the_end_of_level", std::to_string(g_score_in_the_end_of_level));
     set_boolean("Saved", "g_SOUND", g_SOUND);
 
     return true;
@@ -147,6 +148,7 @@ bool ini_handler::load_saved_settings()
 
     g_LEVEL = static_cast<size_t>(get_int("Saved", "g_LEVEL"));
     g_SCORE = static_cast<size_t>(get_int("Saved", "g_SCORE"));
+    g_score_in_the_end_of_level = static_cast<size_t>(get_int("Saved", "g_score_in_the_end_of_level"));
     g_SOUND = get_boolean("Saved", "g_SOUND");
 
     return true;

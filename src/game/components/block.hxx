@@ -77,6 +77,10 @@ public:
     */
     void set_random_color_from_extreme_with_bomb();
 
+    /*! \brief set internal pointer by engine
+    */
+    void set_engine(grottans::engine* e);
+
     /*! \brief block rendering
     */
     void draw();
@@ -136,17 +140,4 @@ public:
 
 private:
     grottans::engine* engine;
-
-    friend std::istream& operator>> (std::istream& in, block& p);
-    friend std::ostream& operator<< (std::ostream& out, const block& p);
-    friend std::istream& operator>> (std::istream& in, palette& p);
-    friend std::ostream& operator<< (std::ostream& out, const palette& p);
-    friend std::istream& operator>> (std::istream& in, block_state& p);
-    friend std::ostream& operator<< (std::ostream& out, const block_state& p);
-    friend std::istream& operator>> (std::istream& in, block_direction& p);
-    friend std::ostream& operator<< (std::ostream& out, const block_direction& p);
-    friend std::istream& operator>> (std::istream& in, grottans::vec2& p);
-    friend std::ostream& operator<< (std::ostream& out, const grottans::vec2& p);
-    friend std::istream& operator>> (std::istream& in, grottans::mat2x3& p);
-    friend std::ostream& operator<< (std::ostream& out, const grottans::mat2x3& p);
 };

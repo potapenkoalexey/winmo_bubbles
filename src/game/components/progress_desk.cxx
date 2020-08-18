@@ -202,7 +202,7 @@ void progress_desk::update_progress_line_after_settings_restore()
 
     if (g_MODE == MODE::classic) {
         points_to_level = levels_classic[g_LEVEL];
-    } else {
+    } else if (g_MODE == MODE::extreme){
         points_to_level = levels_extreme[g_LEVEL];
     }
 

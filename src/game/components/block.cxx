@@ -8,98 +8,6 @@ static std::uniform_real_distribution<double> dist_1_5(10.0, 60.0);
 static std::uniform_real_distribution<double> dist_1_11(10.0, 120.0);
 static std::uniform_real_distribution<double> dist_1_17(10.0, 175.0);
 
-//block::~block()
-//{
-//}
-
-std::istream& operator>> (std::istream& in, palette& p)
-{
-    unsigned tmp = 0;
-    in >> tmp;
-    //TODO: check that u is a valid "palette" value
-    p = static_cast<palette>(tmp);
-    return in;
-}
-
-std::ostream& operator<< (std::ostream& out, const palette& p)
-{
-    //TODO: check that race is a valid "palette" value
-    unsigned tmp = p;
-    out << tmp;
-    return out;
-}
-
-std::istream& operator>> (std::istream& in, block_state& p)
-{
-    unsigned tmp = 0;
-    in >> tmp;
-    //TODO: check that u is a valid "palette" value
-    p = static_cast<block_state>(tmp);
-    return in;
-}
-
-std::ostream& operator<< (std::ostream& out, const block_state& p)
-{
-    //TODO: check that race is a valid "palette" value
-    unsigned tmp = p;
-    out << tmp;
-    return out;
-}
-
-std::istream& operator>> (std::istream& in, block_direction& p)
-{
-    unsigned tmp = 0;
-    in >> tmp;
-    //TODO: check that u is a valid "palette" value
-    p = static_cast<block_direction>(tmp);
-    return in;
-}
-
-std::ostream& operator<< (std::ostream& out, const block_direction& p)
-{
-    //TODO: check that race is a valid "palette" value
-    out << static_cast<unsigned>(p);
-    return out;
-}
-
-std::istream& operator>> (std::istream& in, block& p)
-{
-    in >> p.color
-    >> p.state
-    >> p.flip_direction
-    >> p.selected
-    >> p.visible
-    >> p.motion
-    >> p.position
-    >> p.move
-    >> p.aspect
-    >> p.fps
-    >> p.current_time
-    >> p.falling_frame_index
-    >> p.shifting_frame_index
-    >> p.fliping_frame_index;
-
-    return in;
-}
-std::ostream& operator<< (std::ostream& out, const block& p)
-{
-    out << p.color
-    << p.state
-    << p.flip_direction
-    << p.selected
-    << p.visible
-    << p.motion
-    << p.position
-    << p.move
-    << p.aspect
-    << p.fps
-    << p.current_time
-    << p.falling_frame_index
-    << p.shifting_frame_index
-    << p.fliping_frame_index;
-
-    return out;
-}
 
 float block::get_fps() const
 {
@@ -197,6 +105,11 @@ void block::set_random_color_from_extreme_with_bomb()
     if (m == 17) {
         color = palette::bomb;
     }
+}
+
+void block::set_engine(grottans::engine * e)
+{
+    engine = e;
 }
 
 //animation of disappearing

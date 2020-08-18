@@ -1,8 +1,6 @@
 1. save & load state and max results from file
     - bug: progress_desk line filling when load save state
-        -- the update_progress_line_after_settings_restore() in progress_desk class has been added, fix it
-    - add save field state - save all gems to file, and load from it
-        -- realize all operator>><< that need for block class
+        -- the update_progress_line_after_settings_restore() in progress_desk class has been added, add to it possibilities to change progress by percent in time of loading saved state
 2. fix selecting_for_disappearing() in field class: now all field checks (width-1) times, but we need at least width*6 times (hotfix) or realize recurse ckecking
 3. integrate project for Android Studio (use cmake to prepare files)
 4. review render system for correct objects scaling and rotation (now it scale and rotating relative to the center of screen coordinates). it will be easy to work with texture and animation.
