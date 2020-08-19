@@ -88,6 +88,7 @@ void extreme_state::handle_events()
     case grottans::event::escape_released: {
         ///go to select_mode_state
         engine->save_settings();
+        game_field->save_field_to_file();
         g_LEVEL = 1;
         g_SCORE = 0;
         g_score_in_the_end_of_level = 0;
