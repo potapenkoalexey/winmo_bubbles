@@ -199,7 +199,7 @@ void progress_desk::increase_progress(
 int progress_desk::set_progress_line_in_percent(
     const double& percent)
 {
-    if (percent > 100) {
+    if (percent < 0 || percent > 100) {
         std::cerr << __FUNCTION__ << "-- Invalid incoming argument" << std::endl;
         EXIT_FAILURE;
     }
