@@ -54,22 +54,20 @@ void classic_state::resume()
     game_field->undisappearing_all();
     game_field->unfalling_unshifting_all();
     game_field->visible_all();
+    game_field->selector->position.x = 5;
+    game_field->selector->position.y = 5;
+    progress->set_line_in_null();
+    progress->set_dispayed_points(0);
+    progress->set_level_complete_flag(false);
+    progress->set_displayed_score(g_SCORE);
     if (g_LOAD_SAVED_STATE){
         engine->load_saved_settings();
         game_field->load_field_from_file();
-        progress->update_progress_line_after_settings_restore();
+        progress->update_progress_line_after_restore();
         g_LOAD_SAVED_STATE = false;
     } else {
         game_field->fill_clasic();
     }
-    game_field->selector->position.x = 5;
-    game_field->selector->position.y = 5;
-    progress->set_line_in_null();
-    //need to be called only if the load_save mode selected
-    //progress->update_progress_line_after_settings_restore();
-    progress->set_dispayed_points(0);
-    progress->set_level_complete_flag(false);
-    progress->set_displayed_score(g_SCORE);
 }
 
 void classic_state::handle_events()

@@ -20,6 +20,8 @@ size_t g_LEVEL = 1;
 
 size_t g_POINTS = 0;
 size_t g_SCORE = 0;
+
+/*! @brief updates in the end of the each level.*/
 size_t g_score_in_the_end_of_level = 0;
 
 /*! @brief Number of block on the field.*/

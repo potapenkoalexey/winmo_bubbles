@@ -60,6 +60,10 @@ void game_over_state::resume()
     if (g_SOUND) {
         sound_game_over->play(grottans::sound_buffer::properties::once);
     }
+
+//    g_POINTS = 0;
+//    g_SCORE = 0;
+//    g_LEVEL = 1;
 }
 
 void game_over_state::handle_events()

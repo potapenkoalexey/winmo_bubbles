@@ -196,15 +196,48 @@ void progress_desk::increase_progress(
     }
 }
 
-void progress_desk::update_progress_line_after_settings_restore()
+int progress_desk::set_progress_line_in_percent(
+    const double& percent)
 {
-    size_t points_to_level = 0;
-
-    if (g_MODE == MODE::classic) {
-        points_to_level = levels_classic[g_LEVEL];
-    } else if (g_MODE == MODE::extreme){
-        points_to_level = levels_extreme[g_LEVEL];
+    if (percent > 100) {
+        std::cerr << __FUNCTION__ << "-- Invalid incoming argument" << std::endl;
+        EXIT_FAILURE;
     }
 
-//    increase_progress(g_SCORE - points_to_level, g_LEVEL);
+    /// moving counter line on % step 0,0142
+    tr[2].v[1].pos.x += (0.01094f * static_cast<float>(percent));
+    tr[2].v[2].pos.x += (0.01094f * static_cast<float>(percent));
+    tr[3].v[1].pos.x += (0.01094f * static_cast<float>(percent));
+
+    /// if line oveflow
+    if (tr[3].v[1].pos.x >= tr[5].v[1].pos.x) {
+        set_line_in_full();
+    }
+
+    /// updating vertex_buffer
+    update_line_vertex_buffer();
+
+    return EXIT_SUCCESS;
+}
+
+int progress_desk::update_progress_line_after_restore()
+{
+    double percent = 0;
+
+    if (g_MODE == MODE::classic) {
+        double points_to_level = levels_classic[g_LEVEL];
+        percent = ((double)(g_SCORE - g_score_in_the_end_of_level)) / (double)points_to_level * 100.0;
+    } else {
+        size_t points_to_level = levels_extreme[g_LEVEL];
+        percent = ((double)(g_SCORE - g_score_in_the_end_of_level)) / (double)points_to_level * 100.0;
+    }
+
+    if(percent > 100){
+        std::cerr << __FUNCTION__ << "-- Invavid data" << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    set_progress_line_in_percent(percent);
+
+    return EXIT_SUCCESS;
 }
