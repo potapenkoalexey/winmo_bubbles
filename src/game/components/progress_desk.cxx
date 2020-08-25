@@ -233,7 +233,7 @@ int progress_desk::update_progress_line_after_restore()
     }
 
     if(percent > 100){
-        std::cerr << __FUNCTION__ << "-- Invavid data" << std::endl;
+        std::cerr << __FUNCTION__ << "-- Invavid data. Percent = " << percent << std::endl;
         return EXIT_FAILURE;
     }
 

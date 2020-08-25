@@ -31,6 +31,7 @@ protected:
     game_over_state()
         : block_back{ nullptr }
         , sound_game_over{ nullptr }
+        , sound_new_max_score{ nullptr }
         , counter_final_score{ nullptr }
     {
     }
@@ -43,6 +44,7 @@ private:
     std::array<grottans::tri2, 2> vert_buf_tr; // v_buf triangles
 
     grottans::sound_buffer* sound_game_over;
+    grottans::sound_buffer* sound_new_max_score;
 
     std::unique_ptr<counter> counter_final_score;
 };

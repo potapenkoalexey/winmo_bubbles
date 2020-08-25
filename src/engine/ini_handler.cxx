@@ -130,6 +130,10 @@ bool ini_handler::update()
 
     set("Saved", "g_LEVEL", std::to_string(g_LEVEL));
     set("Saved", "g_SCORE", std::to_string(g_SCORE));
+
+    set("Saved", "g_SCORE_MAX_CLASSIC", std::to_string(g_SCORE_MAX_CLASSIC));
+    set("Saved", "g_SCORE_MAX_EXTREME", std::to_string(g_SCORE_MAX_EXTREME));
+
     set("Saved", "g_score_in_the_end_of_level", std::to_string(g_score_in_the_end_of_level));
     set_boolean("Saved", "g_SOUND", g_SOUND);
 
@@ -148,6 +152,8 @@ bool ini_handler::load_saved_settings()
 
     g_LEVEL = static_cast<size_t>(get_int("Saved", "g_LEVEL"));
     g_SCORE = static_cast<size_t>(get_int("Saved", "g_SCORE"));
+    g_SCORE_MAX_CLASSIC = static_cast<size_t>(get_int("Saved", "g_SCORE_MAX_CLASSIC"));
+    g_SCORE_MAX_EXTREME = static_cast<size_t>(get_int("Saved", "g_SCORE_MAX_EXTREME"));
     g_score_in_the_end_of_level = static_cast<size_t>(get_int("Saved", "g_score_in_the_end_of_level"));
     g_SOUND = get_boolean("Saved", "g_SOUND");
 
@@ -163,6 +169,10 @@ bool ini_handler::load_original_settings()
         g_MODE = MODE::classic;
     else if (temp == 2)
         g_MODE = MODE::extreme;
+
+    // update variables to prevent nulling
+    g_SCORE_MAX_CLASSIC = static_cast<size_t>(get_int("Saved", "g_SCORE_MAX_CLASSIC"));
+    g_SCORE_MAX_EXTREME = static_cast<size_t>(get_int("Saved", "g_SCORE_MAX_EXTREME"));
 
     g_LEVEL = static_cast<size_t>(get_int("Original", "g_LEVEL"));
     g_SCORE = static_cast<size_t>(get_int("Original", "g_SCORE"));

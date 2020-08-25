@@ -11,6 +11,7 @@ game_over_state game_over_state::m_game_over_state;
 game_over_state::~game_over_state()
 {
     delete sound_game_over;
+    delete sound_new_max_score;
 }
 
 bool game_over_state::init(grottans::engine* e)
@@ -39,6 +40,7 @@ bool game_over_state::init(grottans::engine* e)
 
     ///playing sound
     sound_game_over = engine->create_sound_buffer("./data/sounds/03_game_over");
+    sound_new_max_score = engine->create_sound_buffer("./data/sounds/06_new_max_score");
 
     return EXIT_SUCCESS;
 }
@@ -53,15 +55,31 @@ void game_over_state::pause()
 
 void game_over_state::resume()
 {
+    bool play_negative_sound = true;
+
+    if (g_MODE == MODE::classic && g_SCORE > g_SCORE_MAX_CLASSIC){
+        g_SCORE_MAX_CLASSIC = g_SCORE;
+        sound_new_max_score->play(grottans::sound_buffer::properties::once);
+        play_negative_sound = false;
+    }
+    if (g_MODE == MODE::extreme && g_SCORE > g_SCORE_MAX_EXTREME){
+        g_SCORE_MAX_EXTREME = g_SCORE;
+        sound_new_max_score->play(grottans::sound_buffer::properties::once);
+        play_negative_sound = false;
+    }
+
     counter_final_score->set_displayed_number(g_SCORE);
+
+    if (g_SOUND && play_negative_sound) {
+        sound_game_over->play(grottans::sound_buffer::properties::once);
+    }
+
+    // max scores backup
+    engine->save_settings();
 
     g_LEVEL = 1;
     g_SCORE = 0;
     g_score_in_the_end_of_level = 0;
-
-    if (g_SOUND) {
-        sound_game_over->play(grottans::sound_buffer::properties::once);
-    }
 }
 
 void game_over_state::handle_events()
