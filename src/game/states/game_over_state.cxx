@@ -74,12 +74,12 @@ void game_over_state::resume()
         sound_game_over->play(grottans::sound_buffer::properties::once);
     }
 
-    // max scores backup
-    engine->save_settings();
-
     g_LEVEL = 1;
     g_SCORE = 0;
     g_score_in_the_end_of_level = 0;
+
+    // max scores backup
+    engine->save_settings();
 }
 
 void game_over_state::handle_events()

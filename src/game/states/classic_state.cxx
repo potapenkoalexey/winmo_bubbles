@@ -62,7 +62,10 @@ void classic_state::resume()
     progress->set_displayed_score(g_SCORE);
     if (g_LOAD_SAVED_STATE){
         engine->load_saved_settings();
-        game_field->load_field_from_file();
+        if (g_SCORE != 0){
+            // preventing of loading saved field in case of previous game over
+            game_field->load_field_from_file();
+        }
         progress->update_progress_line_after_restore();
         g_LOAD_SAVED_STATE = false;
     } else {
