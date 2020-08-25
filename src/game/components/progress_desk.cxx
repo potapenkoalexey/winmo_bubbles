@@ -164,7 +164,7 @@ void progress_desk::increase_progress(
     const size_t& points,
     const size_t& level_number)
 {
-    size_t points_to_level = 0;
+    float points_to_level = 0;
 
     if (g_MODE == MODE::classic) {
         points_to_level = levels_classic[level_number];
@@ -226,10 +226,10 @@ int progress_desk::update_progress_line_after_restore()
 
     if (g_MODE == MODE::classic) {
         double points_to_level = levels_classic[g_LEVEL];
-        percent = ((double)(g_SCORE - g_score_in_the_end_of_level)) / (double)points_to_level * 100.0;
+        percent = ((double)(g_SCORE - g_score_in_the_end_of_level)) / points_to_level * 100.0;
     } else {
         size_t points_to_level = levels_extreme[g_LEVEL];
-        percent = ((double)(g_SCORE - g_score_in_the_end_of_level)) / (double)points_to_level * 100.0;
+        percent = ((double)(g_SCORE - g_score_in_the_end_of_level)) / points_to_level * 100.0;
     }
 
     if(percent > 100){
