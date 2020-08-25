@@ -72,9 +72,9 @@ void select_mode_state::pause() {}
 
 void select_mode_state::resume()
 {
-    g_score_in_the_end_of_level = 0;
     g_LEVEL = 1;
     g_SCORE = 0;
+    g_score_in_the_end_of_level = 0;
 }
 
 void select_mode_state::sound_turn_on()

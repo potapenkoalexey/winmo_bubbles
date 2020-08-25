@@ -53,17 +53,15 @@ void game_over_state::pause()
 
 void game_over_state::resume()
 {
-    g_score_in_the_end_of_level = 0;
-
     counter_final_score->set_displayed_number(g_SCORE);
+
+    g_LEVEL = 1;
+    g_SCORE = 0;
+    g_score_in_the_end_of_level = 0;
 
     if (g_SOUND) {
         sound_game_over->play(grottans::sound_buffer::properties::once);
     }
-
-//    g_POINTS = 0;
-//    g_SCORE = 0;
-//    g_LEVEL = 1;
 }
 
 void game_over_state::handle_events()
