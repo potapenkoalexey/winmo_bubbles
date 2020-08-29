@@ -14,10 +14,16 @@ progress_desk::~progress_desk()
 
 bool progress_desk::init()
 {
+#ifndef DEBUG_GAME_OVER_STATE
     points_classic = { 2, 6, 12, 20, 30, 42, 56, 72, 90,
         110, 132, 156, 182, 210, 240, 272, 306, 342,
         382, 424, 468, 514, 562, 750, 999 };
-
+#endif
+#ifdef DEBUG_GAME_OVER_STATE
+    points_classic = { 2, 2, 2, 2, 2, 2, 2, 2, 2,
+                      2, 2, 2, 2, 2, 2, 2, 2, 2,
+                      2, 2, 2, 2, 2, 2, 2 };
+#endif
     points_extreme = { 3, 8, 15, 24, 35, 48, 63, 80, 99, 120,
         143, 168, 195, 224, 255, 288, 323, 360, 399, 440,
         483, 528, 575, 624, 675, 728, 783, 840, 899, 999 };

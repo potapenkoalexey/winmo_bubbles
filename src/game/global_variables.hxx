@@ -4,6 +4,7 @@
 #include <cstddef>
 
 #define GL_CHECK_FOR_DEBUG
+#define DEBUG_GAME_OVER_STATE
 
 using milli_sec = std::chrono::milliseconds;
 

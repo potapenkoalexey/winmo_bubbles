@@ -41,6 +41,9 @@ private:
 
     std::unique_ptr<block> block_back;
 
+    grottans::texture* tex_game_over;
+    grottans::texture* tex_game_over_new_max_score;
+
     std::array<grottans::tri2, 2> vert_buf_tr; // v_buf triangles
 
     grottans::sound_buffer* sound_game_over;

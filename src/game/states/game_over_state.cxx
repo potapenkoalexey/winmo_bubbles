@@ -10,6 +10,8 @@ game_over_state game_over_state::m_game_over_state;
 
 game_over_state::~game_over_state()
 {
+    delete tex_game_over;
+    delete tex_game_over_new_max_score;
     delete sound_game_over;
     delete sound_new_max_score;
 }
@@ -21,7 +23,10 @@ bool game_over_state::init(grottans::engine* e)
     //block_classic = new block;
     block_back = std::make_unique<block>(engine);
 
-    block_back->texture = engine->create_texture("./data/images/gui/game_over.png");
+    tex_game_over = engine->create_texture("./data/images/gui/game_over.png");
+    tex_game_over_new_max_score = engine->create_texture("./data/images/gui/game_over_new_max_score.png");
+
+    block_back->texture = tex_game_over;
 
     auto text = engine->load_txt_and_filter_comments("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
     text >> vert_buf_tr[0] >> vert_buf_tr[1];
@@ -57,15 +62,26 @@ void game_over_state::resume()
 {
     bool play_negative_sound = true;
 
-    if (g_MODE == MODE::classic && g_SCORE > g_SCORE_MAX_CLASSIC){
+    if (g_MODE == MODE::classic){
+        if (g_SCORE > g_SCORE_MAX_CLASSIC){
         g_SCORE_MAX_CLASSIC = g_SCORE;
         sound_new_max_score->play(grottans::sound_buffer::properties::once);
+        block_back->texture = tex_game_over_new_max_score;
         play_negative_sound = false;
+        } else {
+            block_back->texture = tex_game_over;
+        }
     }
-    if (g_MODE == MODE::extreme && g_SCORE > g_SCORE_MAX_EXTREME){
-        g_SCORE_MAX_EXTREME = g_SCORE;
-        sound_new_max_score->play(grottans::sound_buffer::properties::once);
-        play_negative_sound = false;
+    if (g_MODE == MODE::extreme){
+        if (g_SCORE > g_SCORE_MAX_EXTREME){
+            g_SCORE_MAX_EXTREME = g_SCORE;
+            sound_new_max_score->play(grottans::sound_buffer::properties::once);
+            block_back->texture = tex_game_over_new_max_score;
+            play_negative_sound = false;
+        }else{
+            block_back->texture = tex_game_over;
+        }
+
     }
 
     counter_final_score->set_displayed_number(g_SCORE);
