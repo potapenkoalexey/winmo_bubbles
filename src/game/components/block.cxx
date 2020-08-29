@@ -8,6 +8,12 @@ static std::uniform_real_distribution<double> dist_1_5(10.0, 60.0);
 static std::uniform_real_distribution<double> dist_1_11(10.0, 120.0);
 static std::uniform_real_distribution<double> dist_1_17(10.0, 175.0);
 
+//block::~block(){
+//    engine->destroy_texture(texture);
+//    texture = nullptr;
+//    engine->destroy_vertex_buffer(v_buf);
+//    v_buf = nullptr;
+//}
 
 float block::get_fps() const
 {
