@@ -180,12 +180,14 @@ void select_mode_state::handle_events()
         block_select->v_buf = v_buf_classic;
         engine->load_original_settings();
         g_MODE = MODE::classic;
+        g_LOAD_SAVED_STATE = false;
         break;
     }
     case grottans::event::right_released: {
         block_select->v_buf = v_buf_extreme;
         engine->load_original_settings();
         g_MODE = MODE::extreme;
+        g_LOAD_SAVED_STATE = false;
         break;
     }
     case grottans::event::up_released: {
@@ -198,8 +200,9 @@ void select_mode_state::handle_events()
     }
     case grottans::event::down_released:{
         block_select->v_buf = v_buf_load_save;
-        //engine->load_saved_settings();
-        //g_LOAD_SAVED_STATE = true;
+        // set and load save state
+        engine->load_saved_settings();
+        g_LOAD_SAVED_STATE = true;
         break;
     }
     case grottans::event::start_released: {
