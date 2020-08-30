@@ -151,10 +151,10 @@ void select_mode_state::handle_mouse_event(
         }
         ///load_save button
         if (engine->is_mouse_clicked_in_coord(0.31f, 0.69f, 0.70f, 0.80f)) {
-            //block_select->v_buf = v_buf_load_save;
-            //engine->load_saved_settings();
-            //g_LOAD_SAVED_STATE = true;
-            //e = grottans::event::start_released;
+            block_select->v_buf = v_buf_load_save;
+            engine->load_saved_settings();
+            g_LOAD_SAVED_STATE = true;
+            e = grottans::event::start_released;
         }
     }
 }
@@ -198,7 +198,8 @@ void select_mode_state::handle_events()
     }
     case grottans::event::down_released:{
         block_select->v_buf = v_buf_load_save;
-        engine->load_saved_settings();
+        //engine->load_saved_settings();
+        //g_LOAD_SAVED_STATE = true;
         break;
     }
     case grottans::event::start_released: {
