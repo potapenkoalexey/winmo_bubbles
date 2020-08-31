@@ -32,3 +32,17 @@ std::stringstream filter_comments(std::string_view file)
 
     return out;
 }
+
+namespace grottans {
+
+class file_handler {
+    virtual ~file_handler();
+
+    virtual int open();
+    virtual int close();
+    virtual int write();
+    virtual int read();
+
+}; // end of class file_handler
+
+} // end of namespace
