@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <functional>
 #include <memory>
 #include <vector>
 
@@ -27,10 +28,10 @@ struct field {
         non
     };
 
-    enum class draw_direction {
-        clockwise,
-        contr_clockwise,
-    };
+        enum class draw_direction {
+            clockwise,
+            contr_clockwise,
+            };
 
     field(grottans::engine* e)
         : engine{ e }
@@ -63,6 +64,9 @@ struct field {
     field& operator=(field&&) = delete;
 
     bool init();
+
+    void check_all_gem_in_field(std::function<void(block*)>);
+
     void fill_clasic();
     void fill_extreme();
     void associate_texture_with_gem(const size_t& i, const size_t& j);
@@ -74,11 +78,11 @@ struct field {
     size_t select_around_bomb(const size_t& i, const size_t& j);
     size_t selecting_to_disappearing();
 
-    void unselect_all();
+    static void unselect_all_func(block* gem);
     void undisappearing_all();
     void unselect_undisappearing_all();
     void unfalling_unshifting_all();
-    void unmotion_all();
+    static void unmotion_all_func(block* gem);
     void visible_all();
 
     bool is_all_fixed();

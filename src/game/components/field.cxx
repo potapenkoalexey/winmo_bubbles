@@ -117,6 +117,14 @@ bool field::init()
     return EXIT_SUCCESS;
 }
 
+void field::check_all_gem_in_field(std::function<void(block*)> func){
+    for (auto gem_vector : gems){
+        for (auto gem : gem_vector){
+            func(gem);
+        }
+    }
+}
+
 void field::fill_clasic()
 {
     for (size_t i = 0; i < width; i++) {
@@ -338,14 +346,9 @@ size_t field::selecting_to_disappearing()
     return number_of_selected_blocks;
 }
 
-void field::unselect_all()
+void field::unselect_all_func(block* gem)
 {
-    for (size_t i = 0; i < width; i++) {
-        for (size_t j = 0; j < height; j++) {
-
-            gems[i][j]->selected = false;
-        }
-    }
+    gem->selected = false;
 }
 
 void field::undisappearing_all()
@@ -391,15 +394,20 @@ void field::unfalling_unshifting_all()
     }
 }
 
-void field::unmotion_all()
+void field::unmotion_all_func(block* gem)
 {
-    for (size_t i = 0; i < width; i++) {
-        for (size_t j = 0; j < height; j++) {
-
-            gems[i][j]->motion = false;
-        }
-    }
+    gem->motion = false;
 }
+
+//void field::unmotion_all()
+//{
+//    for (size_t i = 0; i < width; i++) {
+//        for (size_t j = 0; j < height; j++) {
+
+//            gems[i][j]->motion = false;
+//        }
+//    }
+//}
 
 void field::visible_all()
 {

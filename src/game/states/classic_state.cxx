@@ -223,7 +223,7 @@ void classic_state::handle_start_released_event()
         progress->increase_progress(points, g_LEVEL);
         progress->set_dispayed_points(points);
 
-        game_field->unselect_all();
+        game_field->check_all_gem_in_field(field::unselect_all_func);
     }
     progress->set_displayed_score(g_SCORE);
 }

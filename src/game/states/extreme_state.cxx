@@ -248,7 +248,7 @@ void extreme_state::handle_start_released_event(const size_t& i, const size_t& j
 {
     size_t selected_blocks = 0;
     if (game_field->gems[i][j]->motion == false) {
-        game_field->unmotion_all();
+        game_field->check_all_gem_in_field(field::unmotion_all_func);
         game_field->gems[i][j]->motion = true;
         ///change selector texture on "clutch"
         game_field->selector->texture = game_field->tex_selector_clutch;
@@ -285,10 +285,10 @@ void extreme_state::handle_start_released_event(const size_t& i, const size_t& j
             progress->increase_progress(points, g_LEVEL);
             progress->set_dispayed_points(points);
 
-            game_field->unselect_all();
+            game_field->check_all_gem_in_field(field::unselect_all_func);
 
         } else {
-            game_field->unselect_all();
+            game_field->check_all_gem_in_field(field::unselect_all_func);
             game_field->undisappearing_all();
         }
     }
