@@ -53,7 +53,7 @@ void classic_state::resume()
 {
     game_field->undisappearing_all();
     game_field->unfalling_unshifting_all();
-    game_field->visible_all();
+    game_field->check_all_gem_in_field(field::visible_all_func);
     game_field->selector->position.x = 5;
     game_field->selector->position.y = 5;
     progress->set_line_in_null();

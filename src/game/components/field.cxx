@@ -399,24 +399,9 @@ void field::unmotion_all_func(block* gem)
     gem->motion = false;
 }
 
-//void field::unmotion_all()
-//{
-//    for (size_t i = 0; i < width; i++) {
-//        for (size_t j = 0; j < height; j++) {
-
-//            gems[i][j]->motion = false;
-//        }
-//    }
-//}
-
-void field::visible_all()
+void field::visible_all_func(block* gem)
 {
-    for (size_t i = 0; i < width; i++) {
-        for (size_t j = 0; j < height; j++) {
-
-            gems[i][j]->visible = true;
-        }
-    }
+    gem->visible = true;
 }
 
 bool field::is_all_fixed()

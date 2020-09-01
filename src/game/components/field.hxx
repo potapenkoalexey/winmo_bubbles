@@ -66,6 +66,9 @@ struct field {
     bool init();
 
     void check_all_gem_in_field(std::function<void(block*)>);
+    static void unselect_all_func(block* gem);
+    static void unmotion_all_func(block* gem);
+    static void visible_all_func(block* gem);
 
     void fill_clasic();
     void fill_extreme();
@@ -78,12 +81,9 @@ struct field {
     size_t select_around_bomb(const size_t& i, const size_t& j);
     size_t selecting_to_disappearing();
 
-    static void unselect_all_func(block* gem);
     void undisappearing_all();
     void unselect_undisappearing_all();
     void unfalling_unshifting_all();
-    static void unmotion_all_func(block* gem);
-    void visible_all();
 
     bool is_all_fixed();
 
