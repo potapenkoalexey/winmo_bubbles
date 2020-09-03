@@ -27,16 +27,20 @@ add_executable(${PROJECT_NAME}
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
 ##### engine lib
+set(ENGINE_LIB_NAME engine)
+
 file(GLOB_RECURSE ENGINE_SRC_FILES
     "${CMAKE_CURRENT_LIST_DIR}/src/engine/*.hxx"
     "${CMAKE_CURRENT_LIST_DIR}/src/engine/*.cxx"
     )
 
-set(ENGINE_LIB_NAME engine)
-
 add_library(${ENGINE_LIB_NAME}
     ${ENGINE_SRC_FILES}
     )
+
+if(WIN32)   
+  target_compile_definitions(${ENGINE_LIB_NAME} PRIVATE "-DOM_DECLSPEC=__declspec(dllexport)")
+endif(WIN32)
 
 target_compile_features(${ENGINE_LIB_NAME} PUBLIC cxx_std_17)
 
