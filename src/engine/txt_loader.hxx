@@ -12,7 +12,6 @@ std::stringstream filter_comments(std::string_view file)
 {
     std::stringstream out;
     std::string line;
-    //std::ifstream     in(file.data(), std::ios_base::binary);
     grottans::membuf buf = grottans::load_file(file);
     std::istream in(&buf);
 
@@ -32,17 +31,3 @@ std::stringstream filter_comments(std::string_view file)
 
     return out;
 }
-
-namespace grottans {
-
-class file_handler {
-    virtual ~file_handler();
-
-    virtual int open();
-    virtual int close();
-    virtual int write();
-    virtual int read();
-
-}; // end of class file_handler
-
-} // end of namespace

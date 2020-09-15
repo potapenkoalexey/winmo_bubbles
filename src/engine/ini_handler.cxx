@@ -23,7 +23,7 @@ ini_handler::ini_handler(const std::string& filename_)
     // To save our current section
     std::map<std::string, std::string> section;
 
-    if (this->file.is_open()) {
+    if (file.is_open()) {
         while (std::getline(file, actual_line)) {
 
             if (!actual_line.size())
@@ -117,6 +117,7 @@ void ini_handler::save_settings_to_file()
     }
 
     error = false;
+    file.close();
 }
 
 bool ini_handler::update()

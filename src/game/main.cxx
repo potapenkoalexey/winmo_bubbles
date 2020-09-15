@@ -8,6 +8,8 @@
 #include "./states/level_complete_state.hxx"
 #include "./states/select_mode_state.hxx"
 
+#include "../../src/engine/file_handler.hxx"
+
 using clock_timer = std::chrono::high_resolution_clock;
 using nano_sec = std::chrono::nanoseconds;
 using milli_sec = std::chrono::milliseconds;
@@ -17,6 +19,12 @@ using time_point = std::chrono::time_point<clock_timer, nano_sec>;
 
 int main(int /*argc*/, char** /*argv*/)
 {
+    grottans::file_handler* p = new grottans::SDL_file_handler(std::string("FILE TO OPEN"));
+
+    p->open(std::string("message"));
+
+    delete p;
+
     clock_timer timer;
 
     time_point start = timer.now();
