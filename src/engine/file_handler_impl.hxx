@@ -1,23 +1,27 @@
 #pragma once
 
+#include <sstream>
 #include <string>
 
 namespace grottans {
 
 class file_handler_impl {
 public:
-    virtual void file_open(const std::string& file) = 0;
-    virtual ~file_handler_impl();
+    virtual void open_and_read_all_file_to_strstream(const std::string& file) = 0;
+    virtual ~file_handler_impl() {}
 };
 
+// inherited classes
 class ST_file_handler_impl : public file_handler_impl {
 public:
-    void file_open(const std::string& file) override;
+    void open_and_read_all_file_to_strstream(const std::string& file) override;
+private:
+    std::stringstream out;
 };
 
 class MT_file_handler_impl : public file_handler_impl {
 public:
-    void file_open(const std::string& file) override;
+    void open_and_read_all_file_to_strstream(const std::string& file) override;
 };
 
 } // end of namespace grottans

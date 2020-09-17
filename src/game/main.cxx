@@ -19,11 +19,13 @@ using time_point = std::chrono::time_point<clock_timer, nano_sec>;
 
 int main(int /*argc*/, char** /*argv*/)
 {
-    grottans::file_handler* p = new grottans::SDL_file_handler(std::string("FILE TO OPEN"));
+    ///
+    grottans::file_handler* p = new grottans::SDL_file_handler(std::string("./data/vertex_buffers/vert_buffers_for_gems.txt"));
 
-    p->open(std::string("message"));
+    p->open();
 
     delete p;
+    ///
 
     clock_timer timer;
 

@@ -15,6 +15,7 @@ file_handler::~file_handler()
     delete pimpl;
 }
 
+
 SDL_file_handler::SDL_file_handler(const std::string& file_name)
     : file_handler(
 #ifdef MT
@@ -27,9 +28,9 @@ SDL_file_handler::SDL_file_handler(const std::string& file_name)
 {
 }
 
-void SDL_file_handler::open(const std::string& file)
+void SDL_file_handler::open()
 {
-    pimpl->file_open(file);
+    pimpl->open_and_read_all_file_to_strstream(file);
 }
 
 } // end of namespace grottans

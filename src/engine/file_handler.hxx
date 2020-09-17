@@ -13,7 +13,7 @@ class file_handler {
 public:
     file_handler(file_handler_impl* p);
     virtual ~file_handler();
-    virtual void open(const std::string& str) = 0;
+    virtual void open() = 0;
     //virtual void read(const std::string& str) = 0;
     //virtual void write(const std::string& str) = 0;
     //virtual void close() = 0;
@@ -26,7 +26,7 @@ protected:
 class SDL_file_handler : public file_handler {
 public:
     SDL_file_handler(const std::string& file_name);
-    void open(const std::string& str) override;
+    void open() override;
     //void read(const std::string& str);
     //void write(const std::string& str);
     //void close();
