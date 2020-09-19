@@ -14,16 +14,15 @@ namespace grottans {
 void ST_file_handler_impl::open_and_read_all_file_to_strstream(const std::string& file)
 {
     // change it to call of on of the logger type (console)
-    std::cout << "-- Single-threaded file loader" << file << std::endl;
+    std::cout << "-- Single-threaded file loader open and read file: " << file << std::endl;
 
-    std::stringstream out;
     std::string line;
     membuf buf = load_file(file);
     std::istream in(&buf);
 
     while (std::getline(in, line)) {
         if (!line.empty()) {
-            out << line << '\n';
+            file_stream << line << '\n';
         }
     }
 }
@@ -31,7 +30,7 @@ void ST_file_handler_impl::open_and_read_all_file_to_strstream(const std::string
 void MT_file_handler_impl::open_and_read_all_file_to_strstream(const std::string& file)
 {
     // change it to call of on of the logger type (console)
-    std::cout << "-- Multi-threaded file loader" << file << std::endl;
+    std::cout << "-- Multi-threaded file loader open and read file: " << file << std::endl;
 }
 
 } // end of namespace grottans
