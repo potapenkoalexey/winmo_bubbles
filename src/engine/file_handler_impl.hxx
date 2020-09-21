@@ -12,17 +12,20 @@ public:
 };
 
 // inherited classes
-class ST_file_handler_impl : public file_handler_impl {
+class text_file_handler_impl final : public file_handler_impl {
 public:
     void open_and_read_all_file_to_strstream(const std::string& file) override;
-
 private:
+    std::string file_name;
     std::stringstream file_stream;
 };
 
-class MT_file_handler_impl : public file_handler_impl {
+class ini_file_handler_impl final : public file_handler_impl {
 public:
     void open_and_read_all_file_to_strstream(const std::string& file) override;
+private:
+    std::string file_name;
+    std::stringstream file_stream;
 };
 
 } // end of namespace grottans

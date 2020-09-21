@@ -57,11 +57,11 @@ int main(int /*argc*/, char** /*argv*/)
     }
 
     ///
-    grottans::file_handler* p = new grottans::SDL_file_handler(std::string("./data/vertex_buffers/vert_buffers_for_gems.txt"));
+    grottans::file_handler* p = new grottans::common_file_handler(grottans::file_type::txt);
 
-    p->open();
+#define TEST_FILE_NAME "./data/vertex_buffers/vert_buffers_for_gems.txt"
+    p->open(std::string(TEST_FILE_NAME));
 
-    delete p;
     ///
 
     engine->uninitialize();

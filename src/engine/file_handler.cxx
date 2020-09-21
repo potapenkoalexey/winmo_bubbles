@@ -5,9 +5,9 @@
 
 namespace grottans {
 
-file_handler::file_handler(file_handler_impl* p)
-    : pimpl(p)
+file_handler::file_handler(/*file_handler_impl* p*/)
 {
+//    pimpl = p;
 }
 
 file_handler::~file_handler()
@@ -16,21 +16,29 @@ file_handler::~file_handler()
 }
 
 
-SDL_file_handler::SDL_file_handler(const std::string& file_name)
+common_file_handler::common_file_handler(const file_type& type)
     : file_handler(
-#ifdef MT
-          new MT_file_handler_impl()
-#else
-          new ST_file_handler_impl()
-#endif
     )
-    , file(file_name)
 {
+    switch (type) {
+    case grottans::file_type::txt: {
+        pimpl = new text_file_handler_impl();
+        break;
+    }
+    case grottans::file_type::dat: {
+        pimpl = new text_file_handler_impl();
+        break;
+    }
+    case grottans::file_type::ini: {
+        pimpl = new ini_file_handler_impl();
+        break;
+    }
+    }
 }
 
-void SDL_file_handler::open()
+void common_file_handler::open(const std::string& file_name)
 {
-    pimpl->open_and_read_all_file_to_strstream(file);
+    pimpl->open_and_read_all_file_to_strstream(file_name);
 }
 
 } // end of namespace grottans
