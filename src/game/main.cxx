@@ -57,7 +57,7 @@ int main(int /*argc*/, char** /*argv*/)
     }
 
     ///
-    grottans::file_handler* p = new grottans::common_file_handler(grottans::file_type::txt);
+    grottans::file_handler* p = new grottans::determine_file_handler_type(grottans::file_type::txt);
 
 #define TEST_FILE_NAME "./data/vertex_buffers/vert_buffers_for_gems.txt"
     p->open(std::string(TEST_FILE_NAME));

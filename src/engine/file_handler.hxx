@@ -12,14 +12,15 @@ namespace grottans {
 enum file_type{
     txt,
     dat,
-    ini,
+    ini
 };
 
 class file_handler {
 public:
-    file_handler(/*file_handler_impl* p*/);
+    file_handler();
     virtual ~file_handler();
     virtual void open(const std::string& file_name) = 0;
+    virtual void filter_comments() = 0;
     //virtual void read(const std::string& str) = 0;
     //virtual void write(const std::string& str) = 0;
     //virtual void close() = 0;
@@ -29,10 +30,11 @@ protected:
 };
 
 ///////////////////////////////////////////////////////////////////////////////
-class common_file_handler : public file_handler {
+class determine_file_handler_type : public file_handler {
 public:
-    common_file_handler(const file_type& type);
+    determine_file_handler_type(const file_type& type);
     void open(const std::string& file_name) override;
+    void filter_comments() override;
     //void read(const std::string& str);
     //void write(const std::string& str);
     //void close();

@@ -5,18 +5,19 @@
 
 namespace grottans {
 
-file_handler::file_handler(/*file_handler_impl* p*/)
+file_handler::file_handler()
+    : pimpl{ nullptr }
 {
-//    pimpl = p;
 }
 
 file_handler::~file_handler()
 {
-    delete pimpl;
+    if (pimpl)
+        delete pimpl;
 }
 
 
-common_file_handler::common_file_handler(const file_type& type)
+determine_file_handler_type::determine_file_handler_type(const file_type& type)
     : file_handler(
     )
 {
@@ -36,9 +37,14 @@ common_file_handler::common_file_handler(const file_type& type)
     }
 }
 
-void common_file_handler::open(const std::string& file_name)
+void determine_file_handler_type::open(const std::string& file_name)
 {
     pimpl->open_and_read_all_file_to_strstream(file_name);
+}
+
+void determine_file_handler_type::filter_comments()
+{
+    pimpl->filter_comments();
 }
 
 } // end of namespace grottans
