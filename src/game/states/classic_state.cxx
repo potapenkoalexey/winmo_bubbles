@@ -11,9 +11,10 @@ classic_state classic_state::m_classic_state;
 
 classic_state::~classic_state()
 {
-
     delete sound_fall;
     delete sound_destroy_big_form;
+
+    //delete tex_back;
 }
 
 bool classic_state::init(grottans::engine* e)
@@ -34,13 +35,13 @@ bool classic_state::init(grottans::engine* e)
     sound_fall = engine->create_sound_buffer("./data/sounds/00_falling");
     sound_destroy_big_form = engine->create_sound_buffer("./data/sounds/02_destroy_big_form");
 
-    //    //background
-    //    auto text = engine->load_txt_and_filter_comments("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
-    //    text >> tr[0] >> tr[1];
+//        //background
+//        auto text = engine->load_txt_and_filter_comments("./data/vertex_buffers/vert_buffers_for_full_monitor.txt");
+//        text >> vert_buf_back[0] >> vert_buf_back[1];
 
-    //    block_back = std::make_unique<block>(engine);
-    //    block_back->texture = engine->create_texture("./data/images/my/back_3.png");
-    //    block_back->v_buf = engine->create_vertex_buffer(&tr[0], 2);
+//        block_back = std::make_unique<block>(engine);
+//        block_back->texture = engine->create_texture("./data/images/gui/back_3.png");
+//        block_back->v_buf = engine->create_vertex_buffer(&vert_buf_back[0], 2);
 
     return EXIT_SUCCESS;
 }
@@ -169,7 +170,7 @@ void classic_state::update()
 void classic_state::draw()
 {
     //background
-    //    block_back->draw(engine);
+    //block_back->draw();
     game_field->draw();
     progress->draw();
 

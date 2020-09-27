@@ -53,4 +53,9 @@ private:
     std::unique_ptr<progress_desk> progress;
 
     std::unique_ptr<field> game_field;
+
+    std::unique_ptr<block> block_back;
+    grottans::texture* tex_back;
+    grottans::vertex_buffer* v_buf_back;
+    std::array<grottans::tri2, 10> vert_buf_back; // v_buf triangles
 };
