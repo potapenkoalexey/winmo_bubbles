@@ -52,8 +52,9 @@ if (UNIX)
         )
 elseif (WIN32)
     target_link_libraries(${ENGINE_LIB_NAME}
-        SDL2
-        -lopengl32
+        PRIVATE SDL2 
+                SDL2main
+                opengl32
         )
 endif()
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <array>
 
 #include "../../../src/engine/engine.hxx"
 #include "./../global_variables.hxx"

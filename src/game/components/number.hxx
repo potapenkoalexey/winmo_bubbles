@@ -1,5 +1,7 @@
 #pragma once
 
+#include <array>
+
 #include "../../../src/engine/color.hxx"
 #include "../../../src/engine/engine.hxx"
 
