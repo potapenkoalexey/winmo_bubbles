@@ -1347,9 +1347,6 @@ std::string engine_impl::initialize()
                 const int num_audio_devices = SDL_GetNumAudioDevices(SDL_FALSE);
 
                 if (num_audio_devices > 0) {
-                    // set the audio device number 0..num_audio_devices
-                    default_audio_device_name = SDL_GetAudioDeviceName(num_audio_devices - 1, SDL_FALSE);
-
                     for (int i = 0; i < num_audio_devices; ++i) {
                         std::cout << "audio device #" << i << ": "
                                   << SDL_GetAudioDeviceName(i, SDL_FALSE) << '\n';
@@ -1357,25 +1354,30 @@ std::string engine_impl::initialize()
                 }
                 std::cout << std::flush;
 
-                audio_device = SDL_OpenAudioDevice(default_audio_device_name, 0, &audio_device_spec,
-                    nullptr, SDL_AUDIO_ALLOW_ANY_CHANGE);
+                for (int i = 0; i < num_audio_devices - 1; ++i) {
+                    // set the audio device number 0..num_audio_devices
+                    default_audio_device_name = SDL_GetAudioDeviceName(i, SDL_FALSE);
+                    audio_device = SDL_OpenAudioDevice(default_audio_device_name, 0, &audio_device_spec,
+                        nullptr, SDL_AUDIO_ALLOW_ANY_CHANGE);
 
-                if (audio_device == 0) {
-                    std::cerr << "failed open audio device: " << SDL_GetError();
-                    throw std::runtime_error("\naudio failed");
-                } else {
-                    std::cout << "audio device selected: " << default_audio_device_name
-                              << '\n'
-                              << "freq: " << audio_device_spec.freq << '\n'
-                              << "format: "
-                              << get_sound_format_name(audio_device_spec.format) << '\n'
-                              << "channels: "
-                              << static_cast<uint32_t>(audio_device_spec.channels) << '\n'
-                              << "samples: " << audio_device_spec.samples << '\n'
-                              << std::flush;
+                    if (audio_device == 0) {
+                        std::cerr << "failed open audio device: " << SDL_GetError();
+                        throw std::runtime_error("\naudio failed");
+                    }
+                    else {
+                        std::cout << "audio device selected: " << default_audio_device_name
+                            << '\n'
+                            << "freq: " << audio_device_spec.freq << '\n'
+                            << "format: "
+                            << get_sound_format_name(audio_device_spec.format) << '\n'
+                            << "channels: "
+                            << static_cast<uint32_t>(audio_device_spec.channels) << '\n'
+                            << "samples: " << audio_device_spec.samples << '\n'
+                            << std::flush;
 
-                    // unpause device
-                    SDL_PauseAudioDevice(audio_device, SDL_FALSE);
+                        // unpause device
+                        SDL_PauseAudioDevice(audio_device, SDL_FALSE);
+                    }
                 }
 
                 return "";
