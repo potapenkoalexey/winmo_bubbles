@@ -1336,27 +1336,36 @@ std::string engine_impl::initialize()
                 std::cout << std::flush;
 
                 // TODO on windows 10 only DirectSound - works for me
-                std::string_view OS = SDL_GetPlatform();
-                if (OS == "Windows") {
-                    // set fixed audio driver - TODO: search DirectSound
-                    selected_audio_driver = SDL_GetAudioDriver(1);
-                } else if (OS == "Linux" || OS == "Android") {
-                    for (auto x : vec_audio_drivers){
-                        if (x == "pulseaudio"){
-                            selected_audio_driver = x.c_str();
+                const char* OS = SDL_GetPlatform();
+                std::cout << "-- AUDIO platform: " << OS << std::endl << std::flush;
+
+                for (auto x : vec_audio_drivers) {
+                    if (0 != SDL_AudioInit(x.c_str())) {
+                        std::cout << "-- can't init SDL audio with driver: " << x << std::endl << std::flush;
+                        continue;
+                    } else {
+                        std::cout << "- init SDL audio system with driver: " << x << std::endl << std::flush;
+                    }
+                    
+                    selected_audio_driver = x.c_str();
+
+                    if (OS == "Windows" && x == "winmm") {
+                            break;
+                    }
+                    
+                    if (OS == "Linux" || OS == "Android") {
+                        if (x == "pulseaudio") {
                             break;
                         }
                     }
-                } else { // other OS
-                    selected_audio_driver = SDL_GetAudioDriver(1);
+                    //else {
+                        // any other OS
+                        //selected_audio_driver = SDL_GetAudioDriver(1);
+                        //break;
+                    //}
                 }
 
-                if (0 != SDL_AudioInit(selected_audio_driver)) {
-                    std::cout << "-- can't init SDL audio with driver:\n" << selected_audio_driver
-                              << std::flush;
-                }
-
-                std::cout << "-- selected audio driver " << SDL_GetPlatform() << ": " << selected_audio_driver
+                std::cout << "-- selected audio driver for " << OS << ": " << selected_audio_driver
                           << std::endl;
 
                 ///////////////////////////////////////////////////////////////
@@ -1374,7 +1383,11 @@ std::string engine_impl::initialize()
                 }
                 std::cout << std::flush;
 
+//#ifdef _WIN32   // on Windows better start from the begining of the list
+ //               for (int i = 0; i < num_audio_devices - 1; ++i) {
+//#else           // on UNIX better start from the end of the list
                 for (int i = num_audio_devices - 1; i >= 0; --i) {
+//#endif
                     // set the audio device number num_audio_devices..0
                     default_audio_device_name = SDL_GetAudioDeviceName(i, SDL_FALSE);
                     audio_device = SDL_OpenAudioDevice(default_audio_device_name, 0, &audio_device_spec,
@@ -1397,8 +1410,8 @@ std::string engine_impl::initialize()
                             << std::flush;
 
                         // unpause device
-                        SDL_PauseAudioDevice(audio_device, SDL_FALSE);
-                        break;
+                        SDL_PauseAudioDevice(i, SDL_FALSE);
+                        //break;
                     }
                 }
 
