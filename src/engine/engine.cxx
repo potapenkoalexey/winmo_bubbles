@@ -1364,7 +1364,7 @@ std::string engine_impl::initialize()
                     //}
                 }
 
-                std::cout << "-- selected audio driver for " << OS << ": " << selected_audio_driver
+                std::cout << "- Selected driver: " << selected_audio_driver << " for " << OS
                           << std::endl;
 
                 ///////////////////////////////////////////////////////////////
@@ -1398,7 +1398,7 @@ std::string engine_impl::initialize()
                         continue;
                     }
                     else {
-                        std::cout << "-- audio device selected: " << default_audio_device_name
+                        std::cout << "- Selected: " << default_audio_device_name
                             << '\n'
                             << "freq: " << audio_device_spec.freq << '\n'
                             << "format: "
