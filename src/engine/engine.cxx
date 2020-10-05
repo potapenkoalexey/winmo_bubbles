@@ -1349,14 +1349,12 @@ std::string engine_impl::initialize()
                     
                     selected_audio_driver = x.c_str();
 
-                    if (OS == "Windows" && x == "winmm") {
-                            break;
+                    if (0 == strncmp(OS, "Windows", 5) && x == "winmm") {
+                        break;
                     }
                     
-                    if (OS == "Linux" || OS == "Android") {
-                        if (x == "pulseaudio") {
-                            break;
-                        }
+                    if ((0 == strncmp(OS, "Linux", 5) || 0 == strncmp(OS, "Android", 7)) && 0 == strncmp(selected_audio_driver, "pulseaudio", 11)) {
+                        break;
                     }
                     //else {
                         // any other OS
@@ -1383,11 +1381,11 @@ std::string engine_impl::initialize()
                 }
                 std::cout << std::flush;
 
-//#ifdef _WIN32   // on Windows better start from the begining of the list
- //               for (int i = 0; i < num_audio_devices - 1; ++i) {
-//#else           // on UNIX better start from the end of the list
+#ifdef _WIN32   // on Windows better start from the begining of the list
+               for (int i = 0; i < num_audio_devices - 1; ++i) {
+#else           // on UNIX better start from the end of the list
                 for (int i = num_audio_devices - 1; i >= 0; --i) {
-//#endif
+#endif
                     // set the audio device number num_audio_devices..0
                     default_audio_device_name = SDL_GetAudioDeviceName(i, SDL_FALSE);
                     audio_device = SDL_OpenAudioDevice(default_audio_device_name, 0, &audio_device_spec,
@@ -1411,7 +1409,7 @@ std::string engine_impl::initialize()
 
                         // unpause device
                         SDL_PauseAudioDevice(i, SDL_FALSE);
-                        //break;
+                        break;
                     }
                 }
 
