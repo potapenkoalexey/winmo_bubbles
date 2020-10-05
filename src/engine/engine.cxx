@@ -1346,7 +1346,8 @@ std::string engine_impl::initialize()
                     } else {
                         std::cout << "- init SDL audio system with driver: " << x << std::endl << std::flush;
                     }
-                    
+
+                    // due to unknown reason selected_audio_device become "" after exit from loop 
                     selected_audio_driver = x.c_str();
 
                     if (0 == strncmp(OS, "Windows", 5) && x == "winmm") {
