@@ -4,6 +4,7 @@
     (now it scale and rotating relative to the center of screen coordinates). 
     it will be easy to work with texture and animation.
 4. resolve problem with opening settings and field files on Android, with help of SDL/membuf
+5. fix sound driver and device selecting on Win10 
 
 
 Build on Windows:
