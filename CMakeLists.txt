@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(winmo_bubbles VERSION 2.1 LANGUAGES CXX)
+set(PROJECT_VERSION 2.0.1)
+
+project(winmo_bubbles VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
 ##### turn off cmake extentions
 if(NOT CMAKE_CXX_EXTENSIONS)
@@ -84,3 +86,13 @@ target_link_libraries(${PROJECT_NAME} ${ENGINE_LIB_NAME})
 #      message("Doxygen need to be installed to generate the documentation")
 #    endif (DOXYGEN_FOUND)
 #endif()
+
+##### windows installer
+if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
+    if(WIN32)
+        # installer build as an option and set it to ON by default
+        option(BUILD_INSTALLER "Build installer" ON)
+        message("Installer build started")
+        add_subdirectory(installer)
+    endif()
+endif()
