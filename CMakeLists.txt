@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.10)
 
 set(PROJECT_VERSION 2.0.1)
 
-project(winmo_bubbles VERSION ${PROJECT_VERSION} LANGUAGES CXX)
+set(GAME_NAME WinMoBubbles)
+
+project(${GAME_NAME} VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
 ##### turn off cmake extentions
 if(NOT CMAKE_CXX_EXTENSIONS)
@@ -63,6 +65,33 @@ endif()
 ##### linking main project
 target_link_libraries(${PROJECT_NAME} ${ENGINE_LIB_NAME})
 
+##### copy data/ to build folder
+# Copy files from source directory to destination directory macro, substituting any
+# variables.  Create destination directory if it does not exist.
+macro(configure_files srcDir destDir)
+    message(STATUS "-- Configuring directory ${destDir}")
+    make_directory(${destDir})
+
+    file(GLOB templateFiles RELATIVE ${srcDir} ${srcDir}/*)
+    foreach(templateFile ${templateFiles})
+        set(srcTemplatePath ${srcDir}/${templateFile})
+        if(NOT IS_DIRECTORY ${srcTemplatePath})
+            message(STATUS "-- Configuring file ${templateFile}")
+            configure_file(
+                    ${srcTemplatePath}
+                    ${destDir}/${templateFile}
+                    @ONLY)
+        endif(NOT IS_DIRECTORY ${srcTemplatePath})
+    endforeach(templateFile)
+endmacro(configure_files)
+
+configure_files(${CMAKE_CURRENT_LIST_DIR}/data/config           ${CMAKE_CURRENT_BINARY_DIR}/data/config)
+configure_files(${CMAKE_CURRENT_LIST_DIR}/data/font             ${CMAKE_CURRENT_BINARY_DIR}/data/font)
+configure_files(${CMAKE_CURRENT_LIST_DIR}/data/icons            ${CMAKE_CURRENT_BINARY_DIR}/data/icons)
+configure_files(${CMAKE_CURRENT_LIST_DIR}/data/images           ${CMAKE_CURRENT_BINARY_DIR}/data/images)
+configure_files(${CMAKE_CURRENT_LIST_DIR}/data/sounds           ${CMAKE_CURRENT_BINARY_DIR}/data/sounds)
+configure_files(${CMAKE_CURRENT_LIST_DIR}/data/vertex_buffers   ${CMAKE_CURRENT_BINARY_DIR}/data/vertex_buffers)
+
 ##### documentation
 #if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
 #    # documentation build as an option and set it to ON by default
@@ -88,11 +117,14 @@ target_link_libraries(${PROJECT_NAME} ${ENGINE_LIB_NAME})
 #endif()
 
 ##### windows installer
-if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
+#if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
     if(WIN32)
         # installer build as an option and set it to ON by default
         option(BUILD_INSTALLER "Build installer" ON)
         message("Installer build started")
         add_subdirectory(installer)
     endif()
-endif()
+#endif()
+
+##### build all
+#cmake -E cmake --build . --config Release

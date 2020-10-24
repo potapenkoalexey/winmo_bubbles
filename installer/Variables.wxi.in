@@ -1,0 +1,11 @@
+<Include>
+
+    <?define FeatureShortcutTitle           = "Create shortcut on Desctop"?>
+    
+    <!-- GUIDs -->
+    <?define GUIDProductCode                = B7BC7C6F-9A4E-4973-BE84-ECA8E3427C97?>
+    <?define GUIDUpgradeCode                = 06A81104-1E30-463D-87E1-E8A79B4C682A?>
+    <?define GUIDComponentProduct           = B11556A2-E066-4393-AF5C-9C9210187EB2?>
+    <?define GUIDComponentShortcut          = 4CEBD68F-E933-47f9-B02C-A4FC69FDB551?>
+
+</Include>
