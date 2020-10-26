@@ -6,6 +6,31 @@ set(GAME_NAME WinMoBubbles)
 
 project(${GAME_NAME} VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELWITHDEBINFO "${CMAKE_BINARY_DIR}/bin")
+
+##### configure build
+set(CMAKE_SUPPRESS_REGENERATION true)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+add_definitions( -D_CRT_SECURE_NO_WARNINGS )
+
+if(MSVC)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+  message(STATUS "Added parallel build arguments to CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MP")
+  message(STATUS "Added parallel build arguments to CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}")
+endif()
+
 ##### turn off cmake extentions
 if(NOT CMAKE_CXX_EXTENSIONS)
     set(CMAKE_CXX_EXTENSIONS OFF)
@@ -85,12 +110,12 @@ macro(configure_files srcDir destDir)
     endforeach(templateFile)
 endmacro(configure_files)
 
-configure_files(${CMAKE_CURRENT_LIST_DIR}/data/config           ${CMAKE_CURRENT_BINARY_DIR}/data/config)
-configure_files(${CMAKE_CURRENT_LIST_DIR}/data/font             ${CMAKE_CURRENT_BINARY_DIR}/data/font)
-configure_files(${CMAKE_CURRENT_LIST_DIR}/data/icons            ${CMAKE_CURRENT_BINARY_DIR}/data/icons)
-configure_files(${CMAKE_CURRENT_LIST_DIR}/data/images           ${CMAKE_CURRENT_BINARY_DIR}/data/images)
-configure_files(${CMAKE_CURRENT_LIST_DIR}/data/sounds           ${CMAKE_CURRENT_BINARY_DIR}/data/sounds)
-configure_files(${CMAKE_CURRENT_LIST_DIR}/data/vertex_buffers   ${CMAKE_CURRENT_BINARY_DIR}/data/vertex_buffers)
+# configure_files(${CMAKE_CURRENT_LIST_DIR}/data/config           ${CMAKE_CURRENT_BINARY_DIR}/bin/data/config)
+# configure_files(${CMAKE_CURRENT_LIST_DIR}/data/font             ${CMAKE_CURRENT_BINARY_DIR}/bin/data/font)
+# configure_files(${CMAKE_CURRENT_LIST_DIR}/data/icons            ${CMAKE_CURRENT_BINARY_DIR}/bin/data/icons)
+# configure_files(${CMAKE_CURRENT_LIST_DIR}/data/images           ${CMAKE_CURRENT_BINARY_DIR}/bin/data/images)
+# configure_files(${CMAKE_CURRENT_LIST_DIR}/data/sounds           ${CMAKE_CURRENT_BINARY_DIR}/bin/data/sounds)
+# configure_files(${CMAKE_CURRENT_LIST_DIR}/data/vertex_buffers   ${CMAKE_CURRENT_BINARY_DIR}/bin/data/vertex_buffers)
 
 ##### documentation
 #if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
@@ -118,13 +143,50 @@ configure_files(${CMAKE_CURRENT_LIST_DIR}/data/vertex_buffers   ${CMAKE_CURRENT_
 
 ##### windows installer
 #if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
-    if(WIN32)
-        # installer build as an option and set it to ON by default
-        option(BUILD_INSTALLER "Build installer" ON)
-        message("Installer build started")
-        add_subdirectory(installer)
-    endif()
+        # if(WIN32)
+        #     # installer build as an option and set it to ON by default
+        #     option(BUILD_INSTALLER "Build installer" ON)
+        #     message("Installer build started")
+        #     add_subdirectory(installer)
+        # endif()
 #endif()
+
+add_subdirectory(installer)
+# add_custom_target(PACKAGING)
+# set_target_properties(installer-ALL PROPERTIES EXCLUDE_FROM_ALL TRUE)
+# add_dependencies(PACKAGING installer-ALL)
+
+# message("DEBUG: CMAKE_SYSTEM_NAME = ${CMAKE_SYSTEM_NAME}")
+if(${CMAKE_SYSTEM_NAME} MATCHES "abc") #"Windows")
+	# configure installer project and targets
+	include(ExternalProject)
+	ExternalProject_Add(installer
+		PREFIX installer
+		SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/installer"
+		BINARY_DIR "${CMAKE_BINARY_DIR}/installer"
+		CMAKE_GENERATOR "${CMAKE_GENERATOR}"
+		CMAKE_GENERATOR_PLATFORM "${CMAKE_GENERATOR_PLATFORM}"
+		EXCLUDE_FROM_ALL TRUE
+		STEP_TARGETS configure
+		CMAKE_ARGS
+			#-DBOARD_VERSION=${BOARD_VERSION}
+			#-DMARK_VERSION=${MARK_VERSION}
+			#-DWIX_MASTER_COMMON_DIR=${WIX_MASTER_COMMON_DIR}
+			-DMASTER_COMMON_ROOT=${MASTER_COMMON_ROOT}
+			-DMASTER_PLATFORM_ROOT=${MASTER_PLATFORM_ROOT}
+			-DCMAKE_BUILD_TYPE=Release
+            -DMASTER_BUILD_DIR=${CMAKE_BINARY_DIR}
+            --trace > rootcmakelist.txt 2>&1
+	)
+	# configure installer steps
+	ExternalProject_Add_Step(installer ALL COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}/installer --target ALL --config Release)
+	#ExternalProject_add_StepDependencies(installer installer-configure)
+	ExternalProject_add_StepDependencies(installer ALL) # installer-configure)
+	ExternalProject_Add_StepTargets(installer ALL)
+	# build *.msi only on PACKAGING target
+	set_target_properties(installer-ALL PROPERTIES EXCLUDE_FROM_ALL TRUE)
+	add_dependencies(PACKAGING installer-ALL)
+endif()
 
 ##### build all
 #cmake -E cmake --build . --config Release
