@@ -1,12 +1,15 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(PROJECT_VERSION 2.0.1)
-
 set(GAME_NAME WinMoBubbles)
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Release")
 endif()
+
+set(PROJECT_VERSION_MAJOR 2)
+set(PROJECT_VERSION_MINOR 0)
+set(PROJECT_VERSION_PATCH 1)
+set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
 
 project(${GAME_NAME} VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
@@ -130,3 +133,6 @@ target_link_libraries(${PROJECT_NAME} ${ENGINE_LIB_NAME})
 
 ##### build all
 #cmake -E cmake --build . --config Release
+
+add_custom_target(build-ALL ALL)
+add_dependencies(build-ALL ${PROJECT_NAME} ${ENGINE_LIB_NAME})

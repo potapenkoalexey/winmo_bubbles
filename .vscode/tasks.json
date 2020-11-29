@@ -10,7 +10,7 @@
             "args": [
                 "..",
                 "-G",
-                "Visual Studio 16 2019"
+                "Visual Studio 16 2019",
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build"
@@ -22,35 +22,25 @@
             "command": "cmake",
             "args": [
                 "--build",
-                "."//,
-                // "--config",
-                // "Release" 
+                ".",
+                "--target", 
+                "build-ALL",
+                "--config",
+                "Release" 
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build"
               }
         },
         {
-            "label": "Compile Installer",
+            "label": "Build Installer",
             "type": "shell",
-            "command": "candle",
+            "command": "cmake",
             "args": [
-                "-arch",
-                "x64",
-                "*.wxs"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}/build/installer/output"
-              }
-        },
-        {
-            "label": "Link Installer",
-            "type": "shell",
-            "command": "light",
-            "args": [
-                "*.wixobj",
-                "-o",
-                "WinMoBubbles.msi"
+                "--build",
+                "${workspaceFolder}/build/",
+                "--target",
+                "installer-ALL"
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build/installer/output"
