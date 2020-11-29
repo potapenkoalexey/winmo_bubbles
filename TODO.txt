@@ -5,7 +5,7 @@
     it will be easy to work with texture and animation.
 4. resolve problem with opening settings and field files on Android, with help of SDL/membuf
 5. fix sound driver and device selecting on Win10 
-
+6. add CMakeLists to src, src/engine, src/game folders
 
 Build on Windows:
 - create solution for MSVS2019
