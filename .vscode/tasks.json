@@ -22,9 +22,9 @@
             "command": "cmake",
             "args": [
                 "--build",
-                ".",
-                "--config",
-                "Release" 
+                "."//,
+                // "--config",
+                // "Release" 
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build"
@@ -40,7 +40,7 @@
                 "*.wxs"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/build/installer/out"
+                "cwd": "${workspaceFolder}/build/installer/output"
               }
         },
         {
@@ -53,7 +53,7 @@
                 "WinMoBubbles.msi"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/build/installer/out"
+                "cwd": "${workspaceFolder}/build/installer/output"
               }
         }
     ]
