@@ -1,6 +1,4 @@
 /build
-/.vscode
-.vscode
 /libs/SDL2-2.0.8/build
 ./winmo_bubbles
 winmo_bubbles.exe

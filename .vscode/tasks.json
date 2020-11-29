@@ -1,0 +1,60 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Configure for Windows build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "..",
+                "-G",
+                "Visual Studio 16 2019"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            }
+        },
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                ".",
+                "--config",
+                "Release" 
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+              }
+        },
+        {
+            "label": "Compile Installer",
+            "type": "shell",
+            "command": "candle",
+            "args": [
+                "-arch",
+                "x64",
+                "*.wxs"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build/installer/out"
+              }
+        },
+        {
+            "label": "Link Installer",
+            "type": "shell",
+            "command": "light",
+            "args": [
+                "*.wixobj",
+                "-o",
+                "WinMoBubbles.msi"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build/installer/out"
+              }
+        }
+    ]
+}

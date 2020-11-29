@@ -93,22 +93,22 @@ target_link_libraries(${PROJECT_NAME} ${ENGINE_LIB_NAME})
 ##### copy data/ to build folder
 # Copy files from source directory to destination directory macro, substituting any
 # variables.  Create destination directory if it does not exist.
-macro(configure_files srcDir destDir)
-    message(STATUS "-- Configuring directory ${destDir}")
-    make_directory(${destDir})
+# macro(configure_files srcDir destDir)
+#     message(STATUS "-- Configuring directory ${destDir}")
+#     make_directory(${destDir})
 
-    file(GLOB templateFiles RELATIVE ${srcDir} ${srcDir}/*)
-    foreach(templateFile ${templateFiles})
-        set(srcTemplatePath ${srcDir}/${templateFile})
-        if(NOT IS_DIRECTORY ${srcTemplatePath})
-            message(STATUS "-- Configuring file ${templateFile}")
-            configure_file(
-                    ${srcTemplatePath}
-                    ${destDir}/${templateFile}
-                    @ONLY)
-        endif(NOT IS_DIRECTORY ${srcTemplatePath})
-    endforeach(templateFile)
-endmacro(configure_files)
+#     file(GLOB templateFiles RELATIVE ${srcDir} ${srcDir}/*)
+#     foreach(templateFile ${templateFiles})
+#         set(srcTemplatePath ${srcDir}/${templateFile})
+#         if(NOT IS_DIRECTORY ${srcTemplatePath})
+#             message(STATUS "-- Configuring file ${templateFile}")
+#             configure_file(
+#                     ${srcTemplatePath}
+#                     ${destDir}/${templateFile}
+#                     @ONLY)
+#         endif(NOT IS_DIRECTORY ${srcTemplatePath})
+#     endforeach(templateFile)
+# endmacro(configure_files)
 
 # configure_files(${CMAKE_CURRENT_LIST_DIR}/data/config           ${CMAKE_CURRENT_BINARY_DIR}/bin/data/config)
 # configure_files(${CMAKE_CURRENT_LIST_DIR}/data/font             ${CMAKE_CURRENT_BINARY_DIR}/bin/data/font)
@@ -151,41 +151,12 @@ endmacro(configure_files)
         # endif()
 #endif()
 
-add_subdirectory(installer)
-# add_custom_target(PACKAGING)
-# set_target_properties(installer-ALL PROPERTIES EXCLUDE_FROM_ALL TRUE)
-# add_dependencies(PACKAGING installer-ALL)
-
-# message("DEBUG: CMAKE_SYSTEM_NAME = ${CMAKE_SYSTEM_NAME}")
-if(${CMAKE_SYSTEM_NAME} MATCHES "abc") #"Windows")
-	# configure installer project and targets
-	include(ExternalProject)
-	ExternalProject_Add(installer
-		PREFIX installer
-		SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/installer"
-		BINARY_DIR "${CMAKE_BINARY_DIR}/installer"
-		CMAKE_GENERATOR "${CMAKE_GENERATOR}"
-		CMAKE_GENERATOR_PLATFORM "${CMAKE_GENERATOR_PLATFORM}"
-		EXCLUDE_FROM_ALL TRUE
-		STEP_TARGETS configure
-		CMAKE_ARGS
-			#-DBOARD_VERSION=${BOARD_VERSION}
-			#-DMARK_VERSION=${MARK_VERSION}
-			#-DWIX_MASTER_COMMON_DIR=${WIX_MASTER_COMMON_DIR}
-			-DMASTER_COMMON_ROOT=${MASTER_COMMON_ROOT}
-			-DMASTER_PLATFORM_ROOT=${MASTER_PLATFORM_ROOT}
-			-DCMAKE_BUILD_TYPE=Release
-            -DMASTER_BUILD_DIR=${CMAKE_BINARY_DIR}
-            --trace > rootcmakelist.txt 2>&1
-	)
-	# configure installer steps
-	ExternalProject_Add_Step(installer ALL COMMAND ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR}/installer --target ALL --config Release)
-	#ExternalProject_add_StepDependencies(installer installer-configure)
-	ExternalProject_add_StepDependencies(installer ALL) # installer-configure)
-	ExternalProject_Add_StepTargets(installer ALL)
-	# build *.msi only on PACKAGING target
-	set_target_properties(installer-ALL PROPERTIES EXCLUDE_FROM_ALL TRUE)
-	add_dependencies(PACKAGING installer-ALL)
+message("DEBUG: CMAKE_SYSTEM_NAME = ${CMAKE_SYSTEM_NAME}")
+if(${CMAKE_SYSTEM_NAME} MATCHES "Windows") #"Windows")
+    add_subdirectory(installer)
+    # add_custom_target(PACKAGING)
+    # set_target_properties(installer-ALL PROPERTIES EXCLUDE_FROM_ALL TRUE)
+    # add_dependencies(PACKAGING installer-ALL)
 endif()
 
 ##### build all

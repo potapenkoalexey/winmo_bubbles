@@ -20,10 +20,10 @@
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
-      <Directory Id="ProgramFilesFolder">
+      <Directory Id="ProgramFiles64Folder">
         <Directory Id="INSTALLLOCATION" Name="$(var.ProductName)">
           <Component Id="ComponentProduct" Guid="$(var.GUIDComponentProduct)" Win64="yes">
-            <File Id='Calc' DiskId='1' Source='C:\WINDOWS\system32\calc.exe'/>
+            <File Id='EXE' DiskId='1' Source='C:\WINDOWS\system32\calc.exe'/>
           </Component>
         </Directory>
       </Directory>

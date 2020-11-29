@@ -111,6 +111,7 @@ namespace grottans {
 ///
 membuf load_file(std::string_view path)
 {
+
     SDL_RWops* io = SDL_RWFromFile(path.data(), "rb");
     if (nullptr == io) {
         throw std::runtime_error("can't load file: " + std::string(path));

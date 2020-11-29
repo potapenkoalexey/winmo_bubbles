@@ -6,32 +6,15 @@ project(installer VERSION ${PROJECT_VERSION})
 
 set(WIX_INSTALLER_PLATFORM_NAME "WIN")
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELWITHDEBINFO "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELWITHDEBINFO "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/bin")
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELWITHDEBINFO "${CMAKE_BINARY_DIR}/bin")
+set(CMAKE_CURRENT_BINARY_DIR ${PROJECT_BINARY_DIR}/out)
 
 #set(CPACK_WIX_PATCH_FILE "${PROJECT_SOURCE_DIR}/Patch.xml")
-configure_file(${PROJECT_SOURCE_DIR}/templates/Variables.wxi.in ${PROJECT_BINARY_DIR}/VariablesOut.wxi @ONLY)
-configure_file(${PROJECT_SOURCE_DIR}/Product.wxs ${PROJECT_BINARY_DIR}/Product.wxs @ONLY)
-configure_file(${PROJECT_SOURCE_DIR}/Product.wxi ${PROJECT_BINARY_DIR}/Product.wxi @ONLY)
-
-#add_subdirectory(MRT)
+configure_file(${PROJECT_SOURCE_DIR}/templates/Variables.wxi.in ${CMAKE_CURRENT_BINARY_DIR}/VariablesOut.wxi @ONLY)
+configure_file(${PROJECT_SOURCE_DIR}/Product.wxs ${CMAKE_CURRENT_BINARY_DIR}/Product.wxs @ONLY)
+configure_file(${PROJECT_SOURCE_DIR}/Product.wxi ${CMAKE_CURRENT_BINARY_DIR}/Product.wxi @ONLY)
 
 # add_custom_target(installer-ALL)
 # add_dependencies(installer-ALL installer)
-
-# set(CMAKE_CURRENT_BINARY_DIR ${CMAKE_CURRENT_LIST_DIR}/out)
-
-#configure_file(${CMAKE_CURRENT_LIST_DIR}/Variables.wxi.in ${CMAKE_CURRENT_BINARY_DIR}/VariablesOut.wxi @ONLY)
 
 ##### build the installer
 #cmake -E ""%WIX%bin\candle" -arch x64 *.wxs"
@@ -47,5 +30,6 @@ configure_file(${PROJECT_SOURCE_DIR}/Product.wxi ${PROJECT_BINARY_DIR}/Product.w
 # string(STRIP ${INSTALLER_BUILD} INSTALLER_BUILD)
 # message(STATUS "-- INSTALLER BUILD")
 
-execute_process(COMMAND "%WIX%bin/candle" -arch x64 ${CMAKE_BINARY_DIR}/bin/*.wxs)
-execute_process(COMMAND "%WIX%bin/light" *.wixobj -o ${PROJECT_NAME}.msi)
+message("DEBUG: CMAKE_CURRENT_BINARY_DIR = ${CMAKE_CURRENT_BINARY_DIR}")
+execute_process(COMMAND "%WIX%bin/candle" -arch x64 ${CMAKE_CURRENT_BINARY_DIR}/*.wxs)
+execute_process(COMMAND "%WIX%bin/light" *.wixobj -o ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}.msi)
