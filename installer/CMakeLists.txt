@@ -32,3 +32,5 @@ add_custom_target(INSTALLER_LINK
     COMMENT "Run Wix Light to link and create msi" )
 
 add_dependencies(installer-ALL INSTALLER_COMPILE INSTALLER_LINK)
+
+# add_dependencies(build-ALL installer-ALL)

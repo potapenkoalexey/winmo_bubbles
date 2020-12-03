@@ -4,7 +4,7 @@
 #include <memory>
 #include <vector>
 
-#include "../../../src/engine/engine.hxx"
+#include "../../engine/engine.hxx"
 #include "../components/number.hxx"
 
 // if you need to use this class - first of all use set_quantity_of_digits(.,.)

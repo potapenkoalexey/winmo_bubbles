@@ -1,7 +1,7 @@
 #include <random>
 
-#include "../../../src/engine/random_generator.hxx"
-#include "./block.hxx"
+#include "../../engine/random_generator.hxx"
+#include "block.hxx"
 
 static std::mt19937& mt = grottans::random_generator::getMt19937();
 static std::uniform_real_distribution<double> dist_1_5(10.0, 60.0);

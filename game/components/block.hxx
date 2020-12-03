@@ -3,8 +3,8 @@
 #include <iostream>
 #include <array>
 
-#include "../../../src/engine/engine.hxx"
-#include "./../global_variables.hxx"
+#include "../../engine/engine.hxx"
+#include "../global_variables.hxx"
 
 /** block colors */
 enum palette {

@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "../../../src/engine/engine.hxx"
+#include "../../engine/engine.hxx"
 #include "../components/block.hxx"
 
 class select_mode_state : public grottans::game_state {

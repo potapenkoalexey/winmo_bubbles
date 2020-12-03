@@ -1,12 +1,12 @@
 #include <thread>
 
-#include "../../src/engine/engine.hxx"
+#include "../engine/engine.hxx"
 #include "./global_variables.hxx"
-#include "./states/classic_state.hxx"
-#include "./states/extreme_state.hxx"
-#include "./states/game_over_state.hxx"
-#include "./states/level_complete_state.hxx"
-#include "./states/select_mode_state.hxx"
+#include "states/classic_state.hxx"
+#include "states/extreme_state.hxx"
+#include "states/game_over_state.hxx"
+#include "states/level_complete_state.hxx"
+#include "states/select_mode_state.hxx"
 
 using clock_timer = std::chrono::high_resolution_clock;
 using nano_sec = std::chrono::nanoseconds;

@@ -2,12 +2,11 @@
 
 #include <memory>
 
-#include "../../../src/engine/engine.hxx"
-#include "../components/block.hxx"
+#include "../../engine/engine.hxx"
 #include "../components/field.hxx"
 #include "../components/progress_desk.hxx"
 
-class classic_state : public grottans::game_state {
+class extreme_state : public grottans::game_state {
 public:
     bool init(grottans::engine*) override;
     void cleanup() override;
@@ -19,8 +18,9 @@ public:
     void update() override;
     void draw() override;
 
-    bool handle_mouse_event();
-    void handle_start_released_event();
+    bool handle_mouse_pressed_event(grottans::event&);
+    bool handle_mouse_released_event(grottans::event& e);
+    void handle_start_released_event(const size_t& i, const size_t& j);
     void handle_left_released_event();
     void handle_right_released_event();
     void handle_up_released_event();
@@ -28,27 +28,31 @@ public:
 
     static game_state* instance()
     {
-        return &m_classic_state;
+        return &m_extreme_state;
     }
 
-    ~classic_state() override;
-    classic_state(classic_state const&) = delete;
-    classic_state& operator=(classic_state const&) = delete;
+    ~extreme_state() override;
+    extreme_state(extreme_state const&) = delete;
+    extreme_state& operator=(extreme_state const&) = delete;
 
 protected:
-    classic_state()
+    extreme_state()
         : sound_fall{ nullptr }
         , sound_destroy_big_form{ nullptr }
+        , sound_flip{ nullptr }
+        , sound_cant_flip{ nullptr }
         , progress{ nullptr }
         , game_field{ nullptr }
     {
     }
 
 private:
-    static classic_state m_classic_state;
+    static extreme_state m_extreme_state;
 
     grottans::sound_buffer* sound_fall;
     grottans::sound_buffer* sound_destroy_big_form;
+    grottans::sound_buffer* sound_flip;
+    grottans::sound_buffer* sound_cant_flip;
 
     std::unique_ptr<progress_desk> progress;
 

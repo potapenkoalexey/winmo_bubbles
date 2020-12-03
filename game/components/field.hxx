@@ -5,7 +5,7 @@
 #include <memory>
 #include <vector>
 
-#include "../../../src/engine/engine.hxx"
+#include "../../engine/engine.hxx"
 #include "../global_variables.hxx"
 #include "./block.hxx"
 
