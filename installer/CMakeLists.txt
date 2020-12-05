@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.16)
 
 if($ENV{WIX} EQUAL "")
     message(FATAL_ERROR "Wix toolset not found. Please, install it.")

@@ -1,10 +1,12 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.16)
 
 project(engine)
 
 set(ENGINE_LIB_NAME engine)
 
 file(GLOB_RECURSE ENGINE_SRC_FILES
+    "${CMAKE_SOURCE_DIR}/game/global_variables.hxx"
+    "${CMAKE_SOURCE_DIR}/game/global_variables.cxx"
     "${CMAKE_CURRENT_LIST_DIR}/*.hxx"
     "${CMAKE_CURRENT_LIST_DIR}/*.cxx"
     )
@@ -13,8 +15,8 @@ add_library(${ENGINE_LIB_NAME}
             SHARED
             ${ENGINE_SRC_FILES})
 
-target_include_directories(${ENGINE_LIB_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/libs/SDL2-2.0.8/include/)
-target_include_directories(${ENGINE_LIB_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src/)
+target_include_directories(${ENGINE_LIB_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/libs/SDL2-2.0.8/include/)
+target_include_directories(${ENGINE_LIB_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/src/)
 
 if(WIN32)
     # set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)

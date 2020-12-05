@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "ini_handler.hxx"
+
 #include "../game/global_variables.hxx"
 
 namespace grottans {

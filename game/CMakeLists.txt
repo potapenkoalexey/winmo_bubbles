@@ -1,10 +1,11 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.16)
 
 project(game)
 
 file(GLOB_RECURSE GAME_SRC_FILES
     "${CMAKE_CURRENT_LIST_DIR}/*.hxx"
     "${CMAKE_CURRENT_LIST_DIR}/*.cxx"
+    "${CMAKE_SOURCE_DIR}/engine/*h.cxx"
     )
 
 add_executable(${PROJECT_NAME}
@@ -12,11 +13,12 @@ add_executable(${PROJECT_NAME}
     )
 
 # target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_LIST_DIR}/${ENGINE_LIB_NAME})
-include_directories(${CMAKE_SOURCE_DIR}/engine)
+# include_directories(${CMAKE_SOURCE_DIR}/engine)
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
-target_link_libraries(${PROJECT_NAME} ${ENGINE_LIB_NAME})
+message(STATUS "engine lib: ${ENGINE_LIB_NAME}")
+target_link_libraries(${PROJECT_NAME} engine)
 
 # target and dependencies
 # add_custom_target(${PROJECT_NAME})

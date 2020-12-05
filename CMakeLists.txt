@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.16)
 
 if(NOT UNIX AND NOT WIN32 AND NOT ANDROID)
     message(FATAL_ERROR "Unsupported operation system detected")

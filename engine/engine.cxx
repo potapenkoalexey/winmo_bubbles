@@ -15,13 +15,13 @@
 #include <tuple>
 #include <vector>
 
-#include "../../src/picopng/picopng.hxx"
+#include "picopng/picopng.hxx"
 #include "engine.hxx"
 #include "sound_buffer.hxx"
 #include "ini_handler.hxx"
 
-#include "SDL_image.h"
-#include "SDL_ttf.h"
+#include "SDL2/SDL_image.h"
+#include "SDL2/SDL_ttf.h"
 #include "SDL.h"
 #include "SDL_opengl.h"
 #include "SDL_opengl_glext.h"
@@ -31,7 +31,7 @@
 
 // turn off the specific warning. Can also use "-Wall"
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-#include "../../src/stb/stb_image.h"
+#include "stb/stb_image.h"
 #pragma GCC diagnostic pop
 
 static PFNGLCREATESHADERPROC glCreateShader = nullptr;

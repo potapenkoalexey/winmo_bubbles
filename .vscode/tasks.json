@@ -26,7 +26,8 @@
                 "--target", 
                 "build-ALL",
                 "--config",
-                "Release" 
+                "Release",
+                "-j4"
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build"
@@ -40,7 +41,8 @@
                 "--build",
                 "${workspaceFolder}/build/",
                 "--target",
-                "installer-ALL"
+                "installer-ALL",
+                "-j4"
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build/installer/output"
