@@ -23,8 +23,6 @@
             "args": [
                 "--build",
                 ".",
-                "--target", 
-                "build-ALL",
                 "--config",
                 "Release",
                 "-j4"
@@ -41,8 +39,7 @@
                 "--build",
                 "${workspaceFolder}/build/",
                 "--target",
-                "installer-ALL",
-                "-j4"
+                "installer-ALL"
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build/installer/output"
