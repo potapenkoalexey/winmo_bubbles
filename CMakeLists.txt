@@ -50,12 +50,8 @@ if(NOT CMAKE_CXX_EXTENSIONS)
     set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
 
-# sdl
-add_subdirectory(libs/SDL2-2.0.8)
-include_directories(libs/SDL2-2.0.8/include)
-
-# additional sdl headers
-include_directories(src/SDL2)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/SDL2-2.0.8)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/libs/SDL2-2.0.8/include)
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/engine)
 include_directories(${CMAKE_CURRENT_LIST_DIR}/engine)

@@ -11,7 +11,8 @@ add_executable(${PROJECT_NAME}
     ${GAME_SRC_FILES}
     )
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_LIST_DIR}/${ENGINE_LIB_NAME})
+# target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_LIST_DIR}/${ENGINE_LIB_NAME})
+include_directories(${CMAKE_SOURCE_DIR}/engine)
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 

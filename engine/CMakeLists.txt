@@ -13,6 +13,9 @@ add_library(${ENGINE_LIB_NAME}
             SHARED
             ${ENGINE_SRC_FILES})
 
+target_include_directories(${ENGINE_LIB_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/libs/SDL2-2.0.8/include/)
+target_include_directories(${ENGINE_LIB_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src/)
+
 if(WIN32)
     # set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
     target_compile_definitions(${ENGINE_LIB_NAME} PRIVATE "-DOM_DECLSPEC=__declspec(dllexport)")
