@@ -17,8 +17,9 @@ add_executable(${PROJECT_NAME}
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
-message(STATUS "engine lib: ${ENGINE_LIB_NAME}")
 target_link_libraries(${PROJECT_NAME} engine)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "WinMoBubbles")
 
 # target and dependencies
 # add_custom_target(${PROJECT_NAME})

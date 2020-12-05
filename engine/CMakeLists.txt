@@ -12,7 +12,7 @@ file(GLOB_RECURSE ENGINE_SRC_FILES
     )
 
 add_library(${ENGINE_LIB_NAME} 
-            SHARED
+            # SHARED
             ${ENGINE_SRC_FILES})
 
 target_include_directories(${ENGINE_LIB_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/libs/SDL2-2.0.8/include/)
