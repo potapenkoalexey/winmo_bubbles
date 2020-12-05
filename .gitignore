@@ -3,7 +3,6 @@
 ./winmo_bubbles
 winmo_bubbles.exe
 ./Doxyfile.bak
-/docs
 /html
 /latex
 /doxygen
