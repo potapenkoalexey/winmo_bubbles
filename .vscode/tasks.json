@@ -6,6 +6,7 @@
         {
             "label": "Configure for Windows build",
             "type": "shell",
+            "detail": "Calls cmake configure action",
             "command": "cmake",
             "args": [
                 "..",
@@ -29,11 +30,12 @@
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build"
-              }
+            }
         },
         {
             "label": "Build Installer",
             "type": "shell",
+            "detail": "Invokes Installer build action",
             "command": "cmake",
             "args": [
                 "--build",
@@ -43,7 +45,38 @@
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build/installer/output"
-              }
-        }
+            }
+        },
+        {
+            "label": "Build Docs CMake",
+            "type": "shell",
+            "detail": "Calls cmake docs_target build",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${workspaceFolder}/build/docs/",
+                "--target",
+                "doc_doxygen"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build/docs/output"
+            }
+        },
+        {
+            "label": "Build Docs Doxyfile",
+            "type": "shell",
+            "detail": "Calls build docs from Doxyfile",
+            "command": "cmake",
+            "args": [
+                "-E",
+                "env",
+                "doxygen",
+                "Doxyfile"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build/docs/output"
+            },
+            "problemMatcher": []
+        },
     ]
 }

@@ -69,7 +69,7 @@ if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
         # installer build as an option and set it to ON by default
         option(BUILD_INSTALLER "Build installer" ON)
         message(STATUS "Installer build started")
-        add_subdirectory(installer)
+        add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/installer)
     endif()
 endif()
 
