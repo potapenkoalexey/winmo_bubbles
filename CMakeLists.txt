@@ -74,3 +74,5 @@ if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
 endif()
 
 # add_custom_target(build-ALL ALL)
+# add_custom_target(BUILD-ALL)
+# add_dependencies(BUILD-ALL game)

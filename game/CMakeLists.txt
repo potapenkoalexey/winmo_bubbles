@@ -22,5 +22,10 @@ target_link_libraries(${PROJECT_NAME} engine)
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "WinMoBubbles")
 
 # target and dependencies
-# add_custom_target(${PROJECT_NAME})
-# add_dependencies(build-ALL ${PROJECT_NAME})
+# add_custom_command(${PROJECT_NAME}
+#         COMMAND cmake --build . --target ${PROJECT_NAME}
+#         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+#         COMMENT "Build ${PROJECT_NAME}"
+#         VERBATIM
+#         )
+# add_dependencies(BUILD-ALL ${PROJECT_NAME})

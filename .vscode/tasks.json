@@ -20,6 +20,7 @@
         {
             "label": "Build",
             "type": "shell",
+            "detail": "BUILD binaries",
             "command": "cmake",
             "args": [
                 "--build",
