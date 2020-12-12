@@ -19,6 +19,8 @@
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 
+    <Icon Id="ICON" SourceFile="@CMAKE_SOURCE_DIR@/data/icons/icon_192.ico" />
+
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFiles64Folder">
         <!-- create folder in PFiles -->
@@ -37,7 +39,11 @@
       <Directory Id="ProgramMenuFolder">
         <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)">
           <Component Id="Component_Shortcut" Guid="$(var.GUID_COMPONENT_SHORTCUT)" Win64="yes">
-            <Shortcut Id="Shortcut_EXE" Name="$(var.ProductName)" Description="$(var.ProductName)" Target="[INSTALLLOCATION]$(var.Name_EXE)" WorkingDirectory="INSTALLLOCATION"/>
+            <Shortcut Id="Shortcut_EXE" Name="$(var.ProductName)" 
+                      Description="$(var.ProductName)" 
+                      Target="[INSTALLLOCATION]$(var.Name_EXE)" 
+                      WorkingDirectory="INSTALLLOCATION"
+                      Icon ="ICON" />
             <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
             <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
           </Component>
@@ -47,8 +53,5 @@
 
 <?include FeaturesOut.wxi ?>
 
-    <!-- <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" ></Property> -->
-    <!-- <WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="License.rtf"/> -->
-    <!-- <UIRef Id="WixUI_InstallDir"/> -->
   </Product>
 </Wix>

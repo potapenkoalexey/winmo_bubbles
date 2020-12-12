@@ -23,7 +23,7 @@ add_custom_target(installer-ALL)
 
 message(STATUS "Installer Binary Dir = ${CMAKE_CURRENT_BINARY_DIR}")
 
-# "%WIX%\bin\heat.exe" dir "$(ProjectDir)source" -o "$(ProjectDir) OutputFiles.wxs" -gg –sfrag
+# glob all files from /data dir and link it with ComponentGroup and folder on target PC
 add_custom_target(INSTALLER_GLOB_DATA_FILES 
     COMMAND "heat" dir "${CMAKE_SOURCE_DIR}/data/" -o "${CMAKE_CURRENT_BINARY_DIR}/DataFolderGlob.wxs" -gg -dr INSTALLLOCATION -cg Component_DATA -var wix.SourceDir=${CMAKE_SOURCE_DIR}/data/
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
