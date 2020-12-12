@@ -19,7 +19,7 @@
 
     <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 
-    <Icon Id="ICON" SourceFile="@CMAKE_SOURCE_DIR@/data/icons/icon_192.ico" />
+    <Icon Id="ICON" SourceFile="$(var.CMAKE_SOURCE_DIR)\data\icons\icon_192.ico" />
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFiles64Folder">
@@ -31,6 +31,12 @@
           </Component>
           <Component Id="Component_ENGINE" Guid="$(var.GUID_COMPONENT_ENGINE)" Win64="yes">
             <File Id="File_ENGINE" DiskId="1" Source="$(var.BIN_FOLDER)\$(var.Name_ENGINE)"/>
+          </Component>
+          <Component Id="Component_OPENGL_LIB" Guid="$(var.GUID_COMPONENT_OPENGL_LIB)" Win64="yes">
+            <File Id="File_OPENGL_LIB" DiskId="1" Source="$(var.CMAKE_SOURCE_DIR)\libs\win\opengl32.dll"/>
+          </Component>
+          <Component Id="Component_SDL_LIB" Guid="$(var.GUID_COMPONENT_SDL_LIB)" Win64="yes">
+            <File Id="File_SDL_LIB" DiskId="1" Source="$(var.CMAKE_RUNTIME_OUTPUT_DIRECTORY)\SDL2.dll"/>
           </Component>
         </Directory>
       </Directory>
