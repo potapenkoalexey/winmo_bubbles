@@ -1,0 +1,10 @@
+<Include>
+
+    <Feature Id="Feature_Product" Title="$(var.ProductName)" Level="1">
+      <ComponentRef Id="Component_EXE" />
+    </Feature>
+    <Feature Id="Feature_Shortcut" Title="$(var.FeatureShortcutTitle)" Level="1">
+      <ComponentRef Id="Component_Shortcut" />
+    </Feature>
+
+</Include>

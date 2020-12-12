@@ -15,13 +15,14 @@ set(WIX_INSTALLER_PLATFORM_NAME "WIN")
 set(CMAKE_CURRENT_BINARY_DIR ${PROJECT_BINARY_DIR}/output)
 
 #set(CPACK_WIX_PATCH_FILE "${PROJECT_SOURCE_DIR}/Patch.xml")
-configure_file(${PROJECT_SOURCE_DIR}/templates/Variables.wxi.in ${CMAKE_CURRENT_BINARY_DIR}/VariablesOut.wxi @ONLY)
-configure_file(${PROJECT_SOURCE_DIR}/Product.wxs ${CMAKE_CURRENT_BINARY_DIR}/Product.wxs @ONLY)
-configure_file(${PROJECT_SOURCE_DIR}/Product.wxi ${CMAKE_CURRENT_BINARY_DIR}/Product.wxi @ONLY)
+configure_file(${PROJECT_SOURCE_DIR}/Variables.wxi ${CMAKE_CURRENT_BINARY_DIR}/VariablesOut.wxi @ONLY)
+configure_file(${PROJECT_SOURCE_DIR}/Product.wxs ${CMAKE_CURRENT_BINARY_DIR}/ProductOut.wxs @ONLY)
+configure_file(${PROJECT_SOURCE_DIR}/Product.wxi ${CMAKE_CURRENT_BINARY_DIR}/ProductOut.wxi @ONLY)
+configure_file(${PROJECT_SOURCE_DIR}/Features.wxi ${CMAKE_CURRENT_BINARY_DIR}/FeaturesOut.wxi @ONLY)
 
 add_custom_target(installer-ALL)
 
-message(STATUS "CMAKE_CURRENT_BINARY_DIR = ${CMAKE_CURRENT_BINARY_DIR}")
+message(STATUS "Installer Binary Dir = ${CMAKE_CURRENT_BINARY_DIR}")
 add_custom_target(INSTALLER_COMPILE 
     COMMAND "candle" -arch x64 *.wxs
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
