@@ -1,5 +1,6 @@
 Build Platform   | Status
 ---------------- | ----------------------
+<!-- MSVC 2019 x64    | ![MSVC 2019 Build](https://ci.appveyor.com/api/projects/status/bitbucket/b_y/om) -->
 Linux x64        | ![Linux x64](https://img.shields.io/bitbucket/pipelines/grottansbarn/winmo_bubbles.svg?style=flat-square)
 
 Learning repository.
