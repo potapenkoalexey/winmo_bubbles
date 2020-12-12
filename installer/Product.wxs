@@ -21,22 +21,25 @@
 
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFiles64Folder">
+        <!-- create folder in PFiles -->
         <Directory Id="INSTALLLOCATION" Name="$(var.ProductName)">
+          <!-- put the exe file to this folder -->
           <Component Id="Component_EXE" Guid="$(var.GUID_COMPONENT_EXE)" Win64="yes">
-            <File Id="EXE" DiskId="1" Source="$(var.BIN_FOLDER)\$(var.ProductNameEXE)"/>
+            <File Id="File_EXE" DiskId="1" Source="$(var.BIN_FOLDER)\$(var.Name_EXE)"/>
+          </Component>
+          <Component Id="Component_ENGINE" Guid="$(var.GUID_COMPONENT_ENGINE)" Win64="yes">
+            <File Id="File_ENGINE" DiskId="1" Source="$(var.BIN_FOLDER)\$(var.Name_ENGINE)"/>
           </Component>
         </Directory>
       </Directory>
+
+      <!-- shortcut in Start menu -->
       <Directory Id="ProgramMenuFolder">
         <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)">
           <Component Id="Component_Shortcut" Guid="$(var.GUID_COMPONENT_SHORTCUT)" Win64="yes">
-            <Shortcut Id="ShortcutEXE" Name="$(var.ProductName)" Description="$(var.ProductName)"
-                      Target="[INSTALLLOCATION]$(var.ProductNameEXE)"
-                      WorkingDirectory="INSTALLLOCATION"/>
+            <Shortcut Id="Shortcut_EXE" Name="$(var.ProductName)" Description="$(var.ProductName)" Target="[INSTALLLOCATION]$(var.Name_EXE)" WorkingDirectory="INSTALLLOCATION"/>
             <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
-            <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" 
-                           Name="installed" 
-                           Type="integer" Value="1" KeyPath="yes"/>
+            <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
           </Component>
         </Directory>
       </Directory>
