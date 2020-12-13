@@ -9,6 +9,7 @@
     </Feature>
     <Feature Id="Feature_Shortcut" Title="$(var.FeatureShortcutTitle)" Level="1">
       <ComponentRef Id="Component_Shortcut" />
+      <ComponentRef Id="Component_Shortcut_Desktop" />
     </Feature>
 
 </Include>

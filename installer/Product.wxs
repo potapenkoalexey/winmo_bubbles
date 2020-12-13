@@ -27,7 +27,7 @@
         <Directory Id="INSTALLLOCATION" Name="$(var.ProductName)">
           <!-- put the exe file to this folder -->
           <Component Id="Component_EXE" Guid="$(var.GUID_COMPONENT_EXE)" Win64="yes">
-            <File Id="File_EXE" DiskId="1" Source="$(var.BIN_FOLDER)\$(var.Name_EXE)"/>
+            <File Id="File_EXE" DiskId="1" Source="$(var.BIN_FOLDER)\$(var.Name_EXE)" />
           </Component>
           <Component Id="Component_ENGINE" Guid="$(var.GUID_COMPONENT_ENGINE)" Win64="yes">
             <File Id="File_ENGINE" DiskId="1" Source="$(var.BIN_FOLDER)\$(var.Name_ENGINE)"/>
@@ -45,7 +45,7 @@
       <Directory Id="ProgramMenuFolder">
         <Directory Id="ApplicationProgramsFolder" Name="$(var.ProductName)">
           <Component Id="Component_Shortcut" Guid="$(var.GUID_COMPONENT_SHORTCUT)" Win64="yes">
-            <Shortcut Id="Shortcut_EXE" Name="$(var.ProductName)" 
+            <Shortcut Id="Shortcut_Menu" Name="$(var.ProductName)" 
                       Description="$(var.ProductName)" 
                       Target="[INSTALLLOCATION]$(var.Name_EXE)" 
                       WorkingDirectory="INSTALLLOCATION"
@@ -55,6 +55,20 @@
           </Component>
         </Directory>
       </Directory>
+
+      <Directory Id="DesktopFolder" Name="Desktop">
+        <Component Id="Component_Shortcut_Desktop" Guid="$(var.GUID_COMPONENT_SHORTCUT_DESK)" Win64="yes">
+          <Shortcut Id="Shortcut_Desktop" Name="$(var.ProductName)"
+                    Description="Match3 game desktop application"
+                    Target="[INSTALLLOCATION]$(var.Name_EXE)"
+                    WorkingDirectory="INSTALLLOCATION"
+                    Directory="DesktopFolder"
+                    Icon="ICON"/>
+          <!-- <RemoveFolder Id="DesktopFolder" On="uninstall"/> -->
+          <RegistryValue Root="HKCU" Key="Software\$(var.Manufacturer)\$(var.ProductName)" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
+        </Component>
+      </Directory>
+
     </Directory>
 
 <?include FeaturesOut.wxi ?>
