@@ -19,6 +19,9 @@ configure_file(${PROJECT_SOURCE_DIR}/Product.wxs ${CMAKE_CURRENT_BINARY_DIR}/Pro
 configure_file(${PROJECT_SOURCE_DIR}/Product.wxi ${CMAKE_CURRENT_BINARY_DIR}/ProductOut.wxi @ONLY)
 configure_file(${PROJECT_SOURCE_DIR}/Features.wxi ${CMAKE_CURRENT_BINARY_DIR}/FeaturesOut.wxi @ONLY)
 
+# linking with WixUIExtension.dll
+# find_file(PATH_WixUIExtension WixUIExtension.dll PATHS ENV WIX)
+
 add_custom_target(installer-ALL)
 
 message(STATUS "Installer Binary Dir = ${CMAKE_CURRENT_BINARY_DIR}")
@@ -35,7 +38,7 @@ add_custom_target(INSTALLER_COMPILE
     COMMENT "-- Run Wix Candle to compile installer sources"
 )
 add_custom_target(INSTALLER_LINK 
-    COMMAND "light" *.wixobj -o ${GAME_NAME}.msi
+    COMMAND "light" *.wixobj -ext WixUIExtension -out ${GAME_NAME}.msi
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "-- Run Wix Light to link and create msi"
 )

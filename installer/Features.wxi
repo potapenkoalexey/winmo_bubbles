@@ -1,13 +1,13 @@
 <Include>
 
-    <Feature Id="Feature_Product" Title="$(var.ProductName)" Level="1">
+    <Feature Id="Feature_Product" Title="$(var.Feature_ProductTitle)" Level="1">
       <ComponentRef Id="Component_EXE" />
       <ComponentRef Id="Component_ENGINE" />
       <ComponentRef Id="Component_OPENGL_LIB" />
       <ComponentRef Id="Component_SDL_LIB" />
       <ComponentGroupRef Id="Component_DATA" />
     </Feature>
-    <Feature Id="Feature_Shortcut" Title="$(var.FeatureShortcutTitle)" Level="1">
+    <Feature Id="Feature_Shortcut" Title="$(var.Feature_ShortcutTitle)" Level="1">
       <ComponentRef Id="Component_Shortcut" />
       <ComponentRef Id="Component_Shortcut_Desktop" />
     </Feature>

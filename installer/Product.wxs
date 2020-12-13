@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:netfx="http://schemas.microsoft.com/wix/WixUIExtension">
 
 <?include ProductOut.wxi ?>
 <?include VariablesOut.wxi ?>
@@ -34,7 +35,7 @@
             <File Id="File_OPENGL_LIB" DiskId="1" Source="$(var.CMAKE_SOURCE_DIR)\libs\win\opengl32.dll"/>
           </Component>
           <Component Id="Component_SDL_LIB" Guid="$(var.GUID_COMPONENT_SDL_LIB)" Win64="yes">
-            <File Id="File_SDL_LIB" DiskId="1" Source="$(var.CMAKE_RUNTIME_OUTPUT_DIRECTORY)\SDL2.dll"/>
+            <File Id="File_SDL_LIB" DiskId="1" Source="$(var.BIN_FOLDER)\SDL2.dll"/>
           </Component>
         </Directory>
       </Directory>
@@ -69,6 +70,10 @@
     </Directory>
 
 <?include FeaturesOut.wxi ?>
+
+  <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" ></Property>
+  <!-- <WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="License.rtf"/> -->
+  <UIRef Id="WixUI_FeatureTree"/>
 
   </Product>
 </Wix>

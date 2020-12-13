@@ -47,6 +47,21 @@
             "options": {
                 "cwd": "${workspaceFolder}/build/installer/output"
             },
+        },
+        {
+            "label": "REBuild Installer",
+            "type": "shell",
+            "detail": "Invokes Installer REbuild action",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "${workspaceFolder}/build/",
+                "--target",
+                "installer-ALL"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build/installer/output"
+            },
             "dependsOn": "Configure for Windows build"
         },
         {
