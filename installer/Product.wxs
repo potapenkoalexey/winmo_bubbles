@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- compile command: "%WIX%bin\candle" -arch x64 *.wxs
-    link command: "%WIX%bin\light" *.wixobj -o WinMoBubbles.msi
- -->
+
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
 <?include ProductOut.wxi ?>

@@ -72,7 +72,3 @@ if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
         add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/installer)
     endif()
 endif()
-
-# add_custom_target(build-ALL ALL)
-# add_custom_target(BUILD-ALL)
-# add_dependencies(BUILD-ALL game)

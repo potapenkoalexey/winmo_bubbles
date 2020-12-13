@@ -45,5 +45,3 @@ add_dependencies(INSTALLER_COMPILE INSTALLER_GLOB_DATA_FILES)
 add_dependencies(INSTALLER_LINK INSTALLER_COMPILE)
 
 add_dependencies(installer-ALL INSTALLER_GLOB_DATA_FILES INSTALLER_COMPILE INSTALLER_LINK)
-
-# add_dependencies(build-ALL installer-ALL)
