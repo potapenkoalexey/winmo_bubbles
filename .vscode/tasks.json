@@ -4,18 +4,27 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Configure for Windows build",
+            "label": "Configure build",
             "type": "shell",
             "detail": "Calls cmake configure action",
-            "command": "cmake",
-            "args": [
-                "..",
-                "-G",
-                "Visual Studio 16 2019",
-            ],
+            "windows": {
+                "command": "cmake",
+                "args": [
+                    "..",
+                    "-G",
+                    "Visual Studio 16 2019"
+                ]
+            },
+            "linux": {
+                "command": "cmake",
+                "args": [
+                    ".."
+                ]
+            },
             "options": {
                 "cwd": "${workspaceFolder}/build"
-            }
+            },
+            "problemMatcher": []
         },
         {
             "label": "Build",
@@ -31,38 +40,51 @@
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build"
-            }
+            },
+            "problemMatcher": []
         },
         {
             "label": "Build Installer",
             "type": "shell",
             "detail": "Invokes Installer build action",
-            "command": "cmake",
-            "args": [
-                "--build",
-                "${workspaceFolder}/build/",
-                "--target",
-                "installer-ALL"
-            ],
+            "windows": {
+                "command": "cmake",
+                "args": [
+                    "--build",
+                    "${workspaceFolder}/build/",
+                    "--target",
+                    "installer-ALL"
+                ]
+            },
+            "linux": {
+                "command": "It's unavailable to build Installer for Linux"
+            },
             "options": {
                 "cwd": "${workspaceFolder}/build/installer/output"
             },
+            "problemMatcher": []
         },
         {
-            "label": "REBuild Installer",
+            "label": "RE-Build Installer",
             "type": "shell",
             "detail": "Invokes Installer REbuild action",
-            "command": "cmake",
-            "args": [
-                "--build",
-                "${workspaceFolder}/build/",
-                "--target",
-                "installer-ALL"
-            ],
+            "windows": {
+                "command": "cmake",
+                "args": [
+                    "--build",
+                    "${workspaceFolder}/build/",
+                    "--target",
+                    "installer-ALL"
+                ]
+            },
+            "linux": {
+                "command": "It's unavailable to build Installer for Linux"
+            },
             "options": {
                 "cwd": "${workspaceFolder}/build/installer/output"
             },
-            "dependsOn": "Configure for Windows build"
+            "dependsOn": "Configure build",
+            "problemMatcher": []
         },
         {
             "label": "Build Docs CMake",
@@ -94,6 +116,6 @@
                 "cwd": "${workspaceFolder}/build/docs/output"
             },
             "problemMatcher": []
-        },
+        }
     ]
 }
