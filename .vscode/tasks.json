@@ -18,7 +18,9 @@
             "linux": {
                 "command": "cmake",
                 "args": [
-                    ".."
+                    "..",
+                    "-G",
+                    "Unix Makefiles"
                 ]
             },
             "options": {
@@ -53,14 +55,23 @@
                     "--build",
                     "${workspaceFolder}/build/",
                     "--target",
-                    "installer-ALL"
-                ]
+                    "installer-win-ALL"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}/build/installer_win/output"
+                }
             },
             "linux": {
-                "command": "It's unavailable to build Installer for Linux"
-            },
-            "options": {
-                "cwd": "${workspaceFolder}/build/installer/output"
+                "command": "cmake",
+                "args": [
+                    "--build",
+                    "${workspaceFolder}/build/",
+                    "--target",
+                    "installer-unix-ALL"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}/build/installer_unix/output"
+                }
             },
             "problemMatcher": []
         },
@@ -74,15 +85,19 @@
                     "--build",
                     "${workspaceFolder}/build/",
                     "--target",
-                    "installer-ALL"
-                ]
+                    "installer-win-ALL"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}/build/installer_win/output"
+                }
             },
             "linux": {
-                "command": "It's unavailable to build Installer for Linux"
+                "command": "It's unavailable to build Installer for Linux",
+                "options": {
+                    "cwd": "${workspaceFolder}/build/installer_unix/output"
+                },
             },
-            "options": {
-                "cwd": "${workspaceFolder}/build/installer/output"
-            },
+            
             "dependsOn": "Configure build",
             "problemMatcher": []
         },

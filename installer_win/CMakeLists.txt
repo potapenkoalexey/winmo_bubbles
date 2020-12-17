@@ -8,7 +8,7 @@ if(NOT DEFINED GAME_NAME)
     set(GAME_NAME "WinMoBubbles")
 endif()
 
-project(installer VERSION ${PROJECT_VERSION})
+project(installer_win VERSION ${PROJECT_VERSION})
 
 set(WIX_INSTALLER_PLATFORM_NAME "WIN")
 
@@ -22,7 +22,7 @@ configure_file(${PROJECT_SOURCE_DIR}/Features.wxi ${CMAKE_CURRENT_BINARY_DIR}/Fe
 # linking with WixUIExtension.dll
 # find_file(PATH_WixUIExtension WixUIExtension.dll PATHS ENV WIX)
 
-add_custom_target(installer-ALL)
+add_custom_target(installer-win-ALL)
 
 message(STATUS "Installer Binary Dir = ${CMAKE_CURRENT_BINARY_DIR}")
 
@@ -47,4 +47,4 @@ add_custom_target(INSTALLER_LINK
 add_dependencies(INSTALLER_COMPILE INSTALLER_GLOB_DATA_FILES)
 add_dependencies(INSTALLER_LINK INSTALLER_COMPILE)
 
-add_dependencies(installer-ALL INSTALLER_GLOB_DATA_FILES INSTALLER_COMPILE INSTALLER_LINK)
+add_dependencies(installer-win-ALL INSTALLER_GLOB_DATA_FILES INSTALLER_COMPILE INSTALLER_LINK)
