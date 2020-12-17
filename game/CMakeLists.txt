@@ -12,14 +12,18 @@ add_executable(${PROJECT_NAME}
     ${GAME_SRC_FILES}
     )
 
-# target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_LIST_DIR}/${ENGINE_LIB_NAME})
-# include_directories(${CMAKE_SOURCE_DIR}/engine)
-
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
 target_link_libraries(${PROJECT_NAME} engine)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "WinMoBubbles")
+
+# for cpack
+install(TARGETS ${PROJECT_NAME}
+        RUNTIME
+        DESTINATION ${CMAKE_INSTALL_BINDIR}/${GAME_NAME}
+        COMPONENT winmo_unix_all
+)
 
 # target and dependencies
 # add_custom_command(${PROJECT_NAME}
