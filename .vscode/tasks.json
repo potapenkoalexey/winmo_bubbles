@@ -67,7 +67,8 @@
                     "--build",
                     "${workspaceFolder}/build/",
                     "--target",
-                    "installer-unix-ALL"
+                    "package"
+                    // "installer-unix-ALL"
                 ],
                 "options": {
                     "cwd": "${workspaceFolder}/build/installer_unix/output"
