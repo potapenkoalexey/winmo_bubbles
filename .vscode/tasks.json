@@ -71,7 +71,7 @@
                     "--config",
                     "Release",
                     "-j4",
-                    "--verbose"
+                    // "--verbose"
                 ],
                 // "options": {
                 //     "cwd": "${workspaceFolder}/build/installer_unix/output"
@@ -89,19 +89,31 @@
                     "--build",
                     "${workspaceFolder}/build/",
                     "--target",
-                    "installer-win-ALL"
+                    "installer-win-ALL",
+                    "--config",
+                    "Release",
+                    "-j4",
+                    // "--verbose"
                 ],
                 "options": {
                     "cwd": "${workspaceFolder}/build/installer_win/output"
                 }
             },
             "linux": {
-                "command": "It's unavailable to build Installer for Linux",
-                "options": {
-                    "cwd": "${workspaceFolder}/build/installer_unix/output"
-                }
+                "command": "cmake",
+                "args": [
+                    "--build",
+                    "${workspaceFolder}/build/",
+                    "--target",
+                    "installer-unix-ALL",
+                    "-j4",
+                    // "--verbose"
+                ],
+                // "options": {
+                //     "cwd": "${workspaceFolder}/build/installer_unix/output"
+                // }
             },
-            "dependsOn": "Configure build",
+            "dependsOn": ["Delete build folder", "Configure build"],
             "problemMatcher": []
         },
         {

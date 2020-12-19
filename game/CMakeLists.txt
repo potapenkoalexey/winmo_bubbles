@@ -21,8 +21,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "WinMoBubbles")
 # for cpack
 install(TARGETS ${PROJECT_NAME}
         RUNTIME
-        DESTINATION ${GAME_INSTALL_PATH}
-        COMPONENT winmo_unix_bin
+        DESTINATION . #../${GAME_INSTALL_PATH}
+        COMPONENT winmo_bin
 )
 
 # target and dependencies

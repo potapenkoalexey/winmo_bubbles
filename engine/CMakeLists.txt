@@ -12,7 +12,7 @@ file(GLOB_RECURSE ENGINE_SRC_FILES
     )
 
 add_library(${PROJECT_NAME} 
-            # SHARED
+            STATIC #SHARED
             ${ENGINE_SRC_FILES})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/libs/SDL2-2.0.8/include/)
@@ -27,7 +27,7 @@ target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
 if (UNIX)
     target_link_libraries(${PROJECT_NAME}
-        SDL2
+        SDL2-static
         -lGL
         )
 elseif (WIN32)
@@ -40,9 +40,9 @@ endif()
 
 # for cpack
 install(TARGETS ${PROJECT_NAME}
-        LIBRARY
-        DESTINATION ${GAME_INSTALL_PATH}
-        COMPONENT winmo_unix_engine
+        OBJECTS #LIBRARY
+        DESTINATION ../${GAME_INSTALL_PATH}
+        COMPONENT winmo_engine
 )
 
 # set_property(TARGET ${ENGINE_LIB_NAME} APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_LIST_DIR})
