@@ -67,11 +67,15 @@
                     "--build",
                     "${workspaceFolder}/build/",
                     "--target",
-                    "installer-unix-ALL"
+                    "installer-unix-ALL",
+                    "--config",
+                    "Release",
+                    "-j4",
+                    "--verbose"
                 ],
-                "options": {
-                    "cwd": "${workspaceFolder}/build/installer_unix/output"
-                }
+                // "options": {
+                //     "cwd": "${workspaceFolder}/build/installer_unix/output"
+                // }
             },
             "problemMatcher": []
         },
@@ -95,9 +99,8 @@
                 "command": "It's unavailable to build Installer for Linux",
                 "options": {
                     "cwd": "${workspaceFolder}/build/installer_unix/output"
-                },
+                }
             },
-            
             "dependsOn": "Configure build",
             "problemMatcher": []
         },
@@ -130,6 +133,17 @@
             "options": {
                 "cwd": "${workspaceFolder}/build/docs/output"
             },
+            "problemMatcher": []
+        },
+        {
+            "label": "Delete build folder",
+            "type": "shell",
+            "detail": "Cleans build folder",
+            "command": "rm",
+            "args": [
+                "-rf",
+                "${workspaceFolder}/build/installer_unix/*"
+            ],
             "problemMatcher": []
         }
     ]
