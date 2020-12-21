@@ -71,7 +71,7 @@
                     "--config",
                     "Release",
                     "-j4",
-                    // "--verbose"
+                    "--verbose"
                 ],
                 // "options": {
                 //     "cwd": "${workspaceFolder}/build/installer_unix/output"
@@ -107,7 +107,7 @@
                     "--target",
                     "installer-unix-ALL",
                     "-j4",
-                    // "--verbose"
+                    "--verbose"
                 ],
                 // "options": {
                 //     "cwd": "${workspaceFolder}/build/installer_unix/output"

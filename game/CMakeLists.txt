@@ -16,14 +16,22 @@ target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
 target_link_libraries(${PROJECT_NAME} engine)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "WinMoBubbles")
+set(EXECUTABLE_NAME "WinMoBubbles")
+set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${EXECUTABLE_NAME})
 
 # for cpack
 install(TARGETS ${PROJECT_NAME}
         RUNTIME
-        DESTINATION . #../${GAME_INSTALL_PATH}
+        DESTINATION / #../${GAME_INSTALL_PATH}
         COMPONENT winmo_bin
 )
+
+# install(FILES ${EXECUTABLE_NAME}
+#         DESTINATION .
+#         #[PERMISSIONS permissions...]
+#         COMPONENT winmo_bin
+#         #[RENAME <name>] [OPTIONAL] [EXCLUDE_FROM_ALL]
+#         )
 
 # target and dependencies
 # add_custom_command(${PROJECT_NAME}
