@@ -41,7 +41,7 @@ endif()
 # for cpack
 install(TARGETS ${PROJECT_NAME}
         OBJECTS #LIBRARY
-        DESTINATION . #./${GAME_INSTALL_PATH}
+        DESTINATION / #./${GAME_INSTALL_PATH}
         COMPONENT winmo_engine
 )
 

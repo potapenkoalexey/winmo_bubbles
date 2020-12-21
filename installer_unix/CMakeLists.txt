@@ -48,6 +48,9 @@ set(CPACK_ARCHIVE_COMPONENT_INSTALL ON)
 #     "${CMAKE_SOURCE_DIR}/build; engine; ALL; /"
 #     "${CMAKE_SOURCE_DIR}/build; data; ALL; /"
 # )
+# set(CPACK_INSTALL_CMAKE_PROJECTS 
+#     "${CMAKE_SOURCE_DIR}/build; WinMoBuubles; ALL; /"
+# )
 set(CPACK_COMPONENTS_ALL
         # winmo_engine
         winmo_bin
