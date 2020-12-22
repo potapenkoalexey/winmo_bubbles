@@ -6,8 +6,6 @@ set(WIX_INSTALLER_PLATFORM_NAME "WIN")
 
 set(CMAKE_CURRENT_BINARY_DIR ${PROJECT_BINARY_DIR}/output)
 
-# message(FATAL_ERROR ">>> ${PROJECT_NAME}")
-
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Alexey Potapenko")
 set(CPACK_PROJECT_NAME "${PROJECT_NAME}")
 set(CPACK_PACKAGE_FILE_NAME "${GAME_NAME}")
@@ -57,6 +55,19 @@ set(CPACK_COMPONENTS_ALL
 
 include(CPack)
 
+#Use it like this (similar to ln -s):
+# macro(install_symlink filepath sympath)
+#     install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${filepath} ${sympath})")
+#     install(CODE "message(\"-- Created symlink: ${sympath} -> ${filepath}\")")
+# endmacro(install_symlink)
+#                                                                 # /build/libs/SDL2-2.0.8/libSDL2.so
+# install_symlink(${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libSDL2-2.0.so ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/SDL2-2.0.8/libSDL2.so)
+
+add_custom_target(LINK_TARGET
+                  COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libSDL2-2.0.so.0.8.0 ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/SDL2-2.0.8/libSDL2.so)
+# how to packaging symlinks with cpack
+# install(FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/SDL2-2.0.8/libSDL2.so DESTINATION / COMPONENT winmo_bin)
+
 #maybe it need to move in root CMake ? 
 add_custom_target(PACKAGING # -G TBZ2
                     COMMAND cpack -G DEB --config "${CPACK_OUTPUT_CONFIG_FILE}" -B "${CMAKE_CURRENT_BINARY_DIR}/" --verbose
@@ -66,6 +77,7 @@ add_custom_target(PACKAGING # -G TBZ2
 
 add_custom_target(installer-unix-ALL)
 
+add_dependencies(PACKAGING LINK_TARGET)
 add_dependencies(installer-unix-ALL PACKAGING)
 
 # cpack_add_component(winmo_engine

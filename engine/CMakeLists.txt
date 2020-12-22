@@ -46,11 +46,3 @@ install(TARGETS ${PROJECT_NAME}
 )
 
 # set_property(TARGET ${ENGINE_LIB_NAME} APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_LIST_DIR})
-
-#Use it like this (similar to ln -s):
-macro(install_symlink filepath sympath)
-    install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${filepath} ${sympath})")
-    install(CODE "message(\"-- Created symlink: ${sympath} -> ${filepath}\")")
-endmacro(install_symlink)
-                                                                # /build/libs/SDL2-2.0.8/libSDL2.so
-install_symlink(${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libSDL2-2.0.so ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/SDL2-2.0.8/libSDL2.so)
