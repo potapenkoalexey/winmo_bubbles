@@ -19,17 +19,16 @@ set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
 set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/readme.md")
 set(CPACK_CMAKE_GENERATOR "Unix Makefiles")
 set(CPACK_GENERATOR "DEB") #"STGZ;TGZ;TZ")
+set(CPACK_SOURCE_GENERATOR "DEB")
 set(CPACK_OUTPUT_CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/CPackConfig.cmake")
 set(CPACK_SOURCE_OUTPUT_CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/CPackSourceConfig.cmake")
+set(CPACK_PACKAGE_EXECUTABLES "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/WinMoBubbles")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "WinMoBubbles")
 # set(CPACK_PACKAGE_DESCRIPTION_FILE "/home/andy/vtk/CMake/Copyright.txt")
-# set(CPACK_PACKAGE_EXECUTABLES "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/WinMoBubbles")
-# set(CPACK_PACKAGE_INSTALL_DIRECTORY "CMake 2.5")
-# set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "CMake 2.5.0")
 # set(CPACK_RESOURCE_FILE_LICENSE "/home/andy/vtk/CMake/Copyright.txt")
 # set(CPACK_RESOURCE_FILE_WELCOME "/home/andy/vtk/CMake/Templates/CPack.GenericWelcome.txt")
-set(CPACK_SOURCE_GENERATOR "DEB")
 # set(CPACK_SOURCE_PACKAGE_FILE_NAME "cmake-2.5.0")
-# set(CPACK_STRIP_FILES "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/WinMoBubbles")
+# set(CPACK_STRIP_FILES "${CMAKE_BINARY_DIR}/data/CMakelists.txt")
 # set(CPACK_SOURCE_STRIP_FILES "")
 # set(CPACK_SYSTEM_NAME "Linux x86_64")
 # set(CPACK_TOPLEVEL_TAG "Linux x86_64")
@@ -55,23 +54,13 @@ set(CPACK_COMPONENTS_ALL
 
 include(CPack)
 
-#Use it like this (similar to ln -s):
-# macro(install_symlink filepath sympath)
-#     install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ${filepath} ${sympath})")
-#     install(CODE "message(\"-- Created symlink: ${sympath} -> ${filepath}\")")
-# endmacro(install_symlink)
-#                                                                 # /build/libs/SDL2-2.0.8/libSDL2.so
-# install_symlink(${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/libSDL2-2.0.so ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/SDL2-2.0.8/libSDL2.so)
-
+# hotfix SDL2 build problem
 add_custom_target(LINK_TARGET
                   COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libSDL2-2.0.so.0.8.0 ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/SDL2-2.0.8/libSDL2.so)
-# how to packaging symlinks with cpack
-# install(FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/SDL2-2.0.8/libSDL2.so DESTINATION / COMPONENT winmo_bin)
 
-#maybe it need to move in root CMake ? 
 add_custom_target(PACKAGING # -G TBZ2
                     COMMAND cpack -G DEB --config "${CPACK_OUTPUT_CONFIG_FILE}" -B "${CMAKE_CURRENT_BINARY_DIR}/" --verbose
-                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/output
+                #     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/output
                     COMMENT "-- Run CPack for UNIX deb package build"
 )
 

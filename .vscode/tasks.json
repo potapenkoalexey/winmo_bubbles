@@ -38,30 +38,41 @@
             "problemMatcher": []
         },
         {
-            "label": "Build Installer",
+            "label": "UNIX Installer (cpack)",
+            "type": "shell",
+            "detail": "CPACK",
+            "command": "cpack",
+            "options": {
+                "cwd": "${workspaceFolder}/build/installer_unix/output"
+            },
+            "problemMatcher": [],
+            "dependsOn": ["Create SymLink"],
+        },
+        {
+            "label": "WIN Installer (wix)",
             "type": "shell",
             "detail": "Invokes Installer build action",
-            "windows": {
-                "command": "cmake",
-                "args": [
-                    "--build", "${workspaceFolder}/build/",
-                    "--target", "installer-win-ALL"
-                ],
-                "options": {
-                    "cwd": "${workspaceFolder}/build/installer_win/output"
-                }
+            "command": "cmake",
+            "args": [
+                "--build", "${workspaceFolder}/build/",
+                "--target", "installer-win-ALL"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build/installer_win/output"
             },
+            "problemMatcher": []
+        },
+        {
+            "label": "Create SymLink",
+
+            "type": "shell",
+            "detail": "Invokes SymLink create action",
             "linux": {
                 "command": "cmake",
                 "args": [
                     "--build", "${workspaceFolder}/build/",
-                    "--target", "installer-unix-ALL",
-                    "--config", "Release",
-                    "-j4", "--verbose"
+                    "--target", "LINK_TARGET",
                 ],
-                // "options": {
-                //     "cwd": "${workspaceFolder}/build/installer_unix/output"
-                // }
             },
             "problemMatcher": []
         },
@@ -89,9 +100,9 @@
                     "--target", "installer-unix-ALL",
                     "-j4", "--verbose"
                 ],
-                // "options": {
-                //     "cwd": "${workspaceFolder}/build/installer_unix/output"
-                // }
+                "options": {
+                    "cwd": "${workspaceFolder}/build/installer_unix/output"
+                }
             },
             "dependsOn": ["Delete build folder", "Configure build"],
             "problemMatcher": []
