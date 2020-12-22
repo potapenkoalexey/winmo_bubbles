@@ -48,22 +48,18 @@ set(CPACK_ARCHIVE_COMPONENT_INSTALL ON)
 #     "${CMAKE_SOURCE_DIR}/build; engine; ALL; /"
 #     "${CMAKE_SOURCE_DIR}/build; data; ALL; /"
 # )
-# set(CPACK_INSTALL_CMAKE_PROJECTS 
-#     "${CMAKE_SOURCE_DIR}/build; WinMoBuubles; ALL; /"
-# )
+
 set(CPACK_COMPONENTS_ALL
         # winmo_engine
         winmo_bin
         winmo_data
 )
 
-# message(FATAL_ERROR ">>> ${PROJECT_BINARY_DIR}")
-
 include(CPack)
 
 #maybe it need to move in root CMake ? 
 add_custom_target(PACKAGING # -G TBZ2
-                    COMMAND cpack -G DEB --config "${CPACK_OUTPUT_CONFIG_FILE}" -B "${CMAKE_CURRENT_BINARY_DIR}/" --verbose #../output" 
+                    COMMAND cpack -G DEB --config "${CPACK_OUTPUT_CONFIG_FILE}" -B "${CMAKE_CURRENT_BINARY_DIR}/" --verbose
                     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/output
                     COMMENT "-- Run CPack for UNIX deb package build"
 )
@@ -72,15 +68,15 @@ add_custom_target(installer-unix-ALL)
 
 add_dependencies(installer-unix-ALL PACKAGING)
 
-cpack_add_component(winmo_engine
-                    DESCRIPTION "GrottansBarn's engine library"
-                    REQUIRED
-                    )
-cpack_add_component(winmo_bin
-                    DESCRIPTION "WinMoBubbles executable"
-                    REQUIRED
-                    )
-cpack_add_component(winmo_data
-                    DESCRIPTION "WinMoBubbles data files"
-                    REQUIRED
-                    )
+# cpack_add_component(winmo_engine
+#                     DESCRIPTION "GrottansBarn's engine library"
+#                     REQUIRED
+#                     )
+# cpack_add_component(winmo_bin
+#                     DESCRIPTION "WinMoBubbles executable"
+#                     REQUIRED
+#                     )
+# cpack_add_component(winmo_data
+#                     DESCRIPTION "WinMoBubbles data files"
+#                     REQUIRED
+#                     )

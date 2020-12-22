@@ -10,17 +10,13 @@
             "windows": {
                 "command": "cmake",
                 "args": [
-                    "..",
-                    "-G",
-                    "Visual Studio 16 2019"
+                    "..", "-G", "Visual Studio 16 2019"
                 ]
             },
             "linux": {
                 "command": "cmake",
                 "args": [
-                    "..",
-                    "-G",
-                    "Unix Makefiles"
+                    "..", "-G", "Unix Makefiles"
                 ]
             },
             "options": {
@@ -34,11 +30,7 @@
             "detail": "BUILD binaries",
             "command": "cmake",
             "args": [
-                "--build",
-                ".",
-                "--config",
-                "Release",
-                "-j4"
+                "--build", ".", "--config", "${input:BuildType}", "-j4"
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build"
@@ -52,10 +44,8 @@
             "windows": {
                 "command": "cmake",
                 "args": [
-                    "--build",
-                    "${workspaceFolder}/build/",
-                    "--target",
-                    "installer-win-ALL"
+                    "--build", "${workspaceFolder}/build/",
+                    "--target", "installer-win-ALL"
                 ],
                 "options": {
                     "cwd": "${workspaceFolder}/build/installer_win/output"
@@ -64,14 +54,10 @@
             "linux": {
                 "command": "cmake",
                 "args": [
-                    "--build",
-                    "${workspaceFolder}/build/",
-                    "--target",
-                    "installer-unix-ALL",
-                    "--config",
-                    "Release",
-                    "-j4",
-                    "--verbose"
+                    "--build", "${workspaceFolder}/build/",
+                    "--target", "installer-unix-ALL",
+                    "--config", "Release",
+                    "-j4", "--verbose"
                 ],
                 // "options": {
                 //     "cwd": "${workspaceFolder}/build/installer_unix/output"
@@ -86,12 +72,9 @@
             "windows": {
                 "command": "cmake",
                 "args": [
-                    "--build",
-                    "${workspaceFolder}/build/",
-                    "--target",
-                    "installer-win-ALL",
-                    "--config",
-                    "Release",
+                    "--build", "${workspaceFolder}/build/",
+                    "--target", "installer-win-ALL",
+                    "--config", "Release",
                     "-j4",
                     // "--verbose"
                 ],
@@ -102,12 +85,9 @@
             "linux": {
                 "command": "cmake",
                 "args": [
-                    "--build",
-                    "${workspaceFolder}/build/",
-                    "--target",
-                    "installer-unix-ALL",
-                    "-j4",
-                    "--verbose"
+                    "--build", "${workspaceFolder}/build/",
+                    "--target", "installer-unix-ALL",
+                    "-j4", "--verbose"
                 ],
                 // "options": {
                 //     "cwd": "${workspaceFolder}/build/installer_unix/output"
@@ -122,10 +102,8 @@
             "detail": "Calls cmake docs_target build",
             "command": "cmake",
             "args": [
-                "--build",
-                "${workspaceFolder}/build/docs/",
-                "--target",
-                "doc_doxygen"
+                "--build", "${workspaceFolder}/build/docs/",
+                "--target", "doc_doxygen"
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build/docs/output"
@@ -137,10 +115,8 @@
             "detail": "Calls build docs from Doxyfile",
             "command": "cmake",
             "args": [
-                "-E",
-                "env",
-                "doxygen",
-                "Doxyfile"
+                "-E", "env",
+                "doxygen", "Doxyfile"
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build/docs/output"
@@ -158,5 +134,18 @@
             ],
             "problemMatcher": []
         }
+    ],
+    "inputs": [
+        {
+            "type": "pickString",
+            "id": "BuildType",
+            "description": "Build type",
+            "options": [
+                "RelWithDebInfo",
+                "Release",
+                "Debug"
+            ],
+            "default": "Release"
+		}
     ]
 }
