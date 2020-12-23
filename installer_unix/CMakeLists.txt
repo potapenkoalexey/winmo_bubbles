@@ -23,7 +23,7 @@ set(CPACK_SOURCE_GENERATOR "DEB")
 set(CPACK_OUTPUT_CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/CPackConfig.cmake")
 set(CPACK_SOURCE_OUTPUT_CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/CPackSourceConfig.cmake")
 set(CPACK_PACKAGE_EXECUTABLES "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/WinMoBubbles")
-set(CPACK_PACKAGE_INSTALL_DIRECTORY "WinMoBubbles")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "/home/WinMoBubbles")
 # set(CPACK_PACKAGE_DESCRIPTION_FILE "/home/andy/vtk/CMake/Copyright.txt")
 # set(CPACK_RESOURCE_FILE_LICENSE "/home/andy/vtk/CMake/Copyright.txt")
 # set(CPACK_RESOURCE_FILE_WELCOME "/home/andy/vtk/CMake/Templates/CPack.GenericWelcome.txt")
@@ -39,7 +39,7 @@ set(CPACK_PACKAGE_INSTALL_DIRECTORY "WinMoBubbles")
 # List of four values that specify what project to install. 
 # The four values are: Build directory, Project Name, Project Component, Directory. 
 # If omitted, CPack will build an installer that installs everything.
-set(CPACK_ARCHIVE_COMPONENT_INSTALL ON)
+set(CPACK_ARCHIVE_COMPONENT_INSTALL OFF)
 # set(CPACK_INSTALL_CMAKE_PROJECTS 
 #     "${CMAKE_SOURCE_DIR}/build; game; ALL; /"
 #     "${CMAKE_SOURCE_DIR}/build; engine; ALL; /"

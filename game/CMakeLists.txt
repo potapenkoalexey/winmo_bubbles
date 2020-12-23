@@ -20,18 +20,18 @@ set(EXECUTABLE_NAME "WinMoBubbles")
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${EXECUTABLE_NAME})
 
 # for cpack
-# install(TARGETS ${PROJECT_NAME}
-#         RUNTIME
-#         DESTINATION / #../${GAME_INSTALL_PATH}
-#         COMPONENT winmo_bin
-# )
-
-install(FILES ${CMAKE_BINARY_DIR}/bin/${EXECUTABLE_NAME}
-        DESTINATION /
-        #[PERMISSIONS permissions...]
+install(TARGETS ${PROJECT_NAME}
+        RUNTIME
+        #DESTINATION / #../${GAME_INSTALL_PATH}
         COMPONENT winmo_bin
-        #[RENAME <name>] [OPTIONAL] [EXCLUDE_FROM_ALL]
-        )
+)
+
+# install(FILES ${CMAKE_BINARY_DIR}/bin/${EXECUTABLE_NAME}
+#         #DESTINATION /
+#         #[PERMISSIONS permissions...]
+#         COMPONENT winmo_bin
+#         #[RENAME <name>] [OPTIONAL] [EXCLUDE_FROM_ALL]
+#         )
 
 # target and dependencies
 # add_custom_command(${PROJECT_NAME}

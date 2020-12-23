@@ -38,7 +38,7 @@
             "problemMatcher": []
         },
         {
-            "label": "UNIX Installer (cpack)",
+            "label": "Installer UNIX (cpack)",
             "type": "shell",
             "detail": "CPACK",
             "command": "cpack",
@@ -49,7 +49,7 @@
             "dependsOn": ["Create SymLink"],
         },
         {
-            "label": "WIN Installer (wix)",
+            "label": "Installer WIN (wix)",
             "type": "shell",
             "detail": "Invokes Installer build action",
             "command": "cmake",
