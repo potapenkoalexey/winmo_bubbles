@@ -18,11 +18,11 @@ set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
 set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/readme.md")
 set(CPACK_CMAKE_GENERATOR "Unix Makefiles")
-set(CPACK_GENERATOR "DEB") #"STGZ;TGZ;TZ")
-set(CPACK_SOURCE_GENERATOR "DEB")
+# set(CPACK_GENERATOR "DEB") #"STGZ;TGZ;TZ")
+# set(CPACK_SOURCE_GENERATOR "DEB")
 set(CPACK_OUTPUT_CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/CPackConfig.cmake")
 set(CPACK_SOURCE_OUTPUT_CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/CPackSourceConfig.cmake")
-set(CPACK_PACKAGE_EXECUTABLES "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/WinMoBubbles")
+# set(CPACK_PACKAGE_EXECUTABLES "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/WinMoBubbles")
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "/home/WinMoBubbles")
 # set(CPACK_PACKAGE_DESCRIPTION_FILE "/home/andy/vtk/CMake/Copyright.txt")
 # set(CPACK_RESOURCE_FILE_LICENSE "/home/andy/vtk/CMake/Copyright.txt")
@@ -36,15 +36,15 @@ set(CPACK_PACKAGE_INSTALL_DIRECTORY "/home/WinMoBubbles")
 # set(CPACK_LIBRARY_OUTPUT_PATH ${})
 # set(CPACK_EXECUTABLE_OUTPUT_PATH ${})
 
+set(CPACK_ARCHIVE_COMPONENT_INSTALL OFF)
+
 # List of four values that specify what project to install. 
 # The four values are: Build directory, Project Name, Project Component, Directory. 
 # If omitted, CPack will build an installer that installs everything.
-set(CPACK_ARCHIVE_COMPONENT_INSTALL OFF)
-# set(CPACK_INSTALL_CMAKE_PROJECTS 
-#     "${CMAKE_SOURCE_DIR}/build; game; ALL; /"
-#     "${CMAKE_SOURCE_DIR}/build; engine; ALL; /"
-#     "${CMAKE_SOURCE_DIR}/build; data; ALL; /"
-# )
+set(CPACK_INSTALL_CMAKE_PROJECTS 
+    "${CMAKE_SOURCE_DIR}/build/game;game;ALL;/"
+    "${CMAKE_SOURCE_DIR}/build/data;data;ALL;/"
+)
 
 set(CPACK_COMPONENTS_ALL
         # winmo_engine
@@ -58,8 +58,9 @@ include(CPack)
 add_custom_target(LINK_TARGET
                   COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libSDL2-2.0.so.0.8.0 ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/SDL2-2.0.8/libSDL2.so)
 
+# unused by task build
 add_custom_target(PACKAGING # -G TBZ2
-                    COMMAND cpack -G DEB --config "${CPACK_OUTPUT_CONFIG_FILE}" -B "${CMAKE_CURRENT_BINARY_DIR}/" --verbose
+                    COMMAND sudo cpack -G ZIP --config "${CPACK_OUTPUT_CONFIG_FILE}" -B "${CMAKE_CURRENT_BINARY_DIR}/" --verbose
                 #     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/output
                     COMMENT "-- Run CPack for UNIX deb package build"
 )
@@ -68,16 +69,3 @@ add_custom_target(installer-unix-ALL)
 
 add_dependencies(PACKAGING LINK_TARGET)
 add_dependencies(installer-unix-ALL PACKAGING)
-
-# cpack_add_component(winmo_engine
-#                     DESCRIPTION "GrottansBarn's engine library"
-#                     REQUIRED
-#                     )
-# cpack_add_component(winmo_bin
-#                     DESCRIPTION "WinMoBubbles executable"
-#                     REQUIRED
-#                     )
-# cpack_add_component(winmo_data
-#                     DESCRIPTION "WinMoBubbles data files"
-#                     REQUIRED
-#                     )

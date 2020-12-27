@@ -39,10 +39,10 @@ elseif (WIN32)
 endif()
 
 # for cpack
-install(TARGETS ${PROJECT_NAME}
-        OBJECTS #LIBRARY
-        #DESTINATION / #./${GAME_INSTALL_PATH}
-        COMPONENT winmo_engine
-)
+# install(TARGETS ${PROJECT_NAME}
+#         OBJECTS #LIBRARY
+#         #DESTINATION / #./${GAME_INSTALL_PATH}
+#         COMPONENT winmo_engine
+# )
 
 # set_property(TARGET ${ENGINE_LIB_NAME} APPEND PROPERTY INTERFACE_INCLUDE_DIRECTORIES ${CMAKE_CURRENT_LIST_DIR})

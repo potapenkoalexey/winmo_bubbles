@@ -22,7 +22,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${EXECUTABLE_NAME})
 # for cpack
 install(TARGETS ${PROJECT_NAME}
         RUNTIME
-        #DESTINATION / #../${GAME_INSTALL_PATH}
+        DESTINATION . #../${GAME_INSTALL_PATH}
         COMPONENT winmo_bin
 )
 
