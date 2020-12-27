@@ -51,8 +51,8 @@ add_custom_target(LINK_TARGET
 
 # unused by task build
 add_custom_target(PACKAGING # -G TBZ2
-                    COMMAND sudo cpack -G ZIP --config "${CPACK_OUTPUT_CONFIG_FILE}" -B "${CMAKE_CURRENT_BINARY_DIR}/" --verbose
-                #     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/output
+                    COMMAND cpack -G ZIP # --config "${CPACK_OUTPUT_CONFIG_FILE}" -B "${CMAKE_CURRENT_BINARY_DIR}/" --verbose
+                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/output
                     COMMENT "-- Run CPack for UNIX deb package build"
 )
 

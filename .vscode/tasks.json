@@ -40,13 +40,16 @@
         {
             "label": "Installer UNIX (cpack)",
             "type": "shell",
-            "detail": "CPACK",
-            "command": "cpack -G ZIP",
+            "detail": "Invokes Package build action",
+            "command": "cmake",
+            "args": [
+                "--build", "${workspaceFolder}/build/",
+                "--target", "installer-unix-ALL"
+            ],
             "options": {
                 "cwd": "${workspaceFolder}/build/installer_unix/output"
             },
-            "problemMatcher": [],
-            "dependsOn": ["Create SymLink"],
+            "problemMatcher": []
         },
         {
             "label": "Installer WIN (wix)",
@@ -64,7 +67,6 @@
         },
         {
             "label": "Create SymLink",
-
             "type": "shell",
             "detail": "Invokes SymLink create action",
             "linux": {
@@ -74,37 +76,6 @@
                     "--target", "LINK_TARGET",
                 ],
             },
-            "problemMatcher": []
-        },
-        {
-            "label": "RE-Build Installer",
-            "type": "shell",
-            "detail": "Invokes Installer REbuild action",
-            "windows": {
-                "command": "cmake",
-                "args": [
-                    "--build", "${workspaceFolder}/build/",
-                    "--target", "installer-win-ALL",
-                    "--config", "Release",
-                    "-j4",
-                    // "--verbose"
-                ],
-                "options": {
-                    "cwd": "${workspaceFolder}/build/installer_win/output"
-                }
-            },
-            "linux": {
-                "command": "cmake",
-                "args": [
-                    "--build", "${workspaceFolder}/build/",
-                    "--target", "installer-unix-ALL",
-                    "-j4", "--verbose"
-                ],
-                "options": {
-                    "cwd": "${workspaceFolder}/build/installer_unix/output"
-                }
-            },
-            "dependsOn": ["Delete build folder", "Configure build"],
             "problemMatcher": []
         },
         {
