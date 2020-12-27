@@ -41,7 +41,7 @@
             "label": "Installer UNIX (cpack)",
             "type": "shell",
             "detail": "CPACK",
-            "command": "cpack",
+            "command": "cpack -G ZIP",
             "options": {
                 "cwd": "${workspaceFolder}/build/installer_unix/output"
             },
@@ -135,13 +135,13 @@
             "problemMatcher": []
         },
         {
-            "label": "Delete build folder",
+            "label": "CLEAN folder",
             "type": "shell",
             "detail": "Cleans build folder",
             "command": "rm",
             "args": [
                 "-rf",
-                "${workspaceFolder}/build/installer_unix/*"
+                "${workspaceFolder}/${input:FolderToDelete}"
             ],
             "problemMatcher": []
         }
@@ -157,6 +157,17 @@
                 "Debug"
             ],
             "default": "Release"
+        },
+        {
+            "type": "pickString",
+            "id": "FolderToDelete",
+            "description": "Folder to delete",
+            "options": [
+                "/build/installer_unix/*",
+                "/build/installer_win/*",
+                "/build/*",
+            ],
+            "default": "/build/installer_unix/*"
 		}
     ]
 }
