@@ -26,15 +26,7 @@ set(CPACK_SOURCE_OUTPUT_CONFIG_FILE "${CMAKE_CURRENT_BINARY_DIR}/CPackSourceConf
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "/home/WinMoBubbles")
 # set(CPACK_PACKAGE_DESCRIPTION_FILE "/home/andy/vtk/CMake/Copyright.txt")
 # set(CPACK_RESOURCE_FILE_LICENSE "/home/andy/vtk/CMake/Copyright.txt")
-# set(CPACK_RESOURCE_FILE_WELCOME "/home/andy/vtk/CMake/Templates/CPack.GenericWelcome.txt")
 # set(CPACK_SOURCE_PACKAGE_FILE_NAME "cmake-2.5.0")
-# set(CPACK_STRIP_FILES "${CMAKE_BINARY_DIR}/data/CMakelists.txt")
-# set(CPACK_SOURCE_STRIP_FILES "")
-# set(CPACK_SYSTEM_NAME "Linux x86_64")
-# set(CPACK_TOPLEVEL_TAG "Linux x86_64")
-
-# set(CPACK_LIBRARY_OUTPUT_PATH ${})
-# set(CPACK_EXECUTABLE_OUTPUT_PATH ${})
 
 set(CPACK_ARCHIVE_COMPONENT_INSTALL OFF)
 
@@ -47,7 +39,6 @@ set(CPACK_INSTALL_CMAKE_PROJECTS
 )
 
 set(CPACK_COMPONENTS_ALL
-        # winmo_engine
         winmo_bin
         winmo_data
 )

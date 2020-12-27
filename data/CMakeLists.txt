@@ -4,6 +4,6 @@ project(data)
 
 # for cpack
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/data
-        DESTINATION . #./${GAME_INSTALL_PATH}
+        DESTINATION .
         COMPONENT winmo_data
 )
