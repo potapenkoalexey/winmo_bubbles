@@ -53,7 +53,7 @@ add_custom_target(LINK_TARGET
 add_custom_target(PACKAGING # -G TBZ2
                     COMMAND cpack -G ZIP # --config "${CPACK_OUTPUT_CONFIG_FILE}" -B "${CMAKE_CURRENT_BINARY_DIR}/" --verbose
                     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/output
-                    COMMENT "-- Run CPack for UNIX deb package build"
+                    COMMENT "-- Run CPack for UNIX package build"
 )
 
 add_custom_target(installer-unix-ALL)

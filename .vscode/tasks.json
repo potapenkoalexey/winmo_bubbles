@@ -27,7 +27,7 @@
         {
             "label": "Build",
             "type": "shell",
-            "detail": "BUILD binaries",
+            "detail": "Build binaries",
             "command": "cmake",
             "args": [
                 "--build", ".", "--config", "${input:BuildType}", "-j4"
