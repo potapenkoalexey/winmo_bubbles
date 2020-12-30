@@ -30,7 +30,9 @@
             "detail": "Build binaries",
             "command": "cmake",
             "args": [
-                "--build", ".", "--config", "${input:BuildType}", "-j4"
+                "--build", ".",
+                "--config", "${input:BuildType}",
+                "-j4"
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build"
@@ -73,8 +75,8 @@
                 "command": "cmake",
                 "args": [
                     "--build", "${workspaceFolder}/build/",
-                    "--target", "LINK_TARGET",
-                ],
+                    "--target", "LINK_TARGET"
+                ]
             },
             "problemMatcher": []
         },
@@ -89,7 +91,8 @@
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build/docs/output"
-            }
+            },
+            "problemMatcher": []
         },
         {
             "label": "Build Docs Doxyfile",
@@ -111,8 +114,7 @@
             "detail": "Cleans build folder",
             "command": "rm",
             "args": [
-                "-rf",
-                "${workspaceFolder}/${input:FolderToDelete}"
+                "-rf", "${workspaceFolder}/${input:FolderToDelete}"
             ],
             "problemMatcher": []
         }
