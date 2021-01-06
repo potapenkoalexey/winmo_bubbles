@@ -172,8 +172,8 @@ bool ini_handler::load_original_settings()
         g_MODE = MODE::extreme;
 
     // update variables to prevent nulling
-    g_SCORE_MAX_CLASSIC = static_cast<size_t>(get_int("Saved", "g_SCORE_MAX_CLASSIC"));
-    g_SCORE_MAX_EXTREME = static_cast<size_t>(get_int("Saved", "g_SCORE_MAX_EXTREME"));
+    g_SCORE_MAX_CLASSIC = static_cast<size_t>(get_int("Original", "g_SCORE_MAX_CLASSIC"));
+    g_SCORE_MAX_EXTREME = static_cast<size_t>(get_int("Original", "g_SCORE_MAX_EXTREME"));
 
     g_LEVEL = static_cast<size_t>(get_int("Original", "g_LEVEL"));
     g_SCORE = static_cast<size_t>(get_int("Original", "g_SCORE"));

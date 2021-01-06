@@ -1053,6 +1053,9 @@ std::string engine_impl::initialize()
 
     //load settings.ini
     ini_handl = std::make_unique<ini_handler>("./data/config/settings.ini");
+    if (ini_handl->error_check()){
+        throw std::runtime_error("ini parser can't parse file");
+    }
 
     // get and set the desired window size
     // game screen factor = 536/480 = 1.096
