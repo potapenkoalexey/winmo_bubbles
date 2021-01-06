@@ -1086,8 +1086,16 @@ std::string engine_impl::initialize()
 
 #endif
 #ifdef _WIN32
-    screen_height = h / 2;
-    screen_width = screen_height / 1.096;
+    screen_height = h;
+    screen_width = w; //1.116
+    if (w > h) {
+        scale = grottans::mat2x3::scale(screen_height / (double)screen_width, 1.f);
+    } else {
+        scale = grottans::mat2x3::scale(1.f, screen_width / (double)screen_height);
+        //scale = grottans::mat2x3::scale(1.f, 1.f);
+    }
+//    screen_height = h / 2;
+//    screen_width = screen_height / 1.096;
 #endif
 #ifdef __ANDROID__
     screen_width = w;
@@ -1105,7 +1113,9 @@ std::string engine_impl::initialize()
 #ifdef _WIN32
     window = SDL_CreateWindow("WinMo Bubbles",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screen_width, screen_height,
-        ::SDL_WINDOW_OPENGL);
+        ::SDL_WINDOW_OPENGL
+            | SDL_WINDOW_BORDERLESS //without title
+            | SDL_WINDOW_FULLSCREEN); //240x268);
 #endif
 #ifdef __ANDROID__
     window = SDL_CreateWindow("WinMo Bubbles",
@@ -1548,7 +1558,7 @@ bool engine_impl::is_mouse_clicked_in_coord(const float& lx, const float& rx, co
     size_t m_y = mouse_coord_pressed.y;
     // float scale_x = engine->scale.col0.x; //0.625
     // float scale_y = engine->scale.col1.y; //1
-    return ((m_y > ly * h) && (m_y < ry * h) && (m_x > lx * w) && (m_x < rx * w));
+    return ((m_y > ly * h) && (m_y < ry * load_original_settingsh) && (m_x > lx * w) && (m_x < rx * w));
 }
 
 engine_impl::~engine_impl()
