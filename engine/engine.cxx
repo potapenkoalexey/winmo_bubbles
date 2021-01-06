@@ -1056,6 +1056,7 @@ std::string engine_impl::initialize()
     if (ini_handl->error_check()){
         throw std::runtime_error("ini parser can't parse file");
     }
+    ini_handl->load_original_settings();
 
     // get and set the desired window size
     // game screen factor = 536/480 = 1.096

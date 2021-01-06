@@ -13,7 +13,7 @@ namespace grottans {
 */
 class ini_handler {
 public:
-    ini_handler(const std::string& filename);
+    ini_handler(const std::string& filename_);
     ~ini_handler();
 
     ini_handler(const ini_handler&) = delete;
@@ -63,6 +63,9 @@ public:
 
     bool del_section(const std::string& section);
 
+    // crossplatform getline
+    std::istream& safeGetline(std::istream& is, std::string& t);
+
     // write new values
     bool update();
 
@@ -74,6 +77,7 @@ public:
 private:
     std::string filename;
     std::fstream file;
+    // std::istream& file_is;
     std::map<std::string, std::map<std::string, std::string> > config;
     bool error;
 
@@ -81,7 +85,7 @@ private:
     std::string s_get_section(const std::string& line);
 
     // function to get the current key and its value;
-    bool get_line(const std::string& line, std::string& key, std::string& value);
+    bool parse_line(const std::string& line, std::string& key, std::string& value);
 };
 
 } // end of namespace
