@@ -1558,7 +1558,7 @@ bool engine_impl::is_mouse_clicked_in_coord(const float& lx, const float& rx, co
     size_t m_y = mouse_coord_pressed.y;
     // float scale_x = engine->scale.col0.x; //0.625
     // float scale_y = engine->scale.col1.y; //1
-    return ((m_y > ly * h) && (m_y < ry * load_original_settingsh) && (m_x > lx * w) && (m_x < rx * w));
+    return ((m_y > ly * h) && (m_y < ry * h) && (m_x > lx * w) && (m_x < rx * w));
 }
 
 engine_impl::~engine_impl()
