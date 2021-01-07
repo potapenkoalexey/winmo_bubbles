@@ -9,10 +9,10 @@ pipelines:
           - cmake ..
           - cmake --build . --config Release -j6
           - cmake --build . --config Release -j6 --target installer-unix-ALL
-    # - step:
-    #     script:
-    #       - pipe: atlassian/bitbucket-upload-file:0.1.2
-    #         variables:
-    #           BITBUCKET_USERNAME: $BITBUCKET_USERNAME
-    #           BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
-    #           FILENAME: "build/outputs/apk/debug/application-debug.apk"
+    - step:
+        script:
+          - pipe: atlassian/bitbucket-upload-file:0.1.2
+            variables:
+              BITBUCKET_USERNAME: $BITBUCKET_USERNAME
+              BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
+              FILENAME: "/opt/atlassian/pipelines/agent/build/build/installer_unix/output/WinMoBubbles.zip"
