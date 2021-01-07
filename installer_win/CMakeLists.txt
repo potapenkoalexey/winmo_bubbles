@@ -33,12 +33,12 @@ add_custom_target(INSTALLER_GLOB_DATA_FILES
     COMMENT "-- Run Wix Heat to glob files from /data folder"
 )
 add_custom_target(INSTALLER_COMPILE 
-    COMMAND "candle" -arch x64 *.wxs
+    COMMAND "candle" -arch x64 -ext WixUtilExtension *.wxs
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "-- Run Wix Candle to compile installer sources"
 )
 add_custom_target(INSTALLER_LINK 
-    COMMAND "light" *.wixobj -ext WixUIExtension -out ${GAME_NAME}.msi
+    COMMAND "light" *.wixobj -ext WixUIExtension -ext WixUtilExtension -out ${GAME_NAME}.msi
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "-- Run Wix Light to link and create msi"
 )

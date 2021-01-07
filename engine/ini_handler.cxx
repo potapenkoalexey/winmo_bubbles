@@ -119,7 +119,9 @@ void ini_handler::save_settings_to_file()
             file << key.first << "=" << key.second << std::endl;
         }
     }
-
+    file.close();
+    if (file.is_open() == 0)
+        std::cout << "\n Settings saved!\n" << std::endl;
     error = false;
 }
 
