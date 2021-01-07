@@ -2,6 +2,7 @@ image: leanid/fedora_latest
 pipelines:
   default:
     - step:
+        name: Build artifacts
         script:
           - git clean -df
           - mkdir build
@@ -10,6 +11,8 @@ pipelines:
           - cmake --build . --config Release -j6
           - cmake --build . --config Release -j6 --target installer-unix-ALL
     - step:
+        name: Deploy artifacts
+        # trigger: manual  # Uncomment to make this a manual deployment.
         script:
           - pipe: atlassian/bitbucket-upload-file:0.3.2
             variables:
