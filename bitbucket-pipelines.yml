@@ -10,12 +10,12 @@ pipelines:
           - cmake ..
           - cmake --build . --config Release -j6
           - cmake --build . --config Release -j6 --target installer-unix-ALL
-    - step:
-        name: Deploy artifacts
-        # trigger: manual  # Uncomment to make this a manual deployment.
-        script:
-          - pipe: atlassian/bitbucket-upload-file:0.3.2
-            variables:
-              BITBUCKET_USERNAME: $BITBUCKET_USERNAME
-              BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
-              FILENAME: '/opt/atlassian/pipelines/agent/build/build/installer_unix/output/WinMoBubbles.zip'
+    # - step:
+    #     name: Deploy artifacts
+    #     # trigger: manual  # Uncomment to make this a manual deployment.
+    #     script:
+    #       - pipe: atlassian/bitbucket-upload-file:0.3.2
+    #         variables:
+    #           BITBUCKET_USERNAME: $BITBUCKET_USERNAME
+    #           BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
+    #           FILENAME: '/opt/atlassian/pipelines/agent/build/build/installer_unix/output/WinMoBubbles.zip'
