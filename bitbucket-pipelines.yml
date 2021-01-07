@@ -18,4 +18,4 @@ pipelines:
             variables:
               BITBUCKET_USERNAME: $BITBUCKET_USERNAME
               BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
-              FILENAME: "/opt/atlassian/pipelines/agent/build/build/installer_unix/output/WinMoBubbles.zip"
+              FILENAME: '/opt/atlassian/pipelines/agent/build/build/installer_unix/output/WinMoBubbles.zip'
