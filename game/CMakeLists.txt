@@ -14,9 +14,8 @@ add_executable(${PROJECT_NAME}
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
-target_link_libraries(${PROJECT_NAME} engine)
+target_link_libraries(${PROJECT_NAME} ${ENGINE_LIB_NAME})
 
-set(EXECUTABLE_NAME "WinMoBubbles")
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${EXECUTABLE_NAME})
 
 # for cpack

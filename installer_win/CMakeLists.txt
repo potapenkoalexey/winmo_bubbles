@@ -4,10 +4,6 @@ if($ENV{WIX} EQUAL "")
     message(FATAL_ERROR "Wix toolset not found. Please, install it.")
 endif()
 
-if(NOT DEFINED GAME_NAME)
-    set(GAME_NAME "WinMoBubbles")
-endif()
-
 project(installer_win VERSION ${PROJECT_VERSION})
 
 set(WIX_INSTALLER_PLATFORM_NAME "WIN")

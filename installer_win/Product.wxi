@@ -1,7 +1,7 @@
 <Include>
 
     <?define ProductName="WinMo Bubbles" ?>
-    <?define ProductVersion="2.0.1.0" ?>
+    <?define ProductVersion="@PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@.0" ?>
     <?define Manufacturer="GrottansBarn"?>
 
 </Include>

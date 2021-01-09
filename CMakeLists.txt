@@ -52,6 +52,9 @@ if(NOT CMAKE_CXX_EXTENSIONS)
     set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
 
+set(EXECUTABLE_NAME "WinMoBubbles")
+set(ENGINE_LIB_NAME engine)
+
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/SDL2-2.0.8)
 include_directories(${CMAKE_CURRENT_LIST_DIR}/libs/SDL2-2.0.8/include)
 

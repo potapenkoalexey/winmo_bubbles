@@ -3,8 +3,8 @@
     <?define Feature_ShortcutTitle          = "Create shortcuts"?>
     <?define Feature_ProductTitle           = "Binaries, data and config"?>
     
-    <?define Name_EXE                       = @GAME_NAME@.exe?>
-    <?define Name_ENGINE                    = engine.lib?>
+    <?define Name_EXE                       = @EXECUTABLE_NAME@.exe?>
+    <?define Name_ENGINE                    = @ENGINE_LIB_NAME@.lib?>
     
     <?define BIN_FOLDER                     = @CMAKE_RUNTIME_OUTPUT_DIRECTORY@?> 
     <?define CMAKE_SOURCE_DIR               = @CMAKE_SOURCE_DIR@?>

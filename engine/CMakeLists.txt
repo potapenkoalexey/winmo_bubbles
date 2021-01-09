@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(engine)
-
-set(ENGINE_LIB_NAME engine)
+project(${ENGINE_LIB_NAME})
 
 file(GLOB_RECURSE ENGINE_SRC_FILES
     "${CMAKE_SOURCE_DIR}/game/global_variables.hxx"
@@ -37,6 +35,8 @@ elseif (WIN32)
                 opengl32
         )
 endif()
+
+set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${ENGINE_LIB_NAME})
 
 # for cpack
 install(TARGETS ${PROJECT_NAME}
