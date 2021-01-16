@@ -11,46 +11,68 @@ namespace grottans {
 
 this class presents RGB color with Alfa-channel
 with standart get/set methods and 
-reloaded operators>>, operator<<
+reloaded operator>>, operator<<
 */
 class color {
 public:
     /*! \brief default constructor*/
     color() = default;
 
-    /*! \brief explicit constructor*/
+    /*! \brief explicit constructor
+        \param[in] rgba_ 32 bit variable each byte is represent one of the channels
+    */
     explicit color(const std::uint32_t& rgba_);
 
-    /*! \brief RGBA constructor*/
+    /*! \brief RGBA constructor with float parameters
+        \param[in] r float value of R-part of the color
+        \param[in] g float value of G-part of the color
+        \param[in] b float value of B-part of the color
+        \param[in] a float value of A-channel  
+    */
     color(const float& r, const float& g, const float& b, const float& a);
 
-    /*! \brief return current R value*/
+    /*! \brief get value of the R-part of the color
+        \return float
+    */
     float get_r() const;
-
-    /*! \brief return current G value*/
+    
+    /*! \brief get value of the G-part of the color
+        \return float
+    */
     float get_g() const;
-
-    /*! \brief return current B value*/
+    
+    /*! \brief get value of the B-part of the color
+        \return float
+    */
     float get_b() const;
-
-    /*! \brief return current A value*/
+    
+    /*! \brief get value of the A-part of the color
+        \return float
+    */
     float get_a() const;
 
-    /*! \brief set new R value
-        \param[in] r new value*/
+    /*! \brief set value of the R-part of the color
+        \param[in] R float value of R-part
+    */
     void set_r(const float& r);
-    /*! \brief set new G value
-        \param[in] g new value*/
+
+    /*! \brief set value of the G-part of the color
+        \param[in] G float value of R-part
+    */
     void set_g(const float& g);
-    /*! \brief set new B value
-        \param[in] b new value*/
+    
+    /*! \brief set value of the B-part of the color
+        \param[in] B float value of R-part
+    */
     void set_b(const float& b);
-    /*! \brief set new A value
-        \param[in] a new value*/
+    
+    /*! \brief set value of the A-part of the color
+        \param[in] A float value of Alpha channel
+    */
     void set_a(const float& a);
 
 private:
-    std::uint32_t rgba = 0;
+    std::uint32_t rgba = 0; /*!< 32bit uint value of the RGBA-color */
 
     friend std::istream& operator>>(std::istream& is, color&);
     friend std::ostream& operator<< (std::ostream& out, const color& p);
