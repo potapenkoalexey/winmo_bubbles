@@ -6,4 +6,5 @@ project(data)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/data
         DESTINATION .
         COMPONENT winmo_data
+        PATTERN CMakeLists.txt EXCLUDE 
 )
