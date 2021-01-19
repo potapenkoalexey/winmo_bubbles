@@ -5,9 +5,9 @@ set(DOC_CHM_NAME ${GAME_NAME})
 set(CMAKE_CURRENT_BINARY_DIR ${PROJECT_BINARY_DIR}/docs/output)
 
 # documentation build as an option and set it to ON by default
-option(BUILD_DOC "Build documentation" ON)
 find_package(Doxygen)
-if (DOXYGEN_FOUND)
+
+if (DOXYGEN_FOUND AND ${BUILD_DOC})
 
     set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in)
     set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
@@ -15,22 +15,12 @@ if (DOXYGEN_FOUND)
 
     message(STATUS "Doxygen build started")
 
-    # note the option ALL which allows to build the docs together with the application
-    # add_custom_target( doc_doxygen
-    #     COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
-    #     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    #     COMMENT "Generating documentation with Doxygen"
-    #     VERBATIM )
-
     add_custom_target(doc_doxygen 
                     cmake -E env
                     ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
                     WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}" 
                     COMMENT "Generating ${GAME_NAME} documentation"
-                    )
-
-    # add_dependencies(build-ALL doc_doxygen)
-
-else (DOXYGEN_FOUND)
-    message("Doxygen need to be installed to generate the documentation")
-endif (DOXYGEN_FOUND)
+    )
+else()
+    message(WARNING "Doxygen need to be installed to generate the documentation")
+endif()
