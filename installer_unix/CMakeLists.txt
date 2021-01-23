@@ -31,20 +31,23 @@ set(CPACK_ARCHIVE_COMPONENT_INSTALL OFF)
 # The four values are: Build directory, Project Name, Project Component, Directory. 
 # If omitted, CPack will build an installer that installs everything.
 set(CPACK_INSTALL_CMAKE_PROJECTS 
-    "${CMAKE_SOURCE_DIR}/build/game;game;ALL;/"
-    "${CMAKE_SOURCE_DIR}/build/data;data;ALL;/"
+    "${CMAKE_BINARY_DIR}/game;game;ALL;/"
+    "${CMAKE_BINARY_DIR}/data;data;ALL;/"
 )
 
 set(CPACK_COMPONENTS_ALL
-        winmo_bin
-        winmo_data
+    winmo_bin
+    winmo_data
 )
 
 include(CPack)
 
 # hotfix SDL2 build problem
 add_custom_target(LINK_TARGET
-                  COMMAND ${CMAKE_COMMAND} -E create_symlink ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libSDL2-2.0.so.0.8.0 ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/SDL2-2.0.8/libSDL2.so)
+                  COMMAND ${CMAKE_COMMAND} -E create_symlink 
+                    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libSDL2-2.0.so.0.8.0 
+                    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/SDL2-2.0.8/libSDL2.so
+)
 
 # unused by task build
 add_custom_target(PACKAGING # -G TBZ2
