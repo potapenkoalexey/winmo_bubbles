@@ -10,13 +10,13 @@
             "windows": {
                 "command": "cmake",
                 "args": [
-                    "..", "-G", "Visual Studio 16 2019"
+                    "..", "-G", "${input:WindowsCmakeGenerators}"
                 ]
             },
             "linux": {
                 "command": "cmake",
                 "args": [
-                    "..", "-G", "Unix Makefiles"
+                    "..", "-G", "${input:UNIXCmakeGenerators}"
                 ]
             },
             "options": {
@@ -120,6 +120,27 @@
         }
     ],
     "inputs": [
+        {
+            "type": "pickString",
+            "id": "WindowsCmakeGenerators",
+            "description": "List of the Cmake Generators",
+            "options": [
+                "Visual Studio 16 2019",
+                "Visual Studio 15 2017",
+                "Visual Studio 14 2015"
+            ],
+            "default": "Visual Studio 16 2019"
+        },
+        {
+            "type": "pickString",
+            "id": "UNIXCmakeGenerators",
+            "description": "List of the Cmake Generators",
+            "options": [
+                "Unix Makefiles",
+                "Ninja"
+            ],
+            "default": "Unix Makefiles"
+        },
         {
             "type": "pickString",
             "id": "BuildType",
