@@ -1,4 +1,4 @@
-1. fix keyboard handling of "load save" button (what did i mean?)
+1. transfer opening and writing files with SDL_RW
 2. integrate project for Android Studio (use cmake to prepare files)
 3. review render system for correct objects scaling and rotation 
     (now it scale and rotating relative to the center of screen coordinates). 

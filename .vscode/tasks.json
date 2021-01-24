@@ -137,7 +137,6 @@
             "description": "List of the Cmake Generators",
             "options": [
                 "Unix Makefiles",
-                // "Ninja"
             ],
             "default": "Unix Makefiles"
         },
