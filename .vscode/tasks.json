@@ -137,7 +137,7 @@
             "description": "List of the Cmake Generators",
             "options": [
                 "Unix Makefiles",
-                "Ninja"
+                // "Ninja"
             ],
             "default": "Unix Makefiles"
         },
@@ -161,7 +161,7 @@
                 "/build/installer_win/*",
                 "/build/*",
             ],
-            "default": "/build/installer_unix/*"
+            "default": "/build/*"
 		}
     ]
 }
