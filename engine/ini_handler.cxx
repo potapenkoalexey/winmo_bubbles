@@ -1,6 +1,9 @@
 #include <iostream>
+#include <sstream>
+#include <string>
 
 #include "ini_handler.hxx"
+#include "SDL.h"
 
 #include "../game/global_variables.hxx"
 
@@ -87,12 +90,10 @@ void ini_handler::save_settings_to_file()
 {
     if (filename.size() == 0)
     {
-        std::cerr << "Can't open INI file to save settings" << std::endl;
-        return;
+        throw std::runtime_error("ini parser: setting do not exist in memory!\n");
     }
 
-    // already have our file in the buffer, so delete the content of file
-    file.open(filename, std::ios::out | std::ios::binary); // std::ofstream::out | std::ofstream::trunc);
+    std::stringstream ss;
 
     size_t count{ 0 };
     size_t total_section{ config.size() };
@@ -104,25 +105,34 @@ void ini_handler::save_settings_to_file()
         ++count;
         key_count = 0;
 
-        file << "[" << section.first << "]";
+        ss << "[" << section.first << "]";
 #ifdef __unix
-        file << std::endl;
+        ss << std::endl;
 #endif
 #ifdef _WIN32
-        file << '\r' << std::endl;
+        ss << '\r' << std::endl;
 #endif
          
         total_key = section.second.size();
 
         // start to go through every key
         for (auto key : section.second) {
-            file << key.first << "=" << key.second << std::endl;
+            ss << key.first << "=" << key.second << std::endl;
         }
     }
-    file.close();
-    if (file.is_open() == 0)
+
+    // need to work on Android
+    SDL_RWops* output = SDL_RWFromFile(filename.c_str(), "w");
+    std::string tmp = ss.rdbuf()->str();
+    int size = tmp.size();
+    if(size){
         std::cout << "\n Settings saved!\n" << std::endl;
-    error = false;
+    } else {
+        throw std::runtime_error("ini parser: setting do not exist in memory!\n");
+    }
+    const char* tmp_char = tmp.c_str();
+    output->write(output, tmp_char, size, 1);
+    output->close(output);
 }
 
 std::string end_of_the_line_crossplatform(const std::string& input){
