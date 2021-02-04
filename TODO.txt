@@ -1,7 +1,11 @@
 1. transfer opening and writing files with SDL_RW
+    1.1 resolve problem with opening settings and field files on Android, with help of SDL/membuf
 2. integrate project for Android Studio (use cmake to prepare files)
 3. review render system for correct objects scaling and rotation 
     (now it scale and rotating relative to the center of screen coordinates). 
     it will be easy to work with texture and animation.
-4. resolve problem with opening settings and field files on Android, with help of SDL/membuf
-5. fix sound driver and device selecting on Win10/Linux
+4. fix sound driver and device selecting on Win10/Linux
+5. win installer:
+    5.1 update internal pictures
+    5.2 ask user about rewriting config file
+    5.3 do not remove config file on uninstall
