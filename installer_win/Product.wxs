@@ -77,10 +77,15 @@
 
     </Directory>
 
-<?include FeaturesOut.wxi ?>
+<?include FeaturesOut.wxi?>
+
+  <!-- BannerBmp.bmp Top banner bitmap 500 × 63 -->
+  <!-- DialogBmp.bmp Background bitmap used on welcome and install-complete dialogs 503 × 314 -->
+  <!-- <WixVariable Id="WixUIBannerBmp" Value="$(var.ResourcesDir)bannrbmp.bmp" /> -->
+  <!-- <WixVariable Id="WixUIDialogBmp" Value="$(var.ResourcesDir)BackgroundImage.bmp" /> -->
 
   <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" ></Property>
-  <WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="./License.rtf"/>
+  <WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="$(var.ResourcesDir)License.rtf"/>
   <UIRef Id="WixUI_FeatureTree"/>
 
   </Product>
