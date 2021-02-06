@@ -15,6 +15,8 @@ configure_file(${PROJECT_SOURCE_DIR}/Product.wxs ${CMAKE_CURRENT_BINARY_DIR}/Pro
 configure_file(${PROJECT_SOURCE_DIR}/Product.wxi ${CMAKE_CURRENT_BINARY_DIR}/ProductOut.wxi @ONLY)
 configure_file(${PROJECT_SOURCE_DIR}/Features.wxi ${CMAKE_CURRENT_BINARY_DIR}/FeaturesOut.wxi @ONLY)
 
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/License.rtf DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
 # linking with WixUIExtension.dll
 # find_file(PATH_WixUIExtension WixUIExtension.dll PATHS ENV WIX)
 

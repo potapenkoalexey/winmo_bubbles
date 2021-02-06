@@ -80,7 +80,7 @@
 <?include FeaturesOut.wxi ?>
 
   <Property Id="WIXUI_INSTALLDIR" Value="INSTALLLOCATION" ></Property>
-  <!-- <WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="License.rtf"/> -->
+  <WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="./License.rtf"/>
   <UIRef Id="WixUI_FeatureTree"/>
 
   </Product>
