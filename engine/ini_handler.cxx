@@ -5,6 +5,7 @@
 #include "ini_handler.hxx"
 #include "SDL.h"
 
+#include "txt_loader.hxx"
 #include "../game/global_variables.hxx"
 
 namespace grottans {
@@ -14,9 +15,9 @@ ini_handler::ini_handler(const std::string& filename_)
     // We initialize our variable.
     filename = filename_;
     error = false;
-
-    file.open(filename, std::ios::in | std::ios::binary);
     
+    std::stringstream file_ss = filter_comments(filename_);
+
     std::string actual_line = "";
     std::string actual_section = "";
     std::string key = "";
@@ -27,8 +28,8 @@ ini_handler::ini_handler(const std::string& filename_)
     // To save our current section
     std::map<std::string, std::string> section;
 
-    if (this->file.is_open()) {
-        while (std::getline(file, actual_line)) {
+    if (file_ss) {
+        while (std::getline(file_ss, actual_line)) {
 
             if (!actual_line.size())
                 continue;
@@ -66,10 +67,8 @@ ini_handler::ini_handler(const std::string& filename_)
             config[actual_section] = section;
             section.clear();
         }
-
-        file.close();
     } else {
-        error = true;
+        throw std::runtime_error("Can't open settings.ini");
     }
 }
 
