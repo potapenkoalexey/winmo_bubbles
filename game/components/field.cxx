@@ -961,23 +961,21 @@ bool field::save_field_to_file()
 
 bool field::load_field_from_file()
 {
-    std::ifstream fs;
-    fs.open("./data/config/field.dat", std::fstream::in | std::ios::binary);
+    std::string line;
+    grottans::membuf buf = grottans::load_file("./data/config/field.dat");
+    std::istream in(&buf);
 
-    if (!fs.is_open()) {
-        std::cerr << "Can't read from the /config/field.dat!\n";
-        return EXIT_FAILURE;
+    if (!in) {
+        throw std::runtime_error(std::string("can't open file config/field.dat"));
     }
 
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            // load basic data
-            fs.read((char*)(gems[i][j]), sizeof(block));
+            // load data into the gems
+            in.read((char*)(gems[i][j]), sizeof(block));
             // restore internal pointers
             gems[i][j]->set_engine(engine);
             associate_texture_with_gem(i,j);
-            // !!!!!!!!!!!!!
-            // fix loading more than second stage -> firts disappearing -> stage complete
         }
     }
 
