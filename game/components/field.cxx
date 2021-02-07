@@ -945,14 +945,15 @@ bool field::save_field_to_file()
 
     SDL_RWops* output = SDL_RWFromFile("./data/config/field.dat", "w");
     std::string tmp = ss.rdbuf()->str();
-    int size = tmp.size();
-    if(size){
+    size_t size = tmp.size();
+    const char* tmp_char = tmp.c_str();
+
+    if(output->write(output, tmp_char, size, 1)){
         std::cout << "\n Field saved!\n" << std::endl;
     } else {
-        throw std::runtime_error("ini parser: setting do not exist in memory!\n");
+        throw std::runtime_error("cannot write into config/field.dat\n");
     }
-    const char* tmp_char = tmp.c_str();
-    output->write(output, tmp_char, size, 1);
+
     output->close(output);
 
     return EXIT_SUCCESS;
