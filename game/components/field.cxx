@@ -936,21 +936,25 @@ bool field::is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/)
 
 bool field::save_field_to_file()
 {
-    std::ofstream fs;
-    fs.open("./data/config/field.dat", std::fstream::out | std::ios::binary);
-
-    if (!fs.is_open()) {
-        std::cerr << "Can't write into the /config/field.dat!\n";
-        return EXIT_FAILURE;
-    }
-
+    std::stringstream ss;
     for (size_t i = 0; i < width; i++) {
         for (size_t j = 0; j < height; j++) {
-            fs.write((char*)(gems[i][j]), sizeof(block));
+            ss.write((char*)(gems[i][j]), sizeof(block));
         }
     }
 
-    fs.close();
+    SDL_RWops* output = SDL_RWFromFile("./data/config/field.dat", "w");
+    std::string tmp = ss.rdbuf()->str();
+    int size = tmp.size();
+    if(size){
+        std::cout << "\n Field saved!\n" << std::endl;
+    } else {
+        throw std::runtime_error("ini parser: setting do not exist in memory!\n");
+    }
+    const char* tmp_char = tmp.c_str();
+    output->write(output, tmp_char, size, 1);
+    output->close(output);
+
     return EXIT_SUCCESS;
 }
 
