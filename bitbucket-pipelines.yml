@@ -10,11 +10,17 @@ pipelines:
           - cmake .. -DCMAKE_BUILD_TYPE=Release
           - cmake --build . -j6
           - cmake --build . -j6 --target installer-unix-ALL
-    - step:
-        name: Save new version
-        script:
           - git add version/version.txt
           - git commit -m "[skip CI]"
+          - git push
+
+          # - git config remote.origin.url https://grottansbarn@bitbucket.org/grottansbarn/winmo_bubbles.git
+          # - git init
+          # - git config user.name "Alexey Potapenko"
+          # - git config user.email "potapenkoaleksei@outlook.com"
+          # - git add version/version.txt
+          # - git commit -m "[skip CI]"
+          # - git push
     # - step:
     #     name: Deploy artifacts
     #     # trigger: manual  # Uncomment to make this a manual deployment.
