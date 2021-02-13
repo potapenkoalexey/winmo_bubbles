@@ -4,33 +4,22 @@ pipelines:
     - step:
         name: Build artifacts
         script:
+          - git config remote.origin.url https://grottansbarn@bitbucket.org/grottansbarn/winmo_bubbles.git
+          - git init
+          - git config user.name "Alexey Potapenko>"
+          - git config user.email "potapenkoaleksei@outlook.com"
+          # build
           - git clean -df
           - mkdir build
           - cd build
           - cmake .. -DCMAKE_BUILD_TYPE=Release
           - cmake --build . -j6
           - cmake --build . -j6 --target installer-unix-ALL
+          # save new version
+          - git add version/version.txt
+          - git commit -m "[skip CI]"
+          - git push
 
-  branches:
-      master:
-        - step:
-            name : Auto versioning
-            script:
-              - git config remote.origin.url https://grottansbarn@bitbucket.org/grottansbarn/winmo_bubbles.git
-              - git init
-              - git config user.name "Alexey Potapenko>"
-              - git config user.email "potapenkoaleksei@outlook.com"
-              - git add version/version.txt
-              - git commit -m "[skip CI]"
-              - git push
-
-          # - git config remote.origin.url https://grottansbarn@bitbucket.org/grottansbarn/winmo_bubbles.git
-          # - git init
-          # - git config user.name "Alexey Potapenko"
-          # - git config user.email "potapenkoaleksei@outlook.com"
-          # - git add version/version.txt
-          # - git commit -m "[skip CI]"
-          # - git push
     # - step:
     #     name: Deploy artifacts
     #     # trigger: manual  # Uncomment to make this a manual deployment.
