@@ -7,9 +7,13 @@ pipelines:
           - git clean -df
           - mkdir build
           - cd build
-          - cmake ..
-          - cmake --build . --config Release -j6
-          - cmake --build . --config Release -j6 --target installer-unix-ALL
+          - cmake .. -DCMAKE_BUILD_TYPE=Release
+          - cmake --build . -j6
+          - cmake --build . -j6 --target installer-unix-ALL
+    - step:
+        name: Save new version
+          - git add version.txt
+          - git commit -m "[skip CI]"
     # - step:
     #     name: Deploy artifacts
     #     # trigger: manual  # Uncomment to make this a manual deployment.

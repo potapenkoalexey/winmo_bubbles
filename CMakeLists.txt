@@ -7,16 +7,12 @@ endif()
 set(GAME_NAME WinMoBubbles)
 
 if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE "Release")
+    set(CMAKE_BUILD_TYPE "Debug")
 endif()
 
-# update version
+# set version
 include(${CMAKE_CURRENT_LIST_DIR}/version.cmake)
-set(PROJECT_VERSION_MAJOR ${ver_major})
-set(PROJECT_VERSION_MINOR ${ver_minor})
-set(PROJECT_VERSION_PATCH ${ver_patch})
-set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
-message(FATAL_ERROR "project version: ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
+message(STATUS "Version: ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
 
 project(${GAME_NAME} 
             DESCRIPTION "Match-3 game from Windows Mobile"

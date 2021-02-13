@@ -10,13 +10,17 @@
             "windows": {
                 "command": "cmake",
                 "args": [
-                    "..", "-G", "${input:WindowsCmakeGenerators}"
+                    "..", 
+                    "-G", "${input:WindowsCmakeGenerators}",
+                    "-DCMAKE_BUILD_TYPE=${input:BuildType}"
                 ]
             },
             "linux": {
                 "command": "cmake",
                 "args": [
-                    "..", "-G", "${input:UNIXCmakeGenerators}"
+                    "..", 
+                    "-G", "${input:UNIXCmakeGenerators}",
+                    "-DCMAKE_BUILD_TYPE=${input:BuildType}"
                 ]
             },
             "options": {
@@ -31,7 +35,6 @@
             "command": "cmake",
             "args": [
                 "--build", ".",
-                "--config", "${input:BuildType}",
                 "-j4"
             ],
             "options": {
