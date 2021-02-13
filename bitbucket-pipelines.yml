@@ -13,7 +13,7 @@ pipelines:
     - step:
         name: Save new version
         script:
-          - git add version.txt
+          - git add version/version.txt
           - git commit -m "[skip CI]"
     # - step:
     #     name: Deploy artifacts
