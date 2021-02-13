@@ -17,15 +17,15 @@ pipelines:
   branches:
       master:
         - step:
-          script:
-            # AUTO VERSIONING
-            - git config remote.origin.url https://grottansbarn@bitbucket.org/grottansbarn/winmo_bubbles.git
-            - git init
-            - git config user.name "Alexey Potapenko>"
-            - git config user.email "potapenkoaleksei@outlook.com"
-            - git add version/version.txt
-            - git commit -m "[skip CI]"
-            - git push
+            name : Auto versioning
+            script:
+              - git config remote.origin.url https://grottansbarn@bitbucket.org/grottansbarn/winmo_bubbles.git
+              - git init
+              - git config user.name "Alexey Potapenko>"
+              - git config user.email "potapenkoaleksei@outlook.com"
+              - git add version/version.txt
+              - git commit -m "[skip CI]"
+              - git push
 
           # - git config remote.origin.url https://grottansbarn@bitbucket.org/grottansbarn/winmo_bubbles.git
           # - git init
