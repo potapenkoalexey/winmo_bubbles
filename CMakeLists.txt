@@ -12,7 +12,6 @@ endif()
 
 # set version
 include(${CMAKE_CURRENT_LIST_DIR}/version.cmake)
-message(STATUS "Version: ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
 
 project(${GAME_NAME} 
             DESCRIPTION "Match-3 game from Windows Mobile"
