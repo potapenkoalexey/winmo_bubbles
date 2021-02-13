@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
 
-file(READ "version.txt" ver)
+file(READ "${CMAKE_CURRENT_LIST_DIR}/version/version.txt" ver)
 
 string(REGEX MATCH "VERSION_MAJOR ([0-9]*)" _ ${ver})
 set(ver_major ${CMAKE_MATCH_1})
@@ -17,4 +17,4 @@ MATH(EXPR ver_patch "${ver_patch}+1")
 
 set(OUT_VERSION_FILE "VERSION_MAJOR ${ver_major}\nVERSION_MINOR ${ver_minor}\nVERSION_PATCH ${ver_patch}")
 
-file(WRITE "version.txt" ${OUT_VERSION_FILE})
+file(WRITE "${CMAKE_CURRENT_LIST_DIR}/version/version.txt" ${OUT_VERSION_FILE})
