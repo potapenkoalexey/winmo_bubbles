@@ -12,6 +12,7 @@ pipelines:
           - cmake --build . -j6 --target installer-unix-ALL
     - step:
         name: Save new version
+        script:
           - git add version.txt
           - git commit -m "[skip CI]"
     # - step:
