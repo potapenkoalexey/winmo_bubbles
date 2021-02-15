@@ -4,10 +4,10 @@ pipelines:
     - step:
         name: Build artifacts
         script:
-          - git config remote.origin.url https://grottansbarn@bitbucket.org/grottansbarn/winmo_bubbles.git
-          - git init
-          - git config user.name "Alexey Potapenko>"
-          - git config user.email "potapenkoaleksei@outlook.com"
+          #- git config remote.origin.url https://grottansbarn@bitbucket.org/grottansbarn/winmo_bubbles.git
+          #- git init
+          #- git config user.name "Alexey Potapenko>"
+          #- git config user.email "potapenkoaleksei@outlook.com"
           # build
           - git clean -df
           - mkdir build
@@ -16,9 +16,9 @@ pipelines:
           - cmake --build . -j6
           - cmake --build . -j6 --target installer-unix-ALL
           # save new version
-          - git add ../version/version.txt
-          - git commit -m "[skip CI]"
-          - git push
+          #- git add ../version/version.txt
+          #- git commit -m "[skip CI]"
+          #- git push
 
     # - step:
     #     name: Deploy artifacts
