@@ -64,19 +64,17 @@ include_directories(${CMAKE_CURRENT_LIST_DIR}/game)
 
 add_subdirectory(${CMAKE_SOURCE_DIR}/data)
 
-if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
-    # Docs build as an option and set it to ON by default
-    option(BUILD_DOC "Build Docs" ON)
-    message(STATUS "Docs build started")
-    add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/docs)
+# Docs build as an option and set it to ON by default
+option(BUILD_DOC "Build Docs" ON)
+message(STATUS "Docs build started")
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/docs)
 
-    # installer build as an option and set it to ON by default
-    option(BUILD_INSTALLER "Build installer" ON)
-    message(STATUS "Installer build started")
-    if(WIN32)
-        add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/installer_win)
-    endif()
-    if(UNIX)
-        add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/installer_unix)
-    endif()
+# installer build as an option and set it to ON by default
+option(BUILD_INSTALLER "Build installer" ON)
+message(STATUS "Installer build started")
+if(WIN32)
+    add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/installer_win)
+endif()
+if(UNIX)
+    add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/installer_unix)
 endif()

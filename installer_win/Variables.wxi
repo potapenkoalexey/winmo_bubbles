@@ -9,6 +9,13 @@
     <?define BIN_FOLDER                     = @CMAKE_RUNTIME_OUTPUT_DIRECTORY@?> 
     <?define CMAKE_SOURCE_DIR               = @CMAKE_SOURCE_DIR@?>
     <?define ResourcesDir                   = @RESOURCES_DIR@?>
+    <?define BUILD_TYPE                     = @CMAKE_BUILD_TYPE@?>
+
+    <?if $(var.BUILD_TYPE) = "Release" ?>
+      <?define SDL_LIB_NAME = SDL2.dll ?>
+    <?else?>
+      <?define SDL_LIB_NAME = SDL2d.dll ?>
+    <?endif?>
     
     <!-- GUIDs -->
     <?define GUID_PRODUCT_CODE              = B7BC7C6F-9A4E-4973-BE84-ECA8E3427C97?>

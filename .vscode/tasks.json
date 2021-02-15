@@ -64,7 +64,8 @@
             "command": "cmake",
             "args": [
                 "--build", "${workspaceFolder}/build/",
-                "--target", "installer-win-ALL"
+                "--target", "installer-win-ALL",
+                "--config", "${input:BuildType}"
             ],
             "options": {
                 "cwd": "${workspaceFolder}/build/installer_win/output"

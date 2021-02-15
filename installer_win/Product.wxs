@@ -43,7 +43,7 @@
             <File Id="File_OPENGL_LIB" DiskId="1" Source="$(var.CMAKE_SOURCE_DIR)\libs\win\opengl32.dll"/>
           </Component>
           <Component Id="Component_SDL_LIB" Guid="$(var.GUID_COMPONENT_SDL_LIB)" Win64="yes">
-            <File Id="File_SDL_LIB" DiskId="1" Source="$(var.BIN_FOLDER)\SDL2.dll"/>
+            <File Id="File_SDL_LIB" DiskId="1" Source="$(var.BIN_FOLDER)\$(var.SDL_LIB_NAME)"/>
           </Component>
         </Directory>
       </Directory>

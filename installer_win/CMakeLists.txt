@@ -11,6 +11,8 @@ set(WIX_INSTALLER_PLATFORM_NAME "WIN")
 set(CMAKE_CURRENT_BINARY_DIR ${PROJECT_BINARY_DIR}/output)
 set(RESOURCES_DIR ${CMAKE_CURRENT_LIST_DIR}/Resources/)
 
+message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+
 configure_file(${PROJECT_SOURCE_DIR}/Variables.wxi ${CMAKE_CURRENT_BINARY_DIR}/VariablesOut.wxi @ONLY)
 configure_file(${PROJECT_SOURCE_DIR}/Product.wxs ${CMAKE_CURRENT_BINARY_DIR}/ProductOut.wxs @ONLY)
 configure_file(${PROJECT_SOURCE_DIR}/Product.wxi ${CMAKE_CURRENT_BINARY_DIR}/ProductOut.wxi @ONLY)
