@@ -35,6 +35,7 @@
             "command": "cmake",
             "args": [
                 "--build", ".",
+                "--config", "${input:BuildType}",
                 "-j4"
             ],
             "options": {

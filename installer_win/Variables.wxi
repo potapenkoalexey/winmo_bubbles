@@ -1,7 +1,7 @@
 <Include>
 
-    <?define Feature_ShortcutTitle          = "Create shortcuts"?>
-    <?define Feature_ProductTitle           = "Binaries, data and config"?>
+    <?define Feature_ShortcutTitle          = "Shortcuts"?>
+    <?define Feature_ProductTitle           = "Binary and resource files"?>
     
     <?define Name_EXE                       = @EXECUTABLE_NAME@.exe?>
     <?define Name_ENGINE                    = @ENGINE_LIB_NAME@.lib?>
