@@ -1,6 +1,5 @@
 1. transfer opening and writing files with SDL_RW
-    1.1 resolve problem with opening settings and field files on Android, with help of SDL/membuf
-    1.2 review save_filed_to_file() and load_field_from_file()
+    1.1 review save_filed_to_file() and load_field_from_file()
 2. integrate project for Android Studio (use cmake to prepare files)
 3. review render system for correct objects scaling and rotation 
     (now it scale and rotating relative to the center of screen coordinates). 
