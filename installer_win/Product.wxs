@@ -45,6 +45,19 @@
           <Component Id="Component_SDL_LIB" Guid="$(var.GUID_COMPONENT_SDL_LIB)" Win64="yes">
             <File Id="File_SDL_LIB" DiskId="1" Source="$(var.BIN_FOLDER)\$(var.SDL_LIB_NAME)"/>
           </Component>
+
+          <!-- configuration files that are saved on disk after uninstall -->
+          <Directory Id="data" Name="data">
+            <Directory Id="config" Name="config">
+              <Component Id="Component_SETTINGS" Guid="*" Permanent="yes" Win64="yes">
+                <File Id="File_SETTINGS" DiskId="1" Source="@CMAKE_SOURCE_DIR@/data/config/settings.ini"/>
+              </Component>
+              <Component Id="Component_FIELD" Guid="*" Permanent="yes" Win64="yes">
+                <File Id="File_FIELD" DiskId="1" Source="@CMAKE_SOURCE_DIR@/data/config/field.dat"/>
+              </Component>
+            </Directory>
+          </Directory>
+
         </Directory>
       </Directory>
 
