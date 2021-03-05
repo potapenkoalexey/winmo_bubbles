@@ -124,7 +124,7 @@ bool counter::is_overflow(const size_t& t)
 
 void counter::draw()
 {
-    if (quantity_of_digits == 0)
+    if (0 == quantity_of_digits || 0 == number_on_screen)
         return;
 
     if (hide_zeros) {
