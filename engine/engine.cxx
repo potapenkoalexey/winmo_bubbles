@@ -1484,7 +1484,7 @@ size_t engine_impl::get_window_height()
 void engine_impl::switch_to_state_and_resume(game_state* state)
 {
     current_state = state;
-    state->resume();
+    current_state->resume();
 }
 
 void engine_impl::change_state(game_state* state)
@@ -1504,7 +1504,7 @@ void engine_impl::push_state_and_init(game_state* state)
 {
     // pause current state
     if (!states.empty()) {
-        states.back()->pause();
+        current_state->pause();
     }
 
     // store and init the new state
