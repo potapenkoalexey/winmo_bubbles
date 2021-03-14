@@ -1483,6 +1483,7 @@ size_t engine_impl::get_window_height()
 ///std::vector<game_state*> states;
 void engine_impl::switch_to_state_and_resume(game_state* state)
 {
+    current_state->pause();
     current_state = state;
     current_state->resume();
 }
@@ -1502,11 +1503,6 @@ void engine_impl::change_state(game_state* state)
 
 void engine_impl::push_state_and_init(game_state* state)
 {
-    // pause current state
-    if (!states.empty()) {
-        current_state->pause();
-    }
-
     // store and init the new state
     states.push_back(state);
     states.back()->init(this);
