@@ -1,11 +1,10 @@
-1. transfer opening and writing files with SDL_RW
-    1.1 review save_filed_to_file() and load_field_from_file()
-2. integrate project for Android Studio (use cmake to prepare files)
-3. review render system for correct objects scaling and rotation 
+1. integrate project for Android Studio (use cmake to prepare files)
+2. review render system for correct objects scaling and rotation 
     (now it scale and rotating relative to the center of screen coordinates). 
     it will be easy to work with texture and animation.
-4. fix sound driver and device selecting on Win10/Linux
-5. win installer:
-    5.1 update internal pictures
-    5.2 ask user about rewriting config file
-    5.3 do not remove config file on uninstall
+3. fix sound driver and device selecting on Win10/Linux
+4. win installer:
+    4.1 update internal pictures
+    4.2 ask user about rewriting config file
+    4.3 do not remove config file on uninstall
+5. Move ini_handler class from engine to game
