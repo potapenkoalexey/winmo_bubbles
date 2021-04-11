@@ -23,7 +23,7 @@ public:
 
     ~game();
 
-    int run();
+    void run();
 
     game(game const&) = delete;
     game& operator=(game const&) = delete;

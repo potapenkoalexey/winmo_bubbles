@@ -33,7 +33,7 @@ game::~game(){
     grottans::destroy_engine(engine);
 }
 
-int game::run(){
+void game::run(){
     //main loop
     while (engine->loop) {
         time_point end_last_frame = timer.now();
