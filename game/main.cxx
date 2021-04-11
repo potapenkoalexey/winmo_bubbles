@@ -1,6 +1,6 @@
 #include <memory>
 
-#include "game.h"
+#include "game.hxx"
 
 int main(int /*argc*/, char** /*argv*/)
 {
