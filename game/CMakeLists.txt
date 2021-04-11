@@ -8,15 +8,18 @@ file(GLOB_RECURSE GAME_SRC_FILES
     "${CMAKE_SOURCE_DIR}/engine/*h.cxx"
     )
 
-add_executable(${PROJECT_NAME}
-    ${GAME_SRC_FILES}
-    )
+add_executable(${PROJECT_NAME} ${GAME_SRC_FILES})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
 target_link_libraries(${PROJECT_NAME} ${ENGINE_LIB_NAME})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${EXECUTABLE_NAME})
+set_target_properties(${PROJECT_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/")
+
+if(WIN32)
+    file(COPY ${CMAKE_SOURCE_DIR}/libs/win/opengl32.dll DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
+endif()
 
 # for cpack
 install(TARGETS ${PROJECT_NAME}
