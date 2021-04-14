@@ -45,6 +45,17 @@
             "problemMatcher": []
         },
         {
+            "label": "Open SDK",
+            "detail": "Opens solution with default IDE",
+            "type": "shell",
+            "windows": {
+                "command": [
+                    "${workspaceFolder}/build/WinMoBubbles.sln"
+                ]
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "Installer UNIX (cpack)",
             "type": "shell",
             "detail": "Invokes Package build action",
