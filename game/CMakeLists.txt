@@ -15,9 +15,9 @@ target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 target_link_libraries(${PROJECT_NAME} ${ENGINE_LIB_NAME})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${EXECUTABLE_NAME})
-set_target_properties(${PROJECT_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/")
 
 if(WIN32)
+    set_target_properties(${PROJECT_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/")
     file(COPY ${CMAKE_SOURCE_DIR}/libs/win/opengl32.dll DESTINATION ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 endif()
 

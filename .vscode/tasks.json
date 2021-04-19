@@ -59,13 +59,15 @@
             "label": "Installer UNIX (cpack)",
             "type": "shell",
             "detail": "Invokes Package build action",
-            "command": "cmake",
-            "args": [
-                "--build", "${workspaceFolder}/build/",
-                "--target", "installer-unix-ALL"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}/build/installer_unix/output"
+            "linux": {
+                "command": "cmake",
+                "args": [
+                    "--build", "${workspaceFolder}/build/",
+                    "--target", "installer-unix-ALL"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}/build/installer_unix/output"
+                },
             },
             "problemMatcher": []
         },
@@ -73,14 +75,16 @@
             "label": "Installer WIN (wix)",
             "type": "shell",
             "detail": "Invokes Installer build action",
-            "command": "cmake",
-            "args": [
-                "--build", "${workspaceFolder}/build/",
-                "--target", "installer-win-ALL",
-                "--config", "${input:BuildType}"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}/build/installer_win/output"
+            "windows": {
+                "command": "cmake",
+                "args": [
+                    "--build", "${workspaceFolder}/build/",
+                    "--target", "installer-win-ALL",
+                    "--config", "${input:BuildType}"
+                ],
+                "options": {
+                    "cwd": "${workspaceFolder}/build/installer_win/output"
+                },
             },
             "problemMatcher": []
         },
