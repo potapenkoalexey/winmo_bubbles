@@ -42,7 +42,6 @@ add_custom_target(INSTALLER_LINK
     COMMENT "-- Running Wix Light to link and create msi"
 )
 
-# runs targets in turn
 add_dependencies(INSTALLER_COMPILE INSTALLER_GLOB_DATA_FILES)
 add_dependencies(INSTALLER_LINK INSTALLER_COMPILE)
 

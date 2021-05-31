@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 
 project(installer_unix VERSION ${PROJECT_VERSION})
 
-set(WIX_INSTALLER_PLATFORM_NAME "WIN")
+set(WIX_INSTALLER_PLATFORM_NAME "UNIX")
 
 set(CMAKE_CURRENT_BINARY_DIR ${PROJECT_BINARY_DIR}/output)
 
