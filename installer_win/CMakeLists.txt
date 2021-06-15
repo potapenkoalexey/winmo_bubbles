@@ -18,9 +18,6 @@ configure_file(${PROJECT_SOURCE_DIR}/Product.wxs ${CMAKE_CURRENT_BINARY_DIR}/Pro
 configure_file(${PROJECT_SOURCE_DIR}/Product.wxi ${CMAKE_CURRENT_BINARY_DIR}/ProductOut.wxi @ONLY)
 configure_file(${PROJECT_SOURCE_DIR}/Features.wxi ${CMAKE_CURRENT_BINARY_DIR}/FeaturesOut.wxi @ONLY)
 
-# linking with WixUIExtension.dll
-# find_file(PATH_WixUIExtension WixUIExtension.dll PATHS ENV WIX)
-
 add_custom_target(installer-win-ALL)
 
 message(STATUS "Installer Binary Dir = ${CMAKE_CURRENT_BINARY_DIR}")
