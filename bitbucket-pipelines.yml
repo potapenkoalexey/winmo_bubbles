@@ -9,6 +9,7 @@ pipelines:
           #- git config user.name "Alexey Potapenko>"
           #- git config user.email "potapenkoaleksei@outlook.com"
           # build
+          - apt-get install libxext-dev
           - git clean -df
           - mkdir build
           - cd build
