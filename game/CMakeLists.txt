@@ -5,7 +5,7 @@ project(game)
 file(GLOB_RECURSE GAME_SRC_FILES
     "${CMAKE_CURRENT_LIST_DIR}/*.hxx"
     "${CMAKE_CURRENT_LIST_DIR}/*.cxx"
-    "${CMAKE_SOURCE_DIR}/engine/*h.cxx"
+    "${CMAKE_SOURCE_DIR}/engine/*.hxx"
     )
 
 add_executable(${PROJECT_NAME} ${GAME_SRC_FILES})
