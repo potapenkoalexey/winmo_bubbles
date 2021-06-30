@@ -7,7 +7,7 @@ set(CMAKE_CURRENT_BINARY_DIR ${PROJECT_BINARY_DIR}/docs/output)
 # documentation build as an option and set it to ON by default
 find_package(Doxygen)
 
-if (DOXYGEN_FOUND AND ${BUILD_DOC})
+if (DOXYGEN_FOUND)
 
     set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in)
     set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
