@@ -9,7 +9,7 @@ pipelines:
           #- git config user.name "Alexey Potapenko>"
           #- git config user.email "potapenkoaleksei@outlook.com"
           # build
-          - yum install libxext-devel
+          - yum install libXext-devel
           - git clean -df
           - mkdir build
           - cd build
