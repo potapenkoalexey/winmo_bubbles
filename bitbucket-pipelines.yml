@@ -16,13 +16,13 @@ pipelines:
           - cmake .. -DCMAKE_BUILD_TYPE=Release
           - cmake --build . -j6
           - cmake --build . -j6 --target installer-unix-ALL
-          - mv $BITBUCKET_CLONE_DIR/build/installer_unix/output/WinMoBubbles.zip $BITBUCKET_CLONE_DIR/build/WinMoBubbles-$BITBUCKET_BUILD_NUMBER.zip
+          - mv $BITBUCKET_CLONE_DIR/installer_unix/output/WinMoBubbles.zip $BITBUCKET_CLONE_DIR/WinMoBubbles-$BITBUCKET_BUILD_NUMBER.zip
           # save new version
           # - git add ../version/version.txt
           # - git commit -m "[skip CI]"
           # - git push
         artifacts:
-          - $BITBUCKET_CLONE_DIR/build/WinMoBubbles-$BITBUCKET_BUILD_NUMBER.zip
+          - $BITBUCKET_CLONE_DIR/WinMoBubbles-$BITBUCKET_BUILD_NUMBER.zip
 
     - step:
         name: Deploy artifacts
@@ -32,4 +32,4 @@ pipelines:
             variables:
               BITBUCKET_USERNAME: $BITBUCKET_USERNAME
               BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
-              FILENAME: "$BITBUCKET_CLONE_DIR/build/WinMoBubbles-$BITBUCKET_BUILD_NUMBER.zip"
+              FILENAME: "$BITBUCKET_CLONE_DIR/WinMoBubbles-$BITBUCKET_BUILD_NUMBER.zip"
