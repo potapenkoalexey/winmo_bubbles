@@ -4,10 +4,10 @@ pipelines:
     - step:
         name: Build artifacts
         script:
-          #- git config remote.origin.url https://grottansbarn@bitbucket.org/grottansbarn/winmo_bubbles.git
-          #- git init
-          #- git config user.name "Alexey Potapenko>"
-          #- git config user.email "potapenkoaleksei@outlook.com"
+          - git config remote.origin.url https://grottansbarn@bitbucket.org/grottansbarn/winmo_bubbles.git
+          - git init
+          - git config user.name "Alexey Potapenko>"
+          - git config user.email "potapenkoaleksei@outlook.com"
           # build
           - yum install libXext-devel -y
           - git clean -df
@@ -16,17 +16,20 @@ pipelines:
           - cmake .. -DCMAKE_BUILD_TYPE=Release
           - cmake --build . -j6
           - cmake --build . -j6 --target installer-unix-ALL
-          # save new version
-          #- git add ../version/version.txt
-          #- git commit -m "[skip CI]"
-          #- git push
+          - mv build/installer_unix/output/WinMoBubbles.zip build/WinMoBubbles-$BITBUCKET_BUILD_NUMBER.zip
+          save new version
+          - git add ../version/version.txt
+          - git commit -m "[skip CI]"
+          - git push
+        artifacts:
+          - build/WinMoBubbles-*.zip
 
-    # - step:
-    #     name: Deploy artifacts
+    - step:
+        name: Deploy artifacts
     #     # trigger: manual  # Uncomment to make this a manual deployment.
-    #     script:
-    #       - pipe: atlassian/bitbucket-upload-file:0.3.2
-    #         variables:
-    #           BITBUCKET_USERNAME: $BITBUCKET_USERNAME
-    #           BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
-    #           FILENAME: '/opt/atlassian/pipelines/agent/build/build/installer_unix/output/WinMoBubbles.zip'
+        script:
+          - pipe: atlassian/bitbucket-upload-file:0.3.2
+            variables:
+              BITBUCKET_USERNAME: $BITBUCKET_USERNAME
+              BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
+              FILENAME: "WinMoBubbles-$BITBUCKET_BUILD_NUMBER.zip"
