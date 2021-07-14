@@ -17,7 +17,7 @@ pipelines:
           - cmake --build . -j6
           - cmake --build . -j6 --target installer-unix-ALL
           - mv build/installer_unix/output/WinMoBubbles.zip build/WinMoBubbles-$BITBUCKET_BUILD_NUMBER.zip
-          save new version
+          # save new version
           - git add ../version/version.txt
           - git commit -m "[skip CI]"
           - git push
