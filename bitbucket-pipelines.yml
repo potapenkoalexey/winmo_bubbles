@@ -16,13 +16,13 @@ pipelines:
           - cmake .. -DCMAKE_BUILD_TYPE=Release
           - cmake --build . -j6
           - cmake --build . -j6 --target installer-unix-ALL
-          - mv build/installer_unix/output/WinMoBubbles.zip build/WinMoBubbles-$BITBUCKET_BUILD_NUMBER.zip
+          - mv $BITBUCKET_CLONE_DIR/build/installer_unix/output/WinMoBubbles.zip $BITBUCKET_CLONE_DIR/build/WinMoBubbles-$BITBUCKET_BUILD_NUMBER.zip
           # save new version
           # - git add ../version/version.txt
           # - git commit -m "[skip CI]"
           # - git push
         artifacts:
-          - build/WinMoBubbles-*.zip
+          - $BITBUCKET_CLONE_DIR/build/WinMoBubbles-*.zip
 
     - step:
         name: Deploy artifacts
