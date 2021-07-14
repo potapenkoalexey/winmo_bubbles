@@ -32,4 +32,4 @@ pipelines:
             variables:
               BITBUCKET_USERNAME: $BITBUCKET_USERNAME
               BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
-              FILENAME: "WinMoBubbles-$BITBUCKET_BUILD_NUMBER.zip"
+              FILENAME: "$BITBUCKET_CLONE_DIR/build/WinMoBubbles-*.zip"
