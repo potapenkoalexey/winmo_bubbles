@@ -24,7 +24,6 @@ pipelines:
           # - git commit -m "[skip CI]"
           # - git push
         artifacts:
-          - ls -l $BITBUCKET_CLONE_DIR/
           - $BITBUCKET_CLONE_DIR/WinMoBubbles-$BITBUCKET_BUILD_NUMBER.zip
 
     - step:
@@ -36,4 +35,4 @@ pipelines:
               BITBUCKET_USERNAME: $BITBUCKET_USERNAME
               BITBUCKET_APP_PASSWORD: $BITBUCKET_APP_PASSWORD
               LOCAL_PATH: '$BITBUCKET_CLONE_DIR/' 
-              FILENAME: 'WinMoBubbles-$BITBUCKET_BUILD_NUMBER.zip'
+              FILENAME: '$BITBUCKET_CLONE_DIR/WinMoBubbles-$BITBUCKET_BUILD_NUMBER.zip'
