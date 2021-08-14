@@ -11,10 +11,10 @@
     <?define ResourcesDir                   = @RESOURCES_DIR@?>
     <?define BUILD_TYPE                     = @CMAKE_BUILD_TYPE@?>
 
-    <?if $(var.BUILD_TYPE) = "Release" ?>
-      <?define SDL_LIB_NAME = SDL2.dll ?>
-    <?else?>
+    <?if $(var.BUILD_TYPE) = "Debug" ?>
       <?define SDL_LIB_NAME = SDL2d.dll ?>
+    <?else?>
+      <?define SDL_LIB_NAME = SDL2.dll ?>
     <?endif?>
     
     <!-- GUIDs -->
