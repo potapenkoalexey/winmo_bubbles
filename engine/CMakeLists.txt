@@ -13,7 +13,7 @@ add_library(${PROJECT_NAME}
             STATIC #SHARED
             ${ENGINE_SRC_FILES})
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/libs/SDL2-2.0.8/include/)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/libs/SDL2-2.0.16/include/)
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/src/)
 
 if(WIN32)

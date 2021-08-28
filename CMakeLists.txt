@@ -53,8 +53,8 @@ endif()
 set(EXECUTABLE_NAME "WinMoBubbles")
 set(ENGINE_LIB_NAME engine)
 
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/SDL2-2.0.8)
-include_directories(${CMAKE_CURRENT_LIST_DIR}/libs/SDL2-2.0.8/include)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/SDL2-2.0.16)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/libs/SDL2-2.0.16/include)
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/engine)
 include_directories(${CMAKE_CURRENT_LIST_DIR}/engine)
