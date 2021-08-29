@@ -105,7 +105,7 @@ void ini_handler::save_settings_to_file()
         key_count = 0;
 
         ss << "[" << section.first << "]";
-#ifdef __unix
+#ifdef __unix__
         ss << std::endl;
 #endif
 #ifdef _WIN32
@@ -135,7 +135,7 @@ void ini_handler::save_settings_to_file()
 }
 
 std::string end_of_the_line_crossplatform(const std::string& input){
-#ifdef __unix
+#ifdef __unix__
     return input;
 #endif
 #ifdef _WIN32
@@ -164,9 +164,9 @@ bool ini_handler::update()
     return true;
 }
 
-bool ini_handler::load_saved_settings()
+bool ini_handler::load_settings(const std::string& section)
 {
-    unsigned long long temp = get_int("Saved", "g_MODE");
+    unsigned long long temp = get_int(section, "g_MODE");
     if (temp == 0)
         g_MODE = MODE::non;
     else if (temp == 1)
@@ -174,33 +174,13 @@ bool ini_handler::load_saved_settings()
     else if (temp == 2)
         g_MODE = MODE::extreme;
 
-    g_LEVEL = static_cast<size_t>(get_int("Saved", "g_LEVEL"));
-    g_SCORE = static_cast<size_t>(get_int("Saved", "g_SCORE"));
-    g_SCORE_MAX_CLASSIC = static_cast<size_t>(get_int("Saved", "g_SCORE_MAX_CLASSIC"));
-    g_SCORE_MAX_EXTREME = static_cast<size_t>(get_int("Saved", "g_SCORE_MAX_EXTREME"));
-    g_score_in_the_end_of_level = static_cast<size_t>(get_int("Saved", "g_score_in_the_end_of_level"));
-    g_SOUND = get_boolean("Saved", "g_SOUND");
+    g_LEVEL = static_cast<size_t>(get_int(section, "g_LEVEL"));
+    g_SCORE = static_cast<size_t>(get_int(section, "g_SCORE"));
+    g_SCORE_MAX_CLASSIC = static_cast<size_t>(get_int(section, "g_SCORE_MAX_CLASSIC"));
+    g_SCORE_MAX_EXTREME = static_cast<size_t>(get_int(section, "g_SCORE_MAX_EXTREME"));
+    g_score_in_the_end_of_level = static_cast<size_t>(get_int(section, "g_score_in_the_end_of_level"));
+    g_SOUND = get_boolean(section, "g_SOUND");
 
-    return true;
-}
-
-bool ini_handler::load_original_settings()
-{
-    unsigned long long temp = get_int("Original", "g_MODE");
-    if (temp == 0)
-        g_MODE = MODE::non;
-    else if (temp == 1)
-        g_MODE = MODE::classic;
-    else if (temp == 2)
-        g_MODE = MODE::extreme;
-
-    // update variables to prevent nulling
-    g_SCORE_MAX_CLASSIC = static_cast<size_t>(get_int("Original", "g_SCORE_MAX_CLASSIC"));
-    g_SCORE_MAX_EXTREME = static_cast<size_t>(get_int("Original", "g_SCORE_MAX_EXTREME"));
-
-    g_LEVEL = static_cast<size_t>(get_int("Original", "g_LEVEL"));
-    g_SCORE = static_cast<size_t>(get_int("Original", "g_SCORE"));
-    g_SOUND = get_boolean("Original", "g_SOUND");
     return true;
 }
 
@@ -298,7 +278,7 @@ bool ini_handler::del_section(const std::string& section)
 
 std::string ini_handler::s_get_section(const std::string& line)
 {
-#ifdef __unix
+#ifdef __unix__
     std::string temp { line.begin() + 1, line.end() - 1 };
 #endif
 #ifdef _WIN32

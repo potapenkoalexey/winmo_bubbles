@@ -31,6 +31,7 @@ bool level_complete_state::init(grottans::engine* e)
     counter_level->set_color({ 1.0f, 1.0f, 1.0f, 1.0f });
     counter_level->set_vertex_buffer();
     counter_level->set_displayed_number(0);
+    
     level_number = g_LEVEL;
 
     tex_even = engine->create_texture("./data/images/gui/level_even.png");

@@ -57,7 +57,7 @@ void extreme_state::resume()
     progress->set_level_complete_flag(false);
     progress->set_displayed_score(g_SCORE);
     if (g_LOAD_SAVED_STATE){
-        engine->load_saved_settings();
+        engine->load_settings("Saved");
         if (g_SCORE != 0){
             // preventing of loading saved field in case of previous game over
             game_field->load_field_from_file();

@@ -71,8 +71,7 @@ public:
 
     void save_settings_to_file();
 
-    bool load_saved_settings();
-    bool load_original_settings();
+    bool load_settings(const std::string& section);
 
 private:
     std::string filename;

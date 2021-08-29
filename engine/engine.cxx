@@ -492,8 +492,7 @@ public:
     void pop_state();
 
     bool save_settings();
-    bool load_original_settings();
-    bool load_saved_settings();
+    bool load_settings(const std::string& section);
 
     bool is_mouse_clicked_in_coord(const float& lx, const float& rx, const float& ly, const float& ry);
 
@@ -1056,7 +1055,7 @@ std::string engine_impl::initialize()
     if (ini_handl->error_check()){
         throw std::runtime_error("ini parser can't parse file");
     }
-    ini_handl->load_original_settings();
+    ini_handl->load_settings("Original");
 
     // get and set the desired window size
     // game screen factor = 536/480 = 1.096
@@ -1073,10 +1072,10 @@ std::string engine_impl::initialize()
 //        h = w_to_h;
 //    }
 
-#ifdef __unix
+#ifdef __unix__
     //  if (screen_width == 0) { //if don't set screen size with set_screen_size(w,h);
-    screen_height = h;
-    screen_width = w; //1.116
+    screen_height = h / 2;
+    screen_width = w / 2; //1.116
     if (w > h) {
         scale = grottans::mat2x3::scale(screen_height / (double)screen_width, 1.f);
     } else {
@@ -1104,12 +1103,12 @@ std::string engine_impl::initialize()
 #endif
 
 // opening window
-#ifdef __unix
+#ifdef __unix__
     window = SDL_CreateWindow("WinMo Bubbles",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screen_width, screen_height,
-        ::SDL_WINDOW_OPENGL
-            | SDL_WINDOW_BORDERLESS //without title
-            | SDL_WINDOW_FULLSCREEN); //240x268
+        ::SDL_WINDOW_OPENGL);
+            // | SDL_WINDOW_BORDERLESS //without title
+            // | SDL_WINDOW_FULLSCREEN); //240x268
 #endif
 #ifdef _WIN32
     window = SDL_CreateWindow("WinMo Bubbles",
@@ -1531,19 +1530,9 @@ bool engine_impl::save_settings()
     return EXIT_SUCCESS;
 }
 
-bool engine_impl::load_saved_settings()
+bool engine_impl::load_settings(const std::string& section)
 {
-    // restore global variables from ini file
-    // from "saved" section
-    ini_handl->load_saved_settings();
-    return EXIT_SUCCESS;
-}
-
-bool engine_impl::load_original_settings()
-{
-    // restore global variables from ini file
-    // from "original" section
-    ini_handl->load_original_settings();
+    ini_handl->load_settings(section);
     return EXIT_SUCCESS;
 }
 
