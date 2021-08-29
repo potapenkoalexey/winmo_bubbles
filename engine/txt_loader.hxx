@@ -8,7 +8,7 @@
 
 #include "./engine.hxx"
 
-std::stringstream filter_comments(std::string_view file)
+std::stringstream filter_comments(std::string_view file, const std::string& comment)
 {
     std::stringstream out;
     std::string line;
@@ -21,7 +21,7 @@ std::stringstream filter_comments(std::string_view file)
     }
 
     while (std::getline(in, line)) {
-        size_t comment_pos = line.find("//");
+        size_t comment_pos = line.find(comment);
         if (comment_pos != std::string::npos) {
             line = line.substr(0, comment_pos);
         }

@@ -16,7 +16,7 @@ ini_handler::ini_handler(const std::string& filename_)
     filename = filename_;
     error = false;
     
-    std::stringstream file_ss = filter_comments(filename_);
+    std::stringstream file_ss = filter_comments(filename_, ";");
 
     std::string actual_line = "";
     std::string actual_section = "";

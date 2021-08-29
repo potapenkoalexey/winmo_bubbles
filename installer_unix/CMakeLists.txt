@@ -42,8 +42,8 @@ include(CPack)
 # hotfix SDL2 build problem
 add_custom_target(LINK_TARGET
                   COMMAND ${CMAKE_COMMAND} -E create_symlink 
-                    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libSDL2-2.0.so.0.8.0 
-                    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/SDL2-2.0.8/libSDL2.so
+                    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libSDL2-2.0.so.0.16.0 
+                    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/SDL2-2.0.16/libSDL2.so
 )
 
 # unused by task build
