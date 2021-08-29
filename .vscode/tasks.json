@@ -170,7 +170,7 @@
                 "Release",
                 "Debug"
             ],
-            "default": "Release"
+            "default": "Debug"
         },
         {
             "type": "pickString",

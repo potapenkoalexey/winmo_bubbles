@@ -7,8 +7,6 @@
 #include "states/select_mode_state.hxx"
 
 game::game(){
-    start = timer.now();
-
     engine = grottans::create_engine();
 
     //engine->set_window_size(480, 536);
@@ -35,6 +33,7 @@ game::~game(){
 
 void game::run(){
     //main loop
+    start = timer.now();
     while (engine->loop) {
         time_point end_last_frame = timer.now();
 
