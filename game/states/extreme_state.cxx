@@ -55,18 +55,21 @@ void extreme_state::resume()
     progress->set_line_in_null();
     progress->set_dispayed_points(0);
     progress->set_level_complete_flag(false);
-    progress->set_displayed_score(g_SCORE);
+    
     if (g_LOAD_SAVED_STATE){
         engine->load_settings("Saved");
         if (g_SCORE != 0){
             // preventing of loading saved field in case of previous game over
             game_field->load_field_from_file();
         }
+
         progress->update_progress_line_after_restore();
         g_LOAD_SAVED_STATE = false;
     } else {
         game_field->fill_extreme();
     }
+
+    progress->set_displayed_score(g_SCORE);
 }
 
 void extreme_state::handle_events()

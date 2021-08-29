@@ -66,12 +66,13 @@ void classic_state::resume()
             // preventing of loading saved field in case of previous game over
             game_field->load_field_from_file();
         }
-        progress->set_displayed_score(g_SCORE);
         progress->update_progress_line_after_restore();
         g_LOAD_SAVED_STATE = false;
     } else {
         game_field->fill_clasic();
-    } 
+    }
+
+    progress->set_displayed_score(g_SCORE);
 }
 
 void classic_state::handle_events()
