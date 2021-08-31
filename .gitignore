@@ -9,6 +9,9 @@ winmo_bubbles.exe
 /doxygen
 data/config/settings.ini
 /data/config/settings.ini
+
+tags
+
 *.ini
 *.dat
 
