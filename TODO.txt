@@ -8,3 +8,12 @@
     4.2 ask user about rewriting config file
     4.3 do not remove config file on uninstall
 5. Move ini_handler class from engine to game
+
+
+to program refactoring we need to:
+a) isolate ini handling into separate cpp
+    a1) isolate all file operation in separate 
+    a2) separate settings.ini into two files between game and engine
+    a3) prepare and create separate library 
+    a4) create conan package (if needed)
+b) refactoring program due to resolve dependencies between engine and game
