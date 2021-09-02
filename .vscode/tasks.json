@@ -35,7 +35,8 @@
             "detail": "Build binaries",
             "command": "cmake",
             "args": [
-                "--build", ".",
+                "--build", "${workspaceFolder}/build/",
+                "--target", "${input:Target}",
                 "--config", "${input:BuildType}",
                 "-j4"
             ],
@@ -160,6 +161,18 @@
                 "Unix Makefiles",
             ],
             "default": "Unix Makefiles"
+        },
+        {
+            "type": "pickString",
+            "id": "Target",
+            "description": "Represent target to build",
+            "options": [
+                "game",
+                "engine",
+                "utils",
+                "all"
+            ],
+            "default": "all"
         },
         {
             "type": "pickString",

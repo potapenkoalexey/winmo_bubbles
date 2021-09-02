@@ -4,6 +4,7 @@
 
 #include "../global_variables.hxx"
 #include "./field.hxx"
+#include "../../utils/file_operations.hxx"
 
 field::~field()
 {
@@ -962,7 +963,7 @@ bool field::save_field_to_file()
 bool field::load_field_from_file()
 {
     std::string line;
-    grottans::membuf buf = grottans::load_file("./data/config/field.dat");
+    grottans::membuf buf = grottans::open_load_file_to_membuf("./data/config/field.dat", "rb");
     std::istream in(&buf);
 
     if (!in) {

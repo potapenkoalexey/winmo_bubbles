@@ -18,7 +18,8 @@
 #include "picopng/picopng.hxx"
 #include "engine.hxx"
 #include "sound_buffer.hxx"
-#include "ini_handler.hxx"
+#include "../utils/ini_handler.hxx"
+#include "file_operations.hxx"
 
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_ttf.h"
@@ -105,35 +106,6 @@ static void load_gl_func(const char* func_name, T& result)
 #endif
 
 namespace grottans {
-
-///////////////////////////////////////////////////////////////////////////////
-/// \brief load_file
-///
-membuf load_file(std::string_view path)
-{
-
-    SDL_RWops* io = SDL_RWFromFile(path.data(), "rb");
-    if (nullptr == io) {
-        throw std::runtime_error("can't load file: " + std::string(path));
-    }
-
-    Sint64 file_size = io->size(io);
-    if (-1 == file_size) {
-        throw std::runtime_error("can't determine size of file: " + std::string(path));
-    }
-    size_t size = static_cast<size_t>(file_size);
-    std::unique_ptr<char[]> mem = std::make_unique<char[]>(size);
-
-    size_t num_readed_objects = io->read(io, mem.get(), size, 1);
-    if (num_readed_objects != 1) {
-        throw std::runtime_error("can't read all content from file: " + std::string(path));
-    }
-
-    if (0 != io->close(io)) {
-        throw std::runtime_error("failed close file: " + std::string(path));
-    }
-    return membuf(std::move(mem), size);
-}
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief The texture_gl_es20 class
@@ -548,7 +520,7 @@ std::stringstream engine_impl::load_txt_and_filter_comments(std::string_view fil
     std::stringstream out;
     std::string line;
 
-    grottans::membuf buf = grottans::load_file(file);
+    grottans::membuf buf = grottans::open_load_file_to_membuf(file, "rb");
     std::istream in(&buf);
 
     if (!in) {
@@ -913,7 +885,7 @@ void engine_impl::set_window_size(const size_t& w, const size_t& h)
 texture_gl_es20::texture_gl_es20(const std::string& path)
     : file_path{ path }
 {
-    membuf file_contents = load_file(path);
+    membuf file_contents = grottans::open_load_file_to_membuf(path, "rb");
 
     //stbi_set_flip_vertically_on_load(true);
 

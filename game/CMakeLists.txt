@@ -12,7 +12,9 @@ add_executable(${PROJECT_NAME} ${GAME_SRC_FILES})
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
-target_link_libraries(${PROJECT_NAME} ${ENGINE_LIB_NAME})
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/utils/)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE ${ENGINE_LIB_NAME} utils)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${EXECUTABLE_NAME})
 

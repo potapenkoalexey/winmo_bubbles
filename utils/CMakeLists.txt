@@ -1,43 +1,36 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(${ENGINE_LIB_NAME})
+project(utils)
 
-file(GLOB_RECURSE ENGINE_SRC_FILES
-    "${CMAKE_SOURCE_DIR}/game/global_variables.hxx"
-    "${CMAKE_SOURCE_DIR}/game/global_variables.cxx"
+file(GLOB_RECURSE UTILS_SRC_FILES
     "${CMAKE_CURRENT_LIST_DIR}/*.hxx"
     "${CMAKE_CURRENT_LIST_DIR}/*.cxx"
     )
 
 add_library(${PROJECT_NAME} 
-            STATIC #SHARED
-            ${ENGINE_SRC_FILES})
+            STATIC
+            ${UTILS_SRC_FILES})
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/libs/SDL2-2.0.16/include/)
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src/ ${CMAKE_SOURCE_DIR}/utils/)
 
 if(WIN32)
-    # set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
     target_compile_definitions(${PROJECT_NAME} PRIVATE "-DOM_DECLSPEC=__declspec(dllexport)")
 endif(WIN32)
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
-if (UNIX)
-    target_link_libraries(${PROJECT_NAME} PRIVATE
-        utils
+if(UNIX)
+    target_link_libraries(${PROJECT_NAME}
         SDL2-static
-        -lGL
         )
-elseif (WIN32)
+elseif(WIN32)
     target_link_libraries(${PROJECT_NAME}
         PRIVATE SDL2 
                 SDL2main
-                opengl32
         )
 endif()
 
-set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${ENGINE_LIB_NAME})
+set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME utils)
 
 # for cpack
 install(TARGETS ${PROJECT_NAME}

@@ -5,7 +5,8 @@
 #include "ini_handler.hxx"
 #include "SDL.h"
 
-#include "txt_loader.hxx"
+#include "file_operations.hxx"
+#include "membuf.hxx"
 #include "../game/global_variables.hxx"
 
 namespace grottans {
@@ -16,7 +17,8 @@ ini_handler::ini_handler(const std::string& filename_)
     filename = filename_;
     error = false;
     
-    std::stringstream file_ss = filter_comments(filename_, ";");
+    membuf input_mbuf = open_load_file_to_membuf(filename_, "rb");
+    std::stringstream file_ss = filter_comments_in_membuf(input_mbuf, ";");
 
     std::string actual_line = "";
     std::string actual_section = "";
