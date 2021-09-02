@@ -123,17 +123,7 @@ void ini_handler::save_settings_to_file()
     }
 
     // need to work on Android
-    SDL_RWops* output = SDL_RWFromFile(filename.c_str(), "w");
-    std::string tmp = ss.rdbuf()->str();
-    int size = tmp.size();
-    if(size){
-        std::cout << "\n Settings saved!\n" << std::endl;
-    } else {
-        throw std::runtime_error("ini parser: setting do not exist in memory!\n");
-    }
-    const char* tmp_char = tmp.c_str();
-    output->write(output, tmp_char, size, 1);
-    output->close(output);
+    grottans::save_file_from_sstream(filename.c_str(), std::move(ss));
 }
 
 std::string end_of_the_line_crossplatform(const std::string& input){
