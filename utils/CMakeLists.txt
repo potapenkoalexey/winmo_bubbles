@@ -11,7 +11,9 @@ add_library(${PROJECT_NAME}
             STATIC
             ${UTILS_SRC_FILES})
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/libs/SDL2-2.0.16/include/)
+find_package(SDL2 REQUIRED)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${SDL2_INCLUDE_DIRS})
 
 if(WIN32)
     target_compile_definitions(${PROJECT_NAME} PRIVATE "-DOM_DECLSPEC=__declspec(dllexport)")

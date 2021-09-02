@@ -13,7 +13,10 @@ add_library(${PROJECT_NAME}
             STATIC #SHARED
             ${ENGINE_SRC_FILES})
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/libs/SDL2-2.0.16/include/)
+find_package(SDL2 REQUIRED)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${SDL2_INCLUDE_DIRS})
+
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src/ ${CMAKE_SOURCE_DIR}/utils/)
 
 if(WIN32)
