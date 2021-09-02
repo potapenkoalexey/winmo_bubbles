@@ -944,20 +944,7 @@ bool field::save_field_to_file()
         }
     }
 
-    SDL_RWops* output = SDL_RWFromFile("./data/config/field.dat", "w");
-    std::string tmp = ss.rdbuf()->str();
-    size_t size = tmp.size();
-    const char* tmp_char = tmp.c_str();
-
-    if(output->write(output, tmp_char, size, 1)){
-        std::cout << "\n Field saved!\n" << std::endl;
-    } else {
-        throw std::runtime_error("cannot write into config/field.dat\n");
-    }
-
-    output->close(output);
-
-    return EXIT_SUCCESS;
+    return grottans::save_file_from_sstream("./data/config/field.dat", std::move(ss));
 }
 
 bool field::load_field_from_file()
