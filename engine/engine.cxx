@@ -18,8 +18,8 @@
 #include "picopng/picopng.hxx"
 #include "engine.hxx"
 #include "sound_buffer.hxx"
-#include "../utils/ini_handler.hxx"
-#include "file_operations.hxx"
+#include "../utils/include/ini_handler.hxx"
+#include "../utils/include/file_operations.hxx"
 
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_ttf.h"

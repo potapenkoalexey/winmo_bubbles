@@ -1,0 +1,24 @@
+@PACKAGE_INIT@
+
+message(STATUS "utils found at ${CMAKE_CURRENT_LIST_DIR}. Verification ...")
+
+file(GLOB utils_OBJECTS
+    "${CMAKE_CURRENT_LIST_DIR}/obj/*"
+)
+
+find_library(utils_LIBRARIES NAMES utils.a PATHS "${CMAKE_CURRENT_LIST_DIR}/lib")
+
+if ((utils_LIBRARIES MATCHES NOTFOUND) AND (utils_OBJECTS STREQUAL ""))
+    message(FATAL_ERROR "Library \"utils\" is not found!")
+endif()
+
+if(NOT TARGET utils::utils)
+    if(NOT utils_LIBRARIES MATCHES NOTFOUND)
+        add_library(utils::utils STATIC IMPORTED GLOBAL)
+        set_property(TARGET utils::utils PROPERTY IMPORTED_LOCATION "${utils_LIBRARIES}")
+    elseif(NOT utils_OBJECTS STREQUAL "")
+        add_library(utils::utils STATIC IMPORTED GLOBAL)
+        set_property(TARGET utils::utils PROPERTY IMPORTED_OBJECTS "${utils_OBJECTS}")
+    endif()
+endif()
+

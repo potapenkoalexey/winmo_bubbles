@@ -10,10 +10,10 @@
 #include <vector>
 
 #include "../game/global_variables.hxx"
+#include "../utils/include/membuf.hxx"
 #include "color.hxx"
 #include "game_state.hxx"
 #include "math_structures.hxx"
-#include "../utils/membuf.hxx"
 #include "sound_buffer.hxx"
 #include "texture.hxx"
 #include "vertex_buffer.hxx"

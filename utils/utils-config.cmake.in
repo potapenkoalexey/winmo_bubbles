@@ -1,0 +1,69 @@
+# utils cmake project-config input for ./configure scripts
+
+set(prefix "@prefix@") 
+set(exec_prefix "@exec_prefix@")
+set(libdir "@libdir@")
+set(includedir "@includedir@")
+set(utils_PREFIX "${prefix}")
+set(utils_EXEC_PREFIX "${exec_prefix}")
+set(utils_LIBDIR "${libdir}")
+set(utils_INCLUDE_DIRS "${includedir}/utils")
+set(utils_LIBRARIES "-L${utils_LIBDIR} @utils_RLD_FLAGS@ @utils_LIBS@")
+string(STRIP "${utils_LIBRARIES}" utils_LIBRARIES)
+
+if(NOT TARGET utils::utils)
+  # provide utils::utils and utils::utils-static targets, like utilsConfig.cmake does, for compatibility
+
+  # Remove -lutils as that is handled by CMake, note the space at the end so it does not replace e.g. -lutils
+  # This may require "libdir" beeing set (from above)
+  string(REPLACE "-lutils " "" utils_EXTRA_LINK_FLAGS "@utils_RLD_FLAGS@ @utils_LIBS@ ")
+  # also get rid of -lutils, if you want to link against that use utils::utils (in that order)
+  # (utilsConfig.cmake has the same behavior)
+  string(STRIP "${utils_EXTRA_LINK_FLAGS}" utils_EXTRA_LINK_FLAGS)
+  string(REPLACE "-lutils " "" utils_EXTRA_LINK_FLAGS_STATIC "@utils_STATIC_LIBS@ ")
+  string(STRIP "${utils_EXTRA_LINK_FLAGS_STATIC}" utils_EXTRA_LINK_FLAGS_STATIC)
+
+if(WIN32 AND NOT MSVC)
+  # MINGW needs very special handling, because the link order must be exactly -lutils
+  # for it to work at all (and -mwindows somewhere); a normal SHARED IMPORTED or STATIC IMPORTED library always puts itself first
+  # so handle this like a header-only lib and put everything in INTERFACE_LINK_LIBRARIES
+
+  add_library(utils::utils INTERFACE IMPORTED)
+  set_target_properties(utils::utils PROPERTIES
+    INTERFACE_INCLUDE_DIRECTORIES "${utils_INCLUDE_DIRS}"
+    INTERFACE_LINK_LIBRARIES "-L${utils_LIBDIR} -lutils")
+
+else() # (not WIN32) or MSVC
+
+  add_library(utils::utils SHARED IMPORTED)
+  set_target_properties(utils::utils PROPERTIES
+    INTERFACE_INCLUDE_DIRECTORIES "${utils_INCLUDE_DIRS}"
+    IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+    IMPORTED_LOCATION "${utils_LIBDIR}/${CMAKE_SHARED_LIBRARY_PREFIX}utils${CMAKE_SHARED_LIBRARY_SUFFIX}")
+
+  if(MSVC)
+    # This file is generated when building utils with autotools and MinGW, and MinGW/dlltool
+    # isn't able to generate .lib files that are usable by recent MSVC versions 
+    # (something about "module unsafe for SAFESEH"; SAFESEH is enabled by default in MSVC).
+    # The .lib file for utils.dll *could* be generated with `gendef utils.dll` and then
+    # `lib.exe /machine:x86 /def:utils.def /out:utils.lib` (or /machine:amd64)
+    # Note that when building utils with CMake and MSVC, the result works with both MinGW and MSVC.
+
+    message(FATAL_ERROR, "This build of libutils only supports MinGW, not MSVC (Visual C++), because it lacks .lib files!")
+    # MSVC needs utils.lib set as IMPORTED_IMPLIB to link against (comment out message() call above if you added utils.lib yourself)
+    set_target_properties(utils::utils PROPERTIES IMPORTED_IMPLIB "${utils_LIBDIR}/utils.lib")
+  else()
+    # this mustn't be set for MSVC, so do it here in an extra call here
+    set_target_properties(utils::utils PROPERTIES INTERFACE_LINK_LIBRARIES  "${utils_EXTRA_LINK_FLAGS}")
+  endif()
+
+endif() # (not WIN32) or MSVC
+
+  add_library(utils::utils-static STATIC IMPORTED)
+  set_target_properties(utils::utils-static PROPERTIES
+    INTERFACE_INCLUDE_DIRECTORIES "${utils_INCLUDE_DIRS}"
+    IMPORTED_LINK_INTERFACE_LANGUAGES "C"
+    IMPORTED_LOCATION "${utils_LIBDIR}/${CMAKE_STATIC_LIBRARY_PREFIX}utils${CMAKE_STATIC_LIBRARY_SUFFIX}"
+    INTERFACE_LINK_LIBRARIES "${utils_EXTRA_LINK_FLAGS_STATIC}")
+
+endif() # NOT TARGET utils::utils

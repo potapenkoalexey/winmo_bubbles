@@ -10,17 +10,17 @@ file(GLOB_RECURSE ENGINE_SRC_FILES
     )
 
 add_library(${PROJECT_NAME} 
-            STATIC #SHARED
+            STATIC
             ${ENGINE_SRC_FILES})
 
 find_package(SDL2 REQUIRED)
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${SDL2_INCLUDE_DIRS})
+# set(utils_DIR ${CMAKE_BINARY_DIR})
+# find_package(utils REQUIRED)
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src/ ${CMAKE_SOURCE_DIR}/utils/)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src/)
 
 if(WIN32)
-    # set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
     target_compile_definitions(${PROJECT_NAME} PRIVATE "-DOM_DECLSPEC=__declspec(dllexport)")
 endif(WIN32)
 
