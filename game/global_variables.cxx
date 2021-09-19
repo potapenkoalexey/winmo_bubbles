@@ -1,5 +1,7 @@
 #include "global_variables.hxx"
 
+std::unique_ptr<grottans::ini_handler> ini_handl;
+
 const float g_OFFSET = 1.f;
 
 const float g_offset_in_screen_coord = 0.1818f;

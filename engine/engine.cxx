@@ -18,7 +18,6 @@
 #include "picopng/picopng.hxx"
 #include "engine.hxx"
 #include "sound_buffer.hxx"
-#include "../utils/include/ini_handler.hxx"
 #include "../utils/include/file_operations.hxx"
 
 #include "SDL2/SDL_image.h"
@@ -463,9 +462,6 @@ public:
     void change_state(game_state* state);
     void pop_state();
 
-    bool save_settings();
-    bool load_settings(const std::string& section);
-
     bool is_mouse_clicked_in_coord(const float& lx, const float& rx, const float& ly, const float& ry);
 
     ~engine_impl();
@@ -488,8 +484,6 @@ private:
     SDL_AudioDeviceID audio_device;
     SDL_AudioSpec audio_device_spec;
     std::vector<sound_buffer_impl*> sounds;
-
-    std::unique_ptr<ini_handler> ini_handl;
 };
 
 void engine_impl::disable_mouse_moution_event()
@@ -1022,13 +1016,6 @@ std::string engine_impl::initialize()
     //init SDL_TTF
     extern DECLSPEC int SDLCALL TTF_Init(void);
 
-    //load settings.ini
-    ini_handl = std::make_unique<ini_handler>("./data/config/settings.ini");
-    if (ini_handl->error_check()){
-        throw std::runtime_error("ini parser can't parse file");
-    }
-    ini_handl->load_settings("Original");
-
     // get and set the desired window size
     // game screen factor = 536/480 = 1.096
     SDL_DisplayMode DM;
@@ -1492,20 +1479,6 @@ void engine_impl::pop_state()
     if (!states.empty()) {
         states.back()->resume();
     }
-}
-
-bool engine_impl::save_settings()
-{
-    // save global variables to ini file
-    ini_handl->update();
-    ini_handl->save_settings_to_file();
-    return EXIT_SUCCESS;
-}
-
-bool engine_impl::load_settings(const std::string& section)
-{
-    ini_handl->load_settings(section);
-    return EXIT_SUCCESS;
 }
 
 bool engine_impl::is_mouse_clicked_in_coord(const float& lx, const float& rx, const float& ly, const float& ry)

@@ -109,21 +109,21 @@ void select_mode_state::handle_mouse_event(
         ///classic button
         if (engine->is_mouse_clicked_in_coord(0.26f, 0.49f, 0.68f, 0.79f)) {
             block_select->v_buf = v_buf_classic;
-            engine->load_settings("Original");
+            ini_handl->load_settings_from_section("Original");
             g_MODE = MODE::classic;
             e = grottans::event::start_released;
         }
         ///extreme button
         if (engine->is_mouse_clicked_in_coord(0.52f, 0.75f, 0.68f, 0.79f)) {
             block_select->v_buf = v_buf_extreme;
-            engine->load_settings("Original");
+            ini_handl->load_settings_from_section("Original");
             g_MODE = MODE::extreme;
             e = grottans::event::start_released;
         }
         ///load_save button
         if (engine->is_mouse_clicked_in_coord(0.39f, 0.63f, 0.81f, 0.92f)) {
             block_select->v_buf = v_buf_load_save;
-            engine->load_settings("Saved");
+            ini_handl->load_settings_from_section("Saved");
             g_LOAD_SAVED_STATE = true;
             e = grottans::event::start_released;
         }
@@ -152,7 +152,7 @@ void select_mode_state::handle_mouse_event(
         ///load_save button
         if (engine->is_mouse_clicked_in_coord(0.31f, 0.69f, 0.70f, 0.80f)) {
             block_select->v_buf = v_buf_load_save;
-            engine->load_settings("Saved");
+            ini_handl->load_settings_from_section("Saved");
             g_LOAD_SAVED_STATE = true;
             e = grottans::event::start_released;
         }
@@ -178,14 +178,14 @@ void select_mode_state::handle_events()
     }
     case grottans::event::left_released: {
         block_select->v_buf = v_buf_classic;
-        engine->load_settings("Original");
+        ini_handl->load_settings_from_section("Original");
         g_MODE = MODE::classic;
         g_LOAD_SAVED_STATE = false;
         break;
     }
     case grottans::event::right_released: {
         block_select->v_buf = v_buf_extreme;
-        engine->load_settings("Original");
+        ini_handl->load_settings_from_section("Original");
         g_MODE = MODE::extreme;
         g_LOAD_SAVED_STATE = false;
         break;
@@ -201,7 +201,7 @@ void select_mode_state::handle_events()
     case grottans::event::down_released:{
         block_select->v_buf = v_buf_load_save;
         // set and load save state
-        engine->load_settings("Saved");
+        ini_handl->load_settings_from_section("Saved");
         g_LOAD_SAVED_STATE = true;
         break;
     }

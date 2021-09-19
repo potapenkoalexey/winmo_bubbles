@@ -2,9 +2,14 @@
 
 #include <chrono>
 #include <cstddef>
+#include <memory>
+
+#include "../utils/include/ini_handler.hxx"
 
 #define GL_CHECK_FOR_DEBUG
 //#define DEBUG_GAME_OVER_STATE
+
+extern std::unique_ptr<grottans::ini_handler> ini_handl;
 
 using milli_sec = std::chrono::milliseconds;
 

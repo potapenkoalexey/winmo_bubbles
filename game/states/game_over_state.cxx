@@ -95,7 +95,8 @@ void game_over_state::resume()
     g_score_in_the_end_of_level = 0;
 
     // max scores backup
-    engine->save_settings();
+    ini_handl->update();
+    ini_handl->save_settings_to_file();
 }
 
 void game_over_state::handle_events()

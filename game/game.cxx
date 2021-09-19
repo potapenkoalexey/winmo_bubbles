@@ -1,5 +1,6 @@
 #include "game.hxx"
 
+#include "global_variables.hxx"
 #include "states/classic_state.hxx"
 #include "states/extreme_state.hxx"
 #include "states/game_over_state.hxx"
@@ -14,6 +15,13 @@ game::game(){
     engine->initialize();
 
     engine->disable_mouse_moution_event();
+
+    //load settings.ini
+    ini_handl = std::make_unique<grottans::ini_handler>("./data/config/settings.ini");
+    if (ini_handl->error_check()){
+        throw std::runtime_error("ini parser can't parse file");
+    }
+    ini_handl->load_settings_from_section("Original");
 
     //loading states in the engine (simple state-machine)
     //using this index we can switch the states among themselves
