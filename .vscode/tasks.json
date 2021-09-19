@@ -170,9 +170,9 @@
                 "game",
                 "engine",
                 "utils",
-                "all"
+                "whole_project"
             ],
-            "default": "all"
+            "default": "whole_project"
         },
         {
             "type": "pickString",

@@ -29,3 +29,5 @@ install(TARGETS ${PROJECT_NAME}
         DESTINATION .
         COMPONENT winmo_bin
 )
+
+add_dependencies(whole_project ${PROJECT_NAME})

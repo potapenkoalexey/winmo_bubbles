@@ -55,6 +55,8 @@ endif()
 set(EXECUTABLE_NAME "WinMoBubbles")
 set(ENGINE_LIB_NAME engine)
 
+add_custom_target(whole_project)
+
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/libs/SDL2-2.0.16)
 include_directories(${CMAKE_CURRENT_LIST_DIR}/libs/SDL2-2.0.16/include)
 
@@ -62,9 +64,9 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/utils)
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/engine)
 
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/game)
-
 add_subdirectory(${CMAKE_SOURCE_DIR}/data)
+
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/game)
 
 # Docs build as an option and set it to ON by default
 option(BUILD_DOC_OPTION "Build Docs" ON)

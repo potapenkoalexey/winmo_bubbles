@@ -84,3 +84,4 @@ install(
 
 install(FILES ${UTILS_HEADERS_FILES} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/utils)
 
+add_dependencies(whole_project ${PROJECT_NAME})

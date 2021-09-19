@@ -8,3 +8,5 @@ install(DIRECTORY ${CMAKE_SOURCE_DIR}/data
         COMPONENT winmo_data
         PATTERN CMakeLists.txt EXCLUDE 
 )
+
+# add_dependencies(whole_project ${PROJECT_NAME})
