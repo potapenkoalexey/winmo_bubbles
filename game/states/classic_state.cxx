@@ -61,7 +61,7 @@ void classic_state::resume()
     progress->set_level_complete_flag(false);
     
     if (g_LOAD_SAVED_STATE){
-        engine->load_settings("Saved");
+        engine->load_settings_from_section("Saved");
         if (g_SCORE != 0){
             // preventing of loading saved field in case of previous game over
             game_field->load_field_from_file();

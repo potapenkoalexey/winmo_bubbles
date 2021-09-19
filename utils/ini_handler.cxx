@@ -156,7 +156,7 @@ bool ini_handler::update()
     return true;
 }
 
-bool ini_handler::load_settings(const std::string& section)
+bool ini_handler::load_settings_from_section(const std::string& section)
 {
     unsigned long long temp = get_int(section, "g_MODE");
     if (temp == 0)

@@ -464,7 +464,7 @@ public:
     void pop_state();
 
     bool save_settings();
-    bool load_settings(const std::string& section);
+    bool load_settings_from_section(const std::string& section);
 
     bool is_mouse_clicked_in_coord(const float& lx, const float& rx, const float& ly, const float& ry);
 
@@ -1027,7 +1027,7 @@ std::string engine_impl::initialize()
     if (ini_handl->error_check()){
         throw std::runtime_error("ini parser can't parse file");
     }
-    ini_handl->load_settings("Original");
+    ini_handl->load_settings_from_section("Original");
 
     // get and set the desired window size
     // game screen factor = 536/480 = 1.096
@@ -1502,9 +1502,9 @@ bool engine_impl::save_settings()
     return EXIT_SUCCESS;
 }
 
-bool engine_impl::load_settings(const std::string& section)
+bool engine_impl::load_settings_from_section(const std::string& section)
 {
-    ini_handl->load_settings(section);
+    ini_handl->load_settings_from_section(section);
     return EXIT_SUCCESS;
 }
 
