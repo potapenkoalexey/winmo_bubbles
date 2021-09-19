@@ -57,7 +57,7 @@ void extreme_state::resume()
     progress->set_level_complete_flag(false);
     
     if (g_LOAD_SAVED_STATE){
-        engine->load_settings_from_section("Saved");
+        ini_handl->load_settings_from_section("Saved");;
         if (g_SCORE != 0){
             // preventing of loading saved field in case of previous game over
             game_field->load_field_from_file();
@@ -92,7 +92,8 @@ void extreme_state::handle_events()
     }
     case grottans::event::escape_released: {
         ///go to select_mode_state
-        engine->save_settings();
+        ini_handl->update();
+        ini_handl->save_settings_to_file();
         game_field->save_field_to_file();
         g_LEVEL = 1;
         g_SCORE = 0;

@@ -179,10 +179,6 @@ public:
     virtual void swap_buffers() = 0;
     virtual void uninitialize() = 0;
 
-    virtual bool save_settings() = 0;
-    virtual bool load_settings_from_section(const std::string& section) = 0;
-
-
     virtual bool is_mouse_clicked_in_coord(const float& lx, const float& rx, const float& ly, const float& ry) = 0;
 
     virtual ~engine() {}
