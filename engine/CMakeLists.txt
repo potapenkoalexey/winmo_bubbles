@@ -13,11 +13,6 @@ add_library(${PROJECT_NAME}
             STATIC
             ${ENGINE_SRC_FILES})
 
-find_package(SDL2 REQUIRED)
-
-# set(utils_DIR ${CMAKE_BINARY_DIR})
-# find_package(utils REQUIRED)
-
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src/)
 
 if(WIN32)
