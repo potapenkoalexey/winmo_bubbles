@@ -18,8 +18,6 @@ add_library(utils::${PROJECT_NAME}-static ALIAS ${PROJECT_NAME})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 
-find_package(SDL2 REQUIRED)
-
 if(WIN32)
     target_compile_definitions(${PROJECT_NAME} PRIVATE "-DOM_DECLSPEC=__declspec(dllexport)")
 endif(WIN32)
