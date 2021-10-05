@@ -1,4 +1,4 @@
-#include "./number.hxx"
+#include "number.hxx"
 
 bool number::init()
 {

@@ -5,8 +5,12 @@ project(${ENGINE_LIB_NAME})
 file(GLOB_RECURSE ENGINE_SRC_FILES
     "${CMAKE_SOURCE_DIR}/game/global_variables.hxx"
     "${CMAKE_SOURCE_DIR}/game/global_variables.cxx"
-    "${CMAKE_CURRENT_LIST_DIR}/*.hxx"
+    "${CMAKE_CURRENT_LIST_DIR}/include/*.hxx"
     "${CMAKE_CURRENT_LIST_DIR}/*.cxx"
+    )
+
+file(GLOB_RECURSE ENGINE_HRDS_FILES
+    "${CMAKE_CURRENT_LIST_DIR}/include/*.hxx"
     )
 
 add_library(${PROJECT_NAME} 
@@ -34,6 +38,9 @@ elseif (WIN32)
                 opengl32
         )
 endif()
+
+# attach the "include" directory to the target
+target_include_directories(${PROJECT_NAME} PUBLIC include)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${ENGINE_LIB_NAME})
 

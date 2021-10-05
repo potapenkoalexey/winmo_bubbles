@@ -35,55 +35,11 @@ elseif(WIN32)
         )
 endif()
 
+# attach the "include" directory to the target
+target_include_directories(${PROJECT_NAME} PUBLIC include)
+
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME utils)
 
-# installation
-set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${UTILS_HEADERS_FILES}")
-
-##### Installation targets #####
-install(TARGETS utils EXPORT ${PROJECT_NAME}-targets
-  LIBRARY DESTINATION "${CMAKE_BINARY_DIR}${LIB_SUFFIX}"
-  ARCHIVE DESTINATION "${CMAKE_BINARY_DIR}${LIB_SUFFIX}"
-  RUNTIME DESTINATION "${CMAKE_BINARY_DIR}")
-
-##### Export files #####
-if (WINDOWS)
-  set(PKG_PREFIX "cmake")
-else ()
-  set(PKG_PREFIX "${CMAKE_BINARY_DIR}${LIB_SUFFIX}/cmake/utils")
-endif ()
-
-include(CMakePackageConfigHelpers)
-
-configure_package_config_file(${CMAKE_CURRENT_LIST_DIR}/utils-config.cmake.in 
-              ${CMAKE_BINARY_DIR}/utils-config.cmake
-              INSTALL_DESTINATION "." )
-
-write_basic_package_version_file("${CMAKE_BINARY_DIR}/utils-config-version.cmake"
-  VERSION ${PROJECT_VERSION}
-  COMPATIBILITY AnyNewerVersion
-)
-
-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/utils-config.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/utils-config-version.cmake
-        DESTINATION "cmake" )
-
-install(EXPORT ${PROJECT_NAME}-targets
-  FILE ${PROJECT_NAME}-targets.cmake
-  NAMESPACE utils::
-  DESTINATION cmake
-)
-
-install(
-  FILES
-    ${CMAKE_CURRENT_SOURCE_DIR}/utilsConfig.cmake
-    ${CMAKE_BINARY_DIR}/utilsConfigVersion.cmake
-  DESTINATION ${PKG_PREFIX}
-  COMPONENT winmo_engine
-)
-
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION ${PROJECT_VERSION_MAJOR})
-
-install(FILES ${UTILS_HEADERS_FILES} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/utils)
 
 add_dependencies(whole_project ${PROJECT_NAME})

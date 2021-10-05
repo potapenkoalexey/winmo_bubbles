@@ -2,10 +2,10 @@
 
 #include <memory>
 
-#include "../../engine/engine.hxx"
+#include "engine.hxx"
 #include "../global_variables.hxx"
-#include "./block.hxx"
-#include "./counter.hxx"
+#include "block.hxx"
+#include "counter.hxx"
 
 class progress_desk {
 public:

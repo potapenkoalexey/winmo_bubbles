@@ -9,7 +9,7 @@
 #include <variant>
 #include <vector>
 
-#include "../utils/include/membuf.hxx"
+// #include "utils/include/membuf.hxx"
 #include "color.hxx"
 #include "game_state.hxx"
 #include "math_structures.hxx"
@@ -127,8 +127,6 @@ struct triangle {
 };
 
 std::istream& operator>>(std::istream& is, triangle&);
-
-membuf load_file(std::string_view path);
 
 class game_state;
 

@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <iostream>
 
-#include "sound_buffer.hxx"
+#include "include/sound_buffer.hxx"
 
 namespace grottans {
 

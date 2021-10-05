@@ -1,7 +1,7 @@
 #include <fstream>
 
 #include "../global_variables.hxx"
-#include "./progress_desk.hxx"
+#include "progress_desk.hxx"
 
 progress_desk::~progress_desk()
 {

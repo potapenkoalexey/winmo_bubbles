@@ -1,6 +1,6 @@
 #include <assert.h>
 
-#include "color.hxx"
+#include "include/color.hxx"
 
 namespace grottans {
 

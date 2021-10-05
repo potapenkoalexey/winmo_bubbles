@@ -1,7 +1,7 @@
 #include <fstream>
 
 #include "../global_variables.hxx"
-#include "./level_complete_state.hxx"
+#include "level_complete_state.hxx"
 
 #define uni_ptr_sound std::unique_ptr<grottans::sound_buffer>
 

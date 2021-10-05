@@ -1,6 +1,6 @@
 #include <random>
 
-#include "../../engine/random_generator.hxx"
+#include "random_generator.hxx"
 #include "block.hxx"
 
 static std::mt19937& mt = grottans::random_generator::getMt19937();

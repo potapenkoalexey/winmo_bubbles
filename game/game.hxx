@@ -2,8 +2,8 @@
 
 #include <thread>
 
-#include "../engine/engine.hxx"
-#include "./global_variables.hxx"
+#include "engine.hxx"
+#include "global_variables.hxx"
 #include "states/classic_state.hxx"
 #include "states/extreme_state.hxx"
 #include "states/game_over_state.hxx"

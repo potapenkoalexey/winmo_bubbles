@@ -4,8 +4,8 @@
 #include <memory>
 #include <vector>
 
-#include "../../engine/engine.hxx"
-#include "../components/number.hxx"
+#include "engine.hxx"
+#include "number.hxx"
 
 // if you need to use this class - first of all use set_quantity_of_digits(.,.)
 // after then init()

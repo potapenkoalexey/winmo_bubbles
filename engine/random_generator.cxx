@@ -1,4 +1,4 @@
-#include "./random_generator.hxx"
+#include "include/random_generator.hxx"
 
 namespace grottans {
 

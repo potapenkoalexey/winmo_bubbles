@@ -1,9 +1,9 @@
 #include <cmath>
 #include <fstream>
 
-#include "./extreme_state.hxx"
-#include "./game_over_state.hxx"
-#include "./select_mode_state.hxx"
+#include "extreme_state.hxx"
+#include "game_over_state.hxx"
+#include "select_mode_state.hxx"
 
 extreme_state extreme_state::m_extreme_state;
 

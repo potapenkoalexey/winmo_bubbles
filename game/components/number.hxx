@@ -2,8 +2,8 @@
 
 #include <array>
 
-#include "../../engine/color.hxx"
-#include "../../engine/engine.hxx"
+#include "engine.hxx"
+#include "color.hxx"
 
 class number final {
 public:

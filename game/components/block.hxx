@@ -3,7 +3,7 @@
 #include <iostream>
 #include <array>
 
-#include "../../engine/engine.hxx"
+#include "engine.hxx"
 #include "../global_variables.hxx"
 
 /** block colors */

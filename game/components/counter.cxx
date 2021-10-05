@@ -1,4 +1,4 @@
-#include "./counter.hxx"
+#include "counter.hxx"
 
 //counter::~counter()
 //{

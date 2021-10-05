@@ -1,9 +1,9 @@
 #include <fstream>
 
 #include "../global_variables.hxx"
-#include "./classic_state.hxx"
-#include "./extreme_state.hxx"
-#include "./select_mode_state.hxx"
+#include "classic_state.hxx"
+#include "extreme_state.hxx"
+#include "select_mode_state.hxx"
 
 #define uni_ptr_sound std::unique_ptr<grottans::sound_buffer>
 

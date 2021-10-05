@@ -5,9 +5,9 @@
 #include <memory>
 #include <vector>
 
-#include "../../engine/engine.hxx"
+#include "engine.hxx"
 #include "../global_variables.hxx"
-#include "./block.hxx"
+#include "block.hxx"
 
 struct field {
 
