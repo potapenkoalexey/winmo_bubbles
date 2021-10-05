@@ -30,4 +30,6 @@ install(TARGETS ${PROJECT_NAME}
         COMPONENT winmo_bin
 )
 
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION ${PROJECT_VERSION_MAJOR})
+
 add_dependencies(whole_project ${PROJECT_NAME})

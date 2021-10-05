@@ -9,7 +9,6 @@
 #include <variant>
 #include <vector>
 
-#include "../game/global_variables.hxx"
 #include "../utils/include/membuf.hxx"
 #include "color.hxx"
 #include "game_state.hxx"

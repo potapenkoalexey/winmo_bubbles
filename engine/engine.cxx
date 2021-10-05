@@ -1025,10 +1025,7 @@ std::string engine_impl::initialize()
     size_t h = static_cast<size_t>(DM.h);
 //swap w&h if needed
 //    if (w > h) {
-//        size_t w_to_h = 0;
-//        w_to_h = w;
-//        w = h;
-//        h = w_to_h;
+//        std::swap(h, w);
 //    }
 
 #ifdef __unix__
@@ -1070,6 +1067,7 @@ std::string engine_impl::initialize()
             // | SDL_WINDOW_FULLSCREEN); //240x268
 #endif
 #ifdef _WIN32
+    // app works better in fullscreen mode on Windows
     window = SDL_CreateWindow("WinMo Bubbles",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screen_width, screen_height,
         ::SDL_WINDOW_OPENGL

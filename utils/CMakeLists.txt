@@ -82,6 +82,8 @@ install(
   COMPONENT winmo_engine
 )
 
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION ${PROJECT_VERSION_MAJOR})
+
 install(FILES ${UTILS_HEADERS_FILES} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/utils)
 
 add_dependencies(whole_project ${PROJECT_NAME})
