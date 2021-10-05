@@ -78,7 +78,7 @@ private:
     std::fstream file;
     // std::istream& file_is;
     std::map<std::string, std::map<std::string, std::string> > config;
-    bool error;
+    int error;
 
     // function to get the current section;
     std::string s_get_section(const std::string& line);

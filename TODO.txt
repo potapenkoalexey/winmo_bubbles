@@ -2,18 +2,13 @@
 2. review render system for correct objects scaling and rotation 
     (now it scale and rotating relative to the center of screen coordinates). 
     it will be easy to work with texture and animation.
-3. fix sound driver and device selecting on Win10/Linux
+3. fix sound driver and device selecting on Windows/Linux
 4. win installer:
     4.1 update internal pictures
     4.2 ask user about rewriting config file
-    4.3 do not remove config file on uninstall
-5. Move ini_handler class from engine to game
 
-
-to program refactoring we need to:
+refactoring:
 a) isolate ini handling into separate cpp
-    a1) isolate all file operation in separate 
-    a2) separate settings.ini into two files between game and engine
-    a3) prepare and create separate library 
-    a4) create conan package (if needed)
-b) refactoring program due to resolve dependencies between engine and game
+    a1) separate settings.ini into two files between game and engine
+    a2) create conan package (if needed)
+b) resolve dependencies between engine and game
