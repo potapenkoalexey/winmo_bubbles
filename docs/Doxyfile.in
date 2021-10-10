@@ -54,8 +54,8 @@ EXCLUDE                =
 
 EXCLUDE_SYMLINKS       = NO
 
-EXCLUDE_PATTERNS       = */libs/* \
-                         */libs/SDL2-2.0.8/* \
+EXCLUDE_PATTERNS       = */thirdparty/* \
+                         */thirdparty/SDL2-2.0.8/* \
                          */.code/* \
                          */docs/* \
                          */build/*
