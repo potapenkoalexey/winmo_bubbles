@@ -11,7 +11,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # set version
-include(${CMAKE_CURRENT_LIST_DIR}/version.cmake)
+include(${CMAKE_CURRENT_LIST_DIR}/version/version.cmake)
 
 project(${GAME_NAME} 
             DESCRIPTION "Match-3 game from Windows Mobile"

@@ -6,9 +6,3 @@
 4. win installer:
     4.1 update internal pictures
     4.2 ask user about rewriting config file
-
-refactoring:
-a) isolate ini handling into separate cpp
-    a1) separate settings.ini into two files between game and engine
-    a2) create conan package (if needed)
-b) resolve dependencies between engine and game
