@@ -55,5 +55,5 @@ add_custom_target(PACKAGING # -G TBZ2
 
 add_custom_target(installer-unix-ALL)
 
-add_dependencies(PACKAGING LINK_TARGET)
+# add_dependencies(PACKAGING LINK_TARGET)
 add_dependencies(installer-unix-ALL PACKAGING)

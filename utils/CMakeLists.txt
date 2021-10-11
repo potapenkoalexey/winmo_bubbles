@@ -40,6 +40,15 @@ target_include_directories(${PROJECT_NAME} PUBLIC include)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME utils)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION ${PROJECT_VERSION_MAJOR})
+# set version
+get_property(major GLOBAL PROPERTY PROJECT_VERSION_MAJOR)
+get_property(minor GLOBAL PROPERTY PROJECT_VERSION_MINOR)
+get_property(patch GLOBAL PROPERTY PROJECT_VERSION_PATCH)
+
+set(PROJECT_VERSION ${major}.${minor}.${patch})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES 
+        VERSION ${PROJECT_VERSION} 
+        SOVERSION ${major}.${minor})
 
 add_dependencies(whole_project ${PROJECT_NAME})

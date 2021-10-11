@@ -24,7 +24,11 @@ message(STATUS "Installer Binary Dir = ${CMAKE_CURRENT_BINARY_DIR}")
 
 # glob all files from /data dir and link it with ComponentGroup and folder on target PC
 add_custom_target(INSTALLER_GLOB_DATA_FILES 
-    COMMAND "heat" dir "${CMAKE_SOURCE_DIR}/data/" -ke -t ${PROJECT_SOURCE_DIR}/RemoveConfigsFromHeatOutput.xsl -o "${CMAKE_CURRENT_BINARY_DIR}/DataFolderGlob.wxs" -gg -dr INSTALLLOCATION -cg Component_DATA -var wix.SourceDir=${CMAKE_SOURCE_DIR}/data/
+    COMMAND "heat" dir "${CMAKE_SOURCE_DIR}/data/" -ke -t ${PROJECT_SOURCE_DIR}/RemoveConfigsFromHeatOutput.xsl 
+                -o "${CMAKE_CURRENT_BINARY_DIR}/DataFolderGlob.wxs" 
+                -gg -dr INSTALLLOCATION 
+                -cg Component_DATA 
+                -var wix.SourceDir=${CMAKE_SOURCE_DIR}/data/
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
     COMMENT "-- Running Wix Heat to glob files from /data folder"
 )
