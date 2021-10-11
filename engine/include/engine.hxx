@@ -9,9 +9,8 @@
 #include <variant>
 #include <vector>
 
-// #include "utils/include/membuf.hxx"
 #include "color.hxx"
-#include "game_state.hxx"
+#include "state.hxx"
 #include "math_structures.hxx"
 #include "sound_buffer.hxx"
 #include "texture.hxx"
