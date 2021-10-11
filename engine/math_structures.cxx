@@ -1,6 +1,6 @@
-#include "include/math_structures.hxx"
-
 #include <cmath>
+
+#include "include/math_structures.hxx"
 
 namespace grottans {
 

@@ -3,11 +3,11 @@
 #include <string>
 
 #include "include/ini_handler.hxx"
-#include "SDL.h"
-
 #include "include/file_operations.hxx"
 #include "include/membuf.hxx"
 #include "../game/global_variables.hxx"
+
+#include "SDL.h"
 
 namespace grottans {
 
