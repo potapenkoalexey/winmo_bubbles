@@ -190,11 +190,11 @@
             "id": "FolderToDelete",
             "description": "Folder to delete",
             "options": [
-                "/build/installer_unix/*",
-                "/build/installer_win/*",
-                "/build/*",
+                "build/installer_unix/*",
+                "build/installer_win/*",
+                "build/*",
             ],
-            "default": "/build/*"
+            "default": "build/*"
 		}
     ]
 }
