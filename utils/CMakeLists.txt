@@ -11,10 +11,10 @@ file(GLOB_RECURSE UTILS_HEADERS_FILES
     )
 
 add_library(${PROJECT_NAME} 
-            SHARED 
+            STATIC 
             ${UTILS_SRC_FILES}
 )
-add_library(utils::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+add_library(utils::${PROJECT_NAME}-static ALIAS ${PROJECT_NAME})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
 
@@ -26,7 +26,7 @@ target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
 if(UNIX)
     target_link_libraries(${PROJECT_NAME}
-        SDL2
+        SDL2-static
         )
 elseif(WIN32)
     target_link_libraries(${PROJECT_NAME}
