@@ -61,6 +61,7 @@ add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/thirdparty/SDL2-2.0.16)
 include_directories(${CMAKE_CURRENT_LIST_DIR}/thirdparty/SDL2-2.0.16/include)
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/utils)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/utils/include)
 
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/engine)
 

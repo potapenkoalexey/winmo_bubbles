@@ -16,6 +16,8 @@
 #include "texture.hxx"
 #include "vertex_buffer.hxx"
 
+#include "file_operations.hxx"
+
 namespace grottans {
 
 enum class event {

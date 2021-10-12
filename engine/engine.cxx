@@ -18,7 +18,6 @@
 #include "picopng/picopng.hxx"
 #include "include/engine.hxx"
 #include "sound_buffer.hxx"
-#include "file_operations.hxx"
 
 #include "SDL.h"
 #include "SDL2/SDL_image.h"
