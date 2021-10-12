@@ -8,7 +8,7 @@ if(CMAKE_BUILD_TYPE MATCHES "^[Dd]ebug")
 
 else()
 
-    file(READ "${CMAKE_CURRENT_LIST_DIR}/version/version.txt" ver)
+    file(READ "${CMAKE_CURRENT_LIST_DIR}/version.txt" ver)
 
     string(REGEX MATCH "VERSION_MAJOR ([0-9]*)" _ ${ver})
     set(ver_major ${CMAKE_MATCH_1})

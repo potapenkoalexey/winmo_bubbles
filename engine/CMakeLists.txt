@@ -14,7 +14,7 @@ file(GLOB_RECURSE ENGINE_HRDS_FILES
     )
 
 add_library(${PROJECT_NAME} 
-            STATIC
+            SHARED 
             ${ENGINE_SRC_FILES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src/)
@@ -28,7 +28,7 @@ target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 if (UNIX)
     target_link_libraries(${PROJECT_NAME} PRIVATE
         utils
-        SDL2-static
+        SDL2
         -lGL
         )
 elseif (WIN32)
