@@ -4,7 +4,7 @@
 #include <cstddef>
 #include <memory>
 
-#include "../utils/include/ini_handler.hxx"
+#include "ini_handler.hxx"
 
 #define GL_CHECK_FOR_DEBUG
 //#define DEBUG_GAME_OVER_STATE
