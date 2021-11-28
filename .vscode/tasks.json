@@ -139,6 +139,13 @@
                 "-rf", "${workspaceFolder}/${input:FolderToDelete}"
             ],
             "problemMatcher": []
+        }, 
+        {
+            "label": "RUN",
+            "type": "shell",
+            "detail": "Run created executable",
+            "command": "${workspaceFolder}/build/bin/WinMoBubbles",
+            "problemMatcher": []
         }
     ],
     "inputs": [
