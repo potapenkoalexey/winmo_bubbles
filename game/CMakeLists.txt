@@ -6,8 +6,11 @@ file(GLOB_RECURSE GAME_SRC_FILES
     "${CMAKE_CURRENT_LIST_DIR}/*.hxx"
     "${CMAKE_CURRENT_LIST_DIR}/*.cxx"
     )
-
-add_executable(${PROJECT_NAME} ${GAME_SRC_FILES})
+if(ANDROID_PREPARE_OPTION)
+    add_library(${PROJECT_NAME} SHARED ${GAME_SRC_FILES})
+else()
+    add_executable(${PROJECT_NAME} ${GAME_SRC_FILES})
+endif()
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 

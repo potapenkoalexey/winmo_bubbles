@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
 
+option(BUILD_DOC_OPTION "Build Docs" OFF)
+option(BUILD_INSTALLER_OPTION "Build installer" OFF)
+option(ANDROID_PREPARE_OPTION "Configure SDL android-project" OFF)
+
 if(NOT UNIX AND NOT WIN32 AND NOT ANDROID)
     message(FATAL_ERROR "Unsupported operation system detected")
 endif()
@@ -47,6 +51,9 @@ if(MSVC)
   message(STATUS "Added parallel build arguments to CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}")
 endif()
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+
 # turn off cmake extentions
 if(NOT CMAKE_CXX_EXTENSIONS)
     set(CMAKE_CXX_EXTENSIONS OFF)
@@ -70,15 +77,13 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/data)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/game)
 
 # Docs build as an option and set it to ON by default
-option(BUILD_DOC_OPTION "Build Docs" ON)
-if(BUILD_DOC_OPTION)
+if(BUILD_DOC_OPTION AND NOT ANDROID)
     message(STATUS "Docs build started")
     add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/docs)
 endif()
 
 # installer build as an option and set it to ON by default
-option(BUILD_INSTALLER_OPTION "Build installer" ON)
-if(BUILD_INSTALLER_OPTION)
+if(BUILD_INSTALLER_OPTION AND NOT ANDROID)
     message(STATUS "Installer build started")
     if(WIN32)
         add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/installer_win)

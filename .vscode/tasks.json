@@ -12,7 +12,10 @@
                 "args": [
                     "..", 
                     "-G", "${input:WindowsCmakeGenerators}",
-                    "-DCMAKE_BUILD_TYPE=${input:BuildType}"
+                    "-DCMAKE_BUILD_TYPE=${input:BuildType}",
+                    "-DBUILD_DOC_OPTION=OFF",
+                    "-DBUILD_INSTALLER_OPTION=OFF",
+                    "-DANDROID_PREPARE_OPTION=OFF",
                 ]
             },
             "linux": {
@@ -20,14 +23,17 @@
                 "args": [
                     "..", 
                     "-G", "${input:UNIXCmakeGenerators}",
-                    "-DCMAKE_BUILD_TYPE=${input:BuildType}"
+                    "-DCMAKE_BUILD_TYPE=${input:BuildType}",
+                    "-DBUILD_DOC_OPTION=OFF",
+                    "-DBUILD_INSTALLER_OPTION=OFF",
+                    "-DANDROID_PREPARE_OPTION=ON",
                 ]
             },
             "options": {
                 "cwd": "${workspaceFolder}/build"
             },
             "problemMatcher": [],
-            "dependsOn": ["CLEAN folder"]
+            // "dependsOn": ["CLEAN folder"]
         },
         {
             "label": "Build",
