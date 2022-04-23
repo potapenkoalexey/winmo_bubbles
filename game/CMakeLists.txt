@@ -8,6 +8,7 @@ file(GLOB_RECURSE GAME_SRC_FILES
     )
 if(ANDROID_PREPARE_OPTION)
     add_library(${PROJECT_NAME} SHARED ${GAME_SRC_FILES})
+    set_target_properties(${PROJECT_NAME} PROPERTIES ENABLE_EXPORTS TRUE)
 else()
     add_executable(${PROJECT_NAME} ${GAME_SRC_FILES})
 endif()
