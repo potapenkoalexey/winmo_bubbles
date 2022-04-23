@@ -77,13 +77,13 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/data)
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/game)
 
 # Docs build as an option and set it to ON by default
-if(BUILD_DOC_OPTION AND NOT ANDROID)
+if(BUILD_DOC_OPTION AND NOT ANDROID_PREPARE_OPTION)
     message(STATUS "Docs build started")
     add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/docs)
 endif()
 
 # installer build as an option and set it to ON by default
-if(BUILD_INSTALLER_OPTION AND NOT ANDROID)
+if(BUILD_INSTALLER_OPTION AND NOT ANDROID_PREPARE_OPTION)
     message(STATUS "Installer build started")
     if(WIN32)
         add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/installer_win)
@@ -91,4 +91,8 @@ if(BUILD_INSTALLER_OPTION AND NOT ANDROID)
     if(UNIX)
         add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/installer_unix)
     endif()
+endif()
+
+if(ANDROID_PREPARE_OPTION)
+    add_subdirectory(android-project)
 endif()
