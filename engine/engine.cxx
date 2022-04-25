@@ -1324,7 +1324,7 @@ std::string engine_impl::initialize()
                         break;
                     }
                     
-                    if ((0 == strncmp(OS, "Linux", 5) || 0 == strncmp(OS, "Android", 7)) && 0 == strncmp(selected_audio_driver, "pulseaudio", 11)) {
+                    if ((0 == strncmp(OS, "Linux", 5) || 0 == strncmp(OS, "Android", 7)) && 0 == strncmp(selected_audio_driver, "pulseaudio", 10)) {
                         break;
                     }
                     //else {
@@ -1334,7 +1334,7 @@ std::string engine_impl::initialize()
                     //}
                 }
 
-                std::cout << "- Selected driver: " << selected_audio_driver << " for " << OS
+                std::cout << "- Selected driver: '" << selected_audio_driver << "' for " << OS
                           << std::endl;
 
                 ///////////////////////////////////////////////////////////////
