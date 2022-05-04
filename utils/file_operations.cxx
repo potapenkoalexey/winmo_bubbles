@@ -73,6 +73,11 @@ int save_file_from_sstream(const std::string& path, std::stringstream input_ss)
     size_t size = tmp.size();
     const char* tmp_char = tmp.c_str();
 
+
+    // on Android you need to create local file before write on if !!!
+    // see app/jni/src/thirdparty/SDL2-2.0.16/src/core/android/SDL_android.c:1889
+
+
     if(SDL_RWwrite(output, (const void*)tmp_char, size, 1)){
         std::cout << "\n File saved!\n" << path << std::endl;
     } else {
