@@ -462,7 +462,9 @@ void field::add_right_row()
         associate_texture_with_gem(i, j);
     }
 
-    sound_add_row->play(grottans::sound_buffer::properties::once);
+    if (g_SOUND) {
+        sound_add_row->play(grottans::sound_buffer::properties::once);
+    }
 }
 
 void field::add_blocks_at_the_top_of_field()
