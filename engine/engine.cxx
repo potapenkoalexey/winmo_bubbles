@@ -327,7 +327,11 @@ const std::array<bind, 9> keys{
         bind{ "right", SDLK_RIGHT, event::right_pressed, event::right_released, keys::right },
         bind{ "button1", SDLK_LCTRL, event::button1_pressed, event::button1_released, keys::button1 },
         bind{ "button2", SDLK_SPACE, event::button2_pressed, event::button2_released, keys::button2 },
+#ifdef __ANDROID__
+        bind{ "escape", SDLK_AC_BACK, event::escape_pressed, event::escape_released, keys::select },
+#else
         bind{ "escape", SDLK_ESCAPE, event::escape_pressed, event::escape_released, keys::select },
+#endif
         bind{ "start", SDLK_RETURN, event::start_pressed, event::start_released, keys::start },
         bind{ "mouse", SDL_MOUSEBUTTONDOWN, event::mouse_pressed, event::mouse_released, keys::mouse } }
 };
@@ -1028,6 +1032,7 @@ std::string engine_impl::initialize()
 //    }
 
 #ifdef __unix__
+  #ifndef __ANDROID__
     //  if (screen_width == 0) { //if don't set screen size with set_screen_size(w,h);
     screen_height = h / 2;
     screen_width = w / 2; //1.116
@@ -1038,7 +1043,7 @@ std::string engine_impl::initialize()
         //scale = grottans::mat2x3::scale(1.f, 1.f);
     }
 // }
-
+  #endif
 #endif
 #ifdef _WIN32
     screen_height = h;
@@ -1053,17 +1058,25 @@ std::string engine_impl::initialize()
 //    screen_width = screen_height / 1.096;
 #endif
 #ifdef __ANDROID__
-    screen_width = w;
     screen_height = h;
+    screen_width = w; //1.116
+    if (w > h) {
+        scale = grottans::mat2x3::scale(h / (double)w, 1.f);
+    } else {
+        scale = grottans::mat2x3::scale(1.f, w / (double)h);
+        //scale = grottans::mat2x3::scale(1.f, 1.f);
+    }
 #endif
 
 // opening window
 #ifdef __unix__
+  #ifndef __ANDROID__
     window = SDL_CreateWindow("WinMo Bubbles",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screen_width, screen_height,
         ::SDL_WINDOW_OPENGL);
             // | SDL_WINDOW_BORDERLESS //without title
             // | SDL_WINDOW_FULLSCREEN); //240x268
+  #endif
 #endif
 #ifdef _WIN32
     // app works better in fullscreen mode on Windows
@@ -1076,9 +1089,8 @@ std::string engine_impl::initialize()
 #ifdef __ANDROID__
     window = SDL_CreateWindow("WinMo Bubbles",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screen_width, screen_height,
-        ::SDL_WINDOW_OPENGL
-            | SDL_WINDOW_BORDERLESS //without title
-            | SDL_WINDOW_FULLSCREEN);
+        ::SDL_WINDOW_OPENGL);
+        // | SDL_WINDOW_BORDERLESS | SDL_WINDOW_FULLSCREEN);
 #endif
 
     if (window == nullptr) {
@@ -1245,8 +1257,7 @@ std::string engine_impl::initialize()
                 varying vec2 v_tex_coord;
                 void main()
                 {
-                    v_tex_coord = a_tex_coord;
-                    v_color = a_color;
+                    v_tex_coord = a_tex_coord;                    v_color = a_color;
                     vec3 pos = vec3(a_position, 1.0) * u_matrix;
                     gl_Position = vec4(pos, 1.0);
                 }
@@ -1288,12 +1299,16 @@ std::string engine_impl::initialize()
                 //                    { AUDIO_F32MSB, 4 },
 
                 audio_device_spec.format = AUDIO_S16LSB; //AUDIO_S16LSB;
+#ifdef __ANDROID__
+                audio_device_spec.channels = 2;
+#else
                 audio_device_spec.channels = 4;
+#endif
                 audio_device_spec.samples = 2048; // must be power of 2
                 audio_device_spec.callback = engine_impl::audio_callback;
                 audio_device_spec.userdata = this;
 
-                // printing all and selecting audio DRIVER /////////////////////
+                // printing all and selecting audio DRIVER
                 const int num_audio_drivers = SDL_GetNumAudioDrivers();
                 const char* selected_audio_driver = nullptr;
                 std::vector<std::string> vec_audio_drivers;
