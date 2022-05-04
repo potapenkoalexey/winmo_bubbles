@@ -65,7 +65,9 @@ void game_over_state::resume()
     if (g_MODE == MODE::classic){
         if (g_SCORE > g_SCORE_MAX_CLASSIC){
         g_SCORE_MAX_CLASSIC = g_SCORE;
-        sound_new_max_score->play(grottans::sound_buffer::properties::once);
+        if (g_SOUND){
+            sound_new_max_score->play(grottans::sound_buffer::properties::once);
+        }
         block_back->texture = tex_game_over_new_max_score;
         play_negative_sound = false;
         } else {
@@ -75,7 +77,9 @@ void game_over_state::resume()
     if (g_MODE == MODE::extreme){
         if (g_SCORE > g_SCORE_MAX_EXTREME){
             g_SCORE_MAX_EXTREME = g_SCORE;
-            sound_new_max_score->play(grottans::sound_buffer::properties::once);
+            if (g_SOUND){
+                sound_new_max_score->play(grottans::sound_buffer::properties::once);
+            }
             block_back->texture = tex_game_over_new_max_score;
             play_negative_sound = false;
         }else{
