@@ -72,7 +72,7 @@ endif()
 add_custom_target(whole_project)
 
 if(NOT ANDROID)
-    // cause during android build we can use newer version of SDL
+    # cause during android build we can use newer version of SDL
     add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/thirdparty/SDL2-2.0.16)
     include_directories(${CMAKE_CURRENT_LIST_DIR}/thirdparty/SDL2-2.0.16/include)
 endif()
