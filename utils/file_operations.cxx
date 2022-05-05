@@ -67,19 +67,24 @@ int save_file_from_sstream(const std::string& path, std::stringstream input_ss)
 {
     SDL_RWops* output = SDL_RWFromFile(path.c_str(), "w");
     if(!output){
-        throw std::runtime_error("cannot open: " + path);
+        throw std::runtime_error("Cannot open: " + path);
     }
     std::string tmp = input_ss.rdbuf()->str();
     size_t size = tmp.size();
     const char* tmp_char = tmp.c_str();
 
-    if(output->write(output, tmp_char, size, 1)){
+
+    // on Android you need to create local file before write on if !!!
+    // see app/jni/src/thirdparty/SDL2-2.0.16/src/core/android/SDL_android.c:1889
+
+
+    if(SDL_RWwrite(output, (const void*)tmp_char, size, 1)){
         std::cout << "\n File saved!\n" << path << std::endl;
     } else {
-        throw std::runtime_error("cannot write into: " + path);
+        throw std::runtime_error("Cannot write into: " + path);
     }
 
-    output->close(output);
+    SDL_RWclose(output);
 
     return EXIT_SUCCESS;
 }

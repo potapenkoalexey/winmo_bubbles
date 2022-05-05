@@ -462,7 +462,9 @@ void field::add_right_row()
         associate_texture_with_gem(i, j);
     }
 
-    sound_add_row->play(grottans::sound_buffer::properties::once);
+    if (g_SOUND) {
+        sound_add_row->play(grottans::sound_buffer::properties::once);
+    }
 }
 
 void field::add_blocks_at_the_top_of_field()
@@ -926,7 +928,11 @@ bool field::is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/)
         int centr_y = h / 2 - block / 2; /*its normal*/
         size_t m_x = engine->mouse_coord_pressed.x;
         size_t m_y = engine->mouse_coord_pressed.y;
+#ifdef __ANDROID__
+        double delta_y = (m_y - static_cast<double>(centr_y)) / static_cast<double>(block) + 0.5;
+#else
         double delta_y = (m_y - static_cast<double>(centr_y)) / static_cast<double>(block);
+#endif
         j = floor(m_x / static_cast<double>(w) * 11 - 0.5);
         i = 5 + delta_y;
         if (j < 0 || j > 9 || i > 10 || i < 0)
