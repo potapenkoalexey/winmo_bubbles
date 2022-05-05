@@ -31,7 +31,7 @@
                 "cwd": "${workspaceFolder}/build"
             },
             "problemMatcher": [],
-            // "dependsOn": ["CLEAN folder"]
+            "dependsOn": ["CLEAN folder"]
         },
         {
             "label": "Build",
