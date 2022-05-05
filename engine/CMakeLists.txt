@@ -26,26 +26,34 @@ target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 if (UNIX)
     set(ENGINE_LINK_LIBS 
         utils
-        SDL2-static
-        -lGL)
-    if(ANDROID_PREPARE_OPTION)
-        list(APPEND ENGINE_LINK_LIBS 
-            -ldl
-            -lGLESv1_CM
-            -lGLESv2
-            # -lOpenSLES
-            # -llog
-            # -landroid
-        )
-    endif()
-    target_link_libraries(${PROJECT_NAME} ${ENGINE_LINK_LIBS})
-elseif (WIN32)
-    target_link_libraries(${PROJECT_NAME}
-        PRIVATE SDL2 
-                SDL2main
-                opengl32
+        SDL2
+        SDL2main
+        # -lGL
+        EGL
+        GLESv2
     )
 endif()
+if (ANDROID)
+    set(ENGINE_LINK_LIBS 
+        utils
+        SDL2
+        SDL2main
+        # -lGL
+        EGL
+        GLESv2
+        -ldl
+        android
+        OpenSLES
+    )
+endif()
+if (WIN32)
+    set(ENGINE_LINK_LIBS 
+        SDL2 
+        SDL2main
+        opengl32
+    )
+endif()
+target_link_libraries(${PROJECT_NAME} PRIVATE ${ENGINE_LINK_LIBS})
 
 # attach the "include" directory to the target
 target_include_directories(${PROJECT_NAME}

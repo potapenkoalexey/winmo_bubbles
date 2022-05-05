@@ -15,7 +15,6 @@
                     "-DCMAKE_BUILD_TYPE=${input:BuildType}",
                     "-DBUILD_DOC_OPTION=OFF",
                     "-DBUILD_INSTALLER_OPTION=OFF",
-                    "-DANDROID_PREPARE_OPTION=OFF",
                 ]
             },
             "linux": {
@@ -26,7 +25,6 @@
                     "-DCMAKE_BUILD_TYPE=${input:BuildType}",
                     "-DBUILD_DOC_OPTION=OFF",
                     "-DBUILD_INSTALLER_OPTION=OFF",
-                    "-DANDROID_PREPARE_OPTION=ON",
                 ]
             },
             "options": {
