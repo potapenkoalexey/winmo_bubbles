@@ -1,3 +1,5 @@
+# use root CMakeLists.txt from winmo_bubbles project
+
 cmake_minimum_required(VERSION 3.6)
 
 project(MY_APP)

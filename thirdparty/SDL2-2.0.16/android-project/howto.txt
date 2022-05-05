@@ -1,0 +1,7 @@
+1. copy src into app/jni/src
+2. unpack SDL sources into app/SDL folder
+3. copy /data folder into app/src/main/assets/res/
+4. update path to resources into the code
+5. update build.gradle to run CMake build (done)
+6. change icons (done)
+7. name of the application, "Game" by default (done)
