@@ -14,10 +14,17 @@ cmake 3.16
 WiX Toolset 3.11 
 
 **Build**
-1. mkdir build
-2. cd build
-3. cmake ..
-4. cmake .. -G "Visual Studio 16 2019" (on Windows)
-5. cmake --build . --config Release -j6
-6. cmake --build . --config Release -j6 --target installer-unix-ALL
-5. cmake --build . --config Release -j6 --target installer-win-ALL (on Windows)
+
+- mkdir build
+
+- cd build
+
+- cmake ..
+
+- cmake .. -G "Visual Studio 16 2019" (on Windows)
+
+- cmake --build . --config Release -j6
+
+- cmake --build . --config Release -j6 --target installer-unix-ALL
+
+- cmake --build . --config Release -j6 --target installer-win-ALL (on Windows)
