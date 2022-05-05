@@ -15,7 +15,7 @@ pipelines:
           - cd build
           - cmake .. -DCMAKE_BUILD_TYPE=Release
           - cmake --build . -j12
-          - cmake --build . -j12 --target installer-unix-ALL
+          # - cmake --build . -j12 --target installer-unix-ALL
           # - mv $BITBUCKET_CLONE_DIR/build/installer_unix/output/WinMoBubbles.zip $BITBUCKET_CLONE_DIR/WinMoBubbles-$BITBUCKET_BUILD_NUMBER.zip
           # - pwd
           # - ls -l $BITBUCKET_CLONE_DIR/
