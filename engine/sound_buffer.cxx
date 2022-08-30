@@ -26,18 +26,15 @@ sound_buffer_impl::sound_buffer_impl(std::string_view path,
         throw std::runtime_error(std::string("can't load wav: ") + path.data());
     }
 
-    std::cout << "audio format for: " << path << '\n'
-              << "format: " << get_sound_format_name(file_audio_spec.format)
-              << '\n'
-              << "sample_size: "
-              << get_sound_format_size(file_audio_spec.format) << '\n'
-              << "channels: " << static_cast<uint32_t>(file_audio_spec.channels)
-              << '\n'
-              << "frequency: " << file_audio_spec.freq << '\n'
-              << "length: " << length << '\n'
-              << "time: "
+    std::cout << "Load sound file (" << path << "):" << std::endl
+              << "\tformat: "        << get_sound_format_name(file_audio_spec.format) << std::endl
+              << "\tsample_size: "   << get_sound_format_size(file_audio_spec.format) << std::endl
+              << "\tchannels: "      << static_cast<uint32_t>(file_audio_spec.channels) << std::endl
+              << "\tfrequency: "     << file_audio_spec.freq << std::endl
+              << "\tlength: "        << length << std::endl
+              << "\ttime: "
               << static_cast<double>(length) / (file_audio_spec.channels * file_audio_spec.freq * get_sound_format_size(file_audio_spec.format))
-              << "sec" << std::endl;
+              << " sec" << std::endl;
 
     if (file_audio_spec.channels != device_audio_spec.channels || file_audio_spec.format != device_audio_spec.format || file_audio_spec.freq != device_audio_spec.freq) {
         SDL_AudioCVT cvt;

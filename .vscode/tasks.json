@@ -14,7 +14,7 @@
                     "-G", "${input:WindowsCmakeGenerators}",
                     "-DCMAKE_BUILD_TYPE=${input:BuildType}",
                     "-DBUILD_DOC_OPTION=OFF",
-                    "-DBUILD_INSTALLER_OPTION=OFF",
+                    "-DBUILD_INSTALLER_OPTION=ON",
                 ]
             },
             "linux": {
@@ -24,7 +24,7 @@
                     "-G", "${input:UNIXCmakeGenerators}",
                     "-DCMAKE_BUILD_TYPE=${input:BuildType}",
                     "-DBUILD_DOC_OPTION=OFF",
-                    "-DBUILD_INSTALLER_OPTION=OFF",
+                    "-DBUILD_INSTALLER_OPTION=ON",
                 ]
             },
             "options": {
@@ -181,6 +181,7 @@
                 "game",
                 "engine",
                 "utils",
+                "PACKAGING",
                 "whole_project"
             ],
             "default": "whole_project"

@@ -31,6 +31,7 @@ ini_handler::ini_handler(const std::string& filename_)
     std::map<std::string, std::string> section;
 
     if (file_ss) {
+        std::cout << "Parse INI file (" << filename_ << "):" << std::endl;
         while (std::getline(file_ss, actual_line)) {
 
             if (!actual_line.size())
@@ -49,6 +50,7 @@ ini_handler::ini_handler(const std::string& filename_)
                     }
                     // Set new section
                     actual_section = s_get_section(actual_line);
+                    std::cout << "\tSection: " << actual_section << std::endl;
                 }
                 in_section = true;
             } else {
@@ -56,7 +58,7 @@ ini_handler::ini_handler(const std::string& filename_)
                 if (in_section) {
                     // get line
                     if (parse_line(actual_line, key, value)) {
-                        std::cout << "-- INI: " << actual_section << ": " << key << " = " << value << std::endl;
+                        std::cout << "\t\t" << key << " = " << value << std::endl;
                         section[key] = value;
                     } else {
                         // Is this a commentary? do nothing

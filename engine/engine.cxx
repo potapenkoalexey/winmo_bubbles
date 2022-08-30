@@ -1023,7 +1023,7 @@ std::string engine_impl::initialize()
     // game screen factor = 536/480 = 1.096
     SDL_DisplayMode DM;
     SDL_GetCurrentDisplayMode(0, &DM);
-    std::cout << "screen refresh rate = " << DM.refresh_rate << std::endl;
+    std::cout << "Screen refresh rate: " << DM.refresh_rate << std::endl;
     size_t w = static_cast<size_t>(DM.w);
     size_t h = static_cast<size_t>(DM.h);
 //swap w&h if needed
@@ -1308,28 +1308,30 @@ std::string engine_impl::initialize()
                 audio_device_spec.callback = engine_impl::audio_callback;
                 audio_device_spec.userdata = this;
 
+                const char* OS = SDL_GetPlatform();
+                std::cout << "AUDIO platform: " << OS << std::endl << std::flush;
+
                 // printing all and selecting audio DRIVER
                 const int num_audio_drivers = SDL_GetNumAudioDrivers();
                 const char* selected_audio_driver = nullptr;
                 std::vector<std::string> vec_audio_drivers;
 
+                std::cout << "Audio drivers:" << std::endl;
                 for (int i = 0; i < num_audio_drivers; ++i) {
                     std::string tmp_audio_driver_name = SDL_GetAudioDriver(i);
                     vec_audio_drivers.push_back(tmp_audio_driver_name);
-                    std::cout << "- audio_driver #:" << i << " " << tmp_audio_driver_name << '\n';
+                    std::cout << "\t" << i << ": " << tmp_audio_driver_name << '\n';
                 }
                 std::cout << std::flush;
 
                 // TODO on windows 10 only DirectSound - works for me
-                const char* OS = SDL_GetPlatform();
-                std::cout << "-- AUDIO platform: " << OS << std::endl << std::flush;
 
                 for (auto x : vec_audio_drivers) {
                     if (0 != SDL_AudioInit(x.c_str())) {
-                        std::cout << "-- can't init SDL audio with driver: " << x << std::endl << std::flush;
+                        std::cout << "\tCan't init SDL Audio with driver: " << x << std::endl << std::flush;
                         continue;
                     } else {
-                        std::cout << "- init SDL audio system with driver: " << x << std::endl << std::flush;
+                        std::cout << "SDL Audio system is initialized with driver: " << x << std::endl << std::flush;
                     }
 
                     // due to unknown reason selected_audio_device become "" after exit from loop 
@@ -1349,7 +1351,7 @@ std::string engine_impl::initialize()
                     //}
                 }
 
-                std::cout << "- Selected driver: '" << selected_audio_driver << "' for " << OS
+                std::cout << "Selected driver: '" << selected_audio_driver << "' for " << OS
                           << std::endl;
 
                 ///////////////////////////////////////////////////////////////
@@ -1359,10 +1361,10 @@ std::string engine_impl::initialize()
 
                 const int num_audio_devices = SDL_GetNumAudioDevices(SDL_FALSE);
 
+                std::cout << "Audio devices:" << std::endl;
                 if (num_audio_devices > 0) {
                     for (int i = 0; i < num_audio_devices; ++i) {
-                        std::cout << "-- audio device #" << i << ": "
-                                  << SDL_GetAudioDeviceName(i, SDL_FALSE) << '\n';
+                        std::cout << "\t" << i << ": " << SDL_GetAudioDeviceName(i, SDL_FALSE) << std::endl;
                     }
                 }
                 std::cout << std::flush;
@@ -1370,7 +1372,8 @@ std::string engine_impl::initialize()
 #ifdef _WIN32   // on Windows better start from the begining of the list
                for (int i = 0; i < num_audio_devices - 1; ++i) {
 #else           // on UNIX better start from the end of the list
-                for (int i = num_audio_devices - 1; i >= 0; --i) {
+                // for (int i = num_audio_devices - 1; i >= 0; --i) {
+                for (int i = 0; i < num_audio_devices - 1; ++i) {
 #endif
                     // set the audio device number num_audio_devices..0
                     default_audio_device_name = SDL_GetAudioDeviceName(i, SDL_FALSE);
@@ -1378,19 +1381,17 @@ std::string engine_impl::initialize()
                         nullptr, SDL_AUDIO_ALLOW_ANY_CHANGE);
 
                     if (audio_device == 0) {
-                        std::cerr << "-- failed open audio device - " << SDL_GetError() << std::endl;
+                        std::cerr << "\t\tfailed open audio device - " << SDL_GetError() << std::endl;
                         //throw std::runtime_error("\naudio failed");
                         continue;
                     }
                     else {
-                        std::cout << "- Selected: " << default_audio_device_name
-                            << '\n'
-                            << "freq: " << audio_device_spec.freq << '\n'
-                            << "format: "
-                            << get_sound_format_name(audio_device_spec.format) << '\n'
-                            << "channels: "
-                            << static_cast<uint32_t>(audio_device_spec.channels) << '\n'
-                            << "samples: " << audio_device_spec.samples << '\n'
+                        std::cout << "Selected audio device: " << default_audio_device_name 
+                            << std::endl
+                            << "\tfreq:     "  << audio_device_spec.freq << '\n'
+                            << "\tformat:   "  << get_sound_format_name(audio_device_spec.format) << '\n'
+                            << "\tchannels: "  << static_cast<uint32_t>(audio_device_spec.channels) << '\n'
+                            << "\tsamples:  "  << audio_device_spec.samples << '\n'
                             << std::flush;
 
                         // unpause device
