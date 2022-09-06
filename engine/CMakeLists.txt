@@ -82,5 +82,3 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
         VERSION ${PROJECT_VERSION}
         SOVERSION ${major}.${minor}
         )
-
-add_dependencies(whole_project ${PROJECT_NAME})

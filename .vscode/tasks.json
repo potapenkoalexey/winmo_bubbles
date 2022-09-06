@@ -4,17 +4,17 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Configure build",
+            "label": "Configure CMake build",
             "type": "shell",
-            "detail": "Calls cmake configure action",
+            "detail": "Calls CMake configure action",
             "windows": {
                 "command": "cmake",
                 "args": [
                     "..", 
                     "-G", "${input:WindowsCmakeGenerators}",
-                    "-DCMAKE_BUILD_TYPE=${input:BuildType}",
-                    "-DBUILD_DOC_OPTION=OFF",
-                    "-DBUILD_INSTALLER_OPTION=ON",
+                    "-DCMAKE_BUILD_TYPE=${config:build.type}",
+                    "-DBUILD_DOC_OPTION=${config:build.docs}",
+                    "-DBUILD_INSTALLER_OPTION=${config:build.type}",
                 ]
             },
             "linux": {
@@ -22,9 +22,9 @@
                 "args": [
                     "..", 
                     "-G", "${input:UNIXCmakeGenerators}",
-                    "-DCMAKE_BUILD_TYPE=${input:BuildType}",
-                    "-DBUILD_DOC_OPTION=OFF",
-                    "-DBUILD_INSTALLER_OPTION=ON",
+                    "-DCMAKE_BUILD_TYPE=${config:build.type}",
+                    "-DBUILD_DOC_OPTION=${config:build.docs}",
+                    "-DBUILD_INSTALLER_OPTION=${config:build.type}",
                 ]
             },
             "options": {
@@ -41,7 +41,7 @@
             "args": [
                 "--build", "${workspaceFolder}/build/",
                 "--target", "${input:Target}",
-                "--config", "${input:BuildType}",
+                "--config", "${config:build.type}",
                 "-j4"
             ],
             "options": {
@@ -85,7 +85,7 @@
                 "args": [
                     "--build", "${workspaceFolder}/build/",
                     "--target", "installer-win-ALL",
-                    "--config", "${input:BuildType}"
+                    "--config", "${config:build.type}"
                 ],
                 "options": {
                     "cwd": "${workspaceFolder}/build/installer_win/output"
@@ -182,9 +182,9 @@
                 "engine",
                 "utils",
                 "PACKAGING",
-                "whole_project"
+                "all"
             ],
-            "default": "whole_project"
+            "default": "all"
         },
         {
             "type": "pickString",

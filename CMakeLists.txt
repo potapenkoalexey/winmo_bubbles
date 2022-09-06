@@ -69,8 +69,6 @@ if(NOT CMAKE_CXX_EXTENSIONS)
     set(CMAKE_CXX_EXTENSIONS OFF)
 endif()
 
-add_custom_target(whole_project)
-
 if(NOT ANDROID)
     # cause during android build we can use newer version of SDL
     add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/thirdparty/SDL2-2.0.16)

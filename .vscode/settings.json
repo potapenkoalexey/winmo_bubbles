@@ -1,0 +1,7 @@
+{
+    "build": {
+        "type": "Debug",
+        "docs": "OFF",
+        "installer": "OFF"
+    }
+}
