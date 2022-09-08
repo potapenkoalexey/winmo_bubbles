@@ -1316,7 +1316,7 @@ std::string engine_impl::initialize()
                 const char* selected_audio_driver = nullptr;
                 std::vector<std::string> vec_audio_drivers;
 
-                std::cout << "Audio drivers:" << std::endl;
+                std::cout << "Audio drivers (" << num_audio_drivers << "):" << std::endl;
                 for (int i = 0; i < num_audio_drivers; ++i) {
                     std::string tmp_audio_driver_name = SDL_GetAudioDriver(i);
                     vec_audio_drivers.push_back(tmp_audio_driver_name);
@@ -1361,7 +1361,7 @@ std::string engine_impl::initialize()
 
                 const int num_audio_devices = SDL_GetNumAudioDevices(SDL_FALSE);
 
-                std::cout << "Audio devices:" << std::endl;
+                std::cout << "Audio devices (" << num_audio_devices << "):" << std::endl;
                 if (num_audio_devices > 0) {
                     for (int i = 0; i < num_audio_devices; ++i) {
                         std::cout << "\t" << i << ": " << SDL_GetAudioDeviceName(i, SDL_FALSE) << std::endl;
@@ -1373,7 +1373,7 @@ std::string engine_impl::initialize()
                for (int i = 0; i < num_audio_devices - 1; ++i) {
 #else           // on UNIX better start from the end of the list
                 // for (int i = num_audio_devices - 1; i >= 0; --i) {
-                for (int i = 0; i < num_audio_devices - 1; ++i) {
+                for (int i = 0; i <= num_audio_devices - 1; ++i) {
 #endif
                     // set the audio device number num_audio_devices..0
                     default_audio_device_name = SDL_GetAudioDeviceName(i, SDL_FALSE);
@@ -1415,7 +1415,7 @@ void engine_impl::audio_callback(void* engine_ptr, uint8_t* stream,
     for (sound_buffer_impl* snd : e->sounds) {
         if (snd->is_playing) {
             uint32_t rest = snd->length - snd->current_index;
-            uint8_t* current_buff = &snd->buffer[snd->current_index];
+            uint8_t* current_buff = &snd->buffer[snd->current_index];   
 
             if (rest <= static_cast<uint32_t>(stream_size)) {
                 // copy rest to buffer
