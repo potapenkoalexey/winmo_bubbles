@@ -27,17 +27,21 @@ public:
 
     void play(const properties& prop) final
     {
-        // Lock callback function
-        SDL_LockAudioDevice(device);
+        // // Lock callback function
+        // SDL_LockAudioDevice(device);
 
-        // here we can change properties
-        // of sound and dont collade with multithreaded playing
-        current_index = 0;
-        is_playing = true;
-        is_looped = (prop == properties::looped);
+        // // here we can change properties
+        // // of sound and dont collade with multithreaded playing
+        // current_index = 0;
+        // is_playing = true;
+        // is_looped = (prop == properties::looped);
 
-        // unlock callback for continue mixing of audio
-        SDL_UnlockAudioDevice(device);
+        // // unlock callback for continue mixing of audio
+        // SDL_UnlockAudioDevice(device);
+
+        // work without callback
+        int status = SDL_QueueAudio(device, buffer, length);
+        SDL_PauseAudioDevice(device, 0);
     }
 
     std::unique_ptr<uint8_t[]> tmp_buf;

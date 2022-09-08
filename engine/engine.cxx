@@ -1302,10 +1302,10 @@ std::string engine_impl::initialize()
 #ifdef __ANDROID__
                 audio_device_spec.channels = 2;
 #else
-                audio_device_spec.channels = 4;
+                audio_device_spec.channels = 2;
 #endif
-                audio_device_spec.samples = 2048; // must be power of 2
-                audio_device_spec.callback = engine_impl::audio_callback;
+                audio_device_spec.samples = 4096; // must be power of 2
+                audio_device_spec.callback = nullptr; //engine_impl::audio_callback;
                 audio_device_spec.userdata = this;
 
                 const char* OS = SDL_GetPlatform();
@@ -1370,7 +1370,7 @@ std::string engine_impl::initialize()
                 std::cout << std::flush;
 
 #ifdef _WIN32   // on Windows better start from the begining of the list
-               for (int i = 0; i < num_audio_devices - 1; ++i) {
+               for (int i = 0; i <= num_audio_devices - 1; ++i) {
 #else           // on UNIX better start from the end of the list
                 // for (int i = num_audio_devices - 1; i >= 0; --i) {
                 for (int i = 0; i <= num_audio_devices - 1; ++i) {
@@ -1378,7 +1378,7 @@ std::string engine_impl::initialize()
                     // set the audio device number num_audio_devices..0
                     default_audio_device_name = SDL_GetAudioDeviceName(i, SDL_FALSE);
                     audio_device = SDL_OpenAudioDevice(default_audio_device_name, 0, &audio_device_spec,
-                        nullptr, SDL_AUDIO_ALLOW_ANY_CHANGE);
+                        &audio_device_spec, SDL_AUDIO_ALLOW_ANY_CHANGE);
 
                     if (audio_device == 0) {
                         std::cerr << "\t\tfailed open audio device - " << SDL_GetError() << std::endl;
