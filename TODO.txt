@@ -1,3 +1,4 @@
+0. use on Android to save files https://wiki.libsdl.org/SDL_GetPrefPath
 1. integrate project for Android Studio (use cmake to prepare files)
 2. review render system for correct objects scaling and rotation 
     (now it scale and rotating relative to the center of screen coordinates). 

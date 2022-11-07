@@ -65,6 +65,9 @@ std::stringstream filter_comments_in_membuf(membuf& data, const std::string& com
 */
 int save_file_from_sstream(const std::string& path, std::stringstream input_ss)
 {
+    // https://wiki.libsdl.org/SDL_GetPrefPath
+    // char* SDL_GetPrefPath(const char *org, const char *app);
+
     SDL_RWops* output = SDL_RWFromFile(path.c_str(), "w");
     if(!output){
         throw std::runtime_error("Cannot open: " + path);
