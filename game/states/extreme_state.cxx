@@ -53,7 +53,7 @@ void extreme_state::resume()
     game_field->selector->position.x = 5;
     game_field->selector->position.y = 5;
     progress->set_line_in_null();
-    progress->set_dispayed_points(0);
+    progress->set_displayed_points(0);
     progress->set_level_complete_flag(false);
     
     if (g_LOAD_SAVED_STATE){
@@ -180,10 +180,15 @@ bool extreme_state::handle_mouse_pressed_event(grottans::event& e)
             game_field->selector->position.x = static_cast<float>(j);
             game_field->selector->position.y = static_cast<float>(i);
             e = grottans::event::start_released;
+
+            size_t combo = game_field->get_current_combo_blocks_number();
+            size_t points = progress->blocks_to_points(combo);
+            progress->set_combo_points(points);
         } else {
             result = false;
         }
     }
+
     return result;
 }
 
@@ -287,7 +292,7 @@ void extreme_state::handle_start_released_event(const size_t& i, const size_t& j
             size_t points = progress->blocks_to_points(selected_blocks);
             g_SCORE += points;
             progress->increase_progress(points, g_LEVEL);
-            progress->set_dispayed_points(points);
+            progress->set_displayed_points(points);
 
             game_field->unselect_all();
 
@@ -340,6 +345,10 @@ void extreme_state::handle_left_released_event()
         }
         game_field->gems[i][j]->motion = false;
     }
+
+    size_t combo = game_field->get_current_combo_blocks_number();
+    size_t points = progress->blocks_to_points(combo);
+    progress->set_combo_points(points);
 }
 
 void extreme_state::handle_right_released_event()
@@ -382,6 +391,10 @@ void extreme_state::handle_right_released_event()
         }
         game_field->gems[i][j]->motion = false; //is i need???
     }
+
+    size_t combo = game_field->get_current_combo_blocks_number();
+    size_t points = progress->blocks_to_points(combo);
+    progress->set_combo_points(points);
 }
 
 void extreme_state::handle_up_released_event()
@@ -424,6 +437,10 @@ void extreme_state::handle_up_released_event()
         }
         game_field->gems[i][j]->motion = false; //is i need???
     }
+
+    size_t combo = game_field->get_current_combo_blocks_number();
+    size_t points = progress->blocks_to_points(combo);
+    progress->set_combo_points(points);
 }
 
 void extreme_state::handle_down_released_event()
@@ -466,4 +483,8 @@ void extreme_state::handle_down_released_event()
         }
         game_field->gems[i][j]->motion = false; //is i need???
     }
+
+    size_t combo = game_field->get_current_combo_blocks_number();
+    size_t points = progress->blocks_to_points(combo);
+    progress->set_combo_points(points);
 }

@@ -339,6 +339,27 @@ size_t field::selecting_to_disappearing()
     return number_of_selected_blocks;
 }
 
+size_t field::get_current_combo_blocks_number()
+{
+    size_t selected_blocks = 0;
+
+    // get current combo points counter
+    size_t i = static_cast<size_t>(selector->position.y);
+    size_t j = static_cast<size_t>(selector->position.x);
+
+    bool search = can_select(i, j);
+
+    if (search && gems[i][j]->visible == true && gems[i][j]->color != palette::non) {
+        gems[i][j]->selected = true;
+
+        selected_blocks = selecting_to_disappearing();
+        unselect_all();
+        undisappearing_all();
+    }
+    // std::cout << __FUNCTION__ << ": " << selected_blocks << std::endl;
+    return selected_blocks;
+}
+
 void field::unselect_all()
 {
     for (size_t i = 0; i < width; i++) {

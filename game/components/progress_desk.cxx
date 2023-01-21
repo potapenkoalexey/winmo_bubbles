@@ -97,7 +97,7 @@ void progress_desk::update_line_vertex_buffer()
     block_line->v_buf = engine->create_vertex_buffer(&tr[2], 2);
 }
 
-void progress_desk::set_dispayed_points(const size_t& number)
+void progress_desk::set_displayed_points(const size_t& number)
 {
     counter_combo_points->set_displayed_number(number);
 
@@ -111,6 +111,11 @@ void progress_desk::set_dispayed_points(const size_t& number)
 void progress_desk::set_displayed_score(const size_t & score)
 {
     counter_score->set_displayed_number(score);
+}
+
+void progress_desk::set_combo_points(const size_t & score)
+{
+    counter_combo_points->set_displayed_number(score);
 }
 
 void progress_desk::draw()
@@ -151,12 +156,16 @@ void progress_desk::set_level_complete_flag(const bool& var)
 size_t progress_desk::blocks_to_points(const size_t& delta)
 {
     if (g_MODE == MODE::classic) {
+        if (delta < 2) return 0;
+
         if (delta < 24)
             return points_classic[delta - 2];
         else
             return points_classic[24];
     }
     if (g_MODE == MODE::extreme) {
+        if (delta < 3) return 0;
+
         if (delta < 29)
             return points_extreme[delta - 3];
         else

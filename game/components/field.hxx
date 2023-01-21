@@ -74,6 +74,8 @@ struct field {
     size_t select_around_bomb(const size_t& i, const size_t& j);
     size_t selecting_to_disappearing();
 
+    size_t get_current_combo_blocks_number();
+
     void unselect_all();
     void undisappearing_all();
     void unselect_undisappearing_all();

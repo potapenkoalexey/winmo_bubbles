@@ -116,7 +116,7 @@ bool counter::is_overflow(const size_t& t)
     }
 
     if (result) {
-        std::cerr << __FILE__ << __LINE__ << "error: counter overflow" << std::endl;
+        std::cerr << __FILE__ << __LINE__ << "error: counter overflow (" << t << ")" << std::endl;
         throw std::runtime_error("counter overflow");
     }
     return false;
