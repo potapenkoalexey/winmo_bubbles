@@ -1031,8 +1031,7 @@ std::string engine_impl::initialize()
 //        std::swap(h, w);
 //    }
 
-#ifdef __unix__
-  #ifndef __ANDROID__
+#if defined(__unix__) && !defined(__ANDROID__)
     //  if (screen_width == 0) { //if don't set screen size with set_screen_size(w,h);
     screen_height = h / 2;
     screen_width = w / 2; //1.116
@@ -1042,8 +1041,13 @@ std::string engine_impl::initialize()
         scale = grottans::mat2x3::scale(1.f, screen_width / (double)screen_height);
         //scale = grottans::mat2x3::scale(1.f, 1.f);
     }
+
+    window = SDL_CreateWindow("WinMo Bubbles",
+        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screen_width, screen_height,
+        ::SDL_WINDOW_OPENGL);
+            // | SDL_WINDOW_BORDERLESS //without title
+            // | SDL_WINDOW_FULLSCREEN); //240x268
 // }
-  #endif
 #endif
 #ifdef _WIN32
     screen_height = h;
@@ -1054,6 +1058,13 @@ std::string engine_impl::initialize()
         scale = grottans::mat2x3::scale(1.f, screen_width / (double)screen_height);
         //scale = grottans::mat2x3::scale(1.f, 1.f);
     }
+
+    // app works better in fullscreen mode on Windows
+    window = SDL_CreateWindow("WinMo Bubbles",
+        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screen_width, screen_height,
+        ::SDL_WINDOW_OPENGL);
+        //    | SDL_WINDOW_BORDERLESS //without title
+        //    | SDL_WINDOW_FULLSCREEN); //240x268);
 //    screen_height = h / 2;
 //    screen_width = screen_height / 1.096;
 #endif
@@ -1066,27 +1077,7 @@ std::string engine_impl::initialize()
         scale = grottans::mat2x3::scale(1.f, w / (double)h);
         //scale = grottans::mat2x3::scale(1.f, 1.f);
     }
-#endif
 
-// opening window
-#ifdef __unix__
-  #ifndef __ANDROID__
-    window = SDL_CreateWindow("WinMo Bubbles",
-        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screen_width, screen_height,
-        ::SDL_WINDOW_OPENGL);
-            // | SDL_WINDOW_BORDERLESS //without title
-            // | SDL_WINDOW_FULLSCREEN); //240x268
-  #endif
-#endif
-#ifdef _WIN32
-    // app works better in fullscreen mode on Windows
-    window = SDL_CreateWindow("WinMo Bubbles",
-        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screen_width, screen_height,
-        ::SDL_WINDOW_OPENGL
-            | SDL_WINDOW_BORDERLESS //without title
-            | SDL_WINDOW_FULLSCREEN); //240x268);
-#endif
-#ifdef __ANDROID__
     window = SDL_CreateWindow("WinMo Bubbles",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screen_width, screen_height,
         ::SDL_WINDOW_OPENGL);
