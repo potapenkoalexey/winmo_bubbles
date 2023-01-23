@@ -8,3 +8,4 @@
     4.1 update internal pictures
     4.2 ask user about rewriting config file
 5. create settings handler class. in take ini file and store all settings from it. and can give it by request 
+6. update selecting mechanism by using recursive solution
