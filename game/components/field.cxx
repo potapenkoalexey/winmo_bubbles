@@ -316,7 +316,7 @@ size_t field::selecting_to_disappearing()
 {
     size_t number_of_selected_blocks = 0;
 
-    for (size_t k = 0; k < (width - 1); k++) { //k - needs for check all field
+    for (size_t k = 0; k < width * 2; k++) { //k - needs for check all field in case of 'snake' line
         for (size_t i = 0; i < width; i++) {
             for (size_t j = 0; j < height; j++) {
 
