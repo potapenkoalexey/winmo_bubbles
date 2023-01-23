@@ -317,6 +317,10 @@ void extreme_state::handle_left_released_event()
         } else {
             game_field->selector->position.x = 9.f;
         }
+        // show combo value
+        size_t combo = game_field->get_current_combo_blocks_number();
+        size_t points = progress->blocks_to_points(combo);
+        progress->set_combo_points(points);
     } else {
         if (game_field->can_flip(i, j, field::direction::left)) {
             //flip blocks with animation on 180 degrees
@@ -345,10 +349,6 @@ void extreme_state::handle_left_released_event()
         }
         game_field->gems[i][j]->motion = false;
     }
-
-    size_t combo = game_field->get_current_combo_blocks_number();
-    size_t points = progress->blocks_to_points(combo);
-    progress->set_combo_points(points);
 }
 
 void extreme_state::handle_right_released_event()
@@ -364,6 +364,10 @@ void extreme_state::handle_right_released_event()
         } else {
             game_field->selector->position.x = 0.f;
         }
+        // show combo value
+        size_t combo = game_field->get_current_combo_blocks_number();
+        size_t points = progress->blocks_to_points(combo);
+        progress->set_combo_points(points);
     } else {
         if (game_field->can_flip(i, j, field::direction::right)) {
             game_field->gems[i][j]->state = block_state::fliping_over;
@@ -391,10 +395,6 @@ void extreme_state::handle_right_released_event()
         }
         game_field->gems[i][j]->motion = false; //is i need???
     }
-
-    size_t combo = game_field->get_current_combo_blocks_number();
-    size_t points = progress->blocks_to_points(combo);
-    progress->set_combo_points(points);
 }
 
 void extreme_state::handle_up_released_event()
@@ -410,6 +410,10 @@ void extreme_state::handle_up_released_event()
         } else {
             game_field->selector->position.y = 9.f;
         }
+        // show combo value
+        size_t combo = game_field->get_current_combo_blocks_number();
+        size_t points = progress->blocks_to_points(combo);
+        progress->set_combo_points(points);
     } else {
         if (game_field->can_flip(i, j, field::direction::up)) {
             game_field->gems[i][j]->state = block_state::fliping_over;
@@ -437,10 +441,6 @@ void extreme_state::handle_up_released_event()
         }
         game_field->gems[i][j]->motion = false; //is i need???
     }
-
-    size_t combo = game_field->get_current_combo_blocks_number();
-    size_t points = progress->blocks_to_points(combo);
-    progress->set_combo_points(points);
 }
 
 void extreme_state::handle_down_released_event()
@@ -456,6 +456,10 @@ void extreme_state::handle_down_released_event()
         } else {
             game_field->selector->position.y = 0.f;
         }
+        // show combo value
+        size_t combo = game_field->get_current_combo_blocks_number();
+        size_t points = progress->blocks_to_points(combo);
+        progress->set_combo_points(points);
     } else {
         if (game_field->can_flip(i, j, field::direction::down)) {
             game_field->gems[i][j]->state = block_state::fliping_over;
@@ -484,7 +488,4 @@ void extreme_state::handle_down_released_event()
         game_field->gems[i][j]->motion = false; //is i need???
     }
 
-    size_t combo = game_field->get_current_combo_blocks_number();
-    size_t points = progress->blocks_to_points(combo);
-    progress->set_combo_points(points);
 }
