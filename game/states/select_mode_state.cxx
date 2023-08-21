@@ -90,7 +90,7 @@ void select_mode_state::sound_turn_off()
     g_SOUND = false;
 }
 
-void select_mode_state::handle_mouse_event(
+void select_mode_state::update_selector_position(
     grottans::engine* /*eng*/,
     grottans::event& e)
 {
@@ -165,7 +165,7 @@ void select_mode_state::handle_events()
     engine->input(e);
 
     if (e == grottans::event::mouse_pressed) {
-        handle_mouse_event(engine, e);
+        update_selector_position(engine, e);
     }
     switch (e) {
     case grottans::event::turn_off: {

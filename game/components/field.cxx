@@ -915,9 +915,11 @@ bool field::is_game_over_extreme()
     return true;
 }
 
-bool field::is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/)
+bool field::is_mouse_clicked_in_field(grottans::event event /*in*/, double& i /*out*/, double& j /*out*/)
 {
     bool result = true;
+    size_t m_x = 0;
+    size_t m_y = 0;
 
     ///blocking mouse in non-fixed modes of the field
     if (is_all_fixed() == false) {
@@ -932,8 +934,21 @@ bool field::is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/)
         //find centr of the screen
         int centr_x = static_cast<int>(w) / 2;
         //take mouse cursor coordintes in engine
-        size_t m_x = engine->mouse_coord_pressed.x;
-        size_t m_y = engine->mouse_coord_pressed.y;
+        switch (event) {
+        case grottans::event::mouse_pressed: {
+            m_x = engine->mouse_coord_pressed.x;
+            m_y = engine->mouse_coord_pressed.y;
+            break;
+        }
+        case grottans::event::mouse_released: {
+            m_x = engine->mouse_coord_released.x;
+            m_y = engine->mouse_coord_released.y;
+            break;
+        }
+        default:
+            break;
+        }
+        
         //find delta
         double delta_x = m_x - static_cast<double>(centr_x);
         //find delta in size block size

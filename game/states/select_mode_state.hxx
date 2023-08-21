@@ -17,7 +17,7 @@ public:
     void update() override;
     void draw() override;
 
-    void handle_mouse_event(grottans::engine* engine, grottans::event& e);
+    void update_selector_position(grottans::engine* engine, grottans::event& e);
 
     void sound_turn_on();
     void sound_turn_off();

@@ -19,7 +19,8 @@ public:
     void update() override;
     void draw() override;
 
-    bool handle_mouse_event();
+    bool update_selector_position(grottans::event event);
+    void handle_start_pressed_event();
     void handle_start_released_event();
     void handle_left_released_event();
     void handle_right_released_event();

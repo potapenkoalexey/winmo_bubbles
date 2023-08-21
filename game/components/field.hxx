@@ -104,7 +104,7 @@ struct field {
     bool is_game_over_classic();
     bool is_game_over_extreme();
 
-    bool is_mouse_clicked_in_field(double& i /*out*/, double& j /*out*/);
+    bool is_mouse_clicked_in_field(grottans::event event, double& i /*out*/, double& j /*out*/);
 
     bool save_field_to_file();
     bool load_field_from_file();

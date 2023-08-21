@@ -86,8 +86,15 @@ void classic_state::handle_events()
         return;
 
     if (e == grottans::event::mouse_pressed) {
-        if (handle_mouse_event()) {
-            /// replacing event to start_pressed
+        if (update_selector_position(grottans::event::mouse_pressed)) {
+            // show value of the combo
+            e = grottans::event::start_pressed;
+        }
+    }
+
+    if (e == grottans::event::mouse_released) {
+        if (update_selector_position(grottans::event::mouse_released)) {
+            // replacing event to start_pressed
             e = grottans::event::start_released;
         }
     }
@@ -107,6 +114,10 @@ void classic_state::handle_events()
         g_score_in_the_end_of_level = 0;
         engine->switch_to_state_and_resume(engine->states[0]);
 
+        break;
+    }
+    case grottans::event::start_pressed: {
+        handle_start_pressed_event();
         break;
     }
     case grottans::event::start_released: {
@@ -179,12 +190,12 @@ void classic_state::draw()
     engine->swap_buffers();
 }
 
-bool classic_state::handle_mouse_event()
+bool classic_state::update_selector_position(grottans::event event)
 {
     double i = 0;
     double j = 0;
 
-    if (game_field->is_mouse_clicked_in_field(i, j)) {
+    if (game_field->is_mouse_clicked_in_field(event, i, j)) {
 
         game_field->selector->position.x = static_cast<float>(j);
         game_field->selector->position.y = static_cast<float>(i);
@@ -192,6 +203,13 @@ bool classic_state::handle_mouse_event()
         return false;
     }
     return true;
+}
+
+void classic_state::handle_start_pressed_event()
+{
+    size_t combo = game_field->get_current_combo_blocks_number();
+    size_t points = progress->blocks_to_points(combo);
+    progress->set_combo_points(points);
 }
 
 void classic_state::handle_start_released_event()

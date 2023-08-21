@@ -175,7 +175,7 @@ bool extreme_state::handle_mouse_pressed_event(grottans::event& e)
         double i = 0;
         double j = 0;
 
-        if (game_field->is_mouse_clicked_in_field(i, j)) {
+        if (game_field->is_mouse_clicked_in_field(e, i, j)) {
 
             game_field->selector->position.x = static_cast<float>(j);
             game_field->selector->position.y = static_cast<float>(i);
@@ -197,7 +197,7 @@ bool extreme_state::handle_mouse_released_event(grottans::event& e)
     if (e == grottans::event::mouse_released) {
         double i = 0;
         double j = 0;
-        if (game_field->is_mouse_clicked_in_field(i, j)) {
+        if (game_field->is_mouse_clicked_in_field(e, i, j)) {
 
             size_t w = engine->get_window_width();
             size_t h = engine->get_window_height();
