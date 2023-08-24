@@ -85,15 +85,17 @@ void classic_state::handle_events()
     if (game_field->f_state != field::field_state::fixed)
         return;
 
-    if (e == grottans::event::mouse_pressed) {
-        if (update_selector_position(grottans::event::mouse_pressed)) {
+    if (e == grottans::event::mouse_right_released) {
+        if (update_selector_position(grottans::event::mouse_right_released)) {
             // show value of the combo
             e = grottans::event::start_pressed;
         }
     }
 
-    if (e == grottans::event::mouse_released) {
-        if (update_selector_position(grottans::event::mouse_released)) {
+    // if(event.button.button == SDL_BUTTON_LEFT)
+
+    if (e == grottans::event::mouse_left_pressed) {
+        if (update_selector_position(grottans::event::mouse_left_pressed)) {
             // replacing event to start_pressed
             e = grottans::event::start_released;
         }
@@ -107,7 +109,7 @@ void classic_state::handle_events()
     case grottans::event::escape_released: {
         ///go to select_mode_state
         ini_handl->update();
-        ini_handl->save_settings_to_file();;
+        ini_handl->save_settings_to_file();
         game_field->save_field_to_file();
         g_LEVEL = 1;
         g_SCORE = 0;

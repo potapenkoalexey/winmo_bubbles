@@ -164,7 +164,7 @@ void select_mode_state::handle_events()
     grottans::event e;
     engine->input(e);
 
-    if (e == grottans::event::mouse_pressed) {
+    if (e == grottans::event::mouse_left_pressed) {
         update_selector_position(engine, e);
     }
     switch (e) {

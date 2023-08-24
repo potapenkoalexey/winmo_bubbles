@@ -935,12 +935,22 @@ bool field::is_mouse_clicked_in_field(grottans::event event /*in*/, double& i /*
         int centr_x = static_cast<int>(w) / 2;
         //take mouse cursor coordintes in engine
         switch (event) {
-        case grottans::event::mouse_pressed: {
+        case grottans::event::mouse_left_pressed: {
             m_x = engine->mouse_coord_pressed.x;
             m_y = engine->mouse_coord_pressed.y;
             break;
         }
-        case grottans::event::mouse_released: {
+        case grottans::event::mouse_right_pressed: {
+            m_x = engine->mouse_coord_pressed.x;
+            m_y = engine->mouse_coord_pressed.y;
+            break;
+        }
+        case grottans::event::mouse_left_released: {
+            m_x = engine->mouse_coord_released.x;
+            m_y = engine->mouse_coord_released.y;
+            break;
+        }
+        case grottans::event::mouse_right_released: {
             m_x = engine->mouse_coord_released.x;
             m_y = engine->mouse_coord_released.y;
             break;

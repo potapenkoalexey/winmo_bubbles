@@ -39,8 +39,10 @@ enum class event {
     button2_pressed,
     button2_released,
     mouse_motion, //move
-    mouse_pressed,
-    mouse_released,
+    mouse_left_pressed,
+    mouse_left_released,
+    mouse_right_pressed,
+    mouse_right_released,
     turn_off
 };
 
@@ -55,7 +57,8 @@ enum class keys {
     start,
     button1,
     button2,
-    mouse
+    mouse_pressed,
+    mouse_released
 };
 
 enum class palette {

@@ -292,13 +292,14 @@ private:
     GLuint program_id = 0;
 };
 
-static std::array<std::string_view, 20> event_names = {
+static std::array<std::string_view, 22> event_names = {
     { /// input events
         "left_pressed", "left_released", "right_pressed", "right_released",
         "up_pressed", "up_released", "down_pressed", "down_released",
         "escape_pressed", "escape_released", "start_pressed", "start_released",
         "button1_pressed", "button1_released", "button2_pressed",
-        "button2_released", "mouse_motion", "mouse_pressed", "mouse_released",
+        "button2_released", "mouse_motion", "mouse_left_pressed", "mouse_left_released",
+        "mouse_right_pressed", "mouse_right_released",
         /// virtual console events
         "turn_off" }
 };
@@ -320,7 +321,7 @@ struct bind {
     grottans::keys grottans_key;
 };
 
-const std::array<bind, 9> keys{
+const std::array<bind, 10> keys{
     { bind{ "up", SDLK_UP, event::up_pressed, event::up_released, keys::up },
         bind{ "left", SDLK_LEFT, event::left_pressed, event::left_released, keys::left },
         bind{ "down", SDLK_DOWN, event::down_pressed, event::down_released, keys::down },
@@ -333,7 +334,8 @@ const std::array<bind, 9> keys{
         bind{ "escape", SDLK_ESCAPE, event::escape_pressed, event::escape_released, keys::select },
 #endif
         bind{ "start", SDLK_RETURN, event::start_pressed, event::start_released, keys::start },
-        bind{ "mouse", SDL_MOUSEBUTTONDOWN, event::mouse_pressed, event::mouse_released, keys::mouse } }
+        bind{ "mouse_pressed", SDL_MOUSEBUTTONDOWN, event::mouse_left_pressed, event::mouse_right_pressed, keys::mouse_pressed },
+        bind{ "mouse_released", SDL_MOUSEBUTTONUP, event::mouse_left_released, event::mouse_right_released, keys::mouse_released } }
 };
 
 std::ostream& operator<<(std::ostream& stream, const event e)
@@ -575,15 +577,29 @@ bool engine_impl::input(event& e)
             const bind* binding = nullptr;
 
             //mouse
-            if (sdl_event.type == SDL_MOUSEBUTTONDOWN) {
-                e = grottans::event::mouse_pressed;
+            if (sdl_event.type == SDL_MOUSEBUTTONDOWN && sdl_event.button.button == SDL_BUTTON_LEFT) {
+                e = grottans::event::mouse_left_pressed;
                 this->mouse_coord_pressed.x = sdl_event.button.x;
                 this->mouse_coord_pressed.y = sdl_event.button.y;
                 return true;
             }
 
-            if (sdl_event.type == SDL_MOUSEBUTTONUP) {
-                e = grottans::event::mouse_released;
+            if (sdl_event.type == SDL_MOUSEBUTTONUP && sdl_event.button.button == SDL_BUTTON_LEFT) {
+                e = grottans::event::mouse_left_released;
+                this->mouse_coord_released.x = sdl_event.button.x;
+                this->mouse_coord_released.y = sdl_event.button.y;
+                return true;
+            }
+
+            if (sdl_event.type == SDL_MOUSEBUTTONDOWN && sdl_event.button.button == SDL_BUTTON_RIGHT) {
+                e = grottans::event::mouse_right_pressed;
+                this->mouse_coord_pressed.x = sdl_event.button.x;
+                this->mouse_coord_pressed.y = sdl_event.button.y;
+                return true;
+            }
+
+            if (sdl_event.type == SDL_MOUSEBUTTONUP && sdl_event.button.button == SDL_BUTTON_RIGHT) {
+                e = grottans::event::mouse_right_released;
                 this->mouse_coord_released.x = sdl_event.button.x;
                 this->mouse_coord_released.y = sdl_event.button.y;
                 return true;

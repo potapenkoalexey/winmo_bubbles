@@ -170,7 +170,7 @@ bool extreme_state::handle_mouse_pressed_event(grottans::event& e)
 {
     bool result = true;
 
-    if (e == grottans::event::mouse_pressed) {
+    if (e == grottans::event::mouse_left_pressed) {
 
         double i = 0;
         double j = 0;
@@ -194,7 +194,7 @@ bool extreme_state::handle_mouse_pressed_event(grottans::event& e)
 
 bool extreme_state::handle_mouse_released_event(grottans::event& e)
 {
-    if (e == grottans::event::mouse_released) {
+    if (e == grottans::event::mouse_left_released) {
         double i = 0;
         double j = 0;
         if (game_field->is_mouse_clicked_in_field(e, i, j)) {
@@ -249,7 +249,7 @@ bool extreme_state::handle_mouse_released_event(grottans::event& e)
             }
         }
 
-    } // end of mouse_released
+    } // end of mouse_left_released
     return true;
 }
 

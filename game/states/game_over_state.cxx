@@ -114,7 +114,7 @@ void game_over_state::handle_events()
         engine->loop = false;
         break;
     }
-    case grottans::event::mouse_released: {
+    case grottans::event::mouse_left_released: {
         ///go to select_mode_state
         engine->switch_to_state_and_resume(engine->states[0]);
         break;
