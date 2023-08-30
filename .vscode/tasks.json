@@ -14,7 +14,7 @@
                     "-G", "${input:WindowsCmakeGenerators}",
                     "-DCMAKE_BUILD_TYPE=${config:build.type}",
                     "-DBUILD_DOC_OPTION=${config:build.docs}",
-                    "-DBUILD_INSTALLER_OPTION=${config:build.type}",
+                    "-DBUILD_INSTALLER_OPTION=${config:build.installer}",
                 ]
             },
             "linux": {
@@ -24,7 +24,7 @@
                     "-G", "${input:UNIXCmakeGenerators}",
                     "-DCMAKE_BUILD_TYPE=${config:build.type}",
                     "-DBUILD_DOC_OPTION=${config:build.docs}",
-                    "-DBUILD_INSTALLER_OPTION=${config:build.type}",
+                    "-DBUILD_INSTALLER_OPTION=${config:build.installer}",
                 ]
             },
             "options": {
