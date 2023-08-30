@@ -5,7 +5,8 @@ project(game)
 file(GLOB_RECURSE GAME_SRC_FILES
     "${CMAKE_CURRENT_LIST_DIR}/*.hxx"
     "${CMAKE_CURRENT_LIST_DIR}/*.cxx"
-    )
+)
+
 if(ANDROID)
     add_library(${PROJECT_NAME} SHARED ${GAME_SRC_FILES})
     set_target_properties(${PROJECT_NAME} PROPERTIES ENABLE_EXPORTS TRUE)
@@ -28,7 +29,6 @@ endif()
 
 # for cpack
 install(TARGETS ${PROJECT_NAME}
-        RUNTIME
-        DESTINATION .
-        COMPONENT winmo_bin
+    RUNTIME
+        DESTINATION . COMPONENT winmo_bin
 )

@@ -41,16 +41,16 @@ include(CPack)
 
 # hotfix SDL2 build problem
 add_custom_target(LINK_TARGET
-                  COMMAND ${CMAKE_COMMAND} -E create_symlink 
-                    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libSDL2-2.0.so.0.16.0 
-                    ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/SDL2-2.0.16/libSDL2.so
+    COMMAND ${CMAKE_COMMAND} -E create_symlink 
+        ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/libSDL2-2.0.so.0.16.0 
+        ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/SDL2-2.0.16/libSDL2.so
 )
 
 # unused by task build
 add_custom_target(PACKAGING # -G TBZ2
-                    COMMAND cpack -G ZIP
-                    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/output
-                    COMMENT "-- Run CPack for UNIX package build"
+    COMMAND cpack -G ZIP
+        WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/output
+        COMMENT "-- Run CPack for UNIX package build"
 )
 
 add_custom_target(installer-unix-ALL)
